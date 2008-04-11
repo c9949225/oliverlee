@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project name="OLFrameWork" default="pack">
+	
+	<property name="src.dir" value="src" />
+	<property name="report.dir" value="report" />
+	<property name="classes.dir" value="classes" />
+	<property name="lib.dir" value="lib" />
+	<property name="dist.dir" value="dist" />
+	<property name="doc.dor" value="doc" />
+	
+	<path id="master-classpath">
+		<fileset file="${lib.dir}/*.jar" />
+		<pathelement path="${classes.dir}"/>
+	</path>
+	
+	<target name="init">
+	</target>
+	
+	<target name = "compile" depends="init" description="compile the source files">
+		<mkdir dir="${classes.dir}" />
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" target="1.5">
+			<classpath refid="master-classpath" />
+		</javac>
+	</target>
+	
+	<!-- 
+	<target name="test" depends="compile" description="run junit test">
+		<mkdir dir="${report.dir}"/>
+		<junit printsummary="on"
+			   haltonfailure="false"
+			   failureproperty="tests.failed"
+			   showoutput="true"
+			   >
+			<classpath refid = "${master-classpath}" />
+			<formatter type="plain" />
+			<batchtest todir="${report.dir}">
+			<fileset dir="${classes.dir}" >
+				<include name="**/*Test.*" />
+			</fileset>
+			</batchtest>
+		</junit>
+		<fail if="tests.failed"/>
+	</target>
+	-->
+	
+	<target name="pack" depends="compile" description="make .jar file">
+		<mkdir dir="${dist.dir}" />
+		<jar destfile="${dist.dir}/oliver.jar" basedir="${classes.dir}">
+			<exclude name="**/*Test.*" />
+			<exclude name="**/Test*.*" />
+		</jar>
+	</target>
+	<!--
+	<target name="doc" depends="pack" description="create api doc">
+		<mkdir dir="${doc.dir}"/> 
+		<javadoc destdir="${doc.dir}" author="true"
+		version="true"
+		use="true"
+		windowtitle="OL Window Title">
+			<packageset dir="${src.dir}" defaultexcludes="yes">
+				<include name="example/**"/>
+			</packageset>
+			<doctitle><![CDATA[<i>OL'S FrameWork.</i>]]></doctitle>
+			<bottom><![CDATA[<i>All Rights Reserved.</i>]]></bottom>
+			<tag name="todo" scope="all" description="Tp do:" />
+		</javadoc>
+	</target>
+		-->
+</project>
+
