@@ -7,7 +7,8 @@ import java.util.Map;
  * <title>和HTML有关的字符串解析</title> <description> 1-getMapFromPara 2-unescape
  * </description>
  * 
- * @author 李甫 <copyright>北京赞同科技有限发展公司@2008</copyright>
+ * @author 李甫 
+ * <copyright>北京赞同科技有限发展公司@2008</copyright>
  * @version 1.0 2008-4-10 下午08:12:54
  */
 public class HtmlStringUtil
@@ -21,11 +22,16 @@ public class HtmlStringUtil
      */
     public static Map getMapFromUrlPara(String str)
     {
-        if (!Defense.notBlank(str))
+        if (Defense.isBlank(str))
         {
             return null;
         }
 
+        if(str.indexOf("&")<0)
+        {
+            return null;
+        }
+        
         Map result = new HashMap();
 
         String[] ary = str.split("[&]");
@@ -35,7 +41,7 @@ public class HtmlStringUtil
             if (ary[i].indexOf("=") != -1)
             {
                 int pos = ary[i].indexOf("=");
-                result.put(ary[i].substring(0, pos), ary[i].substring(pos));
+                result.put(ary[i].substring(0, pos), ary[i].substring(pos+1));
             }
         }
 
