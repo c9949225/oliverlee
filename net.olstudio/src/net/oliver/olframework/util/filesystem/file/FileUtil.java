@@ -3,6 +3,7 @@ package net.oliver.olframework.util.filesystem.file;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 
 /**
  * <title>文件通用工具类</title>
@@ -47,6 +48,51 @@ public class FileUtil
         } catch (IOException e)
         {
             throw new RuntimeException(e);
+        }
+    }
+    
+    public String getDateTime()
+    {
+        SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = f.format(new java.util.Date());
+        return time;
+    }
+    
+    public String getFile(String file)
+    {
+        DealFile df = new DealFile();
+        df.connFIS(file);
+        String str = df.readCHStr();
+        df.closeFIS();
+        return str;
+    }
+    public boolean setFile(String file,String content)
+    {
+        DealFile df = new DealFile();
+        df.connFOS(file);
+        df.writeCHStr(content);
+        df.closeFOS();
+        return true;
+    }
+    public static boolean deleteFile(String file) {
+        DealFile df = new DealFile();
+        df.deleteFile(file);
+        return true;
+    }
+    public static void createDir(String dirUrl)
+    {   
+        File dir = new File(dirUrl);
+        if(!dir.exists())
+        {
+            dir.mkdir();
+        }
+        else
+        {
+            if(!dir.isDirectory())
+            {
+                dir.delete();
+                dir.mkdir();
+            }
         }
     }
 }
