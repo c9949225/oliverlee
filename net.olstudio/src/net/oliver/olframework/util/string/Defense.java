@@ -14,14 +14,14 @@ public class Defense
      * @param source
      * @return
      */
-    public static boolean notBlank(String str)
+    public static boolean isBlank(String str)
     {
         if (str == null || str.equals(""))
         {
-            return false;
+            return true;
         } else
         {
-            return true;
+            return false;
         }
     }
 }
