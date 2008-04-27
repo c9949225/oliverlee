@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>projectol</artifactId>
+		<!-- 在继承父模块的时候标明了groupId,子模块不需要声明groupId -->
+		<groupId>net.olstudio</groupId>
+		<!-- 在继承父模块的时候标明了version,子模块不需要声明version -->
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- 这个在子模块是必须的 -->
+	<artifactId>projectol-web</artifactId>
+	<name>projectol-web Maven Webapp</name>
+	<!-- packaging 什么时候不需要呢？  -->
+	<packaging>war</packaging>
+
+	<build>
+		<finalName>projectol-web</finalName>
+	</build>
+
+	<dependencies>
+		<!-- 使用父模块的junit 
+			<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+			</dependency> -->
+
+		<dependency>
+			<!-- 使用父模块的groupId -->
+			<groupId>${project.groupId}</groupId>
+			<artifactId>projectol-core</artifactId>
+			<!-- 使用父模块的version -->
+			<version>${project.version}</version>
+			<!-- 怎么使用scope? <scope>test</scope>-->
+		</dependency>
+
+		<!-- Third Party Jars -->
+		<!-- Servlet -->
+		<dependency>
+			<groupId>org.apache.geronimo.specs</groupId>
+			<artifactId>geronimo-servlet_2.5_spec</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- Tapestry Core -->
+		<dependency>
+			<groupId>org.apache.tapestry</groupId>
+			<artifactId>tapestry-framework</artifactId>
+			<version>4.1.5</version>
+		</dependency>
+		<!-- Tapestry Contrib -->
+		<dependency>
+			<groupId>org.apache.tapestry</groupId>
+			<artifactId>tapestry-contrib</artifactId>
+			<version>4.1.5</version>
+		</dependency>
+		<!-- Hivemind -->
+		<dependency>
+			<groupId>hivemind</groupId>
+			<artifactId>hivemind</artifactId>
+			<version>1.1-rc-1</version>
+		</dependency>
+		<!-- Hivemind lib -->
+		<dependency>
+			<groupId>hivemind</groupId>
+			<artifactId>hivemind-lib</artifactId>
+			<version>1.1-rc-1</version>
+		</dependency>
+		<!-- Hibernate -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate</artifactId>
+			<version>3.2.6.ga</version>
+		</dependency>
+		<!-- Hsqldb -->
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.7</version>
+		</dependency>
+		
+	</dependencies>
+</project>

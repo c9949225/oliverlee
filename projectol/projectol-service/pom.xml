@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<project>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<artifactId>projectol</artifactId>
+		<groupId>net.olstudio</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>projectol-service</artifactId>
+	<packaging>jar</packaging>
+	<name>projectol-service</name>
+
+	<description>
+		Service layer for 'projectol' applications. Includes Spring AOP
+		pointcuts that apply transaction attributes to all *Manager
+		interfaces in a "service" package.
+	</description>
+
+	<dependencies>
+		<!-- projetol other modules -->
+		<dependency>
+			<groupId>${pom.groupId}</groupId>
+			<artifactId>projectol-${core.name}</artifactId>
+			<version>${pom.version}</version>
+		</dependency>
+		<!-- 3rd parties -->
+		
+	</dependencies>
+</project>
