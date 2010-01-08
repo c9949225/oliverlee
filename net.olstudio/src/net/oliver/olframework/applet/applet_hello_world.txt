@@ -1,0 +1,59 @@
+By following the steps on this page, you can create and use an applet. 
+When you've followed all the steps, your directory (folder) structure should look 
+something like this: 
+
+html ---- hello.html
+	  |---HelloWorld.java
+	  |---HelloWorld.class
+	  
+Create a directory
+
+    Create a directory to hold your HTML pages, if you don't already have one.
+
+    Important: Do NOT invoke hotjava [or any other applet viewer?] from the HTML directory if you might want to reload the applet. Because of the way the class loader works, an applet can't be reloaded (for example, after you make changes to its code) when you invoke the applet viewer from the directory that contains the applet's compiled code. 
+
+Create a Java source file
+
+    Create a file named HelloWorld.java in the HTML directory with the Java code shown here:
+
+        import java.awt.Graphics;
+        public class HelloWorld extends java.applet.Applet {
+            public void init() {
+        	resize(150,25);
+            }
+            public void paint(Graphics g) {
+        	g.drawString("Hello world!", 50, 25);
+            }
+        }
+
+Compile the source file
+
+    Compile the file using the Java compiler.
+
+    If compilation succeeds, the compiler creates a file named HelloWorld.class. If compilation fails, make sure you typed in and named the program exactly as shown above. 
+
+Create an HTML file that includes the applet
+
+    Create a file named Hello.html in your HTML directory containing the following text:
+
+        <HTML>
+        <HEAD>
+        <TITLE> A Simple Program </TITLE>
+        </HEAD>
+        <BODY>
+
+        Here is the output of my program:
+        <APPLET CODE="HelloWorld.class" WIDTH=150 HEIGHT=25>
+        </APPLET>
+        </BODY>
+        </HTML>
+
+Load the HTML file
+
+    Load the new HTML file into HotJava by entering its URL in the Document URL field near the top of the HotJava window. For example:
+
+        file:/home/kwalrath/HTML/Hello.html
+
+    Once you've successfully completed these steps, you should see the following in the HotJava page that comes up:
+
+        Here is the output of my program: 
