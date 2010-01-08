@@ -5,11 +5,21 @@ import java.lang.reflect.*;
 public class Test
 {
 
-    public static void main(String[] args)
+	public String name;
+	
+    public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public static void main(String[] args)
     {
 
         try{
-
+// ===============================================================================
             Test t = new Test();
             Class c = t.getClass();
             
@@ -27,8 +37,22 @@ public class Test
             inArgs[1] = in;
             
             m.invoke(t,inArgs); 
-
+// ===============================================================================
+//        	Test t = new Test();
+//        	Class tclass = t.getClass();
+//        	Field field = tclass.getField("name");
+//        	
+//        	System.out.println(field.getName());
+// ===============================================================================   
+        	// 传入一个对象,得到该对象指定属性名的值
+//        	Object obj = ReflectUtil.getProperty(t, "name");
+//        	String str = (String)obj;
+//        	System.out.println(str);
+//
         }catch(Exception e){System.out.println(e);} 
+        	
+//          String str = "xxx";
+//          System.out.println(str.split("[,]")[0]);//xxx
 
     }
 

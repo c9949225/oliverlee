@@ -1,0 +1,45 @@
+java连接db2的问题，大家已经都讨论过了。
+
+看到论坛里又有坛友提问,我也就自己测试总结出来,共享下.
+
+JavaSoft将JDBC驱动程序细分为四大类,就是大家经常讲的type1,或者type4等.
+
+1.JDBC/ODBC Bridge是一项瘦编译元件，能将JDBC功能调用转换为ODBC功能调用。
+使用JDBC/ODBC Bridge，Java开发人员编 写的兼容JDBC的应用系统及小型应用程序，
+可与目前市场上任何ODBC连接解决方案一并使用。既然这种类型使用着不多,我也没有测试.
+
+2.NativeAPI PartlyJava驱动程序主要将JDBC调用转换为指定专用数据库系统的客户机API，从而利用SQL＊NET、I Connect及OpenClient分别连接到Oracle、Informix及Sybase等数据库上。使用PartlyJava驱动程序的最大优点是，可 利用企业内现有的数据库中间件。 
+这种方法就是本机上安装有db2客户端,并在本地已经配置好了别名数据库.使用时注意:
+
+2.1把db2java.zip解压后,把COM下文件考到项目的当前目录下.因为注册驱动要用到的,当然还要注册db2java.jar 
+2.2注意数据库url要正确,因为已经在本地配置了别名数据库.格式如下jdbc:db2:sample;
+String name="COM.ibm.db2.jdbc.app.DB2Driver";
+String url="jdbc:db2:ceshi";
+
+3.NetProtocol AllJava驱动程序可将JDBC调用转换成为不受任何数据库限制的网络协议，服务器可把这一网络协议编译 为数据库协议。这项JDBC解决方案只有一个单一通用的全Java驱动程序，可连接许多不同的数据库。采取哪种网络协议作为 中介，取决于JDBC驱动程序供应商。COM.ibm.db2.jdbc.net.DB2Driver
+在网上参考n多资料,据说还要服务器开侦听端口,我也没能把数据库端口打开.也就没有测试.
+
+
+*********************************************************************************************
+
+4.NativeProtocol All
+
+Java驱动程序是数据库专用JDBC驱动程序，可将JDBC调用转换为数据库可直接使用的网络协议，
+客户机因此可直接访问数据库服务器。
+从根本上说，NativeProtocol AllJava驱动程序能以一个纯粹本地的Java JDBC 客户机，
+全面取代客户机API，如SQL＊NET、IConnect及OpenClient等。
+这是jdbc通用数据库驱动.
+连接已经安装客户端的别名数据库没有问题,直接连接远程数据库也没有问题,不过需要数据库编码为GBK
+
+4.0要把db2jcc.jar解压后的com拷贝到项目的当前目录下.
+因为注册驱动要用到的.当然要注册db2jcc.jar,db2jcc_license_cisuz.jar
+
+4.1连接已经安装有客户端并配置了别名数据库的格式
+                String name="com.ibm.db2.jcc.DB2Driver";
+                String url="jdbc:db2://localhost:50000/ceshi";
+4.2直接访问服务器数据库.
+   如果数据库编码不对的话会报Encoding not supported"错误!建立Database时，
+   必需选UTF-8的编码，如果选用Big5时会出现encoding not supported的错误。
+   DB2的JDBC 只支持UTF-8的编码方式。
+   解决方法也就是用不同的字符集创建数据库.格式同4.1
+   

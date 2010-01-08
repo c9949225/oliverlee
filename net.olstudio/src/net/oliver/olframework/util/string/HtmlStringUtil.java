@@ -22,10 +22,10 @@ public class HtmlStringUtil
      */
     public static Map getMapFromUrlPara(String str)
     {
-        if (Defense.isBlank(str))
-        {
-            return null;
-        }
+//        if (Defense.isBlank(str))
+//        {
+//            return null;
+//        }
 
         if(str.indexOf("&")<0)
         {

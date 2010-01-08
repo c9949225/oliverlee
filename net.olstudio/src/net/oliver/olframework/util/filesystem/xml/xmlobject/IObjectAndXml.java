@@ -4,7 +4,7 @@ package net.oliver.olframework.util.filesystem.xml.xmlobject;
  */
 
 import java.util.List;
-
+// 可以使用多种框架来实现该接口
 public interface IObjectAndXml
 {
     /**

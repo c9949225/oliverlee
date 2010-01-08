@@ -11,7 +11,11 @@ import java.io.ObjectOutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import net.oliver.olframework.util.filesystem.xml.xmlobject.IObjectAndXml;
 
@@ -19,16 +23,37 @@ import com.thoughtworks.xstream.XStream;
 
 /**
  * 
- * 1-如果在现有的文档上添加新内容 2-如何检测读文档是否结束 面向byte的判断是否为－1 × 如果用Reader的话，判断readLine是否为null
+ * 1-如果在现有的文档上添加新内容 
+ * 2-如何检测读文档是否结束 面向byte的判断是否为－1 × 如果用Reader的话，判断readLine是否为null
  * 
  * 可以通过InputStream中的available()方法,测试当前有效读取的字节数是否与原文件相同!
  * 
  * @author Oliver Lee
  * @version 1.00, 2008-1-3 下午03:36:07
  */
-public class ObjectAndXml implements IObjectAndXml
+public class ObjectAndXmlImpl implements IObjectAndXml
 {
-    private static XStream xstream = new XStream();
+	private Map alias = new HashMap();
+    private XStream xstream = new XStream();
+    
+    /**
+     * 将传入的Map的Key作为别名,value作为要输出的class
+     * @param alias
+     */
+    public ObjectAndXmlImpl(Map alias) {
+		super();
+		this.alias = alias;
+		for(Iterator iter = alias.entrySet().iterator();iter.hasNext();)
+		{
+			Entry entry = (Entry)iter.next();
+			try {
+				Class cls = Class.forName((String)entry.getValue());
+				xstream.alias((String)entry.getKey(),cls);// 失效
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
     public void transOut(List list, String path)
     {
@@ -118,5 +143,4 @@ public class ObjectAndXml implements IObjectAndXml
         }
         return list.toArray();
     }
-
 }

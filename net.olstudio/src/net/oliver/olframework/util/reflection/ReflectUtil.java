@@ -42,15 +42,9 @@ public class ReflectUtil
     }
 
     /**
-     * 得到某个对象的公共属性
-     * 
-     * @param owner,
-     *            fieldName
-     * @return 该属性对象
-     * @throws Exception
-     * 
+     * 传入一个对象,得到该对象指定属性名的"值"
      */
-    public Object getProperty(Object owner, String fieldName) throws Exception
+    public static Object getProperty(Object owner, String fieldName) throws Exception
     {
         Class ownerClass = owner.getClass();
 
