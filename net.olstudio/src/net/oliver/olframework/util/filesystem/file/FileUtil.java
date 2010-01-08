@@ -16,6 +16,78 @@ import java.text.SimpleDateFormat;
 public class FileUtil
 {
     /**
+     * 得到日期时间
+     * @return
+     */
+    public String getDateTime()
+    {
+        SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String time = f.format(new java.util.Date());
+        return time;
+    }
+    
+    /**
+     * 得到文件字符串内容
+     * @param file
+     * @return
+     */
+    public String getFile(String file)
+    {
+        DealFile df = new DealFile();
+        df.connFIS(file);
+        String str = df.readCHStr();
+        df.closeFIS();
+        return str;
+    }
+    
+    /**
+     * 设置文件内容
+     * @param file
+     * @param content
+     * @return
+     */
+    public boolean setFile(String file,String content)
+    {
+        DealFile df = new DealFile();
+        df.connFOS(file);
+        df.writeCHStr(content);
+        df.closeFOS();
+        return true;
+    }
+    
+    /**
+     * 删除文件
+     * @param file
+     * @return
+     */
+    public static boolean deleteFile(String file) {
+        DealFile df = new DealFile();
+        df.deleteFile(file);
+        return true;
+    }
+    
+    /**
+     * 创建目录
+     * @param dirUrl
+     */
+    public static void createDir(String dirUrl)
+    {   
+        File dir = new File(dirUrl);
+        if(!dir.exists())
+        {
+            dir.mkdir();
+        }
+        else
+        {
+            if(!dir.isDirectory())
+            {
+                dir.delete();
+                dir.mkdir();
+            }
+        }
+    }
+    
+    /**
      * 保存文件
      * 
      * byte docData[] = new byte[(int) getFile().getSize()];
@@ -32,7 +104,7 @@ public class FileUtil
      * @param fileData 文件字节数据
      * @param path 文件存放路径
      */
-    public void saveFile(String filename, byte[] fileData, String path)
+    public static void saveFile(String filename, byte[] fileData, String path)
     {
         File file = new File(path, filename);
         try
@@ -48,51 +120,6 @@ public class FileUtil
         } catch (IOException e)
         {
             throw new RuntimeException(e);
-        }
-    }
-    
-    public String getDateTime()
-    {
-        SimpleDateFormat f = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String time = f.format(new java.util.Date());
-        return time;
-    }
-    
-    public String getFile(String file)
-    {
-        DealFile df = new DealFile();
-        df.connFIS(file);
-        String str = df.readCHStr();
-        df.closeFIS();
-        return str;
-    }
-    public boolean setFile(String file,String content)
-    {
-        DealFile df = new DealFile();
-        df.connFOS(file);
-        df.writeCHStr(content);
-        df.closeFOS();
-        return true;
-    }
-    public static boolean deleteFile(String file) {
-        DealFile df = new DealFile();
-        df.deleteFile(file);
-        return true;
-    }
-    public static void createDir(String dirUrl)
-    {   
-        File dir = new File(dirUrl);
-        if(!dir.exists())
-        {
-            dir.mkdir();
-        }
-        else
-        {
-            if(!dir.isDirectory())
-            {
-                dir.delete();
-                dir.mkdir();
-            }
         }
     }
 }

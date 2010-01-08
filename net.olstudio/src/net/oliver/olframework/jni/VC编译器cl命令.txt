@@ -1,0 +1,10 @@
+cl -I%java_home%\include -I%java_home%\include\win32 -LD HelloWorld.cpp –Fehelloworld.dll
+
+
+注意：
+
+%java_home%指的就是环境变量JAVA_HOME,JAVA_HOME下确实有include及include/win32目录
+
+生成的 dll 文件名在选项 -Fe 后面配置，这里是 helloworld.dll
+
+之后就可以运行这个程序：java HelloWorld，运行的结果就是在控制台输出字符串“HelloWorld”。

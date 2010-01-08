@@ -23,36 +23,31 @@ public class ResourceUtil
      * @throws IOException
      */
     public static byte[] inputStreamToByteArray(InputStream is)
-            throws IOException
-    {
-        if (is == null)
-        {
-            return null;
-        }
-        try
-        {
+			throws IOException {
+		if (is == null) {
+			return null;
+		}
+		try {
+			ByteArrayOutputStream result = new ByteArrayOutputStream(1 << 13);// 8k
+			byte[] buffer = new byte[1 << 13]; // 8k
+			int length = 0;
+			while ((length = is.read(buffer)) >= 0) {
+				result.write(buffer, 0, length);
+			}
 
-            ByteArrayOutputStream result = new ByteArrayOutputStream(1 << 13);// 8k
-            byte[] buffer = new byte[1 << 13]; // 8k
-            int length = 0;
-            while ((length = is.read(buffer)) >= 0)
-            {
-                result.write(buffer, 0, length);
-            }
-
-            return result.toByteArray();
-        } finally
-        {
-            is.close();
-        }
-    }
+			return result.toByteArray();
+		} finally {
+			is.close();
+		}
+	}
     
     /**
-     * InputStream转为XML字符串
-     * @param is
-     * @return
-     * @throws IOException
-     */
+	 * InputStream转为XML字符串
+	 * 
+	 * @param is
+	 * @return
+	 * @throws IOException
+	 */
     public static String inputStreamToXmlString(InputStream is)
             throws IOException
     {

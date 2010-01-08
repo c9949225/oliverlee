@@ -255,15 +255,20 @@ public class PropertiesUtil extends ArrayList
     {
         String path = "E:\\test2.properties";
         
-        PropertiesUtil pro = new PropertiesUtil(path, "utf-8");
+    	GBKProperties pro = new GBKProperties();
+    	InputStream in = new FileInputStream(new File(path));
+    	pro.load(in);
+    	
+//        PropertiesUtil pro = new PropertiesUtil(path, "utf-8");
 //        pro.setProperties("WebSiteName", "江西省水利厅");
-        pro.setProperties("WebSiteName", "河南省水利厅");
+//        pro.setProperties("WebSiteName", "河南省水利厅");
 //        pro.setProperties("must", "1");
 //        pro.setProperties("hehe", "it's so simple");
-        pro.save();
+//        pro.save();
 //        pro.setCharacterEncoding("utf-8");
-        System.out.println(pro.getProperties("WebSiteName"));
-        pro = null;
+//        System.out.println(pro.getProperties("WebSiteName"));
+        System.out.println(pro.containsKey("WebSiteName"));
+//        pro = null;
     }
 
 } // /:~

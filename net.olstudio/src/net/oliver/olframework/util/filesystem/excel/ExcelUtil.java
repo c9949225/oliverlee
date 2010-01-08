@@ -7,8 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import net.oliver.olframework.util.string.Defense;
-import net.oliver.olframework.util.string.StringUtil;
+import net.oliver.olframework.util.string.SJPStringUtil;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
@@ -40,10 +39,10 @@ public class ExcelUtil
     public static void generateFileFromArray(String path, String[] header,
             String[][] rows) throws ExcelException, FileNotFoundException
     {
-        if (Defense.isBlank(path))
-        {
-            throw new ExcelException("The output path is not exist!");
-        }
+//        if (Defense.isBlank(path))
+//        {
+//            throw new ExcelException("The output path is not exist!");
+//        }
 
         HSSFWorkbook wb = new HSSFWorkbook();
         FileOutputStream fileOut = new FileOutputStream(path);
@@ -110,10 +109,10 @@ public class ExcelUtil
     public static void generateFileFromList(String path, String[] header,
             List list) throws ExcelException, FileNotFoundException
     {
-        if (Defense.isBlank(path))
-        {
-            throw new ExcelException("The output path is not exist!");
-        }
+//        if (Defense.isBlank(path))
+//        {
+//            throw new ExcelException("The output path is not exist!");
+//        }
 
         HSSFWorkbook wb = new HSSFWorkbook();
         FileOutputStream fileOut = new FileOutputStream(path);
@@ -151,7 +150,7 @@ public class ExcelUtil
                 try
                 {
                     // 得到 get_属性名 方法
-                    method = list.get(i).getClass().getMethod(StringUtil.startWithUpCase(property, "get"),args);
+                    method = list.get(i).getClass().getMethod(SJPStringUtil.startWithUpCase(property, "get"),args);
                     // 调用 get_属性名 方法
                     value = method.invoke(list.get(i), invoke_args);
                     
