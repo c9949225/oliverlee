@@ -1,0 +1,27 @@
+org.htmlparser.Node：
+    Node接口定义了进行树形结构节点操作的各种典型操作方法，包括：节点到html文本、text文本的方法：toPlainTextString、toHtml
+
+   典型树形结构遍历的方法：getParent、getChildren、getFirstChild、getLastChild、getPreviousSibling、getNextSibling、getText
+
+    获取节点对应的树形结构结构的顶级节点Page对象方法：getPage
+
+    获取节点起始位置的方法：getStartPosition、getEndPosition
+   Visitor方法遍历节点时候方法：accept (NodeVisitor visitor)
+    Filter方法：collectInto (NodeList list, NodeFilter filter)
+    Object方法：toString、clone
+
+org.htmlparser.nodes.AbstractNode：
+    AbstractNode是形成HTML树形结构抽象基类，实现了Node接口。
+
+    在htmlparser中，Node分成三类：
+
+    RemarkNode：代表Html中的注释
+    TagNode：标签节点。
+    TextNode：文本节点
+    这三类节点都继承AbstractNode。
+
+org.htmlparser.nodes.TagNode：
+    TagNode包含了对HTML处理的核心的各个类，是所有TAG的基类，其中有分为包含其他TAG的复合节点ComositeTag和不包含其他TAG的叶子节点Tag。
+
+    复合节点CompositeTag： AppletTag,BodyTag,Bullet,BulletList,DefinitionList,DefinitionListBullet,Div,FormTag,FrameSetTag,HeadingTag,HeadTag,Html,LabelTag,LinkTag,ObjectTag,ParagraphTag,ScriptTag,SelectTag,Span,StyleTag,TableColumn,TableHeader,TableRow,TableTag,TextareaTag,TitleTag
+
