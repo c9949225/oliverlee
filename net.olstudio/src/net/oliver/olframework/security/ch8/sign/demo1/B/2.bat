@@ -1,0 +1,1 @@
+java -Djava.security.manager -Djava.security.policy=mysign_dir.policy -classpath showfile.jar RunShowFile C:\j2sdk1.4.0\readme.txt

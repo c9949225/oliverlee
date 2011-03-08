@@ -1,0 +1,96 @@
+<plugin>
+	<!-- 对插件的描述 -->
+	<description></description>
+	<!-- 这3项用来在Maven资源库中定位到插件 -->
+	<groupId>com.training.plugins</groupId>
+	<artifactId>maven-zip-plugin</artifactId>
+	<version>1-SNAPSHOT</version>
+	<!-- 用来定义在插件中的Goal的前缀.比如appfuse:gencode中的appfuse -->
+	<goalPrefix>zip</goalPrefix>
+	<!-- 已弃用，永远设置为false，以前用来通过单独的类加载器来加载依赖 -->
+	<isolatedRealm>false</isolatedRealm>
+	<!-- 一个父项目如果定义了本Plugin，这里设为true的话，子项目也会继承该Plugin -->
+	<inheritedByDefault>true</inheritedByDefault>
+	<!-- 定义该Plugin的各个Mojo -->
+	<mojos>
+		<mojo>
+			<!-- goal的名称 -->
+			<goal>zip</goal>
+			<description>Zips up the output directory.</description>
+			<!-- 如果为true,那么该goal只能在命令行手工调用,不能加到项目生命周期中 -->
+			<requiresDirectInvocation>false</requiresDirectInvocation>
+			<!-- 如果为true,那么该goal不能在项目外执行,必须要求一个有Pom的项目 -->
+			<requiresProject>true</requiresProject>
+			<!-- 如果是需要Reports的Goal这里就要设置为true -->
+			<requiresReports>false</requiresReports>
+			<!-- 如果为true的话,只能被执行一次，而且要在顶级项目中执行 -->
+			<aggregator>false</aggregator>
+			<!-- 是否需要网络环境 -->
+			<requiresOnline>false</requiresOnline>
+			<!--  一个父项目如果定义了本Goal，这里设为true的话，子项目也会继承该Goal -->
+			<inheritedByDefault>true</inheritedByDefault>
+			<!-- 指出该Goal运行的所在生命周期的默认阶段，如果不设置的话，若用户不指定
+				 Maven会强迫用户输入 -->
+			<phase>package</phase>
+			<!-- 告诉Maven该Goal对应的Mojo类 -->
+			<implementation>
+				com.training.plugins.ZipMojo
+			</implementation>
+			<!-- 指明开发该Mojo所用的语言，默认为java -->
+			<language>java</language>
+			<!-- 设定了Mojo的创建策略，默认为每次创建新的实例 -->
+			<instantiationStrategy>per-lookup</instantiationStrategy>
+			<!-- 设定何时以及如何执行Mojo,将来会被弃用 -->
+			<executionStrategy>once-per-session</executionStrategy>
+			<parameters>
+				<!-- 定义改Goal所用到的参数 -->
+				<parameter>
+					<!-- 参数名 -->
+					<name>baseDirectory</name>
+					<!-- 参数类型 -->
+					<type>java.io.File</type>
+					<!-- 是否必备 -->
+					<required>false</required>
+					<!-- 如果为false,那么该参数在Pom中部可更改 -->
+					<editable>true</editable>
+					<!-- 描述 -->
+					<description>
+						Base directory of the project.
+					</description>
+				</parameter>
+				<parameter>
+					<name>buildDirectory</name>
+					<type>java.io.File</type>
+					<required>false</required>
+					<editable>true</editable>
+					<description>
+						Directory containing the build files.
+					</description>
+				</parameter>
+			</parameters>
+			<!-- 使用Mavend的标记，给所有参数提供默认值 -->
+			<configuration>
+				<buildDirectory implementation="java.io.File">
+					${project.build.directory}
+				</buildDirectory>
+				<baseDirectory implementation="java.io.File">
+					${basedir}
+				</baseDirectory>
+			</configuration>
+			<!-- 定义该Goal所依赖的其他Beans -->
+			<requirements>
+				<requirement>
+					<role>org.codehaus.plexus.archiver.Archiver</role>
+					<role-hint>zip</role-hint>
+					<field-name>zipArchiver</field-name>
+				</requirement>
+			</requirements>
+		</mojo>
+	</mojos>
+	<!-- 标准的依赖设置 -->
+	<dependencies>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>1.3.2</version>
+	</dependencies>
+</plugin>

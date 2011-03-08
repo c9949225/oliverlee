@@ -1,0 +1,118 @@
+<!-- Maven profiles enable your pom to build your project with different build options .
+	 For example you can use different web.xml files for different web application servers like test and production servers. 
+	 The example shows how to use different web.xml and pre-compile jsp files for production environment but not for pilot env. 
+	 deploy to different tomcat servers -->
+	 
+<!--
+使用方式:
+
+mvn tomcat:deploy -Dpilot
+mvn tomcat:deploy -Dproduction
+mvn package -Dpilot
+mvn package -Dproduction
+
+-->
+
+<project>
+
+	<build>
+	<x... />
+	</build>
+	
+	<profiles>
+		<profile>
+			<id>pilot</id>
+			<activation>
+				<property>
+					<name>pilot</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>tomcat-maven-plugin</artifactId>
+						<version>1.0-ikweb</version>
+						<!-- 不同的profile这里会设置不同的配置 -->
+						<configuration>
+							<url>http://istk023a:2080/manager</url>
+							<server>tomcatmaventest1</server>
+							<contextFile>src/main/conf/tomcat55/context.xml</contextFile>
+							<path>/workforms</path>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<!-- 不同的web.xml-->
+							<webXml>src/main/webapp/WEB-INF/web-pilot.xml</webXml>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>production</id>
+			<activation>
+				<property>
+					<name>production</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<configuration>
+							<!-- 定义不同的web.xml-->
+							<webXml>${basedir}/target/jspweb.xml</webXml>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jspc-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>jspc</id>
+								<goals>
+									<goal>compile</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>tomcat-maven-plugin</artifactId>
+						<version>1.0-ikweb</version>
+						<!-- 定义服务器配置 -->
+						<configuration>
+							<url>http://aspendos:2080/manager</url>
+							<server>tomcatmaventest1</server>
+							<contextFile>src/main/conf/tomcat55/context.xml</contextFile>
+							<path>/workforms</path>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+			<dependencies>
+				<!-- 定义需要的依赖项,会自动下载 -->
+				<dependency>
+					<groupId>tomcat</groupId>
+					<artifactId>jasper-runtime</artifactId>
+					<version>5.5.12</version>
+					<scope>provided</scope>
+				</dependency>
+				<dependency>
+					<groupId>tomcat</groupId>
+					<artifactId>catalina</artifactId>
+					<version>5.5.12</version>
+					<scope>provided</scope>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles> 
+
+	<reporting... />
+    <plugins... />
+</project>

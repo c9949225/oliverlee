@@ -1,0 +1,79 @@
+<!--注:首先不要被java.sql.Connection.TRANSACTION_SERIALIZABLE所迷惑，这里只是代表了一个静态变量
+也可以换成MyClass.MyStaticField -->
+
+Question:
+	How do I pass a Class constant to a bean property in a spring.xml file? 
+	Here's a sample spring.xml entry illustrating what I'm trying to configure:
+	
+	<bean id="myBean" class="MyClass">
+  	  <property name="configValue">
+      <value>MyOtherClass.CONFIG_VALUE</value>
+      </property>
+   </bean>
+   
+Answer:
+   
+   <bean id="configValue" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="targetClass">
+            <value>MyOtherClass</value>
+        </property>
+        <property name="targetField">
+            <value>CONFIG_VALUE</value>
+        </property>
+   </bean>
+   
+   <bean id="myBean" class="MyClass">
+     <property name="configValue">
+         <ref bean="configValue"/>
+     </property>
+   </bean>
+   
+Answer2:
+   
+   <bean id="myBean" class="MyClass">
+	   <property name="configValue">
+	    <bean class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+	        <property name="staticField">
+	            <value>MyOtherClass.CONFIG_VALUE</value>
+	        </property>
+	    </bean>
+	   </property>
+   </bean>
+   
+In Spring 2.0:
+   
+	<bean id="C" class="test.C">
+		<property name="member1"><util:constant static-field="test.A.CONSTANT1"/></property>
+	</bean>
+	
+	
+	<bean id="SecondC" class="test.C">
+		<property name="member1"><util:constant static-field="test.A.CONSTANT1"/></property>
+	</bean>
+	
+Here's an example which shows how a static field is exposed, by using the staticField property:
+Beans, BeanFactory and the ApplicationContext
+Spring Framework Version 1.1.5 35
+
+	<bean id="myField"
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+		<property name="staticField"><value>java.sql.Connection.TRANSACTION_SERIALIZABLE</value></property>
+	</bean>
+
+
+	There's also a convenience usage form where the static field is specified as a bean name:
+
+	<bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+	class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+
+	This means there is no longer any choice in what the bean id is (so any other bean that refers to it will also have
+	to use this longer name), but this form is very concise to define, and very convenient to use as an inner bean
+	since the id doesn't have to be specified for the bean reference:
+
+	<bean id="..." class="...">
+		<proprty name="isolation">
+		<bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+		class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+		</property>
+	</bean> 	
+	

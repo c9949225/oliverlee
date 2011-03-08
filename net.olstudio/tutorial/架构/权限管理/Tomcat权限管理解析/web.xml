@@ -1,0 +1,32 @@
+<security-constraint>
+
+	<web-resource-collection>
+		<web-resource-name>Edit Department</web-resource-name>
+		<url-pattern>/editDepartment.do</url-pattern>
+	</web-resource-collection>
+	
+	<web-resource-collection>
+		<web-resource-name>Update Department</web-resource-name>
+		<url-pattern>/updateDepartment.do</url-pattern>
+	</web-resource-collection>
+	
+	<!-- 只有department角色的用户才可以访问以上的资源 -->
+	<!-- 指定tomcat-users.xml里面的rolename角色 -->
+	<auth-constraint>
+		<role-name>department</role-name>
+	</auth-constraint>
+	
+</security-constraint>
+
+<login-config>
+	<auth-mothod>FORM</auth-mothod>
+	<form-login-config>
+		<form-login-page>/login.jsp</form-login-page>
+		<form-error-page>/login.jsp</form-error-page>
+	</form-login-config>
+</login-config>
+
+<!-- 简单来说security-role是被application使用的 -->
+<security-role>
+	<role-name>department</role-name>
+</security-role>

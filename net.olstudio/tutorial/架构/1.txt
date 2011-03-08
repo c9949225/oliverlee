@@ -1,0 +1,120 @@
+FrankSoo是我的项目经理。前段时间公司决定作个新的J2EE二次开发平台，以替换公司原有的开发平台。公司让FrankSoo和我组成平台开发项目组，FrankSoo担任项目经理。现在这个平台整合开发阶段已经结束，进入项目应用阶段。下面是我们的整合工作小结，介绍一下我们在工作中遇到的问题，以及我们选择的解决方案.
+
+1、架构的选择
+
+首先，我们都同意以我们现有的能力，没有足够的时间和资源自行开发一套完整的平台。在已有的众多开源项目中选择若干优秀的项目进行整合，才可能按时完成项目，达到项目目的。
+但是在平台项目开始前，我们对平台的技术架构有各自的构想。FrankSoo原来的构想是Struts+Spring+Hibernate，而我的构想是Tapestry+Hibernate。
+不过FrankSoo非常open，在我向他演示了Tapestry的经典范例workbench，介绍了Tapestry基于组件的编程方式之后，他同意选用Tapestry作为实现Web展现层的框架。我想FrankSoo以前的Struts开发经验(painful)也是他做出这个决定的因素之一。 FrankSoo gave me a nice introduction of Spring Framework. Wow, what an amazing framework! IOC, Declarative Transaction Support, Hibernate Session Management, Hibernate DAO Support… These features are just what we need for a middle tire container.
+
+至于Hibernate，这个最成功的开源ORM项目，我们都投了它一票^_^
+最后我们确定平台的技术架构是Tapestry+Spring+Hibernate.
+
+2、架构整合
+
+最初的平台架构借鉴了一篇介绍如何集成Tapestry与Spring的文章［1］中提到的架构：
+
+Web 层的Tapestry负责数据输入输出, 响应用户事件，及输入校验的工作, 通过访问预先加载的WebApplicationContext(由Spring提供, 包含着所有Service bean)获得Service层的Service Bean, 把业务操作都委托给它们.
+
+Service层的bean则负责use case逻辑, domain相关的逻辑委托给domain model中的bean去实现. Service通过DAO完成对domain model的持久化工作. Service负责数据库事务和Hibernate Session的管理(通过Spring的声明式事务管理和与之集成的Hibernate Session管理). Service层的另一项重要工作是权限和访问控制。
+
+Domain model负责表示问题域的数据和domain logic. DAO使用Hibernate持久化数据以及查询. 在实现DAO时, 我们使用了Spring的Hibernate DAO Support,极大地简化了代码, 很多方法都只用简单的一行完成. 有意思的是, 最后完成的HibernateDAO的代码量居然比我写的MockDAO的代码少了一半还多
+
+这样的架构优点很明显, 层次清晰, 各层的职责也明确, 便于分层设计与开发, 结合mock和spring的IOC, unit test也是非常容易的. 而且后台(Service, domain model and DAO)的代码不依赖于Web容器或是EJB容器的API, 移植性非常好, 同样的代码可以在Web app中使用也可在普通的Java app中使用, 只需更换UI层.
+
+按照这个整合的构架，我们实现一个简单的实例，实现了列表分页查询和显示，数据增删改，基于Hibernate Criteria Query提供了一个比较通用的查询机制。利用Middlegen和Velocity我们可以从已经建好的数据库表结构自动生成Hibernate映射文件，实体类和DAO，极大地减少了工作量。我们还对这个小例子进行了压力测试（测试时的数据量为10万条记录），确定平台不存在性能问题。
+
+通过这个实例我们把整个架构基本走通一遍，并总结了使用这套架构开发时适用的开发流程和需要做的工作。
+
+3、困扰我们的问题
+
+在实现例子和现在的项目应用过程中，我们发现了若干头疼的问题，有的解决了，有的还没有。
+
+问题1：要不要使用DTO？
+
+在上面的架构中我们并没有明确Service和Web层间的数据传输是如何进行的。我们讨论好久要不要使用DTO，最后的结论是不用。
+
+使用DTO有两个主要的理由：1、减少Web层和Service层间的方法调用，通过一个方法调用就将Web需要的数据都传给Web。2、隔离domain model和Web层。
+
+第一个理由在我们的架构下是不成立的。因为我们的架构是集中式的，Web和Service是在同一个JVM中，它们之间的方法调用是没有EJB远程访问的巨大消耗的。
+
+第二个理由还是需要考虑的。如果允许把domain model中的对象传给Web层，那么修改domain model，就会影响到Web层。如果使用DTO，那么domain model实现上的变化就不会影响到Web。但是大量的变化不是domain model实现上的变化，而是domain model接口的变化，比如一个domain model的对象上添加了一个属性，而这个属性需要用户修改，那么这时候必须修改Web层，不管是不是用了DTO。而且使用DTO，就需要维护着一大堆对象，或是它们的生成器，这是非常无聊、且容易出错的工作。
+
+基于这些考虑，我们没有使用DTO，而是选择把domain model直接传到Web层。下面是修改后的架构图（呵呵，修改了别人的图［2］）。
+
+问题2：Entity like domain model or rich domain model?
+
+我们使用Middlegen自动生成Hibernate映射文件，Entity类和DAO类, 但是生成的Entity只含有简单的属性和getter, setter方法。因此我们遇到了一个问题：我们的domain model还要不要包含domain logic？如果包含，那么和自动生成工具如何结合？
+
+我们讨论后认为一个rich domain model还是非常有必要的，可以减少Service中的重复代码，提高复用性。
+
+如何同自动生成结合？使用<meta>标签，生成抽象基类，我们继承这些自动生成的基类，添加业务方法。
+
+问题3：Model driven or Data driven?
+
+采用Model driven还是Data driven的方式大家有过热烈的讨论。我们主要是受到Rod Johnson［3］的影响，采用了Data driven的方式。先作数据库设计，生成库表，然后用Middlegen反向生成Hibernate映射文件和Entity及DAO。但是我们在进入项目应用之后发现这种方法有两个问题：
+
+a） 数据库设计仅说明了系统要管理的静态数据，我们还是得作面向对象分析，以反映系统的动态行为。特别是当系统的业务不仅仅是简单的CRUD操作时，这个问题更严重。
+b）数据库设计为了优化性能，可能会把好几个应该是单独实体的数据放入一个实体中。这样如果直接把这种极粗粒度实体映射成Entity类，那简直是不可接受的。面向对象的分析设计模型得到的类都是相当细粒度的。这种情况还得作面向对象的分析，明确到底这个粗粒度的大表应该映射成那几个细粒度的对象。
+
+或许我们应该试试Model driven，用AndroMDA生成domain model，Hibernate DAO，Hibernate mapping，数据库表，简单的Service和前台的Tapestry页面。
+
+问题4：Hibernate Session生命周期如何管理？
+
+对于Hibernate Session的生命周期我们采用的是Session-per-Transaction模式，未采用Open Session in View模式。 虽然Hibernate team认为这种方法没什么不好，而且FreeRoller和Atlassian的confluence都使用了Open Session In View这种模式，但是我们对它可能产生的影响还没有很好的把握，所以暂时弃置不用。 如果Web层要访问lazy load的数据, 需要先调用Service的业务方法, 以获得数据.
+
+问题5：Use case logic 和domain logic 如何区分？
+
+Service负责use case logic，domain model负责domain logic。这样的划分看起来很好，实现起来就很麻烦。如何确定什么是use case logic，什么是domain logic？TBD.
+
+
+问题6：Service粒度如何确定？
+
+这个问题真是很烦，原先考虑使用usecase controller的方式，每个usecase对应一个Service，但是发现这样复用性太低，而且好多地方必须复用相同的功能
+
+另一种方法是用package level service，每个package作个service，这样倒是可以重用，但是感觉太死了，不好。
+
+现在也没有什么很好的办法，只好在详细设计时根据具体情况确定需要多少个Service了。TBD.
+
+问题7：权限如何设定？如何检查？
+
+权限设定也是个头疼的问题。我们本想是按照use case设定权限，每个用例一个权限。在角色设定的时候直接处理的都是业务意义非常明确的权限。但是在权限验证过程中发现了问题：如果在Service的方法中验证权限，而且这个方法在多个用例中用到（复用Service），那么这个Service的方法就需要检查多个权限; 如果每个Service方法对应一个权限, 那么权限又太细了, 不像use case权限那样代表一个完整的业务. 真的是很麻烦阿！TBD.
+ 
+Quake wang:
+ 
+问题1：要不要使用DTO？
+No DTO, 直接把domain object传给Tapestry的web层，利用Tapestry提供强大的数据绑定和组件功能很方便
+
+
+问题2：Entity like domain model or rich domain model?
+domain model不包括复杂的domain logic, 只是作为一个data model bean, 再加上一些简单的logic, 比如addChild的同时，设置child的parent此类简单logic.
+
+
+问题3：Model driven or Data driven?
+这个对我来说不是什么大问题，个人习惯而已，我觉得无论是Model driven或者Data driven，对于相同的需求，2者最终的设计应该都是很类似的。我是从2边同时考虑的，一边做Model，一边还要考虑数据库的结构，再进行相应的调整，用下来也没有什么问题。没有用代码生成， 只是用Hibernate的Eclipse plugin (Hibernate Synchronizer)来帮我做一些code assist.
+
+
+问题4：Hibernate Session生命周期如何管理？
+目前没有采用open session in view，也是和你们一样，在Service里面准备好所有需要的对象。
+
+
+问题5：Use case logic 和domain logic 如何区分？
+由于domain model里面没有什么domain logic，这个问题不存在.
+
+
+问题6：Service粒度如何确定？
+由于domain model里面没有什么domain logic，所以Service的功能就切得很细，尽量重用，一个package可能有多个service, 感觉还好，没有太死。
+
+问题7：权限如何设定？如何检查？
+这个也是我没有想好的问题， 因为不同的需求， 权限设定都不一样，很难用AOP来做一个通用的ASPect.
+ 
+1. DAO的做法：
+我目前不是给每个domain object都做一个DAO, 而是整个系统就一个DAO (PersistenceManager), 里面只有create, update, delete entity这3个方法。另外写一个DAO, 专门做查询 (QueryManager), 用hibernate的named query做常用的查询，用criteria来做基于用户输入的动态查询。不知道你们的做法是怎么样？另外criteria 和 named query其实都是hardcode，object attribute name改变的时候，还得记得手工去修改这些代码，unit test很难覆盖到所有的criteria search 和 named query里面的代码，这个是目前感觉不是很方便的地方。
+
+2. Spring 和 Tapestry的集成
+目前只是用Spring到service layer而已， Tapestry通过Global（扮演Service Locator的角色）这个对象来调用，在domain Tapestry这一层还是有很多dirty code, 其实也可以用AOP来解决。如果能够像webwork2那样，所有的action都可以通过从Spring获得，即通过Spring获得page
+listeners, 那会方便很多，不过Tapestry也有自己的类增强功能，好像有一定的冲突，目前没有什么好的想法。
+
+顺便推荐3个我在项目中使用的工具 (都是eclipse plugin)：
+1. http://spindle.sourceforge.net 开发Tapestry的必备
+2. http://springui.sourceforge.net 写Spring application context file的辅助好工具
+3. http://www.binamics.com/hibernatesynch/ Hibernate 开发的辅助好工具。

@@ -1,0 +1,117 @@
+1-
+<bean id="outer" class="...">
+  <!-- instead of using a reference to a target bean, 
+  	   simply define the target bean inline -->
+  <property name="target">
+    <bean class="com.mycompany.Person"> <!-- this is the inner bean -->
+      <property name="name" value="Fiona Apple"/>
+      <property name="age" value="25"/>
+    </bean>
+  </property>
+</bean>
+
+2-
+<bean id="moreComplexObject" class="example.ComplexObject">
+  <!-- java.util.Properties 类型属性赋值 -->
+  <property name="adminEmails">
+    <props>
+        <prop key="administrator">administrator@somecompany.org</prop>
+        <prop key="support">support@somecompany.org</prop>
+        <prop key="development">development@somecompany.org</prop>
+    </props>
+  </property>
+  <!-- java.util.List 类型属性赋值-->
+  <property name="someList">
+    <list>
+        <value>a list element followed by a reference</value>
+        <ref bean="myDataSource" />
+    </list>
+  </property>
+  <!-- java.util.Map 类型属性赋值 -->
+  <property name="someMap">
+    <map>
+        <entry>
+            <key>
+                <value>yup an entry</value>
+            </key>
+            <value>just some string</value>
+        </entry>
+        <entry>
+            <key>
+                <value>yup a ref</value>
+            </key>
+            <ref bean="myDataSource" />
+        </entry>
+    </map>
+  </property>
+  <!-- java.util.Set 类型属性赋值 -->
+  <property name="someSet">
+    <set>
+        <value>just some string</value>
+        <ref bean="myDataSource" />
+    </set>
+  </property>
+</bean>
+
+3-
+<beans>
+<bean id="parent" abstract="true" class="example.ComplexObject">
+    <property name="adminEmails">
+        <props>
+            <prop key="administrator">administrator@somecompany.com</prop>
+            <prop key="support">support@somecompany.com</prop>
+        </props>
+    </property>
+</bean>
+<bean id="child" parent="parent">
+    <property name="adminEmails">
+        <!-- the merge is specified on the *child* collection definition -->
+        <props merge="true">
+            <prop key="sales">sales@somecompany.com</prop>
+            <prop key="support">support@somecompany.co.uk</prop>
+        </props>
+    </property>
+</bean>
+<beans>
+
+<!-- 结果
+administrator=administrator@somecompany.com
+sales=sales@somecompany.com
+support=support@somecompany.co.uk(覆盖Parent)
+-->
+
+4-
+<!-- 
+public class Foo {
+                
+    private Map<String, Float> accounts;
+    
+    public void setAccounts(Map<String, Float> accounts) {
+        this.accounts = accounts;
+    }
+}
+-->
+<beans>
+    <bean id="foo" class="x.y.Foo">
+        <property name="accounts">
+            <map>
+            	<!-- 自动转化为Float -->
+                <entry key="one" value="9.99"/>
+                <entry key="two" value="2.75"/>
+                <entry key="six" value="3.99"/>
+            </map>
+        </property>
+    </bean>
+</beans>
+
+5-
+赋Null值
+<bean class="ExampleBean">
+  <property name="email"><value/></property>
+</bean>
+等于
+<bean class="ExampleBean">
+  <property name="email"><null/></property>
+</bean>
+
+6-

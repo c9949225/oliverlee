@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<!-- 使用命令:mvn ear:ear  
+				mvn ear:generate-application-xml 
+				
+		 The EAR Plugin replaces the Jar Plugin when your project <packaging> is ear. 		
+				-->
+	
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>PM_Member_EAR</groupId>
+	<artifactId>PM_Member_EAR</artifactId>
+	<!-- 指明Ear -->
+	<packaging>ear</packaging>
+	<version>0.1-SNAPSHOT</version>
+	<description></description>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.newegg.lab</groupId>
+			<artifactId>MemberWeb</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<!-- 指明War -->
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>com.newegg.lab</groupId>
+			<artifactId>frontWeb</artifactId>
+			<version>0.1-SNAPSHOT</version>
+			<!-- 指明War -->
+			<type>war</type>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>newegg</finalName>
+		<plugins>
+			<plugin>
+				<!-- 指定maven-ear-plugin的参数 -->
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<configuration>
+					<modules>
+						<webModule>
+							<groupId>com.newegg.lab</groupId>
+							<artifactId>MemberWeb</artifactId>
+							<!-- 指明contextRoot -->
+							<contextRoot>/MemberWeb</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>com.newegg.lab</groupId>
+							<artifactId>frontWeb</artifactId>
+							<!-- 指明contextRoot -->
+							<contextRoot>/frontWeb</contextRoot>
+						</webModule>
+					</modules>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

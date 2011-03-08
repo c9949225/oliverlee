@@ -1,0 +1,351 @@
+<project name="MyProject" default="dist" basedir=".">
+	<description>simple example build file</description>
+
+	<!-- set global properties for this build -->
+	<property name="src" location="src" />
+	<property name="build" location="build" />
+	<property name="dist" location="dist" />
+
+	<!-- set up classpath -->
+	<classpath>
+		<pathelement path="${classpath}" />
+
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+
+		<pathelement location="classes" />
+
+		<dirset dir="${build.dir}">
+			<include name="apps/**/classes" />
+			<exclude name="apps/**/*Test*" />
+		</dirset>
+
+		<filelist refid="third-party_jars" />
+
+	</classpath>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${build}" />
+	</target>
+
+	<target name="compile" depends="init"
+		description="compile the source ">
+
+		<!-- Compile the java code from ${src} into ${build} -->
+		<javac srcdir="${src}" destdir="${build}">
+			<include name="**/*.java" />
+			<classpath refid="classpath" />
+		</javac>
+
+	</target>
+
+	<target name="dist" depends="compile"
+		description="generate the distribution">
+		<!-- Create the distribution directory -->
+		<mkdir dir="${dist}/lib" />
+
+		<!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+		<jar jarfile="${dist}/lib/MyProject-${DSTAMP}.jar"
+			basedir="${build}" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<!-- Delete the ${build} and ${dist} directory trees -->
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+</project>
+
+<!--1、在build.xml文件中使用build.properties文件时，可能有些值不会解析出来，没有关系把那一行空出来，把属性的设置放在另一行就好了。
+	2、在与tomcat的相关发布时，需要把把tomcat的server/lib/catalina-ant.jar 文件copy到ant的lib目录下。
+-->
+
+<!--  在使用war时，如果想把一个目录下面的一些配置文件放在web-inf目录下，则可以使用下面的方法,即使用webinf 
+<war destfile="${dist}/${context-path}.war" webxml="${meta}/web.xml" >
+	<classes dir="${build}" />
+	<lib dir="${lib}" />
+	<fileset dir="${web}" />
+	<webinf dir="${meta}">
+		<exclude name="web.xml" />
+	</webinf>
+</war>
+-->
+
+<!-- 命令的使用 
+	ant
+	
+	使用当前目录下的build.xml运行Ant，执行缺省的target。
+	
+	ant -buildfile test.xml
+	
+	使用当前目录下的test.xml运行Ant，执行缺省的target。
+	
+	ant -buildfile test.xml dist
+	
+	使用当前目录下的test.xml运行Ant，执行一个叫做dist的target。
+	
+	ant -buildfile test.xml -Dbuild=build/classes dist
+	
+	使用当前目录下的test.xml运行Ant，执行一个叫做dist的target，并设定build属性的值为build/classes。-->
+
+
+<!-- 关于classpath的引用 -->
+<!-- 第1步:定义一个path -->
+<path id="project.class.path">
+
+	<pathelement location="lib/" />
+	<pathelement path="{java.class.path}/" />
+	<pathelement path="{additional.path}" />
+
+</path>
+<!-- 第2步:在rmic和javac中都使用了classpath-->
+<rmic ...>
+	<classpath refid="project.class.path" />
+</rmic>
+<javac ...>
+	<classpath refid="project.class.path" />
+</javac>
+
+<!-- 文件操作 -->
+<!-- --------------------------创建--------------------------------------- -->
+<mkdir dir="build/classes" /><!-- 说明：如果build不存在，也会被同时创建 -->
+<!-- --------------------------拷贝--------------------------------------- -->
+<copy file="myfile.txt" tofile="mycopy.txt" /><!-- 拷贝单个的文件 -->
+
+<copy file="myfile.txt" todir="../some/other/dir" /><!-- 拷贝单个的文件到指定目录下 -->
+
+<copy todir="../new/dir"><!-- 拷贝一个目录到另外一个目录下 -->
+	<fileset dir="src_dir" />
+</copy>
+
+<copy todir="../dest/dir"><!-- 拷贝一批文件到指定目录下 -->
+	<fileset dir="src_dir">
+		<include name="**/*.java" />
+		<exclude name="**/Test.java" />
+	</fileset>
+</copy>
+<copy todir="../dest/dir">
+	<fileset dir="src_dir" excludes="**/*.java" />
+</copy>
+
+<copy todir="../backup/dir"><!-- 拷贝一批文件到指定目录下，将文件名后增加.Bak后缀 -->
+	<fileset dir="src_dir" />
+	<mapper type="glob" from="*" to="*.bak" />
+</copy>
+
+<copy todir="../backup/dir"><!-- 拷贝一组文件到指定目录下，替换其中的@标签@内容 -->
+	<fileset dir="src_dir" />
+	<filterset>
+		<filter token="TITLE" value="Foo Bar" />
+	</filterset>
+</copy>
+<!-- --------------------------删除--------------------------------------- -->
+<delete file="/lib/ant.jar" /><!-- 删除一个文件 -->
+
+<delete dir="lib" /><!-- 删除指定目录及其子目录 -->
+
+<delete><!-- 删除指定的一组文件 -->
+	<fileset dir="." includes="**/*.bak" />
+</delete>
+
+<delete includeEmptyDirs="true"><!-- 删除指定目录及其子目录，包括他自己 -->
+	<fileset dir="build" />
+</delete>
+
+<!-- --------------------------移动--------------------------------------- -->
+<move file="file.orig" tofile="file.moved" /><!-- 移动或重命名一个文件 -->
+
+<move file="file.orig" todir="dir/to/move/to" /><!-- 移动或重命名一个文件到另一个文件夹下面 -->
+
+<move todir="new/dir/to/move/to"><!-- 将一个目录移到另外一个目录下 -->
+	<fileset dir="src/dir" />
+</move>
+
+<move todir="some/new/dir"><!-- 将一组文件移动到另外的目录下 -->
+	<fileset dir="my/src/dir">
+		<include name="**/*.jar" />
+		<exclude name="**/ant.jar" />
+	</fileset>
+</move>
+
+
+<move todir="my/src/dir"><!-- 移动文件过程中增加.Bak后缀 -->
+	<fileset dir="my/src/dir">
+		<exclude name="**/*.bak" />
+	</fileset>
+	<mapper type="glob" from="*" to="*.bak" />
+</move>
+
+<!-- Java相关 -->
+
+<!-- 编译{src}目录及其子目录下的所有。Java文件，。Class文件将放在｛build｝指定的目录下，
+	classpath表示需要用到的类文件或者目录，debug设置为on表示输出debug信息 -->
+
+<javac srcdir="{src}" destdir="{build}" classpath="xyz.jar" debug="on" />
+
+<!-- 编译{src}和{src2}目录及其子目录下的所有.Java文件，但是mypackage/p1/testpackage/**将不会被编译。
+	Class文件将放在｛build｝指定的目录下，classpath表示需要用到的类文件或者目录，debug设置为on表示输出debug信息 -->
+<javac srcdir="{src}:{src2}" destdir="{build}"
+	includes="mypackage/p1/**,mypackage/p2/**"
+	excludes="mypackage/p1/testpackage/**" classpath="xyz.jar" debug="on" />
+
+<!-- 路径是在property中定义的 -->
+<property name="classpath"
+	value=".;./xml-apis.jar;../lib/xbean.jar;./easypo.jar" />
+<javac srcdir="{src}" destdir="{src}" classpath="{classpath}"
+	debug="on" />
+
+<!-- 执行指定的java类 -->
+<java classname="test.Main">
+	<classpath>
+		<pathelement location="dist/test.jar" />
+		<pathelement path="{java.class.path}" />
+	</classpath>
+</java>
+
+<!-- 执行rmic -->
+<path id="project.class.path">
+	<pathelement location="lib/" />
+	<pathelement path="{java.class.path}/" />
+	<pathelement path="{additional.path}" />
+</path>
+
+<target ...>
+	<rmic ...>
+		<classpath refid="project.class.path" />
+	</rmic>
+</target>
+
+<!-- 将{build}/classes下面的所有文件打包到{dist}/lib/app.jar中 -->
+<jar basedir="{build}/classes" destfile="{dist}/lib/app.jar" />
+
+<!-- 将{build}/classes下面的所有文件打包到{dist}/lib/app.jar中，但是不包括所有的Test.class 
+	manifest属性指定自己的META-INF/MANIFEST.MF文件，而不是由系统生成-->
+<jar basedir="{build}/classes" destfile="{dist}/lib/app.jar"
+	includes="mypackage/test/**" excludes="**/Test.class" manifest="my.mf" />
+
+<!-- 
+	假设我们的文件目录如下：
+	
+	thirdparty/libs/jdbc1.jar
+	
+	thirdparty/libs/jdbc2.jar
+	
+	build/main/com/myco/myapp/Servlet.class
+	
+	src/metadata/myapp.xml
+	
+	src/html/myapp/index.html
+	
+	src/jsp/myapp/front.jsp
+	
+	src/graphics/images/gifs/small/logo.gif
+	
+	src/graphics/images/gifs/large/logo.gif
+	
+-->
+
+<war destfile="myapp.war" webxml="src/metadata/myapp.xml">
+	<fileset dir="src/html/myapp" />
+	<fileset dir="src/jsp/myapp" />
+	<lib dir="thirdparty/libs">
+		<exclude name="jdbc1.jar" />
+	</lib>
+	<classes dir="build/main" />
+	<zipfileset dir="src/graphics/images/gifs" prefix="images" />
+</war>
+
+<!-- 完成后的结果： 
+	
+	WEB-INF/web.xml
+	
+	WEB-INF/lib/jdbc2.jar
+	
+	WEB-INF/classes/com/myco/myapp/Servlet.class
+	
+	META-INF/MANIFEST.MF
+	
+	index.html
+	
+	front.jsp
+	
+	images/small/logo.gif
+	
+	images/large/logo.gif
+-->
+
+<ear destfile="{build.dir}/myapp.ear"
+	appxml="{src.dir}/metadata/application.xml">
+	<fileset dir="{build.dir}" includes="*.jar,*.war" />
+</ear>
+
+
+
+<!-- tstamp 不产生任何输出；相反，它根据当前系统时间和日期设置 Ant 属性。下面是 tstamp 设置的一些属性、对每个属性的说明，
+	以及这些属性可被设置到的值的例子：
+	
+	属性说明例子
+	
+	DSTAMP 设置为当前日期，默认格式为yyyymmdd 20031217
+	
+	TSTAMP 设置为当前时间，默认格式为 hhmm 1603
+	
+	TODAY 设置为当前日期，带完整的月份2003 年 12 月 17 日
+	
+	例如，在前一小节中，我们按如下方式创建了一个 JAR 文件：-->
+
+<jar destfile="package.jar" basedir="classes" />
+<!--  在调用 tstamp 任务之后，我们能够根据日期命名该 JAR 文件，如下所示：-->
+<jar destfile="package-{DSTAMP}.jar" basedir="classes" />
+
+<!--  还可以配置 tstamp 任务来设置不同的属性，应用一个当前时间之前或之后的时间偏移，或以不同的方式格式化该字符串。
+	所有这些都是使用一个嵌套的 format 元素来完成的，如下所示：-->
+
+<tstamp>
+	<format property="OFFSET_TIME" pattern="HH:mm:ss" offset="10"
+		unit="minute" />
+</tstamp>
+
+<!-- 执行Sql语句 -->
+<sql driver="org.gjt.mm.mysql.Driver"
+	url="jdbc:mysql://localhost:3306/mydb" userid="root" password="root"
+	src="data.sql" />
+
+<sql driver="org.database.jdbcDriver" url="jdbc:database-url"
+	userid="sa" password="pass" src="data.sql" rdbms="oracle"
+	version="8.1.">
+	<!-- 只有在oracle、版本是8.1的时候才执行 -->
+</sql>
+
+<!-- 发送邮件 -->
+<mail mailhost="smtp.myisp.com" mailport="1025" subject="Test build">
+	<from address="me@myisp.com" />
+	<to address="all@xyz.com" />
+	<message>The {buildname} nightly build has completed</message>
+	<fileset dir="dist">
+		<includes name="**/*.zip" />
+	</fileset>
+</mail>
+
+
+
+
+
+<!-- 根据Builder的时间来生成带有时间戳的部署文件 -->
+<target name="jarTimeSign">
+	<tstamp prefix="build.">
+		<format property="TimeSign" pattern="yyyy-MM-dd HH.mm.ss" />
+	</tstamp>
+	<jar compress="true"
+		destfile="${javac.dir.jar}/${app.name}${build.TimeSign}.jar">
+		<fileset dir="${javac.dir.classes}"></fileset>
+	</jar>
+</target>
+
+
+
+

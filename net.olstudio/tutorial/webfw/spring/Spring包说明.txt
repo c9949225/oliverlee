@@ -1,0 +1,235 @@
+spring 2.0 包说明
+
+1. Spring压缩包目录说明
+
+aspectj目录下是在Spring框架下使用aspectj的源代码和测试程序文件。
+Aspectj是java最早的提供AOP的应用框架。
+dist 目录下是Spring 的发布包，关于发布包下面会详细进行说明。
+docs 目录下是相关的文档，包括有Spring api 的javadoc、reference 参考指南、Spring的标签库使用文件及Spring MVC 的MVC-step-by-step 讲解与示例。都是很好的文档，值得好好研究一下。
+lib 目录下是Spring 所依赖的第三方开源包。
+mock 目录下是Spring 辅助应用测试的Mock 源程序。
+samples 目录下是Spring 的示例源程序及简单的webapp 示例框架的示例配置，值得好好学习的有jpetstore 及petclinic，当然其它的countries、imagedb、tiles-example 也可以好好参考一下。
+src 目录下是Spring 的源程序。
+test 目录下Spring 的单元测试源程序。
+tiger 目录下是针对在Spring框架中使用java 1.5的源程序及测试程序。
+Tiger是jdk 1.5版本的开发代号。
+
+根目录的其他文件为编译和说明文件。
+
+2.Spring 包结构说明
+
+spring.jar 是包含有完整发布模块的单个jar 包。但是不包括mock.jar, aspects.jar, spring-portlet.jar, and spring-hibernate2.jar。
+
+spring-src.zip就是所有的源代码压缩包。
+
+除了spring.jar 文件，Spring 还包括有其它21 个独立的jar 包，各自包含着对应的Spring组件，用户可以根据自己的需要来选择组合自己的jar 包，
+而不必引入整个spring.jar 的所有类文件。
+
+********************
+* spring-core.jar  *
+********************
+
+介绍: 这个jar文件包含Spring框架基本的核心工具类,Spring其它组件要都要使用到这个包里的类，是其它组件的基本核心
+
+建议: 当然你也可以在自己的应用系统中使用这些工具类
+
+Spring依赖: 无
+
+外部依赖: 
+
+********************
+* spring-beans.jar *
+********************
+
+介绍: 这个jar 文件是所有应用都要用到的，它包含访问配置文件、创建和管理bean以及
+进行Inversion of Control / Dependency Injection（IoC/DI）操作相关的所有类。
+
+建议: 如果应用只需基本的IoC/DI支持引入spring-core.jar及spring-beans.jar 文件就可以了。
+注:org.springframework.beans.factory.xml.XmlBeanFactory可以用来获取Bean实例
+
+Spring依赖: spring-core，(CGLIB)。
+
+外部依赖:
+
+********************
+* spring-aop.jar   *
+********************
+
+介绍: 这个jar文件包含在应用中使用Spring的AOP特性时所需的类和源码级元数据支持。
+
+建议: 使用基于AOP的Spring特性，如声明型事务管理（Declarative Transaction Management），也要在应用里包含这个jar包。
+
+Spring依赖: spring-core spring-beans
+
+外部依赖:
+
+************************
+* spring-context.jar   *
+************************
+
+介绍: 这个jar文件为Spring 核心提供了大量扩展。可以找到使用Spring ApplicationContext特性时所需的全部类，
+JDNI所需的全部类，instrumentation组件以及校验Validation方面的相关类。
+
+建议:
+
+Spring依赖: spring-agent,spring-aop,spring-beans,spring-core
+
+********************
+* spring-dao.jar   *
+********************
+介绍: 这个jar文件包含Spring DAO、Spring Transaction 进行数据访问的所有类。
+
+建议:为了使用声明型事务支持，还需在自己的应用里包含spring-aop.jar。
+
+Spring依赖: spring-core，(spring-aop， spring-context， JTA API)。
+
+外部依赖:
+
+*********************
+* spring-jdbc.jar   *
+*********************
+
+介绍: 这个jar 文件包含对Spring对JDBC 数据访问进行封装的所有类。
+
+Spring依赖: spring-beans,spring-core,spring-context,spring-tx
+
+***********************
+* spring-support.jar  *
+***********************
+
+介绍: 这个jar 文件包含支持UI模版（Velocity，FreeMarker，JasperReports），邮件服务，脚本服务(JRuby)，缓存Cache（EHCache），
+任务计划Scheduling（uartz）方面的类。
+
+Spring依赖: spring-context,spring-jdbc, 
+
+外部依赖: Velocity, FreeMarker, JasperReports, BSH, Groovy, JRuby, Quartz, EHCache
+
+***********************
+* spring-web.jar      *
+***********************
+
+这个jar 文件包含Web 应用开发时，用到Spring 框架时所需的核心类，包括自动载入Web Application Context 特性的类、
+Struts 与JSF 集成类、文件上传的支持类、Filter类和大量工具辅助类。
+
+Spring依赖 spring-context,spring-beans,spring-core
+
+外部依赖: Servlet API, (JSP API, JSTL, Commons FileUpload, COS)。
+
+***********************
+* spring-webmvc.jar   *
+***********************
+
+介绍: 这个jar 文件包含Spring MVC 框架相关的所有类。包括框架的Servlets，Web MVC框架，控制器和视图支持。
+
+建议:当然，如果你的应用使用了独立的MVC 框架，则无需这个JAR 文件里的任何类。外部依赖spring-web, (spring-support，Tiles，iText，POI)。
+
+Spring依赖: spring-context,spring-beans,spring-core,spring-context-support,spring-web
+
+***********************
+* spring-portlet.jar  *
+***********************
+
+介绍: Spring自己实现的一个类似Spring MVC的框架。包括一个MVC框架和控制器。
+
+Spring依赖:  spring-context,spring-webmvc
+
+
+**********************
+* spring-struts.jar  *
+**********************
+
+介绍: Struts框架支持，可以更方便更容易的集成Struts框架。外部依赖spring-web，Struts。
+
+************************
+* spring-remoting.jar  *
+************************
+
+介绍:这个jar 文件包含支持EJB、远程调用Remoting（RMI、Hessian、Burlap、Http Invoker、JAX-RPC）方面的类。
+
+外部依赖spring-aop， (spring-context，spring-web，Hessian，Burlap，JAX-RPC，EJB API)。
+
+*******************
+* spring-jmx.jar  *
+*******************
+
+介绍:这个jar包提供了对JMX 1.0/1.2的支持类。外部依赖spring-beans，spring-aop， JMX API。
+
+*******************
+* spring-jms.jar  *
+*******************
+
+这个jar包提供了对JMS 1.0.2/1.1的支持类。外部依赖spring-beans，spring-dao，JMS API。
+
+*******************
+* spring-jca.jar  *
+*******************
+
+对JCA 1.0的支持。外部依赖spring-beans，spring-dao， JCA API。
+
+*******************
+* spring-jdo.jar  *
+*******************
+
+对JDO 1.0/2.0的支持。外部依赖spring-jdbc， JDO API， (spring-web)。
+
+*******************
+* spring-jpa.jar  *
+*******************
+
+对JPA 1.0的支持。外部依赖spring-jdbc， JPA API， (spring-web)。
+
+**************************
+* spring-hibernate2.jar  *
+**************************
+
+对Hibernate 2.1的支持，已经不建议使用。外部依赖spring-jdbc，Hibernate2，(spring-web)。
+
+**************************
+* spring-hibernate3.jar  *
+**************************
+
+对Hibernate 3.0/3.1/3.2的支持。外部依赖spring-jdbc，Hibernate3，(spring-web)。
+
+***********************
+* spring-toplink.jar  *
+***********************
+
+对TopLink框架的支持。外部依赖spring-jdbc，TopLink。
+
+***********************
+* spring-ibatis.jar   *
+***********************
+
+对iBATIS SQL Maps的支持。外部依赖spring-jdbc，iBATIS SQL Maps。
+
+另外的两个包。
+
+***********************
+* spring-mock.jar     *
+***********************
+
+这个jar 文件包含Spring 一整套mock 类来辅助应用的测试。Spring测试套件使用了其中大量mock 类，
+这样测试就更加简单。模拟HttpServletReques 和HttpServletResponse类在Web 应用单元测试是很方便的。
+并且提供了对JUnit的支持。外部依赖spring-core。
+
+***********************
+* spring-aspects.jar  *
+***********************
+
+提供对AspectJ的支持，以便可以方便的将面向方面的功能集成进IDE中，比如Eclipse AJDT。
+
+3．外部依赖。WEAVER JARS (dist/weavers)说明
+
+*********************
+* spring-agent.jar  *
+*********************
+
+Spring的InstrumentationSavingAgent (为InstrumentationLoadTimeWeaver)，一个设备代理包，
+可以参考JDK1.5的Instrumentation功能获得更多信息。外部依赖none (for use at JVM startup: "-javaagent:spring-agent.jar")。
+
+*****************************
+* spring-tomcat-weaver.jar  *
+*****************************
+
+扩展Tomcat的ClassLoader，使其可以使用instrumentation（设备）类。
+外部依赖none(for deployment into Tomcat's "server/lib" directory)。 

@@ -1,0 +1,391 @@
+一个处于“无序化”生产的软件公司，要进行过程改进，首要是改进什么呢？
+做任何事情都需要计划，做软件开发这样复杂的工作更加需要计划，所以2级中有项目计划(PP)以及项目计划跟踪与控制(PMC)两个PA，分别对指定计划以及计划的执行给出了详细的标准。
+人是会死的，需求是会变的。需求变更是每个软件公司最头疼的问题，需求变更也是导致项目进度拖延、成本高涨的主要原因。如何管理好需求呢？需求管理(RM)给出了详细的指引。
+软件生产越来越复杂，有时候我们需要采购一些组件，用于项目中。另外一个方面，纯软件的项目比例也慢慢缩小，很多软件是基于一定的硬件的，而不少硬件也是需要采购的。如何采购到合适的软硬件，如何保证采购工作不影响项目成功呢？供应商协议管理(SAM)会给你一个解答。
+软件是比较难进行量化管理的，但作为公司的管理者，总会想知道成本、进度、缺陷方面的一些数据，以了解项目的情况。CMMI2级，已经对度量提出了要求，详细情况见度量(MA)这个PA。
+如何保证软件生产过程中各类工作产品协调一致，配置管理(CM)会给出指导。
+如何保证每个工作产品以及生产工作产品的过程是遵照规定执行的呢？产品与过程质量保证(PPQA)有明确的指引。
+
+2级一共有以下PA：
+
+1)项目计划(PP) : 指定计划
+2)项目计划跟踪与控制(PMC) : 计划的执行
+3)需求管理(RM) : 需求变更
+4)供应商协议管理(SAM) : 保证采购工作不影响项目成功
+5)度量(MA) :  成本、进度、缺陷方面的一些数据
+6)配置管理(CM) : 保证软件生产过程中各类工作产品协调一致
+7)产品与过程质量保证(PPQA) : 针对 产品 和 过程 的质量保证
+
+每个PA有什么乾坤呢？我们会详细向大家阐述。
+
+---------------------------------------------------------------------------------------------------------
+PA1.项目计划(Project Planning): Specific Goals: 3个
+
+	大家都明白这样的一个道理：做事情要有计划，有一个不成熟的计划总比没有计划要好，软件开发这么复杂的活动，更加需要计划。那么应该怎样做好一个计划呢？
+	如果对项目的范围、规模、性质、任务、工作量、费用等都不了解的情况下，是不可能做出计划的，所以做好计划的第一步就是要把这些东西搞清楚。
+	PP有三个SG，分别是建立估算、建立计划、取得承诺，大家如果仔细阅读每个SP，大家会发现做好一个计划是不容易的，要考虑的东西很多。
+	另外，还必须用这个计划来管理项目，更详细的内容我们看PA2计划跟踪与控制这个PA吧。
+	
+		SG 1.1 (SG1建立估算) Estimates of project planning parameters are established and maintained.
+		
+			SP1.1 Estimate the Scope of the Project. 估计项目的范围，如项目的目标、任务、工作产品等。
+			这里通常就是指WBS(top-level work breakdown structure)，试想一下，我们做计划之前不是常常要先对任务进行分解吗？
+			SP1.2 Establish Estimates of Work Product and Task Atrributes. 估计工作产品及任务的属性。做计划的时，我们会先列出这个项目要产生的工作产品，以及这个项目要完成的任务等，然后我们需要分析这些任务、工作产品的规模、工作量、复杂度、代码行数等所谓的属性。
+			CMMI并没有规定一定要分析什么属性，具体由企业自己来选择适合自己需要分析的属性。在CMM模型的时候，项目计划这个PA硬性规定了需要分析的几大属性，CMMI模型中已经改进，不再强制要求。分析这些属性的目的是对任务、工作产品等更加了解，以便于做好计划。
+			SP1.3 Define the project life-cycle phases upon which to scope the planning effort. 
+			定义项目生命周期。写计划的其中一个步骤是要考虑用什么生命周期模型，是瀑布型？螺旋？还是别的？选择怎样的模型，CMMI并没有规定，企业可以选择常见的生命周期模型，也可以自己定义自己的模型。
+			SP1.4 Estimate the project effort and cost for the work products and task based on estimation rationale. 
+			可以把SP1.4看作是SP1.2的延续，要根据工作产品及任务的属性估算出项目的规模和成本。
+		
+		SG 1.2 (SG2建立计划) SG1说的是如何准备估算的问题，为做计划打好基础，而SG2说的就是要建立计划了。
+				A project plan is established and maintained as the basis for managing the project.那么项目计划要包含什么内容呢？
+			
+			SP2.1 Establish and maintain the project's budget and schedule. 建立和维护项目的预算和进度。
+			SP2.2 Identify and analyze project riskes. 识别和分析项目风险。
+			SP2.3 Plan then managemanet of project data. 计划对项目数据的管理。什么是“项目数据”呢？在项目开发过程中，会产生各类文档、代码等，我们再写项目计划的时候，要考虑好如何管理开发过程中产生的工作产品、数据等，例如存放的位置、访问权限控制。通常我们需要文档分类存放，设定一些个人工作区、项目组共享区等，计划好这些东西的管理，目的就是为了让工作更加有条理。
+		    细心的人可能会发现，这个SP怎么有点象CM这个PA呢？没错，CM也讲的也是管理工作产品，与这个SP是有相似之处的，CM是从配置管理的角度来讲述的，而这个SP就从项目管理的角度来讲述的。详细情况，我们再论述CM的时候再谈。
+			SP 2.4 Plan for necessary resources to perform the project . 计划必要的资源来执行计划。资源包括：人、计算机、设备、工具、办公室等。|
+			SP 2.5 Plan for knowledge and skills needed to perform the project. 计划需要的知识和技能来执行计划。这点经常是做计划的时候被遗忘的，项目经理应该根据项目组成员情况和项目的特点，找出项目组还没有掌握的知识和技能，安排需要的培训，让项目组成员掌握相应的技能。
+			SP 2.6 Plan the involvement of indentified stakeholders. 识别干系人并计划他们的参与。计划要考虑客户、高层领导、与本项目相关的第三方等相关人员可能的参与，规划他们参与的时间点，参与的工作产品等。例如：要计划客户什么时候参与需求调研，计划客户什么时候需要准备好软硬件环境，以便安装系统等。
+			SP 2.7 Establish and maintain the overall project plan content. 建立和维护全面的项目计划内容。就是就是要把上面提到的SP2.1到SP2.6的内容全部要写下来，要文档化。
+				
+		SG 1.3 (SG3取得承诺) Commitments to the project plan are established and maintained. 建立和维护对项目计划的承诺。项目计划要被相关的人评审和认可。
+			
+			SP 3.1 Review all plans that affect the project to understand project commitments. 项目计划可能会有好多个子计划，如开发计划、测试计划、培训计划等，这些计划都应该被相关人员复查，保证大家理解一致。
+			SP 3.2 Reconcile the project plan to reflect available and estimated resources. 调整计划，使计划在有限的资源内是可行的。计划要受到资源的限制，通过评审要发现不协调的地方，适当调整计划，保证计划可行。
+			SP 3.3 Obtain commitment from relevant stakeholders responsible for performing and supporting plan excecution. 得到相关人员的承诺，保证执行和支持计划。计划通过评审，就以为这所有参加评审的人承诺按照计划的要求完成自己的任务，同时他也会支持他人按计划完成任务。
+			
+---------------------------------------------------------------------------------------------------------
+PA2.项目跟踪和控制(Project Monitoring and Control):Specific Goals: 2个
+
+	计划不是用来看的，是用来执行的。PP讲述了如何做计划，PMC讲述的就是如何跟踪计划的执行并在实际情况偏离计划时采取纠正行动。
+	
+		SG 2.1 讲述的是如何根据计划来跟踪计划的执行问题。Actual performance and progress of the project are monitored against the project plan.
+
+		那么我们要跟踪计划什么内容呢？简单的说，计划里面写了什么东西，就要跟踪什么东西。我们回顾一下PP是怎样说项目计划有什么内容的？计划要有估算、进度、数据包的管理、技能准备、干系人的参与等内容，所以项目跟踪也需要踪以上内容。
+
+			SP 1.1 Monitor the actual values of the project planning  parameters against the project plan. 项目计划的参数就是指项目的范围、规模、性质、任务、工作量、费用等，每个企业都可以根据实际需要确定这些参数。在项目进行过程中，要密切关注这些参数的实际情况与计划估计的情况是否一致。
+			SP 1.2 Monitor commitments against those identified in the project plan. 简单地说就是要跟踪项目成员承诺的任务是否按时间按要求完成，跟踪其他干系人是否能完成承诺的事情，如：第三方是否能如期交付软件、硬件、接口等。
+			SP 1.3 Monitor risk against those identified in the project plan. 跟踪项目计划中已经识别出来的风险，要考虑风险是否发生了变化，同时也要考虑有没有新的风险产生。
+			SP 1.4 Monitor the management of project data against the project plan. 项目计划中计划了数据包的管理，实际项目进展中，要落实这些工作。什么是数据包，请参考“项目计划”这个帖的说明。
+			SP 1.5 Monitor stakeholder involvement against the project plan. 跟踪项目干系人的参与。如计划了什么时候要开始什么任务，什么时候客户要开始准备系统环境等，需要依据计划去跟踪。
+			SP 1.6 Periodicall review the project's progress,performance,and issues. 定期检查项目的进度、性能和问题。定期并不是指按照一定周期，只有有计划去检查，在某些时间点去做检查，就叫定期。另外什么是项目性能？简单的说就是项目按计划执行的实际能力，如任务完成能力、项目组成员的实际水平、文档的质量、代码的质量等。那什么是“issues(问题)”呢？凡是影响项目不能按计划进行的情况，都是问题。
+			SP 1.7 Review the accomplishments and results of the project at selected project milestones. 在项目选定的里程碑检查项目情况。项目里程碑一般会是：需求确定、架构设计完成、软件发布等关键路径上的关键节点。SP1.6强调的是定期去检查项目状况，SP1.7强调的是要在关键节点检查项目状况，两个SP是有某种程度的重叠的。
+
+		SG 2.2: 讲述的是当实际情况明显偏离计划的时候，要采取纠正行动。项目的性能或者结果明显偏离计划时，要采取纠正措施保证按计划进行。
+		Corrective actions are managed to closure when the project 's performance or results deviate significantly from the plan.
+
+			SP 2.1 Collect and analyze the issues and determine the corrective actions necessary to address the issues. 收集和分析问题，并确定必要的纠正措施来解决这些问题。
+			SP 2.2 Take corrective action on identified issues. 针对识别出来的问题实施纠正行动。
+			SP 2.3 Manage corrective actions to closure. 管理纠正行动保证问题被解决。
+
+			实际情况与计划情况有偏差是正常的，原因可能是计划本身做得不太好，也可能是实际工作没有到位。SG2强调的是要分析原因，找出问题根源，采取适当的行动，解决问题，使项目按照计划进行。
+			通常情况下，偏离计划的情况大多数是进度推迟、预算变大等超出计划估计的情况，作为项目管理者不应该轻易改变计划，而使计划与实际一致，而是应该努力改善实际情况，否则计划的意义就丧失了。但凡事也有例外，确实有可能做计划的时候定了一个“不可能完成”的计划，这是就确实需要变更计划。但凡是涉及到预算变更、关键节点推迟等关键变化，公司应该制定严格的变更控制制度，公司高层应该参与这些关键变更的评审，以保证计划的严肃性。
+			在3级的IPM还有4级的QPM，做项目计划的时候合理性会越来越得到保障，另外用于管理项目的参数也会越来越多，并且会有量化的管理目标。详细的内容以后再论述。
+
+---------------------------------------------------------------------------------------------------------
+
+PA3.需求管理(Requirements Management): Specific Goals: 1个
+
+		SG 3.1 Manage Requirements 
+		
+			Specific Practices: 5个
+			
+			SP 1.1 理解需求 Develop an understanding with the requirements providers on the meaning of the requirements.
+			SP 1.2 确认需求 Obtain commitment to the requirements from the project participants.
+			SP 1.3 管理需求变更 Manage changes to the requirements as they evolve during the project.
+			SP 1.4 维护需求的双向跟踪 Maintain bidirectional traceability among the requirements and the project plans and work products.
+			SP 1.5 识别出需求与下游工作产品不一致的地方 Identify inconsistencies between the project plans and work products and the requirements.
+
+人是会死的，需求是会变的。相信大家都经历了很多需求变更的痛苦，项目被拖延，成本高涨，十有七八是需求管理没有做好导致的。
+有哪一些需求管理方面的常见问题呢，这里列举一下：
+
+1.因为项目进度赶等原因，在很多需求还没有明确情况下，便开始开发的工作。
+2.开始客户只能提出模糊的需求，客户喜欢先让你做个东西给他看，然后他才可能逐渐提出真正的需求，而需求调研人员，对此没有什么好的处理办法。
+3.客户以种种原因不签需求，项目组在不签需求的情况下，便开始开发工作。
+4.客户不承认之前提出来的需求，项目组又不能得失客户，项目成员苦不堪言。
+5.需求经常变化，无法控制。
+6.设计、代码与需求不对应，特别是需求变更时，不知道应该修改哪部分，也不知道会有哪些影响。
+......
+
+这方面的问题可真是“罄竹难书”了，需求管理这个PA提供了能解决以上大部分问题的最佳实践。
+
+Requirements are managed and inconsistencies with project plans and work products are identified.
+中文大意是：
+管理需求并且识别出需求与项目计划、工作产品不一致的地方。
+
+这句话有两层意思：
+
+1.需求要被管理，被管理的意思又有两层：一是需求要被确认，二是要控制需求变更
+2.需求要用来指导下游的工作产品，如：计划、设计、测试等
+
+下面简单介绍一下这个Specific Goal( Manage Requirements )下的5个Specific Practice：
+
+第一个SP是：理解需求。
+开发者应该理解客户的需求，如果这点做不到，后面的工作是没有意义的。所以，那种在没有理解需求的情况下，就仓促开发的做法是不合适的。
+当然，如果想通过做原型来获取需求不在此列，另外，大家也千万不要误解，在没有完全理解需求前一定不能开展开发工作，如果部分需求已经掌握，有部分需求还没有掌握，那也是可以先开展已掌握部分需求的设计、编码工作的，这时需要考虑没有确定部分的需求对这些工作可能带来的影响。
+
+第二个SP是：确认需求，就是要和客户签署需求。
+我想大家都非常理解这点的重要性，但大家可能会说，说得容易，客户就是不签，咋办？客户不签需求，主要是两方面的原因：
+1)客户不确定需求。
+2)客户担心签了需求后，他就不好变了。
+对于原因一，解决办法就是大家需要把SP1理解需求做好，如何把需求理解做好，更详细的内容可以参考3级的需求开发(RD)，这里先不详细解说。
+对于原因二，要消除客户的顾虑，首先签署需求不是单方面的约束，其实也是对开发方的约束，就是说我们要承诺做出这样的一个东西，如果做不出来，客户可以追究我们的责任，
+另外一个方面，要跟客户说清楚，需求是可以变的，现在签署只是标志着当前的一个工作里程碑，当前签订的需求，是我们后续工作的一个基准。
+大家可能又会问如果只能确定一部分需求，客户还是不愿意签，咋办？那就先签确定部分的需求呗！
+
+第三个SP是：管理需求变更。
+需求不是不可以变，只不过需要管理。客户今天说改这，明天改那，后天又不算数，咋办？怎样才算管理需求变更呢？
+1.要充分理解客户提出来的需求变更，深究其"原因"，不能客户一说变就变，超过一半的客户变更要求，其实都是不合理的，或者是有其它更好的替代办法的。
+2.客户提出来的变更要求，要"书面记录"，并让客户确认，和客户讨论需求变更过程来往的邮件要保存好，和客户面谈、聊电话后，要发邮件总结当此会谈达成的要点共识，总之就是要有书面记录。
+3.客户提出来的需求变更，要分析所有的"影响"，包括增加多少的工作量，需要修改或者增加哪些设计文档代码等，可能会引发什么风险等。所有这些要列出清单，反馈给客户，让客户确认。
+4.如果需求变更导致项目成本和进度变化太大，超出可承受范围，则需要"高层领导出面，和客户协商调整费用"。
+
+第四个SP是：维护需求的双向跟踪。(纵向和横向)
+需求是用来指导后续工作的，所以需求与计划、设计、编码、测试等后续工作都需要维护好"对应"的关系，这个工作与第三个SP是关系密切的，如果这个关系没有维护好，那么SP1.3也不可能做好。
+这样是不是双向跟踪就能做好呢？不是，双向跟踪的意思不是由A能找到B，由B又能找到A就叫双向跟踪。
+
+双向跟踪是只纵向和横向跟踪，前面提到的只是纵向跟踪，纵向跟踪的意思是上下游工作产品之间的跟踪关系。
+而横向跟踪指的是需求与需求之间的关系、设计与设计之前的关系、代码与代码之间的关系等。其中一个需求变化了，有可能影响另外一些需求，其中一个设计变了也可能影响另外一些设计。
+
+所以，这个双向跟踪网络，将会是一个很强的网络，任何一点发生变化，能找出全部受牵连的地方。
+
+第五个SP是：识别出需求与下游工作产品不一致的地方。
+这里有两层意思：
+1.需求变更时，利用双向跟踪表找出需要修改的地方，并用跟踪表来发现不一致的地方并调整。
+2.编写或者修改计划、设计、代码、测试计划、测试用例等需求下游工作产品的时候，要注意要与需求保持一致。
+
+---------------------------------------------------------------------------------------------------------
+
+PA4.供应商协议(Supplier Agreement Management): Specific Goals: 2个
+
+做软件开发的，不免要购买一些软硬件。软件可能是中间件、控件、插件、组件等，硬件可能是一些服务器、PDA、单片机等。
+只要稍微复杂的项目，都不可避免的会有采购的问题，就算目前没有采购，以后也会不可避免。另外也有可能把项目的一部分外包给第三方来做。
+作为一个想改进过程的企业，是不应该规避这个问题的。采购的软硬件或者是外包，都会从根本上影响项目的成本、进度和质量，采购和外包可以认为是风险最大的活动之一。
+
+那怎样才能把采购活动做好了？SAM有两个SG，第一个SG讲述的是要和供应商签署协议，第二个SG主要讲述的是履行供应商协议，下面我们详细介绍一下。
+
+	SG4.1：Agreement with the suppliers are established and maintained. 建立和维护与供应商的协议。
+
+		SP 4.1.1: Determine the type of acquisition for each product or product component to be acqured. 中文大意是：确定每个产品或者产品组件需要采购什么类型的东西。项目会因为技术原因、时间原因等需要采购一些软硬件来满足项目的需求。在前协议之前，应该先确定到底需要采购什么类型的东西。另外也可能把项目的一部分外包给第三方来做，那么也需要先确定外包什么东西。
+		SP 4.1.2: Select suppliers based on an evaluation of their ability to meet the specified requirements and established criteria. 中文大意是：评估供应商是否具备满足指定的需求以及一定的标准，选择合适的供应商。选择供应商，首先是供应商必须能提供符合项目需求的产品或者服务。另外，采购通常是公司级的活动，或者会有专门的采购部门，采购活动本身会有一些对供应商的特定要求，如：资质、信誉等。选择合适的供应商，需要从这两方面来考虑。
+		SP 4.1.3: Establish and maintain formal agreements with the supplier. 与供应商签订和维护正式的协议。确定要采购的内容，选定供应商后，就需要和供应商签订协议，明确双方权利义务了。协议同时会对供应商提供的产品和服务提出规格要求、时间要求、价钱要求等。这个协议非常重要，对双方具有法律效用，也是用来管理供应商活动的基准。
+
+	SG4.2: Agreements with the suppliers are satisfied by both the project and the supplier. 中文大意是：与供应商签署的协议要满足项目组和供应商双方的要求。
+
+		SP 4.2.1: Review candidate COTS products to ensure they satisfy the specified requirements that are covered under a supplier agreement. 检查候选的产品或者服务，保证其符合供应商协议中规定的要求。这个SP的关键点其实不是检查，而是需要在供应商协议中写清楚对产品或者服务的要求，越明确越好。要做好SP 2.1，其实要先把SP 1.3做好。
+		SP 4.2.2: Perform activities with the supplier as specified in the supplier agreement. 执行供应商协议中制定的活动，例如什么时候交付样品、提交报告，什么时候付款等。由这条我们可以看到，签署供应商协议的时候，一定要把双方需要什么时候做什么事情写清楚，然后就要按照要求执行。
+		SP 4.2.3: Ensure that the supplier agreement is satisfied before accepting the acquired product. 在接受产品之前，要确保满足供应商协议中的要求。简单的说，就是在接受产品或者服务之前要验收，验收的标准就是供应商协议中的要求。由这个SP我们可以看到，供应商协议需要列清楚验收的标准。
+		SP 4.2.4: Transition the acquired products from the supplier to the project. 验收通过后，就把产品由供应商那里转交到项目的手中。转交一般会有一些签署交接单、运输、培训之类的工作，一般来说比较简单，但如果要交接的东西比较多，而且对运输要求高的，可能就比较复杂。
+
+	SAM这个PA，简单的说可以分为4点：
+	1)分析项目什么东西需要采购或者外包。
+	2)选择合适的供应商。
+	3)和供应商签署协议，协议要写明产品规格要求、验收要求、双方的活动、交付要求等，尽可能明细。
+	4)履行供应商协议。
+	
+---------------------------------------------------------------------------------------------------------
+
+PA5.度量(Measurement and Analysis): Specific Goals: 2个
+
+CMMI在2级就已经出现对度量方面的要求了，在CMM的时候，没有专门的KPA描述度量的要求，因为这样曾出现过一些2、3级做得很好的企业，
+要花几倍的功夫才能做到4、5级，主要是因为度量的工作之前没有打好基础。我们来看看，CMMI2级的MA，有怎样的一些要求。
+
+	SG5.1: Measurement objectives and activities are aligned with identified information needs and objectives. 
+		   这个SG主要讲述的是，组织级要明确实际的需要，定出度量的目标，并根据此目标，定义合适的度量方法、过程等。
+		   
+		   SG1主要从组织级的角度定义度量的做法，SG2就是按照已定义的做法，在实际工作中开展度量的工作。
+		   
+		SP 5.1.1: Establish and maintain measurement objectives that are derived from indentified information needs and objectives.
+		建立和维护度量目标，这些度量目标是源自特定的需要的。
+		如：质量、进度、成本是项目管理的三大要素，为了更好地管理这三个方面，可能需要分别对这些方面采取度量手段。
+		也就是说，采取任何度量手段之前，要考虑清楚为什么要进行这个度量。
+
+		SP 5.1.2: Specify measures to address the measurement objectives.
+		制定度量办法满足度量目标的要求。
+		明确了为什么要进行度量后，要把度量目标转化成可以实际操作的具体的度量办法。
+		如：度量的目的是，要保证软件的质量，为了实现这么目标，定义出对缺陷进行度量、对评审发现的问题进行度量等度量办法。
+
+		SP 5.1.3: Specify how measurement data will be obtained and stored.
+		制定度量数据的收集及存储办法。
+
+		SP 5.1.4: Specify how measurement data will be analyed and reported.
+		制定度量数据的分析和报告方法。
+
+	SG5.2: Mesurement results the adreess identified information needs and objectives are provided. 
+		   这个SG主要讲述的是：根据组织级定义的要求，进行度量工作，收集、分析、存储、报告度量信息等。
+
+		SP 5.2.1: Obtain specified measurement data.
+		收集指定的度量数据。
+		要根据SP1.3指定的收集办法来收集度量数据。
+		
+		SP 5.2.2: Analyze and interpret measurement data.
+		分析和说明度量数据。
+		根据SP1.4指定的办法，对度量数据进行分析，并说明这些数据的意义。
+		
+		SP 5.2.3: Manage and store measurement data,measurement specifications,and analysis results.
+		管理和存储度量数据、度量规范及度量结果。
+		根据SP1.3指定的存储办法，对度量数据及相关文档进行存储和管理。
+		
+		SP 5.2.4: Report results of measurement and analysis activities to all relevant stakeholders.
+		向相关人员报告度量结果及分析度量活动情况。
+		度量的数据、情况，需要让该知道的人知道。
+
+度量工作有很多学问，所有的度量工作，都需要回答这些问题：
+
+	1.度量的目的是什么？
+	2.谁来做这个度量？
+	3.什么时候做这个度量？
+	4.如何做这个度量？
+	5.怎样记录度量的数据？记录到哪里？
+	6.谁会使用这些数据？
+	7.如何分析这些数据？
+	8.谁来分析这些数据？
+	9.分析的结果如何使用？
+	以上的这些问题，其实都可以找到与之对应的SP。
+	
+---------------------------------------------------------------------------------------------------------
+PA6.配置管理(Configuration Management): Specific Goals: 3个
+	
+	配置项与基线的区别：
+	配置项是需要进行配置管理的最小单位，如：一份文档、一片段代码等。
+	基线是配置项的一种，基线需要进行更加严格的管理。
+	一般配置项的管理等级是：权限控制、版本控制。
+	而基线的管理等级除了具备以上管理外，还需要非常严格的变更控制办法。
+
+	SG6.1: Baselines of identified work products are established. 建立已识别的工作产品的基线。
+
+		SP 6.1.1: Identify the configuration items,components,and related work products that will be placed under configuration management.
+		"识别"需要放于配置管理系统中的配置项、组件和相关工作产品。
+
+		SP 6.1.2: Establish and maintain a configuration management and change management system for controling work products.
+		中文大意是：建立和维护一个"配置管理系统"，用于控制工作产品。
+
+		SP 6.1.3: Create or release baselines for internal use and for delivery to the customer.
+		建立和释放"基线"，用于内部使用或者交付给客户。
+
+	做好配置管理工作，首先做好两步：
+	1)识别需要进行配置管理的东西。
+	2)建立一个配置管理系统来管理需要进行配置管理的东西。
+
+	然后做好两个事情：
+	1)对一般的配置项进行管理。
+	2)对基线级别的配置项进行基线级别的管理。
+
+	SG6.2: Changes to work products under configration management and tracked and controlled.
+	跟踪和控制置于配置管理系统下的工作产品的变更。
+
+		SP 6.2.1: Track change requests for the configuration items.
+		"跟踪"配置项的变更需求。例如：记录变更的原因、时间、提出人等。
+		
+		SP 6.2.2: Control changes to the configuration items.
+		控制配置项的变更。一个配置项发生了变化，与它"相关的配置项"也会可能需要相应改变，需要跟踪和控制整个过程，直到全部变化结束。
+		
+		SP 6.2.3 SP2.2 并没有明确指出是针对配置项还是针对基线的，其实两者都使用，不过是针对配置项还是基线，都需要记录变更需求，另外要跟踪和控制变化，只是针对配置项和针对基线，做的程度不太一样而已。
+
+	SG6.3: Integrity of baselines is established and maintained.
+	建立和维护基线的完整性。什么意思呢？我们看看下面两个SP就知道了。
+
+		SP 6.3.1: Establish and maintain records describing configuration items.
+		建立和维护描述配置项的记录。简单的说，所有的配置管理活动，如变更需求、控制变化的过程、配置项状态等都需要进行必要的记录。
+		
+		SP 6.3.2: Perform configuration audits to maintain integrity of the configuration baselines.
+		执行配置审计来维护配置基线的完整性。
+		
+		什么叫配置审计呢？配置审计分为功能审计和物理审计。
+		功能审计：指工作产品是否满足一定的功能要求，这个工作一般不由配置管理员负责，而是通过文档的评审、软件的测试进行。
+		物理审计：就是检查工作产品是否符合格式、版本号等方面的要求，一般有配置管理元负责。
+		
+		配置项要进入配置库前，都应该经历审计，保证其符合要求，保证后续工作产品的正确性。如果是基线级别的工作产品要进入配置库，需要接受更加严格的审计。
+
+	配置管理的学问非常多，欢迎大家提出问题。
+
+ 什么是配置管理？
+ 
+ 这个问题好难回答，我们可以找到很多解释，但真正理解配置管理的人可能不多。
+配置管理的概念非常多，我们可不愿意做理论家，我们是非常务实的，我们先看看，如果没有有效的配置管理，可能会出现什么问题：
+1)软件在开发环境没有问题，测试的时候也没有问题，但发布给客户的时候就有问题。
+2)修改一个缺陷后，以前已经解决的缺陷又再次出现。
+3)以前已经搞定的问题，无缘无故再次出现。
+4)需求变更后，必须问最熟悉的人才知道需要修改那部分的文档、代码来实现新的需求。
+5)找不回之前某个版本的设计、代码。
+
+配置管理无非就是解决这些问题嘛，于是有人便用了一些什么工具，建立了什么基线，成立了什么变更控制委员会，对所有的变更进行严格的控制。这时有出现了以下问题：
+项目组苦不堪言，调整一下计划都需要提什么变更申请，修改什么设计文档也要经过一番审批，天啊，配置管理就是这样的吗？
+
+配置管理是对软件生产过程中的各类工作产品进行管理的办法，要做这个工作之前，应该先理清楚到底会有什么工作产品，这些工作产品的依赖关系是怎样的，哪些是重要的工作产品，不同的工作产品需要什么层次的管理。
+大概有以下的管理层次：
+1)不需要管理的。
+2)需要保存起来便可。
+3)要保存起来，并且要对访问权限进行控制，可能某些人只能读，某些人能读写。
+4)需要进行版本管理。
+5)需要进行基线级别的管理，即需要进行变更申请。
+
+大家可以看到，配置管理其实很讲学问的，要做好配置管理工作，
+
+"先要把工作产品的依赖关系画出来，找出关键的工作产品，然后决定每个工作产品需要的管理层次。"
+
+这些考虑好后，才考虑用什么工具对工作产品进行管理。
+
+要做好配置管理，工具却是很重要，向大家介绍一下我们公司用的工具：
+1)我们用SharePoint来管理文档。
+2)我们用CVS来管理代码(目前我们正在试用Subversion)
+3)我们用网络文件夹的方式来管理配置库、产品库。
+
+大家首先要理解好配置管理的原理，然后结合工具，才能把配置管理工作做好。
+
+SharePoint是很强的一个平台，配置管理只是其中一个很小的功能，我们基于这个平台做了很多事情：
+1)项目管理跟踪
+2)资产库平台
+3)内部办公系统
+4)培训平台
+SharePoint最强的地方就是可以订制出很多内容出来，满足很多需要。
+---------------------------------------------------------------------------------------------------------
+PA7.过程与产品质量保证(Process and Product Quality Assurance): Specific Goals: 2个
+
+	SG7.1: Adherence of the performed process and associated work products and services to applicable process descriptions,standards,and procedures is objectively evaluated.
+	中文大意是：依据一定的标准的客观地评估被执行的过程及相应的工作产品。这里要注意几点：
+	1)要有一定的标准，这是基础。
+	2)评估要客观。
+	3)要对过程、产品都进行评估。
+
+		SP 7.1.1: Objectively evaluate the designed performed processes against the applicable process descriptions,standards,and procedures.
+		中文大意是：依据一定的标准客观地评价过程。
+		
+		SP 7.1.2: Objectively evaluate the designated work products and services against the applicable process descriptions,standards,and procedures.
+		中文大意是：依据一定的标准客观地评价工作产品。
+
+如何检查软件生产活动，保证按照组织的相应规定进行了，无非就是两个方面，一个是看看活动的过程是否按照组织的要求进行，另外一个方面就是看看活动过程中产生的工作产品是否符合组织的要求，例如是否符合模板要求、是否有要求的内容等。
+这两个SP看上去简单，其实要做好，要做到两点：
+1)组织定义的过程、工作产品的模版一定要明确、合理，并且具有可检查性。
+2)QA对要理解要检查的过程和工作产品。
+
+	SG7.2: Noncompliance issues are objectively tracked and communicated,and resolution is ensured.
+	中文大意是：发现的问题要客观地被跟踪、沟通并解决。
+
+		SP 7.2.1: Communicate quality issues and ensure resolution of noncompliance issues with the staff and managers.
+		中文大意是：要和员工和管理者进行沟通，并保证解决问题。这个SP有两点要求：
+		1.QA发现的问题一定要与相关的员工和管理者进行有效的沟通。
+		2.要保证发现的问题最后被解决。
+
+		SP 7.2.2: Establish and maitain records of the quality assurance activities.
+		中文大意是：建立和维护质量保证活动的记录。
+
+PPQA只有4个SP，非常简单，但要做好很不容易，下面列举一下QA工作中常见的问题：
+1.QA与被检查者的关系不好。
+2.被检查者以应付的心态应付QA的检查。
+3.QA经常埋怨被检查者不按规定干活。
+4.被检查者埋怨QA不理解项目的状况，指挥按条条框框办事。
+
+这些问题，总结起来无非是以下的原因：
+1.过程本身制定就很有问题，很难按照过程执行。
+2.QA缺少软件开发经验，对过程理解不深。
+3.QA没有更关注问题的预防，在过程未进行之前，没有对执行过程者进行相应的教育，让过程执行者明白这个过程的道理。
+4.QA没有去了解项目的背景以及相关的技术，无法对项目组成员提供有效的执行过程的指导，只能依据条条框框进行指引，项目组无法理解过程的价值。
+
+简单的说只有两个方面，一个就是过程本身的质量，一方面就是QA的水平了。
+
+有人可能会说，过程就算是错的，也需要执行，在执行中持续改进。这个观点在某些情况下是不对的，要看过程错的程度。如果过程错到根本无法执行，这样强硬执行的话，肯定吃力不讨好。
+在刚建立过程的时候，不宜太死，可以适当宽松，另外应该鼓励项目组定义自己的做法，然后QA就按照项目组自已定义的做法来监督执行。通过不断的积累，就可以建立比较完善的过程。
+
+

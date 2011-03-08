@@ -52,7 +52,7 @@ public class MyTest
 //    		System.out.println(ary[i]);
 //    	}
     	
-    	System.out.println("部分撤销记录明细:");
+    	/*System.out.println("部分撤销记录明细:");
     	System.out.println("序号           姓名                证件号码            撤消原因");
     	int count = 500;
     	int TOTAL_ROWS = 30;// 每页30行
@@ -72,7 +72,10 @@ public class MyTest
     				System.out.println("换页");
             	}
     		}
-    	}
+    	}*/
+    	String x = "50.00";
+		System.out.println(Integer.parseInt(x));
+	}
     }
 
 }

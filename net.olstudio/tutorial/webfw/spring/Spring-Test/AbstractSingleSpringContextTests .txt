@@ -1,0 +1,37 @@
+sAbstractSingleSpringContextTests继承于AbstractSpringContextTests，
+它通过一些方法让你方便地指定Spring配置文件所在位置： 
+
+*********************************************************************
+String[] getConfigLocations()：
+
+该方法允许你在指定Spring配置文件时使用资源类型前缀，
+这些资源类型前缀包括：classpath:、 file:。
+以类似于"com/baobaotao/beans.xml"形式指定的资源被当成类路径资源处理；
+
+*********************************************************************
+String[] getConfigPaths()：
+
+以"/"开头的地址被当成类路径处理，如"/com/baobaotao/beans.xml"，
+
+而未以"/"开头的地址被当成相对于测试类所在包的文件路径，如"beans.xml"表示配置文件在测试类所在类包的目录下；
+
+*********************************************************************
+String getConfigPath()：和getConfigPaths()类似，
+
+在仅需指定一个配置文件中使用。 
+
+以上三个方法，它们的优先级和我们介绍的先后顺序对应，也就是说，
+
+当你在子类中覆盖了getConfigLocations()方法后，其它两个方法就没有意义了。
+
+所以你仅需选择三者当中适合的方法进行覆盖，而没有必要同时覆盖多个方法。
+
+AbstractSingleSpringContextTests 将根据这些方法指定的Spring配置文件初始化Spring容器，然后将Spring容器引用添加到static缓存中。
+并通过 getApplicationContext()向子类开放ApplicationContext的引用。
+
+
+一般情况下，所有的测试类和测试方法都可以共享这个Spring容器直到测试完结，不过在某些极端情况下，
+测试方法可能会对Spring容器进行改动（比如通过程序改变Bean的配置定义），
+如果这种改变对于其它测试方法来说是有干扰的，这就相当于“弄脏”了作为测试现场的Spring容器，
+因此在下一个测试方法执行前必须“抹除”这个改变。你可以简单地在会“弄脏”Spring容器的测试方法中添加setDirty()方法向 AbstractSingleSpringContextTests报告这一行为
+，这样在下一个测试方法执行前， AbstractSingleSpringContextTests就会重新加载Spring容器以修补被“弄脏”的部分。

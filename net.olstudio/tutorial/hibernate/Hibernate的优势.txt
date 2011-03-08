@@ -1,0 +1,59 @@
+学习了一段时间的ibatis，我觉得hibernate有着ibatis无法替代的优势。
+
+1、  开发者都知道，hibernate让我们以oo的方式操作数据库，这让我们看到了hibernate的强大之处，体验到操作数据的方便。但Gavin King说，hibernate最耀眼之处是hibernate的缓存机制，而不是以oo的方式操作数据库。Hibernate的缓存机制不外乎是一级缓存session，二级缓存sessionFactory，和第三方缓存如ehcache。也就是hibernate的最强大的地方是它的缓存，理解了这个才能真正的理解hibernate。缓存实在太难了，我至今未能真正理解。
+
+2、  可维护性：ibatis宣扬写sql语句，它将sql语句放进一个单独的xml文件，这种方式赢得了很多开发者的喜爱，一句话，方便维护。但hibernate同样具有这种功能，而且比ibatis更加强大。Hibernate的命名查询/命名参数查询，就是将hql语句放在一个单独的xml文件之中，它仍然让人们以面向对象的方式去操纵数据，这得到大量遵循oo方式开发者的喜爱，而不用在以oo的方式写着代码的同时，然后再转变思维，用面向关系的方式去写那些sql语句。但hibernate不仅做了这些，它的native sql查询方式，完全满足sql语句的偏爱者，它像ibatis一样，将sql语句放在配置文件之中。
+
+3、  性能：我坚信，hibernate性能问题不是问题。想想那么多大中小项目都在使用hibernate，你还怀疑hibernate的性能吗？spring整合hibernate之后，在真正性能瓶颈的地方，完全可以使用spring集成的jdbc，或直接写存储过程得了。但首先得确认，这实在是性能瓶颈的地方，我想，不应想当然的认为性能的问题，所谓的性能问题阻挠了很多人。
+
+我认为，性能的好坏无外是发送sql语句的多少而已。性能好，发送的sql语句少，性能差，就是发送大量的sql语句。Hibernate在解决性能问题方面做得非常好。
+
+有了它的缓存机制，使用第三方缓存和数据库连接池，就较好的解决的性能问题。
+
+但这些还不够，hibernate给了开发者足够的自由，让开发者自己去控制性能问题。
+
+我认为开发者可以在以下几个方面自行调优：
+
+a、  在查询字符串中，应该总是使用jdbc的占位符？，或使用使用命名参数：，不要自查询中使用字符串值来代替非常量值。
+
+b、  Flush会影响性能，频繁刷新影响性能，尽量减少不必要的刷新。
+
+c、  Cascade策略，在几对几的关系，正确设置cascade策略，想清楚在操作对象A的同时是否需要级联操作对象B，比如在one to many的父子关系中，删除了父亲one，需级联删除子many，这时的one这端可设置cascade = “delete”，这样在删除one时，会自动删除子，但对子的操作不会影响父。Cascade还有其他的属性值，只要设置正确，可提升性能。
+
+d、  lazy策略，正确设置延迟加载策略同样会提升性能，在one to many或many to many中，通常总应该延迟加载many的一方的到内存。设置了lazy = “true”，首先发送sql语句，加载自己到内存，到需要时才加载级联对象；lazy=”false”,则会同时加载自己和级联对象到内存。
+
+e、  另外还有集合的性能(set、list、map、array)，都应正确设置。
+
+f、正确使用第三方缓存，在读操作频繁写操作不多的情况，使用第三方缓存可大幅度提升性能，如ehcache的缓存策略有：read-only，read-write和notstrict-read-write。
+
+f、   随着hibernate新版本的发布，和技术的发展，我相信hibernate的性能会越来越好，所有性能不是不使用hibernate的原因。
+
+4、  hibernate不仅仅作为持久层的orm框架存在，它除了dao层的持久化操作外，还有很多。
+
+在注解annotation已经走向主流的今天，hibernate 迅速响应，让xml部署描述符成为可选的。Hibernate annotation 对大字段的处理只是一个@Lob就搞定了。
+
+hibernate search对Lucene进行了轻量级的封装，全文检索变得非常简单。
+
+Hibernate validator被认为是最合理的验证方式，将验证策略直接附在贯穿各层的领域模型domain上，不再需要哪些web框架的xml方式的验证，代码中不再出现大量的非空/null的判断。
+
+5、  jbpm， Jbpm业务流程引擎的持久层采用hibenrnate来实现，要想使用jbpm，hibernate是必须的。我想，业务流程管理无比重要，在soa迅速发展的今天，如果实施soa项目，业务流程管理是必然和必须的。因为soa就是业务和it技术的融合，是业务流程管理和it基础架构的融合。在soa中，业务管理是第一位的，这需要相应的技术来实现该业务流程管理。开源领域的jbpm我想会是首选。所以，为了将来有可能实施soa项目，为了实现soa的业务流程管理，应该使用hibernate。
+
+6、  大家都知道，hibernate将ejb2时代的实体bean赶进了历史，而ejb3的jpa标准也只不过是hibernate的子集而已。jsr规范请求的威力是巨大的，没有各种jsr规范请求，就不会有各种应用程序框架，各种应用程序框架只是那些jsr规范请求的实现者。jpa作为持久层的规范标准，引导持久层orm框架的方向，jpa同样以面向对象的方式操作数据库，而不是写sql语句。规范标准都完全orm，不写sql了，你还有理由不跟着它吗？
+
+7、  Spring+hibernate+范型+可变参数，这是一个非常强大的组合，对应普通的crud操作，你不再需要重复写那些烦人的相似的dao层和manager层的代码，仅仅需要写一次，就完成了所有大量的crud操作。Ibatis尽管也支持范型，但始终没有hibernate支持的好
+
+8、  Jboss，hibernate是jboss的项目，jboss的所有项目的持久层都采用的hibernate，要知道，jsr规范组的专家们大多数是来自jboss的，在一定程度上说，jboo引领着java的发展方向。使用hibernate，跟着jboss，不偏离java的发展方向。
+
+9、  Gavin King，我最崇拜的偶像，他不仅发明了强大的hibernate，还搞出了同样强大且优雅的web2.0应用程序框架seam。他是ejb3.0专家组成员之一，是jpa规范请求的领导者，他java领域最有发言权、最权威的领袖人物之一。现在，他领导web bean的，jsr299的发展，web bean规范的制定，全球软件巨头如ibm、oracle、bea和apache没有一个反对，纷纷响应。Web bean，想象起来，实在太美好了，完全的松耦合和强类型，所有的应用组件生活在一个应用组件上下文context中，相互合作。那时将不再有各种各样的上下文环境，不再有struts2的ActionContext，不再有spring的ApplicationContext，不再有hibernate的session，不再有持久化上下文，不再有事务上下文，不再有安全上下文，所有组件生活在一个大家庭中，大家其乐融融，实现天下的大和平。
+
+10、   osgi，我认为现在最值得学习的一个技术，有了osgi，实现真正的多模块开发，改变传统的开发方式。现在，已经有了hibernate osgi，spring dynamic modul(osgi),struts 2 同样实现了对osgi的支持。目前，eclipse是基于osgi开发的，ibm的websphere v6.1，bea的所有产品都重构在osgi上，spring的应用服务器同样基于osgi，在EclipseCon2007上，osgi成为了主要的话题。Osgi受到如此的待遇，一点不奇怪，因为他具有无比强大的功能，改变传统的软件开发方式。Osgi采用树设计模式，将一个项目分成多个模块(bundle)，每个模块单独部署，单独运行，说白了，就是将一个工程分成许多的插件，每个插件单独开发，重复使用，实现完全的即插即用。太令人激动了。如果公司的软件开发基于osgi，将会有大量的重复使用的osgi bundles，公司将会积累大量的无形资产，软件开发将会越来越快。而ibatis现在还没见到对osgi的支持。
+
+11、hibernate的社区非常繁荣，ibatis则相对平静。  
+
+综述，hibernate还有很多优秀的特点，只是我们不知道。Hibernate与ibatis，就像大家闺秀对小家碧玉，大家闺秀不仅具有小家碧玉的全部，而且知名度更高，更受尊敬，更受人追捧，更有发展前途。小家碧玉尽管也很有魅力，但始终比上大家闺秀。
+
+Hibernate所做的不仅仅是dao层的持久化工作，而ibatis恰恰如此。
+
+选择hibernate，选择orm的王者，选择更全面的工作体验，选择更高效的工作方式，选择更多的利润；选择Gavin King，跟着领袖走；选择jboss，追随开源的潮流，不偏离java的发展方向。
+
+一切都不是借口。一切都在发展，hibernate会越来越好。

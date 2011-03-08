@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="gbk"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_0_0.xsd">
+	
+<head>
+<title>无限级CSS树形菜单 Ver2.0 - by CNLEI</title>
+<meta http-equiv="content-type" content="text/html;charset=gb2312" />
+<meta name="generator" content="editplus" />
+<meta name="author" content="CNLEI ,cnlei.y.l@gmail.com" />
+<meta name="keywords" content="无限级CSS树形菜单 Ver2.0" />
+<meta name="description" content="" />
+<link type="text/css" rel="stylesheet" href="lTREE.2.css" />
+<style type="text/css">
+#lTREEMenuDEMO {width:380px;border:1px solid #ccc;margin:0px;padding:3px;}
+#infoBox {position:absolute;left:450px;top:40px;border:1px solid #ccc;width:400px;padding:0 10px;font-family:"宋体",Geneva,Arial,sans-serif;line-height:150%;}
+#debugMSG strong {color:#f00;}
+</style>
+<!--[if IE 6]>
+<script>
+document.execCommand("BackgroundImageCache", false, true);
+</script>
+<![endif]-->
+</head>
+<body>
+<div></div>
+<div id="infoBox">
+<p>**************************************<br />
+无限级CSS TreeMenu Ver2.0<br />
+Version: Ver 2.0<br />
+Author : CNLei, 枫岩<br />
+E-Mail : CNLei.Y.L@gmail.com<br />
+MySite : <a href="http://www.cnlei.com" title="www.cnlei.com">http://www.cnlei.com</a><br />
+Passed : IE6.0+, FF1.5+, Opera8.5+, Safari 3.0+<br />
+Update : 2008-5-19<br />
+**************************************<br />
+</p>
+<p id="debugMSG"></p>
+</div>
+<p><input type="button" value="全部关闭" onclick="lTree.setAll(0);" />&nbsp;<input type="button" value="全部展开" onclick="lTree.setAll(1);" /></p>
+<!--lTREEMenu Start:-->
+
+<div class="lTREEMenu lTREENormal" id="lTREEMenuDEMO">
+	<dl id="dlroot">
+ 	<dd><a href="http://WWW.CNLEI.COM">一级菜单</a>
+ 		 <dl>
+    	 	<dd>
+    	 		<a href="#1">二级菜单</a>
+    	 		<dl>
+	     			<dt><a href="http://WWW.CNLEI.COM" target="_blank">三级菜单</a></dt> 
+	     			<dt><a href="http://WWW.CNLEI.COM" target="_blank">三级菜单</a></dt>
+	     		</dl>
+	     	</dd>
+	     </dl>
+	   </dd>
+	   </dl>
+</div>
+<!--lTREEMenuDEMO End-->
+<script type="text/javascript" src="js/Array.js"></script>
+<script type="text/javascript" src="js/lDOM.js"></script>
+<script type="text/javascript" src="js/lTREE.js"></script>
+<script type="text/javascript">
+<!--
+var lTree = new lTREE();
+var t=new Date();
+lTree.init({
+	id		: "lTREEMenuDEMO",
+	path	: "dl dd",
+	classClosed: "Closed",
+	openAll	: false
+});
+
+/////////////////////////////测试信息Start:///////////////////////////////////////////
+var msg=[];
+msg.push("初始化用时:&nbsp;");
+msg.push(new Date()-t);
+msg.push("&nbsp;毫秒");
+msg.push("<br />结点总个数:&nbsp;&nbsp;<strong>"+(lTree.item.length+lDOM.$("lTREEMenuDEMO").getElementsByTagName("dt").length)+"</strong> 个");
+msg.push("<br />分类结点(分枝):&nbsp;"+lTree.item.length+" 个");
+msg.push("<br />数据结点(叶子):&nbsp;"+lDOM.$("lTREEMenuDEMO").getElementsByTagName("dt").length+" 条")
+msg.push("<br />------------------------------------<br />")
+for(var x in lDOM.BV) {
+	msg.push(x);
+	msg.push("&nbsp;:&nbsp;");
+	msg.push(lDOM.BV[x]===true?"<strong>"+lDOM.BV[x]+"</strong>":lDOM.BV[x]);
+	msg.push("<br />");
+}
+lDOM.$("debugMSG").innerHTML=msg.join("\n");
+/////////////////////////////测试信息 End.///////////////////////////////////////////
+-->
+</script>
+</body>
+</html>

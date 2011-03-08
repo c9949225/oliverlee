@@ -1,0 +1,170 @@
+1-Spring AOP defaults to using standard J2SE dynamic proxies  for AOP proxies. 
+This enables any interface (or set of interfaces) to be proxied.
+
+2-Spring AOP can also use CGLIB proxies. This is necessary to proxy classes, rather than interfaces. 
+CGLIB is used by default if a business object does not implement an interface. 
+
+3-Spring2.0支持使用schema-based和@AspectJ标注方式实现Aspects,两个都自持AspectJ pointcut语言。
+同样向后兼容Spring Aop。
+
+4-添加@AspectJ支持
+<aop:aspectj-autoproxy/>
+或者
+<bean class="org.springframework.aop.aspectj.annotation.AnnotationAwareAspectJAutoProxyCreator" />
+
+5-当@AspectJ支持开启后,任何在ApplicationContext中配置的Bean(类经过@Aspect)会被自动检测和配置Spring Aop
+
+-------------------------------------------------------------------------------------------------
+6-简单例子(定义一个Aspects拦截器):
+
+一个基本的Bean只不过它的类加了@Aspect标注
+
+package org.xyz;
+import org.aspectj.lang.annotation.Aspect;
+
+@Aspect
+public class NotVeryUsefulAspect {
+
+	@Pointcut("execution(* transfer(..))")//当执行任何类的任何叫做transfer的方法的时候调用anyOldTransfer
+	private void anyOldTransfer() {}// the pointcut signature
+
+}
+
+<bean id="myAspect" class="org.xyz.NotVeryUsefulAspect">
+   <!-- configure properties of aspect here as normal -->
+</bean>
+-------------------------------------------------------------------------------------------------
+
+7-
+execution - 当匹配的方法执行
+within - 限定匹配的方法在某些类型内
+this - 限制匹配方法的Bean引用必须是指定的类型
+target - 限制匹配方法的类必须是指定的类
+args - 限制匹配方法的参数为指定的类的实例
+@target - 限制匹配方法的类要有指定的标注
+@args - 限制匹配方法的参数要有指定的标注
+@within - 
+@annotation - 限制匹配的方法必须包含指定的标注
+
+-------------------------------------------------------------------------------------------------
+
+8-
+package com.xyz.someapp;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Pointcut;
+
+@Aspect
+public class SystemArchitecture {
+/**
+* A join point is in the web layer if the method is defined
+* in a type in the com.xyz.someapp.web package or any sub-package
+* under that.
+*/
+@Pointcut("within(com.xyz.someapp.web..*)")
+public void inWebLayer() {}
+
+/**
+* A join point is in the service layer if the method is defined
+* in a type in the com.xyz.someapp.service package or any sub-package
+* under that.
+*/
+@Pointcut("within(com.xyz.someapp.service..*)")
+public void inServiceLayer() {}
+
+/**
+* A join point is in the data access layer if the method is defined
+* in a type in the com.xyz.someapp.dao package or any sub-package
+* under that.
+*/
+@Pointcut("within(com.xyz.someapp.dao..*)")
+public void inDataAccessLayer() {}
+
+/**
+* A business service is the execution of any method defined on a service
+* interface. This definition assumes that interfaces are placed in the
+* "service" package, and that implementation types are in sub-packages.
+*
+* If you group service interfaces by functional area (for example,
+* in packages com.xyz.someapp.abc.service and com.xyz.def.service) then
+* the pointcut expression "execution(* com.xyz.someapp..service.*.*(..))"
+* could be used instead.
+*
+* Alternatively, you can write the expression using the 'bean'
+* PCD, like so "bean(*Service)". (This assumes that you have
+* named your Spring service beans in a consistent fashion.)
+*/
+@Pointcut("execution(* com.xyz.someapp.service.*.*(..))")
+public void businessService() {}
+
+/**
+* A data access operation is the execution of any method defined on a
+* dao interface. This definition assumes that interfaces are placed in the
+* "dao" package, and that implementation types are in sub-packages.
+*/
+@Pointcut("execution(* com.xyz.someapp.dao.*.*(..))")
+public void dataAccessOperation() {}
+
+}
+
+<aop:config>
+	<aop:advisor
+	pointcut="com.xyz.someapp.SystemArchitecture.businessService()"
+	advice-ref="tx-advice"/>
+</aop:config>
+
+<tx:advice id="tx-advice">
+	<tx:attributes>
+	<tx:method name="*" propagation="REQUIRED"/>
+	</tx:attributes>
+</tx:advice>
+
+-------------------------------------------------------------------------------------------------
+
+execution(public * *(..)) // 任何公共方法的执行
+
+execution(* set*(..)) // 任何以set开头的方法的执行
+
+execution(* com.xyz.service.AccountService.*(..)) // AccountService接口的任何方法的执行
+
+execution(* com.xyz.service.*.*(..)) // service包的任何方法的执行排除子包
+ 
+execution(* com.xyz.service..*.*(..))  // service包的任何方法的执行包括子包
+
+within(com.xyz.service.*) // service包中的任何连接点(只在AOP中执行的方法)
+
+within(com.xyz.service..*) // service包中的任何连接点包括子包
+
+this(com.xyz.service.AccountService) // 实现AccountService接口的代理的任何连接点'this' is more commonly used in a binding form :
+
+target(com.xyz.service.AccountService)// 实现AccountService接口的代理的任何连接点
+
+-------------------------------------------------------------------------------------------------
+
+
+@Pointcut("execution(public * *(..))") // 匹配所有公共方法 *限定符 *方法名
+private void anyPublicOperation() {}
+    
+@Pointcut("within(com.xyz.someapp.trading..*")
+private void inTrading() {}
+    
+@Pointcut("anyPublicOperation() && inTrading()")
+private void tradingOperation() {}
+
+Aspects (classes annotated with @Aspect)可以包含属性方法象一般的类一样,也可以包含pointcut,advice,introduction。
+
+Aspects其实只不过是类似于Adivce的概念，可以对一个对象进行拦截。而他本身不能被其他Aspects拦截。
+所以Aspects不可以被自动代理。
+
+pointcuts用来决定Advice什么时候执行,Spring AOP only supports method execution join points for Spring beans, 
+so you can think of a pointcut as matching the execution of methods on Spring beans.匹配Spring Bean的方法。
+
+call(void Figure.make*(..)) Figure的所有以make开头不计参数类型的方法
+call(public * Figure.* (..)) Figure的所有Public方法
+
+使用advice来实现在pointcuts上真正的动作
+Before advice runs as a join point is reached, before the program proceeds with the join point.
+After advice on a particular join point runs after the program proceeds with that join point. For example, after advice on a method call join point runs after the method body has run, just before before control is returned to the caller. 
+
+
+
+ 

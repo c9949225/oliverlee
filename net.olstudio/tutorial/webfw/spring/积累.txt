@@ -1,0 +1,214 @@
+------------------------------------------------------------------------------------------------
+1-Spring的根context由ContextLoaderListener从"/WEB-INF/applicationContext.xml"或contextConfigLocation参数
+加载，其他的子context可以自己写程序加载每个子context设置parent为根context。(不同的Servlet可以分别有自己的Context)子Context
+可以getBean/ref bean到父context,父context不可以看到子context,子context之间不可以互访。
+------------------------------------------------------------------------------------------------
+2-@Autowired 默认按类型匹配
+------------------------------------------------------------------------------------------------
+3-BeanFactoryPostProcessor接口
+
+在BeanFactory载入Bean定义档的所有内容，但还没正式产生Bean实例之前，您可以对该BeanFactory进行一些处理，
+您只要实作 org.springframework.beans.factory.config.BeanFactoryPostProcessor：
+
+package org.springframework.beans.factory.config;
+public interface BeanFactoryPostProcessor {
+    public void postProcessBeanFactory(
+             ConfigurableListableBeanFactory beanFactory) throws BeansException;
+}
+
+假设您有一个SomClass实作了BeanFactoryPostProcessor，则您可以在Bean定义档中定义它：
+...
+<beans> 
+	...
+    <bean id="beanFactoryModifier" class="onlyfun.caterpillar.SomeClass"/>
+    <bean id="helloBean" class="onlyfun.caterpillar.HelloBean">
+    ....
+</beans>
+
+使用ApplicationContext时，若Bean定义档中有定义实作BeanFactoryPostProcessor的类别，
+则ApplicationContext会自动应用。
+
+在Spring中有几个BeanFactoryPostProcessor的实作实例，像是：
+org.springframework.beans.factory.config.PropertyPlaceholderConfigurer 
+org.springframework.beans.factory.config.PropertyOverrideConfigurer
+org.springframework.beans.factory.config.CustomEditorConfigurer。
+------------------------------------------------------------------------------------------------
+5-读取Jar包中的配置文件
+ <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:/applicationContext-resources.xml
+            classpath:/applicationContext-dao.xml
+            classpath:/applicationContext-service.xml
+            classpath*:/applicationContext.xml
+            /WEB-INF/applicationContext*.xml
+            /WEB-INF/xfire-servlet.xml
+            /WEB-INF/security.xml
+        </param-value>
+    </context-param>
+------------------------------------------------------------------------------------------------
+6-OncePerRequestFilter 一般情况下过滤器在返回的时候也会被执行一次，继承这个类保证过滤器只执行一次
+------------------------------------------------------------------------------------------------
+
+7-In a Spring Controller, you can access your Locale with RequestContextUtils, like this:
+
+Locale locale = RequestContextUtils.getLocale(request);
+
+However, sometimes you don't want to pass your request around, so then you can use this nice class which uses a ThreadLocal to hold to locale:
+
+Locale locale = LocaleContextHolder.getLocale();
+------------------------------------------------------------------------------------------------
+
+8-FactoryBean还藏有一个技巧，也就是在我们实际需要返回FactoryBean实例时，应该怎么办。也就是我们在应用程序中需要通过容器得到一个FactoryBean。此时，需要使用特殊的方式，即在bean的名称前加上一个特殊符号“&”即可。
+　　如，下面的代码：
+System.out.println(factory.getBean("&myFactoryBean").getClass());
+ System.out.println(factory.getBean("&myFactoryBean1").getClass());
+输出的结果将会是：
+class springroad.deomo.chap4.FactoryBeanDemo
+class springroad.deomo.chap4.FactoryBeanDemo
+
+9-Spring的jdbcTemplate的方法如execute每次执行都会get一个Connection，而且每个Connection有时是不同的，
+这样在使用临时表就会遇到麻烦，因为临时表的生命周期在一个connection内，不同的Connection不能访问同一个临时表，
+请问有哪位高手懂得处理jdbcTemplate使用临时表的问题啊。麻烦告诉一下，谢谢
+
+10-定义资源文件获得资源文件的消息，国际化信息
+<bean id="messageResource" class="org.springFramework.context.support.ResourceBoundleMessageSource">
+<property name="basenames">
+  xxxx
+</property>
+</bean>
+将会搜索xxxx.properties,xxxx_zh.properties ,xxxx_ch.properties等。
+
+11-ref 在 Spring 的 配置文件中总是 指示Spring runtime 把一个bean 的 对象引用设置在目标bean上。
+经常的<ref bean="aaa"/>或者<ref local="bbb"/>，这两者有什么区别？
+看了http://www.springframework.org/dtd/spring-beans.dtd才明白，原来bean的类型是CDATA，local是IDREF，这表示，如果用local，那么，当前xml中必须存在id为"bbb"的bean声明，否则xml validator会报错的。
+这也是local的本来含义，就是“本地”的bean。
+如果<ref>指向的bean是在其它的配置中声明的，那么，必须用bean属性设置
+
+12-
+BeanFacory
+所有bean factory的父接口，提供了创建bean和管理bean的生命周期的方法
+
+HierarchicalBeanFactory
+实现了factory的继承体系，可以通过factory的父factory查找bean
+
+ListableBeanFactory
+提供了对factory中的bean的遍历访问方法，但不会从factory的继承关系中查找。
+
+AutowireCapableBeanFactory
+提供对一个已经存在的对象进行dependency injection的功能；或者利用反射机制，根据一个类的全名
+对它进行injection并返回它
+
+ConfigurableBeanFactory
+可以在初始化阶段对factory进行一些额外的配置
+
+Application Context
+功能更强大的factory bean。主要特性：General framework-oriented usage style,MessageSource
+support,Support for application and framework events,ResourceLoader support。
+
+13-Singleton versus prototype bean
+默认情况下容器创建的bean为singleton，这就要求bean被设计成无状态、线程安全的，容器会保持对
+这种bean的引用;prototype bean可以有多个实例，容器不会保持对它们的引用
+
+14-创建bean的三种方式
+class;class+static factory method;factory bean+factory method
+
+15-property标签中可用的子标签
+(bean | ref | idref | list | set | map | props | value | null)
+ref标签
+分三类：local,bean,parent。local只能引用当前xml中定义的bean；bean可以引用当前和外部xml中定
+义的bean；parent只能引用父factory中定义的bean
+value标签
+指定属性的值。如果要将属性设置为null，必须使用标签。否则被认为是""
+list,set,map,props标签
+使用它们时，对应的Java类的属性的类型必须为List,Set或Map，而不能是specific type如ArrayList.
+如果一定要使用可以选择ListFactoryBean,SetFactoryBean,MapfactoryBean等factory bean
+bean标签
+用来定义inner bean。这个bean只被包含它的bean使用，且一定是prototype的。
+
+16-改变bean的初始化顺序
+使用depends-on属性定义需要先初始化的bean
+
+17-Autowiring Dependencies
+基于反射实现，通过autowire属性设置，共有五个级别。很容易造成混乱,需慎用
+
+no:默认值,不使用autowiring
+
+byName:通过Java类中属性的名称在factory中查找同名的bean，可以通过设置dependencycheck来改变
+查找不匹配时的处理方式。
+
+byType:通过Java类中属性的类型在factory中查找同类型的bean，若匹配的数量超过一个则报错，可以
+通过设置dependencycheck来改变查找不匹配时的处理方式。
+
+constructor:对Java类中定义的每个constructor，通过参数类型在factory中查找bean，使用最匹配的
+那个constructor
+
+autodetect:如果Java类有无参constructor，使用byType，否则使用constructor
+
+18-bean的依赖性校验
+可以通过设置dependency-check属性来改变校验级别，共四个：
+none:默认的级别，不进行校验
+simple:校验primitive type和collections类型的属性
+object:校验除primitive type和collections以外的类型的属性
+all:校验所有类型的属性
+
+19-setBeanName(),setBeanFactory(),setResourceLoader(),setApplicationEventPublisher(),
+setMessageSource(),setApplicationContext()等方法被调用-如果bean实现了对应的接口，则这些方
+法被调用(BeanNameAware,BeanFactoryAware,...)
+
+20-Bean post-processors get "before-initialization" callback-在容器中注册过的post-processor的
+方法被调用
+
+afterPropertiesSet() called-如果bean实现了InitializingBean接口
+Declared init method called-bean的声明中指定了init-method
+
+Bean post-processors get "after-initialization" callback-在容器中注册过的post-processor的
+方法被调用
+
+Bean is used-容器只会保持对singleton bean的引用，所以下面的过程prototype bean不会参与
+Bean destruction begin-bean被销毁的顺序和初始顺序相反
+Bean post-processors get "destroy" callback-在容器中注册过的post-processor的方法被调用
+destroy() called-如果bean实现了DisposableBean接口
+Declared destroy method called-如果bean的声明中指定了destroy-method
+
+21-FactoryBean接口
+用来创建其他对象的bean。当其他bean使用标签引用或者通过getBean()方法得到FactoryBean时
+，容器返回的不是这个bean本身，而是通过它的getObject()方法得到返回对象。若想得到FactoryBean本
+身，可以在它的名字前加'&'，如getBean("&aFactoryBean")。
+
+22-Spring中内置的FactoryBean：
+JndiObjectFactoryBean-用于JNDI查找的factory bean
+ProxyFactoryBean-使用代理机制，返回一个被“包装”过的类，提供一些额外的功能
+TransactionProxyFactoryBean-使用代理机制，返回一个被“包装”过的类，提供事务处理功能
+RmiProxyFactoryBean-使用代理机制，返回一个被“包装”过的类，提供远程方法调用
+LocalSessionFactoryBean-配置并返回一个Hibernate SessionFactory对象
+LocalStatelessSessionProxyFactoryBean,SimpleRemoteStatelessSessionProxyFactoryBean-使用代
+理机制，返回一个被“包装”过的类，提供访问无状态Session Bean的功能
+MethodInvokingFactoryBean-返回另一个bean的方法调用的结果
+FieldRetrievingFactoryBean-返回另一个bean的属性的值
+JMS-related factory beans-返回处理JMS资源的对象
+
+23-Child Bean的定义
+使用parent=xxx来指定parent bean。
+child bean从parent bean中继承了属性、构造器参数的定义，如果定义child bean时指定了不同的
+class，则这个class必须包含对应的属性或者有满足对应参数的构造器
+不会从parent bean继承的属性：depends-on,autowire,dependency-check,singleton,lazy-init
+
+24-
+pulic Class MyBean{
+    private String name;
+    @Required
+    public void setName(String name){
+       this.name=name
+    }
+} 
+
+使用JDK5的Annotation功能，可以用红色部分代替在配置文件中使用dependency-check来进行DI检查
+
+使用这个功能需要在配置文件中定义Bean:
+
+<bean id="requiredChecker" class="rog.springframework.beans.factory.annotation.RequiredAnnotationBean
+PostProcessor"/>
+
+
+可以避免在运行时时的NullPointerException

@@ -1,0 +1,8 @@
+/* AUTOMATICALLY GENERATED ON Sun Dec 22 14:29:53 CST 2002*/
+/* DO NOT EDIT */
+
+grant codeBase "file:/c:/java/-" {
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\*", "read";
+  permission java.lang.RuntimePermission "createClassLoader";
+};
+

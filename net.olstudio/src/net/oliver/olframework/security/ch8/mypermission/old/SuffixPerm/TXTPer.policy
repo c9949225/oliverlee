@@ -1,0 +1,8 @@
+grant codeBase "file:/c:/java/ch8/-" {
+  permission  SuffixPermission ".txt";
+  permission  SuffixPermission ".bat";
+  permission  SuffixPermission ".class";
+  permission  SuffixPermission ".jar";
+  permission  java.io.FilePermission "c:\\-","read";
+};
+

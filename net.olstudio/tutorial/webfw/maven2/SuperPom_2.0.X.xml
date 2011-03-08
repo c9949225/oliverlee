@@ -1,0 +1,202 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <name>Maven Default Project</name>
+
+  <repositories>
+    <repository>
+      <!-- 定义默认使用id为central的资源库 -->
+      <id>central</id>
+      <name>Maven Repository Switchboard</name>
+      <layout>default</layout>
+      <url>http://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <!-- 定义默认使用id为central的插件资源库 -->
+      <id>central</id>
+      <name>Maven Plugin Repository</name>
+      <url>http://repo1.maven.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <!-- 可以在这里修改Maven的标准目录结构 -->
+    <directory>target</directory>
+    <outputDirectory>target/classes</outputDirectory>
+    <finalName>${project.artifactId}-${project.version}</finalName>
+    <testOutputDirectory>target/test-classes</testOutputDirectory>
+    <sourceDirectory>src/main/java</sourceDirectory>
+    <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+    <testSourceDirectory>src/test/java</testSourceDirectory>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
+    </resources>
+    <testResources>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+    <!-- 在这里可以指定所有子项目所使用的插件的版本，在这里修改的话，所有子项目也同时修改了 -->
+    <!-- 所有继承于此项目的子项目都能使用,主要定义插件的共同元素 -->
+    <pluginManagement>
+       <plugins>
+         <plugin>
+           <artifactId>maven-antrun-plugin</artifactId>
+           <version>1.1</version>
+         </plugin>       
+         <plugin>
+           <artifactId>maven-assembly-plugin</artifactId>
+           <version>2.2-beta-2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-clean-plugin</artifactId>
+           <version>2.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-compiler-plugin</artifactId>
+           <version>2.0.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <version>2.0</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-deploy-plugin</artifactId>
+           <version>2.3</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-ear-plugin</artifactId>
+           <version>2.3.1</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-ejb-plugin</artifactId>
+           <version>2.1</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-install-plugin</artifactId>
+           <version>2.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-jar-plugin</artifactId>
+           <version>2.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-javadoc-plugin</artifactId>
+           <version>2.4</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-plugin-plugin</artifactId>
+           <version>2.4.1</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-rar-plugin</artifactId>
+           <version>2.2</version>
+         </plugin>
+         <plugin>                
+           <artifactId>maven-release-plugin</artifactId>
+           <version>2.0-beta-7</version>
+         </plugin>
+         <plugin>                
+           <artifactId>maven-resources-plugin</artifactId>
+           <version>2.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-site-plugin</artifactId>
+           <version>2.0-beta-6</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-source-plugin</artifactId>
+           <version>2.0.4</version>
+         </plugin>         
+         <plugin>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.4.2</version>
+         </plugin>
+         <plugin>
+           <artifactId>maven-war-plugin</artifactId>
+           <version>2.1-alpha-1</version>
+         </plugin>
+       </plugins>
+     </pluginManagement>
+  </build>
+
+  <reporting>
+    <outputDirectory>target/site</outputDirectory>
+  </reporting>
+  
+  <profiles>
+    <profile>
+      <id>release-profile</id>
+
+      <activation>
+        <!-- 当-DperformRelease为true的时候，激活该Profile -->
+        <property>
+          <name>performRelease</name>
+          <value>true</value>
+        </property>
+      </activation>
+
+      <build>
+        <plugins>
+          <!-- 这里的配置会使插件在自己默认的Phase中执行goal -->
+          <plugin>
+            <inherited>true</inherited>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <executions>
+              <!-- 可以通过配置executions来控制goals的执行顺序 -->
+              <!-- executions可以使你把同一个goal以不同的配置运行多次 -->
+              <!-- 不同的execution可以有不同的id,这样在项目继承或者使用Profile的时候
+                      可以决定是合并不同execution的配置,还是多次执行 -->
+              <!-- 当多个execution匹配同一个phase的话, 他们会按照在POM中配置的顺序执行, 继承的execution会首先执行 -->
+              <!-- 可以用execution指定goal执行的phase,因为有的plugin没有默认的phase并可以在多个Phase中执行 -->
+              <!-- 疑问:如果不设定execution的话，那么会执行plugin所有的goals么？ -->
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <inherited>true</inherited>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-javadoc-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-javadocs</id>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <inherited>true</inherited>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-deploy-plugin</artifactId>
+            <configuration>
+              <updateReleaseInfo>true</updateReleaseInfo>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
+</project>

@@ -1,0 +1,399 @@
+SYSTEM MANAGER
+SYS CHANGE_ON_INSTALL
+
+
+
+1-Platform.asLocalURL(url);方法用什么替换？
+2-application的run,和Plugin的start哪个先执行？
+3-Runtime.getRuntime().removeShutdownHook()方法？
+4-System.mapLibraryName()方法?
+
+
+积累总结
+1-出现已经导入类，但不能解析是因为从Cvs下来，workspace和别人的不一致，
+重新导入依赖包，并Clean一下Project就好了。
+
+2-使用*关键字来寻找依赖包。
+
+3-DJ 反编译for循环的时候，就会出现goto的错误。还有try的时候也会报错。
+
+4-
+小张飞刀(42242047) 2008-01-07 13:07:27
+String userDir = System.getProperty("user.dir");
+小张飞刀(42242047) 2008-01-07 13:07:40
+ 
+小哈儿(3546889) 2008-01-07 13:08:27
+这个是eclipse的安装路径把
+小张飞刀(42242047) 2008-01-07 13:08:42
+是
+N.Y.Sirius(27929993) 2008-01-07 13:09:20
+Thread.currentThread().getContextClassLoader().getResource("")
+N.Y.Sirius(27929993) 2008-01-07 13:09:43
+你那是当前用户的目录.
+aple(179612313) 2008-01-07 13:14:45
+new File(".").getAbsolutePath()
+
+aple(179612313) 2008-01-07 13:14:57
+当前工程的目录
+
+5-
+退出java程序时尽量不要使用java.lang.system的exit方法。exit 方法可以终止jvm，从而终止程序，
+但如果同时运行了另一个java程序，使用exit方法就会让该程序也关闭，这显然不是我们希望看到的情况。
+事实上要退出java程序，可以使用destory()退出一个独立运行的过程。对于多线程程序，必须要关闭各个非守护线程。
+只有在程序非正常退出时，才使用 exit方法退出程序。
+
+6-
+Map<String, Object> data = new HashMap<String, Object>();
+ 
+// Put a value in the map with the key "mysecondvar"
+data.put("mysecondvar", 123);
+ 
+// Get the data out of the map again
+System.out.println("The value is: " + data.get("mysecondvar"));
+
+7-Alt+/ eclipse 中自动补全
+
+8-subString()下标从0开始，包括开始，不包括结束 6，12 截取 7到12的字符
+
+9-Windows中文本文件使用“\r\n”来结束一行而Unix使用“\n”。
+
+10-gunzip javacc-4.0.tar.gz
+tar xvf javacc-4.0.tar 
+
+11-×.class.getResourceAsStream("Organization.xml") 可以读到和类在同一目录下的资源
+
+12-在XML文件中被禁止使用的ASCII字符共有五个：
+&lt;  < 小于 
+&gt; > 大于 
+&amp; &  和 
+&apos; ' 单引号 
+&quot; " 双引号 
+
+XML 文档必须使用包含编码的 XML 声明
+
+13-
+
+
+1-LD_LIBRARY_PATH=.:/usr/lib:/lib/:/lib/tls/:"+System.getenv("LD_LIBRARY_PATH")+":/home/abs/dll
+	. 
+	/usr/lib
+	/lib/
+	/lib/tls/
+	System.getenv("LD_LIBRARY_PATH")
+	/home/abs/dll
+
+1-属性文件键值不要重复
+
+1-Ctrl+M 批量改文件名
+
+
+
+private boolean isJAR(String path)
+    {
+        if(path.endsWith(File.separator))
+            return false;
+        int index = path.lastIndexOf('.');
+        if(index == -1)
+            return false;
+        if(++index >= path.length())
+            return false;
+        else
+            return "JAR".equalsIgnoreCase(path.substring(index));
+    }
+
+
+
+十六进制转为字节
+
+private int hexToByte(byte b)
+    {
+        switch(b)
+        {
+        case 48: // '0'
+            return 0;
+
+        case 49: // '1'
+            return 1;
+
+        case 50: // '2'
+            return 2;
+
+        case 51: // '3'
+            return 3;
+
+        case 52: // '4'
+            return 4;
+
+        case 53: // '5'
+            return 5;
+
+        case 54: // '6'
+            return 6;
+
+        case 55: // '7'
+            return 7;
+
+        case 56: // '8'
+            return 8;
+
+        case 57: // '9'
+            return 9;
+
+        case 65: // 'A'
+        case 97: // 'a'
+            return 10;
+
+        case 66: // 'B'
+        case 98: // 'b'
+            return 11;
+
+        case 67: // 'C'
+        case 99: // 'c'
+            return 12;
+
+        case 68: // 'D'
+        case 100: // 'd'
+            return 13;
+
+        case 69: // 'E'
+        case 101: // 'e'
+            return 14;
+
+        case 70: // 'F'
+        case 102: // 'f'
+            return 15;
+
+        case 58: // ':'
+        case 59: // ';'
+        case 60: // '<'
+        case 61: // '='
+        case 62: // '>'
+        case 63: // '?'
+        case 64: // '@'
+        case 71: // 'G'
+        case 72: // 'H'
+        case 73: // 'I'
+        case 74: // 'J'
+        case 75: // 'K'
+        case 76: // 'L'
+        case 77: // 'M'
+        case 78: // 'N'
+        case 79: // 'O'
+        case 80: // 'P'
+        case 81: // 'Q'
+        case 82: // 'R'
+        case 83: // 'S'
+        case 84: // 'T'
+        case 85: // 'U'
+        case 86: // 'V'
+        case 87: // 'W'
+        case 88: // 'X'
+        case 89: // 'Y'
+        case 90: // 'Z'
+        case 91: // '['
+        case 92: // '\\'
+        case 93: // ']'
+        case 94: // '^'
+        case 95: // '_'
+        case 96: // '`'
+        default:
+            throw new IllegalArgumentException("Switch error decoding URL");
+        }
+}
+
+
+					将用,分隔的字符串分解为字符串数组
+
+protected String[] getArrayFromList(String prop)
+    {
+        if(prop == null || prop.trim().equals(""))
+            return new String[0];
+        Vector list = new Vector();
+        for(StringTokenizer tokens = new StringTokenizer(prop, ","); tokens.hasMoreTokens();)
+        {
+            String token = tokens.nextToken().trim();
+            if(!token.equals(""))
+                list.addElement(token);
+        }
+
+        return list.isEmpty() ? new String[0] : (String[])list.toArray(new String[list.size()]);
+    }
+
+
+
+
+通过url加载属性文件
+
+
+private Properties loadProperties(URL url)
+        throws IOException
+    {
+        if(url == null)
+            return null;
+        Properties result = null;
+        IOException originalException = null;
+        try
+        {
+            result = load(url, null);
+        }
+        catch(IOException e1)
+        {
+            originalException = e1;
+            try
+            {
+                result = load(url, ".tmp");
+            }
+            catch(IOException _ex)
+            {
+                try
+                {
+                    result = load(url, ".bak");
+                }
+                catch(IOException _ex2)
+                {
+                    throw originalException;
+                }
+            }
+        }
+        return result;
+    }
+
+//后缀
+private Properties load(URL url, String suffix)
+        throws IOException
+    {
+        Properties props;
+        if(suffix != null && !suffix.equals(""))
+            url = new URL(url.getProtocol(), url.getHost(), url.getPort(), url.getFile() + suffix);
+        props = new Properties();
+        InputStream is = null;
+        try
+        {
+            is = url.openStream();
+            props.load(is);
+        }
+        finally
+        {
+            if(is != null)
+                try
+                {
+                    is.close();
+                }
+                catch(IOException _ex) { }
+        }
+        return props;
+}
+
+
+
+
+
+Emacs指令
+1-退出程序 Ctrl+x Ctrl+c
+2-查看下一屏内容 Ctrl+v
+3-查看上一屏内容 先按esc 再按v | Alt+v
+4-重绘屏幕将光标置于屏幕中央 Ctrl+l
+5-向右移动 Ctrl+f forward
+   向左移动 Ctrl+b back
+   向上移动 Ctrl+p previous
+   向下移动 Ctrl+n next
+
+	  C-f          向右移动一个字符
+        C-b     向左移动一个字符
+
+        M-f     向右移动一个词【对中文是移动到下一个标点符号】
+        M-b     向左移动一个词【对中文是移动到上一个标点符号】
+
+        C-n     移动到下一行
+        C-p     移动到上一行
+
+        C-a     移动到行首
+        C-e     移动到行尾
+
+        M-a     移动到句首
+        M-e     移动到句尾
+
+
+getViewSite().getPage().hideView( );关闭View
+
+
+								Verson Commands
+
+1-010203 CQ审核         接口:单号|子单号|高低柜标志|状态|主机相关
+
+2-010204 CQ分配         接口: 单号|子单号|高低柜标志|状态|主机相关|修改人|完成时间
+
+3-010202 CQ浏览         接口: 状态|维护人|CQ单号
+
+加工时
+
+
+/home/ams
+
+./ams -stop
+./st
+
+工作断点：
+可选标志	X(01)	0- 可以选择 1- 已被其他单号选择 2- 已被该单号申请 3- 已被更新	
+
+12灰色，不可以提交
+3其他颜色，可以提交
+
+BB0012 单号不存在
+SC0001 输入检查错
+SC0002 系统故障
+BB0001 用户名不存在
+BB0002 密码错误
+BB0003 用户已存在
+BB0004 用户已停用
+BB0005 用户状态正常
+BB0006 功能码无效
+BB0007 应用不存在
+BB0008 用户权限不存在
+BB0009 用户权限超出权限范围
+BB0010 用户权限已存在
+BB0011 单号已存在
+BB0012 单号不存在
+BB0013 无符合条件记录 
+
+
+
+yy家的小白(80591873) 11:39:16
+cycle.forgetPage("YourPageName").  这个方法似乎和page返回 page pool时候的处理方法一样！直接把这个page设置成初始状态了！
+
+
+官方網站: http://m2eclipse.codehaus.org/
+下載地點: http://m2eclipse.codehaus.org/ ( Eclipse Update Site )
+目前版本: 0.0.5
+基本簡介:
+
+　　這是一個非常簡單易用的 Eclipse Plugin, 讓 Eclipse 中的 Project 可搭配 Maven 2.x ( http://maven.apache.org/ ) 使用. 它最大的好處是 pom 的 dependencies 管理, 讓新增 dependency 變得很方便, 且 pom 中的 dependencies 會直接同步到 Eclipse Project 的 Build Path 中. 另外, 就是可在 Eclipse Project 的 Builders 中, 加入自己的 m2 build, 讓 Eclipse Project 在 Build 時, 可附帶執行自定的 maven goal, 一個實例是讓 Unit Test 在 Build 時自動執行, 但這是否實用還得看您的開發環境/流程而定. 其他更詳細的介紹請看參考資料的 Demo 影片.
+
+心得:
+　　以我個人而言, 在 Eclipse 中使用 Maven 最大的問題就是 pom 與 Eclipse Project Build Path 的同步問題, 該 plugin 算是我目前覺得最能解決該問題者; 然而實際上, 該 plugin 還不算是非常成熟穩定, 使用上有些小地方要注意, 習慣了就覺得還蠻順手的. 舉例而言: 當在 pom 中加入新的 dependency 時, 它沒有同步到 Build Path 中 ( 特別是取消 auto build 者 ) ? 其實同步的工作應是 Eclipse Builders 中的 Maven2 Proejct Builder 負責, 因此應把它的順序往前調, 讓它在 build 開始就根據 pom 更新 Build Path, 之後的 Java Builder 才會正確運作; 如果還是沒同步, 可試著多 build 一次看看.
+　　再來, 對於有設定 repository mirror ( settings.xml ) 者, 敝人發現該 plugin 不會使用 mirror 設定, 而是每次都向 http://repo1.maven.org/maven2 要資料, 這對私有的 artifact 常會造成困擾. 我的解決方案是不使用該 plugin 執行 Maven goal, 而是透過 bat 檔的方式執行 ( 在 Eclipse 之外執行 ) , 這樣的好處其實不少, 首先當然就是避開 plugin 不夠成熟帶來的不便, 再來就是速度快且方便 ( Double-Click 即可 ), 以下提供敝人 bat 的寫法 :
+
+set MAVEN_BATCH_PAUSE=on
+cd ${Project_Home}
+mvn clean war:war tomcat:deploy
+
+	
+
+set MAVEN_BATCH_PAUSE=on
+cd ${Project_Home}
+mvn clean war:war tomcat:deploy
+
+
+line 1 讓執行完的視窗不會馬上關閉, 可以看清楚訊息.
+line 2 就是 cd 到專案 pom.xml 的目錄.
+line 3 就是執行 Maven goal ( 前提是 mvn 已在系統路徑 ).
+把常用的 bat 都寫好, 以後要執行只要在 Eclipse 中 Double Clink 它即可, 但要注意的是, 編輯時, 用右鍵 => Open With => Text Editor. 執行時則是 右鍵 => Open With => System Editor.
+
+參考資料:
+官方的 Demo : http://m2eclipse.codehaus.org/Maven_2.0_Plugin_for_Eclipse.html
+
+其他相關:
+Maven: http://maven.apache.org/
+JavaWorld 不錯的 Maven 2.x 介紹: http://www.javaworld.com/javawo
+rld/jw-12-2005/jw-1205-maven_p.html 
+

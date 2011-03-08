@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/jetty-util-6.1.6rc0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-3.0-rc4-20070503.jar"/>
+	<classpathentry kind="lib" path="lib/testng-5.7-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-java-client-driver.jar"/>
+	<classpathentry kind="lib" path="lib/commons-el-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/mlrain_util_20080716_1438.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging.jar"/>
+	<classpathentry kind="lib" path="lib/java-unrar-0.3.jar" sourcepath="D:/Technologies/JunRar/java-unrar-0.3-sources.jar"/>
+	<classpathentry kind="lib" path="lib/json-lib-2.2.1-jdk15.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-simple-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-6.1.6rc0.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/morph-1.0.1.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/jasper-compiler-5.5.15.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/xpp3_min-1.1.3.4.O.jar"/>
-	<classpathentry kind="lib" path="lib/xstream-1.2.2.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/javolution-5.2.6.jar"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/jasper-runtime-5.5.15.jar"/>
+	<classpathentry kind="lib" path="lib/xercesImpl-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/jcl104-over-slf4j-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="lib/selenium-server.jar"/>
+	<classpathentry kind="lib" path="lib/xmlParserAPIs-2.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/htmlparser.jar"/>
+	<classpathentry kind="lib" path="lib/mirror-1.5.1.jar" sourcepath="D:/new_tech/mirror-1.5.1-sources.jar"/>
 	<classpathentry kind="lib" path="lib/log4j-1.2.14.jar"/>
-	<classpathentry kind="lib" path="lib/poi-3.0-rc4-20070503.jar" sourcepath="D:/分项总结/lib/Jars-Source/poi-src-3.0.2-FINAL-20080204.zip"/>
+	<classpathentry kind="lib" path="lib/jsp-api-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/jdom-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/core-3.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/htmllexer.jar"/>
+	<classpathentry kind="lib" path="lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/xstream-1.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/easymock-2.3.jar"/>
+	<classpathentry kind="lib" path="lib/jasper-compiler-jdt-5.5.15.jar"/>
+	<classpathentry kind="lib" path="lib/xpp3_min-1.1.3.4.O.jar"/>
+	<classpathentry kind="lib" path="lib/commons-net-1.4.1.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.draw2d_3.2.2.v20070208.jar"/>
+	<classpathentry kind="lib" path="lib/ant-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta-oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-2.1.jar"/>
+	<classpathentry kind="lib" path="lib/ezmorph-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/jsp-api-2.0.jar"/>
+	<classpathentry kind="lib" path="lib/bsh-2.0b4.jar"/>
+	<classpathentry kind="lib" path="D:/libs/db2_lib/com.ibm.db2.jdbc_1.0.0.v201003291550.jar"/>
+	<classpathentry kind="lib" path="D:/eclipse/jee_helios/plugins/org.eclipse.swt.win32.win32.x86_3.6.0.v3650b.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

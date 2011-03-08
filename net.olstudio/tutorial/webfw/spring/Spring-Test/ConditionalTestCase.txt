@@ -1,0 +1,35 @@
+如果你直接通过扩展TestCase创建测试用例，则所有带test前缀的测试方法都会被毫无例外地执行。
+
+而ConditionalTestCase可以让你在某些情况下，有选择地关闭掉一些测试方法，
+不让他们在测试用例中执行。
+
+这给开发者带来了很大的灵活性，因为他们可以在某次测试中关闭掉一些测试方法，而仅运行当前特别关注的测试方法，将问题域聚集到一定范围内。
+如果你要关闭某个测试方法行，仅需实现ConditionalTestCase的isDisabledInThisEnvironment(String testMethodName)方法就可以了，
+ConditionalTestCase在运行每一个测试方法前会根据 isDisabledInThisEnvironment()方法判断是简单放弃目标方法的运行，还是按正常方式执行之。
+该方法默认情况下对所有的测试方法都返回false，也即执行所有的测试方法。让我们来看一个具体例子
+
+package com.baobaotao.test; import org.springframework.test.ConditionalTestCase; 
+
+public class ConditionalTest1 extends ConditionalTestCase { 
+
+①被忽略不执行的测试方法 private static String[] IGNORED_METHODS = {"testMethod1","testMethod3"}; 
+
+@Override 
+protected boolean isDisabledInThisEnvironment(String testMethodName) 
+{
+	②所有在 
+	for (String method : IGNORED_METHODS) 
+	{ IGNORED_METHODS数组中 
+		if (method.equals(testMethodName)) 
+		{ 的方法都忽略执行。 
+			return true; 
+		} 
+	} 
+	return false; 
+} 
+	
+public void testMethod1(){ ③不执行 System.out.println("method1"); } 
+public void testMethod2(){ ④执行 System.out.println("method2"); } 
+public void testMethod3(){ ⑤不执行 System.out.println("method3"); } 
+
+} ：

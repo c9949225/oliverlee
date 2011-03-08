@@ -1,0 +1,4 @@
+grant codeBase "file:/c:/java/ch8/-" {
+  permission my.test.RatePermission "setR";
+};
+

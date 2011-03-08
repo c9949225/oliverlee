@@ -1,0 +1,4 @@
+grant codeBase "file:/c:/java/ch8/-" {
+  permission java.io.FilePermission "c:\\autoexec.bat", "read,write";
+};
+

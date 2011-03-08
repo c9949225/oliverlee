@@ -1,0 +1,62 @@
+<!--
+1-使用mvn eclipse:eclipse创建的项目
+  默认project nature 是 org.eclipse.jdt.core.javanature 
+  默认build command 是  org.eclipse.jdt.core.javabuilder	
+-->
+
+<!--   
+2-添加额外的Porject Nature 和 Build Command 可以在 pom 中添加如下内容
+-->
+ <project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      [...]
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <additionalProjectnatures>
+          	<!-- springnature 是指装了SpringIde后可以创建的Spring Project -->
+            <projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
+          </additionalProjectnatures>
+          <additionalBuildcommands>
+            <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
+          </additionalBuildcommands>
+        </configuration>
+      </plugin>
+      [...]
+    </plugins>
+    [...]
+  </build>
+  [...]
+</project>
+
+<!-- 使用自定义的Project Nature覆盖默认的 -->	
+<project>
+  [...]
+  <build>
+    [...]
+    <plugins>
+      [...]
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <!-- 在maven-eclipse-plugin插件中定义参数 -->
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <projectnatures>
+          	<!-- 自定义 -->
+            <projectnature>my.own.project.nature</projectnature>
+          </projectnatures>
+          <buildcommands>
+            <buildcommand>my.own.build.command</buildcommand>
+          </buildcommands>
+        </configuration>
+      </plugin>
+      [...]
+    </plugins>
+    [...]
+  </build>
+  [...]
+</project>				 

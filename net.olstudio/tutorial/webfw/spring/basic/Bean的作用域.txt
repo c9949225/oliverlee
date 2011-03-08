@@ -1,0 +1,78 @@
+1-singleton
+
+这里要注意的是singleton作用域和GOF设计模式中的单例是完全不同的，
+单例设计模式表示一个ClassLoader中只有一个class存在，
+而这里的singleton则表示一个容器对应一个bean，也就是说当一个bean被标识为singleton时候，
+spring的IOC容器中只会存在一个该bean。
+
+2-prototype 每次创建一个新的实例
+
+有一点非常重要，那就是Spring不
+能对一个prototype
+bean的整个生命周期负责，容器在初始化、配置、装饰或者是装配完一个prototype实例后，将它交给客户端，随后就对该prototype实例不
+闻不问了。清除prototype作用域的对象并释放任何prototype bean所持有的昂贵资源，都是客户端代码的职责。
+
+3-request
+表示该针对每一次HTTP请求都会产生一个新的bean，同时该bean仅在当前HTTP request内有效，配置实例：request、session、global
+
+session使用的时候首先要在初始化web的web.xml中做如下配置：
+
+2.4及以上的web容器，那么你仅需要在web应用的XML声明文件web.xml中增加下述ContextListener即可
+<web-app>   
+	<listener>     
+	<listener-class> org.springframework.web.context.request.RequestContextListener</listener-class>   
+	</listener> 
+</web-app> 
+
+如果是Servlet2.4以前的web容器,那么你要使用一个javax.servlet.Filter的实现：Java代码 详解spring2.0的scope<web-app>   <filter>     <filter-name>requestContextFilter</filter-name>     <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>   </filter>   <filter-mapping>     <filter-name>requestContextFilter</filter-name>     <url-pattern>/*</url-pattern>   </filter-mapping> </web-app> 
+<web-app>
+  <filter>
+    <filter-name>requestContextFilter</filter-name>
+    <filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>requestContextFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>
+
+4-session
+作用域表示该针对每一次HTTP请求都会产生一个新的bean，同时该bean仅在当前HTTP session内有效。
+
+5-global session
+作用域类似于标准的HTTP
+Session作用域，不过它仅仅在基于portlet的web应用中才有意义。Portlet规范定义了全局Session的概念，它被所有构成某个
+portlet web应用的各种不同的portlet所共享。在global session作用域中定义的bean被限定于全局portlet
+Session的生命周期范围内。如果你在web中使用global
+session作用域来标识bean，那么web会自动当成session类型来使用。
+
+6-自定义bean装配作用域
+
+在spring2.0中作用域是可以任意扩展的，你可以自定义作用域，甚至你也可以重新定义已有的作用域
+（但是你不能覆盖 singleton和prototype），spring的作用域由接口 org.springframework.beans.factory.config.Scope来定义，
+自定义自己的作用域只要实现该接口即可，
+
+public class MyScope implements Scope {   
+ private final ThreadLocal threadScope = new ThreadLocal(){      
+ 	protected Object initialValue() {        
+ 		return new HashMap();      
+ 	}    
+ };     
+ 
+ public Object get(String name, ObjectFactory objectFactory) {      
+ 	Map scope = (Map) threadScope.get();      
+ 	Object object = scope.get(name);     
+ 	if(object==null) {       
+ 		object = objectFactory.getObject();       
+ 		scope.put(name, object);      }      
+ 		return object;    }     
+ 		
+ 		public Object remove(String name) {      
+ 			Map scope = (Map) threadScope.get();      
+ 			return scope.remove(name);    }    
+ 			
+ 			public void registerDestructionCallback(String name, Runnable callback) {    }   
+			public String getConversationId() {     // TODO Auto-generated method stub     return null;   }
+
+
+	

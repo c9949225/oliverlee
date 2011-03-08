@@ -1,0 +1,54 @@
+Velocity是一个基于java的模板引擎（template engine）。
+它允许任何人仅仅简单的使用模板语言（template language）来引用由java代码定义的对象。
+当Velocity应用于web开发时，界面设计人员可以和java程序开发人员同步开发一个遵循MVC架构的web站点，
+也就是说，页面设计人员可以只关注页面的显示效果，而由java程序开发人员关注业务逻辑编码。
+Velocity将java代码从web页面中分离出来，这样为web站点的长期维护提供了便利，
+同时也为我们在JSP和PHP之外又提供了一种可选的方案。
+
+Velocity的能力远不止web站点开发这个领域，例如，它可以从模板（template）产生SQL和PostScript、XML，它也可以被当作一个独立工具来产生源代码和报告，或者作为其他系统的集成组件使用。Velocity也可以为Turbine web开发架构提供模板服务（template service）。
+Velocity+Turbine提供一个模板服务的方式允许一个web应用以一个真正的MVC模型进行开发。
+
+一个在线用户请求你的页面时，Velocity Templating Engine将查询整个页面以便发现所有＃字符，
+然后确定哪些是VTL statement，哪些不需要VTL作任何事情。
+
+
+1-使用$字符开始的references用于得到什么
+  使用#字符开始的directives用于做些什么
+  
+
+2-一旦某个变量被分配了一个值，那么你就可以在HTML文件的任何地方引用它。
+<html>
+<body>
+#set ( $foo = "Velocity")
+Hello $foo World!
+</body>
+</html> 
+output:"Hello Velocity World!"
+
+3-单行注释：
+
+## This is a single line comment.
+
+多行注释：
+
+#*
+
+Thus begins a multi-line comment. Online visitors won't
+
+see this text because the Velocity Templating Engine will
+
+ignore it.
+
+*# 
+
+4-在VTL中有三种类型的references：变量(variables)、属性(properties)、方法(methods)。
+作为一个使用VTL 的页面设计者，你和你的工程师必须就references的名称达成共识，以便你可以在你的template中使用它们。
+
+5-
+${mudSlinger}变量
+
+${customer.Address}属性
+
+${purchase.getTotal()}方法 
+
+6-

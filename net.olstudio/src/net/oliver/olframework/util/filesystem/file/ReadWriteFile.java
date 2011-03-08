@@ -143,7 +143,7 @@ public class ReadWriteFile {
 	public static void main(String[] s) throws IOException {
 		ReadWriteFile.creatTxtFile();
 		ReadWriteFile.readTxtFile();
-		ReadWriteFile.writeTxtFile("20080808:12:13");
+		ReadWriteFile.writeTxtFile("≤‚ ‘");
 		//        ReadWriteFile.replaceTxtByStr("ken", "zhang");
 	}
 }

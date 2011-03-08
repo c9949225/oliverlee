@@ -1,0 +1,67 @@
+<head>
+<!-- screen.css -->
+<link rel="stylesheet" href="css/blueprint/screen.css" type="text/css"
+	media="screen, projection">
+	
+<!-- print.css -->
+<link rel="stylesheet" href="css/blueprint/print.css" type="text/css"
+	media="print">
+	
+<!-- hacks -->
+<!--[if IE]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+<!-- Import fancy-type plugin for the sample page. -->
+
+<!-- plugin-screen.css -->
+<link rel="stylesheet"
+	href="../../blueprint/plugins/fancy-type/screen.css" type="text/css"
+	media="screen, projection">
+</head>
+
+<div class="container">
+<table border="5" cellspacing="5" cellpadding="10">
+	<tr>
+		<th class="span-6">姓名</th>
+		<th class="span-8">证件类型</th>
+		<th class="span-10">证件号码</th>
+	</tr>
+	<tr>
+		<td><a href="parts/sample.html">姓名</a></td>
+		<td><a href="../blueprint/src/grid.css">grid.css</a>, <a
+			href="../blueprint/src/typography.css">typography.css</a></td>
+		<td>证件号码</td>
+	</tr>
+	<tr class="even">
+		<td><a href="parts/grid.html">姓名</a></td>
+		<td><a href="../blueprint/src/grid.css">grid.css</a></td>
+		<td>证件号码</td>
+	</tr>
+	<tr>
+		<td><a href="parts/elements.html">姓名</a></td>
+		<td><a href="../blueprint/src/typography.css">typography.css</a>
+		</td>
+		<td>证件号码</td>
+	</tr>
+	<tr class="even">
+		<td><a href="parts/forms.html">姓名</a></td>
+		<td><a href="../blueprint/src/forms.css">forms.css</a></td>
+		<td>证件号码</td>
+	</tr>
+</table>
+
+<form action=/cgi-bin/post-query method=POST>
+	您的姓名: <input class="text" type=text name=姓名><br>
+	您的主页的网址: <input class="text" type=text name=网址 value=http:// ><br>
+	密码: <input type=password name=密码><br>
+	<label class="error">错误信息</label>
+	<label class="success">成功信息</label>
+	<label class="notice">提示信息</label>
+	<textarea rows="10" cols="5"></textarea>
+	<input type=submit value="发送">
+	<input type=reset value="重设">
+</form>
+
+
+<div class="box">
+<h1>试试</h1>
+</div>
+</div>

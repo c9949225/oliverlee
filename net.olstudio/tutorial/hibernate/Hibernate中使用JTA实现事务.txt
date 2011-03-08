@@ -1,0 +1,36 @@
+在Hibernate中使用JTA事务
+
+************************************************************************
+在一个具有多个数据库的系统中，可能一个程序会调用几个数据库中的数据，
+需要一种分布式事务，或者准备用JTA来管理跨Session的长事务，那么就需要使用JTA事务。
+************************************************************************
+
+JTA有3个接口，它们分别是UserTransaction接口、TransactionManager接口和Transaction接口。
+这些接口共享公共的事物操作，例如commit()和rollback()，但也包含特殊的事务操作，
+例如suspend()、resume()和enlist ()，它们只出现在特定的接口上，以便在实现中允许一定程度的访问控制。
+
+启用:
+hibernate.properties:
+hibernate.transaction.factory_class=org.hibernate.transaction.JTATransactionFactory
+hibernate.cfg.xml:
+<session-factory>
+<property name="hibernate.transaction.factory_class">
+org.hibernate.transaction.JTATransactionFactory
+</property>
+</session-factory>
+
+代码例子:
+
+javax.transaction.UserTransaction tx = null;
+tx = new initialContext().lookup("javax.transaction.UserTransaction");
+tx.begin();
+// 实现跨Session事务
+Session s1 = sf.openSession();
+//……
+s1.flush();  
+s1.close();
+Session s2 = sf.openSession();
+//……
+s2.flush();  s2.close();
+tx.commit();
+

@@ -1,0 +1,35 @@
+## 迭代的方法显示xml的所有节点内容
+## $e根节点
+## $indent显示间隔
+#macro ( recursive $e $indent )
+	## 如果有孩子节点
+    #if( $e.getChildren().size() > 0 )
+        ## 调用$e.getName()来获取节点名 并输出
+        $indent <$e.getName()>
+		## 迭代所有子节点
+        #foreach ($child in $e.getChildren() )
+			## 在原有的indent距离上再加一段距离
+			#recursive( $child "$indent  " )
+	#end
+		## 如果没有子节点就直接输出完事
+		$indent </$e.getName()>
+    #else
+        $indent <$e.getName()>
+		## 调用getTextTrim获取内容
+        $indent    $e.getTextTrim()
+        $indent </$e.getName()>
+    #end
+#end
+
+#set($i = " ")
+
+首先,使用迭代输出整个Xml树 :
+
+#recursive( $root.getRootElement() $i )
+
+
+然后,直接演示直接读取节点:
+
+email : $root.getRootElement().getChild("properties").getChild("author").getChild("email").getText()
+
+last name :  $root.getRootElement().getChild("properties").getChild("author").getChild("name").getChild("last").getChild("full").getText()

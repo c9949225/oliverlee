@@ -1,0 +1,91 @@
+import java.net.*;
+import java.io.*;
+import javax.net.ssl.*;
+public class MyHTTPSServerProxy {
+    public static void main(String args[ ]) {
+        int i=0;
+        try {
+            SSLServerSocketFactory ssf= (SSLServerSocketFactory) SSLServerSocketFactory.getDefault( );
+            ServerSocket ss=ssf.createServerSocket(443);
+            System.out.println("Web Server OK ");
+
+            while(true){
+                Socket s=ss.accept( );  //等待请求
+                PrintStream out = new PrintStream(s.getOutputStream( ));
+                BufferedReader in = new BufferedReader(
+                              new InputStreamReader(s.getInputStream( )));
+                String info=null;
+                String request=null;
+                String host=null;
+                while(( info=in.readLine())!=null){
+                    if(info.indexOf("GET")!=-1){
+                        //获取浏览器发来的get信息
+                        request=info;
+                    }
+                    if(info.indexOf("Host")!=-1){
+                                 host=info;
+                    }
+                    System.out.println("now got "+info);
+                    if(info.equals("")) break;
+                }
+
+                System.out.println("now go");
+                System.out.println("---1 gotreq "+request);
+                System.out.println("---1 gothost "+host);
+                if(request!=null){
+
+                    try{
+                        // 浏览器请求形如  GET /t/1.html HTTP/1.1
+                        // sp1, sp2为第一次和第二次出现空格的位置，
+                        // filename从浏览器请求中提取出文件路径和名称 如 t/1.html
+                        int sp1=request.indexOf(' ');
+                        int sp2=request.indexOf(' ',sp1+1);
+                        String filename=request.substring(sp1+2,sp2);
+/*                        // 若浏览器请求中无文件名，则加上默认文件名index.html
+                        if(filename.equals("") || filename.endsWith("/")){
+                            filename+="index.html";
+                        }
+*/
+                        sp1=host.indexOf(' ');
+                        host=host.substring(sp1+2,host.length());
+  
+                System.out.println("---2 gothost "+host);
+  
+                        if(request.startsWith("http://")){
+                                                   request="http://"+host+"/"+request;
+                                           }
+                        System.out.println("--2Sending "+filename);
+                        // 向浏览器发送文件
+                    URL con=new URL(filename);
+                    InputStream gotoin=con.openStream( );//和相应站点建立输入流
+                    int n=gotoin.available( );   //获取网页的大小
+                    byte buf[ ]=new byte[1024];
+                    //按照Web服务器工作方式向用户浏览器发送信息
+                        System.out.println("go--------- ");
+
+                    out.println("HTTP/1.0 200 OK");
+                    out.println("MIME_version:1.0");
+                    out.println("Content_Type:text/html");
+                    out.println("Content_Length:"+n);
+                    out.println("");
+                    while ((n=gotoin.read(buf))>=0){  // 读取网页内容
+                        out.write(buf,0,n);   //将网页内容发送给用户浏览器
+                    }
+
+                    } catch(Exception e){
+                        System.out.println(e);
+                        System.out.println("wuwuw--------- ");
+
+                    }
+                        System.out.println("iver--------- ");
+
+                    out.close( );
+                    s.close( );
+                    in.close( );
+                } // end if
+            }  // end while
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+}

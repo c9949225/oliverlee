@@ -1,0 +1,10 @@
+1-被@Override注释的方法必须在父类中存在同样的方法程序才能编译通过。
+(避免把要重写的方法写错)
+
+2-@Deprecated这个注释是一个标记注释。所谓标记注释，就是在源程序中加入这个标记后，
+并不影响程序的编译，但有时编译器会显示一些警告信息。 
+
+3-@SuppressWarnings抑制编译器产生警告信息的。
+
+4-要注意的是SuppressWarnings和前两个注释不一样。这个注释有一个属性。当然，还可以抑制其它警告，如:
+@SuppressWarnings (value={"unchecked", "fallthrough"})

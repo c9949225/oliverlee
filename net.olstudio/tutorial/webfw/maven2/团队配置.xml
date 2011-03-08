@@ -1,0 +1,369 @@
+<!-- 在共享的开发环境中，更好的建议是保持maven的两个不同的配置文件分别管理，包括共享和用户自定义设置。-->
+
+<!-- 1,共同的配置包括在安装目录中。注:D:\environment\maven-2.0.7\conf\settings.xml
+	2,而单独的开发设置保存在用户本地目录。注:C:\Documents and Settings\Administrator\.m2\settings.xml-->
+
+<!-- 1,全局的配置文件settings.xml-->
+<servers>
+	<!-- 公司内部库，所有的release版本,serverid对应于repository id，用于在deploy时，访问使用，主要保存用户名和密码 -->
+	<server>
+		<id>internal</id>
+		<username>${website.username}</username>
+		<password>${website.pwd}</password>
+		<filePermissions>664</filePermissions>
+		<directoryPermissions>775</directoryPermissions>
+	</server>
+
+	<!--  目前的开发库，用于snapshot库 -->
+	<server>
+		<id>snapshot</id>
+		<username>${website.username}</username>
+		<password>${website.pwd}</password>
+		<filePermissions>664</filePermissions>
+		<directoryPermissions>775</directoryPermissions>
+	</server>
+</servers>
+
+<profiles>
+	<!--定义核心库 maven 镜像,由maven-proxy实现-->
+	<profile>
+		<id>central-repo</id>
+		<repositories>
+			<repository>
+				<id>central</id>
+				<name>Internal Repository</name>
+				<url>http://192.168.0.2:9999/repository</url>
+			</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>central</id>
+				<name>Internal Repository</name>
+				<url>http://192.168.0.2:9999/repository</url>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+
+	<!--定义内部库，包括公司的所有release版本-->
+	<profile>
+		<id>internal-repo</id>
+		<repositories>
+			<repository>
+				<id>internal</id>
+				<name>Internal Repository</name>
+				<url>http://192.168.0.2:8080/repo-local</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>never</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+			</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>internal</id>
+				<name>Internal Plugin Repository</name>
+				<url>http://192.168.0.2:8080/repo-local</url>
+				<releases>
+					<enabled>true</enabled>
+					<updatePolicy>never</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</releases>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+
+
+	<!--定义内部开发库 ，也可以合并snapshot和release-->
+	<profile>
+		<id>snapshot-repo</id>
+		<repositories>
+			<repository>
+				<id>snapshot</id>
+				<name>Internal Repository</name>
+				<url>http://192.168.0.2:8080/repo-snapshot</url>
+				<snapshots>
+					<enabled>true</enabled>
+					<updatePolicy>interval:60</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</snapshots>
+			</repository>
+		</repositories>
+		<pluginRepositories>
+			<pluginRepository>
+				<id>snapshot</id>
+				<name>Internal Plugin Repository</name>
+				<url>http://192.168.0.2:8080/repo-snapshot</url>
+				<snapshots>
+					<enabled>true</enabled>
+					<updatePolicy>interval:60</updatePolicy>
+					<checksumPolicy>warn</checksumPolicy>
+				</snapshots>
+			</pluginRepository>
+		</pluginRepositories>
+	</profile>
+</profiles>
+<!-- 激活相应得配置-->
+<activeProfiles>
+	<activeProfile>central-repo</activeProfile>
+	<activeProfile>internal-repo</activeProfile>
+	<activeProfile>snapshot-repo</activeProfile>
+</activeProfiles>
+
+<!-- 插件默认groupId -->
+<pluginGroups>
+	<pluginGroup>com.mycompany.plugins</pluginGroup>
+</pluginGroups>
+
+
+<!-- 包括了以下的共享因素：
+	
+	服务器设置典型是共同的，只有用户名需要在用户环境中设置。使用一致的定义来配置共同的设置
+	
+	profile定义了共同的因素，内部开发库，包括指定的组织或者部门发布的产品。这些库独立于核心开发库。
+	
+	激活的profiles列表，用于激活相应的profile
+	
+	plugin 组只有当你的组织中有自己定义的插件，用于命令行运行在pom中定义。 -->
+
+
+<!-- 2,对于单独的用户来说，设置如下： -->
+<settings>
+	<profiles>
+		<profile>
+			<id>property-overrides</id>
+			<properties>
+				<website.username>myuser</website.username>
+				<website.pwd>test</website.pwd>
+			</properties>
+		</profile>
+	</profiles>
+</settings>
+
+<!-- 创建共享开发库
+	
+	大多数组织将会创建自己的内部开发库，用于配置，而中心开发库用于连接maven
+	
+	设置内部开发库是简单的，使用http协议，可以使用存在的http服务器。或者创建新的服务，使用apache，或者jetty
+	
+	假设服务器地址192.168.0.2 ,端口8080
+	
+	http://192.168.0.2:8080/repo-local
+	
+	设置另外一个开发库，用于设置项目的snapshot库http://192.168.0.2:8080/repo-snapshot
+	
+	中心镜像库，使用maven-proxy创建，当然也可以创建自己的镜像。用于下载本地库中没有的artifact
+	
+	maven-proxy 设置
+	
+	从网上直接下载maven-proxy-standalone-0.2-app.jar和 proxy.properties
+	
+	在命令行中，直接运行java -jar maven-proxy-standalone-0.2-app.jar  proxy.properties -->
+
+
+<!-- 
+	主要的配置：
+	
+	设置repo.list 中增加相应的库就可以，如下定义：
+	
+	repo.list=repo1.maven.org,...
+	
+	#maven 的中心库
+	
+	repo.repo1.maven.org.url=http://repo1.maven.org/maven2
+	
+	repo.repo1.maven.org.description=maven.org
+	
+	repo.repo1.maven.org.proxy=one
+	
+	repo.repo1.maven.org.hardfail=false
+	
+	repo.repo1.maven.org.cache.period=360000
+	
+	其他配置如
+	
+	端口号 port=9999
+	
+	保存的位置 repo.local.store=target/repo
+	
+	serverName=http://localhost:9999
+	
+	repo.repo1.maven.org.cache.failures=true
+	
+	以后所有的远程库，都通过此方式增加。顺便说一下，不要忘了注释原来的example，那是没有办法访问的。 -->
+
+
+
+<!-- 
+	创建标准的组织pom
+	
+	定义共同的内容，包括公司的结构，如组织，部门以及团队。
+	
+	察看一下maven 的自身，可以作为很好的参考。
+	
+	如scm
+-->
+
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.apache.maven</groupId>
+		<artifactId>maven-parent</artifactId>
+		<version>1</version>
+	</parent>
+	<groupId>org.apache.maven.scm</groupId>
+	<artifactId>maven-scm</artifactId>
+	<url>http://maven.apache.org/maven-scm/</url>
+	<modules>
+		<module>maven-scm-api</module>
+		<module>maven-scm-providers</module>
+		...
+	</modules>
+</project>
+| | \|/
+
+<!-- 在maven父项目中可以看到如下定义： -->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.apache</groupId>
+		<artifactId>apache</artifactId>
+		<version>1</version>
+	</parent>
+	<groupId>org.apache.maven</groupId>
+	<artifactId>maven-parent</artifactId>
+	<version>5</version>
+	<url>http://maven.apache.org/</url>
+	...
+	<mailingLists>
+		<mailingList>
+			<name>Maven Announcements List</name>
+			<post>announce@maven.apache.org</post>
+			...
+		</mailingList>
+	</mailingLists>
+	<developers>
+		<developer>...</developer>
+	</developers>
+</project>
+| | \|/
+<!-- maven 父pom包括了共享的元素，如声明邮件列表，开发者。并且大多数项目继承apache组织： -->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.apache</groupId>
+	<artifactId>apache</artifactId>
+	<version>1</version>
+	<organization>
+		<name>Apache Software Foundation</name>
+		<url>http://www.apache.org/</url>
+	</organization>
+	<url>http://www.apache.org/</url>
+	...
+	<repositories>
+		<repository>
+			<id>apache.snapshots</id>
+			<name>Apache Snapshot Repository</name>
+			<url>http://svn.apache.org/maven-snapshot-repository</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	...
+	<distributionManagement>
+		<repository>...</repository>
+		<snapshotRepository>...</snapshotRepository>
+	</distributionManagement>
+</project>
+
+<!-- 对于项目自身来说，父pom很少更新。所以，最后的方式保存父pom文件在单独的版本控制区域，它们能够check out，更改和配置
+	
+	使用Continuum持久整合
+	
+	持续整合自动build你的项目，通过一定的时间，包括所有的冲突在早期察觉，而不是发布的时候。
+	
+	另外持续整合也是一种很好的开发方式，使团队成员能产生细微的，交互的变动，能更有效的支持平行开发进程。
+	
+	可以使用maven的continuum作为持久整合的服务。
+	
+	安装continuum，比较简，使用以下的命令：
+	
+	C:\mvnbook\continuum-1.0.3> bin\win32\run
+	
+	可以通过http://localhost:8082/continuum来验证
+	
+	为了支持continuum 发送e-mail提醒，你需要相应的smtp服务用于发送信息。默认使用localhost:25，如果你没有设置，编辑上面的文件改变smtp-host设置。
+	
+	下一步，设置svn目录：
+	
+	svn co file://localhost/C:/mvnbook/svn/proficio/trunk proficio
+	
+	编辑pom.xml用于正确相应得e-mail地址。 -->
+	...
+	<ciManagement>
+		<system>continuum</system>
+		<url>http://localhost:8080/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>youremail@yourdomain.com</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
+	...
+	<scm>
+		<connection>
+			scm:svn:file://localhost/c:/mvnbook/svn/proficio/trunk
+		</connection>
+		<developerConnection>
+			scm:svn:file://localhost/c:/mvnbook/svn/proficio/trunk
+		</developerConnection>
+	</scm>
+	...
+	<distributionManagement>
+		<site>
+			<id>website</id>
+			<url>
+				file://localhost/c:/mvnbook/repository/sites/proficio/reference/${project.version}
+			</url>
+		</site>
+	</distributionManagement>
+	
+<!-- 提交相应的pom,然后执行mvn install
+
+	如果你返回http://localhost:8082/continuum，你会看到相应的项目列表。
+
+	一旦你登录后，你可以选择mavan 2.0项目用于增加相应的项目。你可以增加你的url或者提交你的本地内容。
+
+	你可以使用本地pom url，如下file://localhost/c:mvnbook/proficio/pom.xml
+
+	在提交了此url后，continuum将会返回相应的成功信息。
+
+	以下的原则用于更好的帮助持续整合：
+
+	早提交，经常提交：当用户经常提交时，持续整合是最有效的。这并不意味着，提交不正确的代码。
+
+	经常运行build：用于最快检测失败
+
+	尽快修正失败：当失败发生时，应该马上修正失败
+
+	建议一个有效的版本
+
+	运行clean build
+
+	运行复杂的综合测试
+
+	build所有的项目结构分支
+
+	持续运行项目的拷贝 -->
+	
+	
+
+
+
+
+
+
+

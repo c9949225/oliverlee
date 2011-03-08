@@ -1,0 +1,9 @@
+1-Bean的类要实现BeanFactoryAware接口
+public class Chinese implements BeanFactoryAware
+
+2-这样通过getBean拿到的实例本身就可以取道自己的BeanFactory了
+ Chinese p = (Chinese)factory.getBean("chinese");
+ System.out.println(factory == p.getFactory());// true
+ 
+ factory是通过常规方法取得的BeanFactory
+ 与p.getFactory()是同一个实例

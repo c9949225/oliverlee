@@ -1,0 +1,5 @@
+grant codeBase "file:/c:/java/ch8/-" {
+  permission java.awt.AWTPermission "readDisplayPixels";
+  permission java.io.FilePermission "c:\\autoexec.bat", "delete,execute";
+};
+

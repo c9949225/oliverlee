@@ -1,0 +1,57 @@
+该类继承于 AbstractTransactionalSpringContextTests，它添加了一个JdbcTemplate，
+你可以借由此道快意直达数据库。
+
+它自动使用Spring容器中的数据源（DataSource）创建好一个JdbcTemplate实例并开放给子类使用。
+值得注意的是，如果你采用 byName自动装配机制，数据源Bean的名称必须取名为“dataSource”。
+
+让我们对UserServiceIntegrateTest进行改造，以便让其自动拥有访问数据库的设施（JdbcTemplate），并用灵活的方法访问数据库进行数据操作的检验，其代码如下所示：
+
+代码清单 7 UserServiceIntegrateWithJdbcTest
+package com.baobaotao.service;
+
+import org.springframework.test.AbstractTransactionalDataSourceSpringContextTests;
+…
+public class UserServiceIntegrateWithJdbcTest
+extends AbstractTransactionalDataSourceSpringContextTests {①注意：继承类发生调整
+
+private UserService userService;
+
+public void setUserService(UserService userService) {
+	this.userService = userService;
+}
+
+@Override
+protected String[] getConfigLocations() {
+	return new String[]{"baobaotao-service.xml", "baobaotao-dao.xml"};
+}
+
+public void testRegisterUser(){
+User user = new User();
+user.setUserId(2);
+user.setUserName("john");
+user.setPassword("123456");
+userService.registerUser(user);
+String sqlStr = " SELECT user_id FROM t_user WHERE user_name ='john' ";
+**************************************************************************
+int userId = jdbcTemplate.queryForInt(sqlStr); ①可以直接使用JdbcTemplate访问数据库了
+**************************************************************************
+assertEquals(user.getUserId(), userId);
+setComplete();
+}
+}
+
+**************************************************************************
+jdbcTemplate 是AbstractTransactionalDataSourceSpringContextTests类中定义的，子类可以直接使用它访问数据库。
+这样我们就可以灵活地访问数据库以检验目标测试方法的数据操作正确性。
+至此，我们终于毕其功于一役于 AbstractTransactionalDataSourceSpringContextTests，顺利解决前面我们中指出的最后问题。
+**************************************************************************
+
+只要你通过扩展AbstractTransactionalSpringContextTests及其子类创建测试用例，所有测试方法都会工作了事务环境下。也就是说，即使某些测试方法不需要访问数据库，也会产生额外的事务管理开销，是否可以对测试方法启用事务管理的行为进行控制呢？此外，在一些情况下，除对目标方法逻辑运行的正确性进行检验外，我们还希望对目标方法的运行性能进行测试：如当目标方法运行时间超过200毫秒时，则测试用例视为未通过。诸如此类的问题，我们目前学习到的知识还不能很好的应付。Spring 2.0新增了注解驱动的测试工具为我们指明了道路，你仅需要通过简单为测试方法标注注解，我们刚才提出的“疑难”问题就可以迎刃而解了。
+
+小结
+
+本文我们讲述了使用Spring提供的一套测试工具对Spring应用程序进行集成测试所需的所有知识。
+Spring 建议你不应该在单元测试时使用到Spring容器，你应该在集成测试时才使用到Spring容器。手工创建测试固件或者手工装配测试固件的工作都是单调乏味没有创意的工作，通过使用Spring为集成测试提供了帮助类，你就可以享受测试固件自动装配的好处，将精力集中到目标类逻辑测试编写的工作上。
+
+应该说大部分的Java应用都是Web应用，而大部分的Java Web应用都是数据库相关的应用，对数据库应用进行测试经常要考虑数据准备、数据库现场恢复、灵活访问数据以验证数据操作正确性等等的问题。这些问题如果没有一个很好的支持工具，将给编写测试用例造成挑战，幸好Spring都为我们搭建好满足这些需求的测试平台，你仅需要在此基础上编写特定的测试用例就可以了。
+ 

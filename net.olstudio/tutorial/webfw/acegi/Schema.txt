@@ -1,0 +1,109 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+              http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-2.0.xsd">  
+    ...
+</beans>
+  
+等同于下面
+
+In many of the examples you will see (and in the sample) applications, 
+we will often use "security" as the default namespace rather than "beans", 
+which means we can omit the prefix on all the security namespace elements, 
+making the context easier to read. 
+
+You may also want to do this if you have your application context divided up into separate files 
+and have most of your security configuration in one of them. 
+Your security application context file would then start like this
+如果是单独的安全配置文件,可以这么写
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+   xmlns:beans="http://www.springframework.org/schema/beans">
+    ...
+</beans:beans>
+
+第1步:
+
+<filter>
+  <filter-name>springSecurityFilterChain</filter-name>
+  <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+</filter>
+  
+<filter-mapping>
+  <filter-name>springSecurityFilterChain</filter-name>
+  <url-pattern>/*</url-pattern>
+</filter-mapping> 
+
+第2步:
+
+在Spring配置文件中
+
+2.1 所有的URL,必须是ROLE_USER角色才可访问
+
+<http auto-config='true'>
+	<!-- 必须象异常处理一样越具体的越放在前面 -->
+    <intercept-url pattern="/**" access="ROLE_USER" />
+    <intercpet-url ... />
+</http>
+
+是下面的缩写
+
+<http>
+    <intercept-url pattern="/**" access="ROLE_USER" />
+    <form-login />
+    <anonymous />
+    <http-basic />
+    <logout />
+    <remember-me />
+  </http>
+  
+ 指定登录表单的位置
+ 
+  <http auto-config='true'>
+    <intercept-url pattern="/login.jsp*" filters="none"/>  
+    <intercept-url pattern="/**" access="ROLE_USER" />
+    <form-login login-page='/login.jsp'/>
+  </http>
+  
+ 使用Http Basic的方式验证
+ 
+ <http auto-config='true'>
+    <intercept-url pattern="/**" access="ROLE_USER" />
+    <http-basic />
+ </http>
+
+2.2 定义一些用户
+ <authentication-provider>
+    <user-service>
+      <user name="jimi" password="jimispassword" authorities="ROLE_USER, ROLE_ADMIN" />
+      <user name="bob" password="bobspassword" authorities="ROLE_USER" />
+    </user-service>
+  </authentication-provider>
+  
+2.3 使用其他的用户源
+
+实际中需要使用更复杂的用户源,而不是像上面那样在application context配置文件中添加一些用户
+
+如果要使用数据库作为用户源
+
+<authentication-provider>
+    <jdbc-user-service data-source-ref="securityDataSource"/>
+</authentication-provider>
+
+Appfuse中的用法: 使用自定义实现UserDetailsService接口的类
+
+<authentication-provider user-service-ref="userDao">
+        <password-encoder ref="passwordEncoder"/>
+</authentication-provider>
+
+
+2.4 定义方法拦截
+
+只有角色ROLE_USER可以访问,所有在application context中定义的bean,其类在com.mycompany包中,以名字Service结尾
+
+<global-method-security>
+    <protect-pointcut expression="execution(* com.mycompany.*Service.*(..))" access="ROLE_USER"/>
+</global-method-security>
+
+ 
+

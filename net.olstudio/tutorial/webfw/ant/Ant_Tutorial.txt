@@ -1,0 +1,21 @@
+1-Each buildfile contains one 'project' 
+and at least one (default) 'target'. 
+Targets contain 'task' elements. 
+Each task element of the buildfile can have an 'id' attribute 
+and can later be referred to by the value supplied to this. 
+The value has to be unique.
+
+2-  <target name="build-module-A" if="module-A-present"/>
+    <target name="build-own-fake-module-A" unless="module-A-present"/>
+
+3-In the event you should need to include this construct literally (i.e. without property substitutions), simply "escape" the '$' character by doubling it. To continue the previous example:
+
+  <echo>$${builddir}=${builddir}</echo>
+
+will echo this message:
+
+  ${builddir}=build/classes
+
+
+
+

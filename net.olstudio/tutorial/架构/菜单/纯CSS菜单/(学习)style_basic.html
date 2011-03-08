@@ -1,0 +1,276 @@
+
+<html>
+
+<head>
+<meta http-equiv="content-type" content="text/html; charset=gbk"></meta>
+
+<title></title>
+
+<style type="text/css">
+.menu {
+z-index:1000;
+font-size:90%;
+height:235px;
+}
+
+/* 去掉列表前所有的圆点，以及边框和内补白 */
+.menu ul {
+padding:0;
+margin:0;
+list-style-type:none;
+width:100px;
+height:182px;
+position:relative;
+border:1px solid #fff;
+}
+
+.menu li {
+background:#ddd;
+height:26px;
+}
+* html .menu li {margin-left:-16px; margin-lef\t:0;}
+/* 清除表格 */
+.menu table {position:absolute; border-collapse:collapse;
+ top:0; left:0; z-index:100; font-size:1em; width:0; height:0;}
+
+/* 定义链接样式 */
+.menu a, .menu a:visited {
+display:block; 
+text-decoration:none;
+height:25px;
+line-height:25px;
+width:100px;
+color:#000;
+text-indent:5px;
+border-bottom:1px solid #fff;
+background:#ddd;
+}
+/* 定义鼠标经过链接的样式 */
+* html .menu a:hover {color:#fff; background:#999;}
+
+.menu :hover > a {
+color:#fff; 
+background:#999;
+}
+
+/* 隐藏二级菜单，并用绝对定位属性定义菜单，目的是不让它们占据页面上的任何空间 */
+.menu ul ul {
+visibility:hidden;
+position:absolute;
+top:-1px;
+left:100px;
+}
+/* 当鼠标经过第一级菜单的弹出按钮时，显示相对应的第二级菜单 */
+.menu ul li:hover ul,
+.menu ul a:hover ul {
+visibility:visible;
+height:235px;
+}
+/* 当鼠标移动至一级菜单时，隐藏第三级菜单 */
+.menu ul :hover ul ul{
+visibility:hidden;
+}
+/* 当鼠标移动至二级菜单时，隐藏第四级菜单 */
+.menu ul :hover ul :hover ul ul{
+visibility:hidden;
+}
+/* 当鼠标经过第二级菜单的弹出按钮时，
+显示相对应的第三级菜单 */
+.menu ul :hover ul :hover ul{ 
+visibility:visible;
+height:235px;
+}
+/* 当鼠标经过第三级菜单的弹出按钮时，
+显示相对应的第四级菜单 */
+.menu ul :hover ul :hover ul :hover ul { 
+visibility:visible;
+height:235px;
+}
+</style>
+
+<!--[if IE 7]>
+<style type="text/css">
+.menu li {float:left;}
+</style>
+<![endif]-->
+
+</head>
+<body>
+<div class="menu">
+<ul>
+<li><a href="#nogo">菜单 1</a></li>
+<li><a href="#nogo">菜单 2</a></li>
+<li><a href="#nogo">菜单 3 &#187;<!--[if IE 7]><!--></a>
+				<!--<![endif]-->
+<!--[if lte IE 6]><table><tr><td><![endif]-->
+	<ul>
+
+	<li><a href="#nogo">Item 3a</a></li>
+	<li><a href="#nogo">Item 3b &#187;
+	<!--[if IE 7]><!--></a><!--<![endif]-->
+	<!--[if lte IE 6]><table><tr><td><![endif]-->
+	<ul>
+		<li><a href="#nogo">Item 3bi</a></li>
+		<li><a href="#nogo">Item 3bii &#187;
+		<!--[if IE 7]><!--></a><!--<![endif]-->
+		<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 3bii-1</a></li>
+			<li><a href="#nogo">Item 3bii-2</a></li>
+			<li><a href="#nogo">Item 3bii-3</a></li>
+			<li><a href="#nogo">Item 3bii-4</a></li>
+			<li><a href="#nogo">Item 3bii-5</a></li>
+
+			<li><a href="#nogo">Item 3bii-6</a></li>
+			<li><a href="#nogo">Item 3bii-7</a></li>
+			<li><a href="#nogo">Item 3bii-8</a></li>
+		</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+			<li><a href="#nogo">Item 3biii &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 3biii-1</a></li>
+			<li><a href="#nogo">Item 3biii-2</a></li>
+			<li><a href="#nogo">Item 3biii-3</a></li>
+			<li><a href="#nogo">Item 3biii-4</a></li>
+		</ul>
+
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li><a href="#nogo">Item 3c</a></li>
+	<li><a href="#nogo">Item 3d</a></li>
+	<li><a href="#nogo">Item 3e</a></li>
+
+	<li><a href="#nogo">Item 3f</a></li>
+	<li><a href="#nogo">Item 3g &#187;
+	<!--[if IE 7]><!--></a><!--<![endif]-->
+	<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 3gi &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul>
+				<li><a href="#nogo">Item 3gi-1</a></li>
+				<li><a href="#nogo">Item 3gi-2</a></li>
+				<li><a href="#nogo">Item 3gi-3</a></li>
+				<li><a href="#nogo">Item 3gi-4</a></li>
+				<li><a href="#nogo">Item 3gi-5</a></li>
+				<li><a href="#nogo">Item 3gi-6</a></li>
+			</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+			<li><a href="#nogo">Item 3gii</a></li>
+			<li><a href="#nogo">Item 3giii &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul>
+				<li><a href="#nogo">Item 3giii-1</a></li>
+				<li><a href="#nogo">Item 3giii-2</a></li>
+				<li><a href="#nogo">Item 3giii-3</a></li>
+				<li><a href="#nogo">Item 3giii-4</a></li>
+				</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+			<li><a href="#nogo">Item 3giv</a></li>
+			<li><a href="#nogo">Item 3gv</a></li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li><a href="#nogo">Item 3h</a></li>
+	<li><a href="#nogo">Item 3i</a></li>
+	</ul>
+
+<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+<li><a href="#nogo">Item 4</a></li>
+<li><a href="#nogo">Item 5</a></li>
+<li><a href="#nogo">Item 6 &#187;
+<!--[if IE 7]><!--></a><!--<![endif]-->
+<!--[if lte IE 6]><table><tr><td><![endif]-->
+	<ul>
+	<li><a href="#nogo">Item 6a</a></li>
+	<li><a href="#nogo">Item 6b &#187;
+	<!--[if IE 7]><!--></a><!--<![endif]-->
+	<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 6bi</a></li>
+			<li><a href="#nogo">Item 6bii &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td>
+			<![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 6bii-1</a></li>
+			<li><a href="#nogo">Item 6bii-2</a></li>
+			<li><a href="#nogo">Item 6bii-3</a></li>
+			<li><a href="#nogo">Item 6bii-4</a></li>
+		</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li><a href="#nogo">Item 6c</a></li>
+	<li><a href="#nogo">Item 6d</a></li>
+	<li><a href="#nogo">Item 6e</a></li>
+	<li><a href="#nogo">Item 6f</a></li>
+	<li><a href="#nogo">Item 6g &#187;
+	<!--[if IE 7]><!--></a><!--<![endif]-->
+	<!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul>
+			<li><a href="#nogo">Item 6gi &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul>
+				<li><a href="#nogo">Item 6gi-1</a></li>
+				<li><a href="#nogo">Item 6gi-2</a></li>
+				<li><a href="#nogo">Item 6gi-3</a></li>
+			</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+			<li><a href="#nogo">Item 6gii</a></li>
+			<li><a href="#nogo">Item 6giii &#187;
+			<!--[if IE 7]><!--></a><!--<![endif]-->
+			<!--[if lte IE 6]><table><tr><td><![endif]-->
+
+		<ul>
+			<li><a href="#nogo">Item 6giii-1</a></li>
+			<li><a href="#nogo">Item 6giii-2</a></li>
+			<li><a href="#nogo">Item 6giii-3</a></li>
+			<li><a href="#nogo">Item 6giii-4</a></li>
+			<li><a href="#nogo">Item 6giii-5</a></li>
+			<li><a href="#nogo">Item 6giii-6</a></li>
+			<li><a href="#nogo">Item 6giii-7</a></li>
+			<li><a href="#nogo">Item 6giii-8</a></li>
+			<li><a href="#nogo">Item 6giii-9</a></li>
+		</ul>
+			<!--[if lte IE 6]></td></tr></table></a>
+			<![endif]-->
+			</li>
+
+		</ul>
+	<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li><a href="#nogo">Item 6h</a></li>
+	<li><a href="#nogo">Item 6i</a></li>
+	</ul>
+<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+</li>
+<li><a href="#nogo">Item 7</a></li>
+
+</ul>
+</div>
+
+</body>
+</html>

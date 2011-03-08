@@ -1,0 +1,84 @@
+1,说起猪皮(GP，Generic Practice)，真的让人又爱又恨，中文翻译叫通用实践，我在设计“CMMI快乐之旅”课程的时候，在基础知识扫盲一节并没有介绍猪皮，
+免得大家一下子接触的东西太多，消化不了，我打算在介绍2、3级的过程中，再进一步介绍这个猪皮。
+
+这里先简单介绍一下什么叫通用实践，尽量让初学者对通用实践有大概的了解，详细的介绍将在《CMMI快乐之旅》课程及2、3、4、5级的子论坛中陆续为大家讲解。
+
+2,CMMI标准中
+
+每个"级别"包含几个"PA"
+
+每个"PA"又包含几个"Goal"
+
+每个"Goal"又包含几个"Practice"
+
+实际上Goal分为两类，一类是 Specific Goal（特定目标，简称SG）,一类是Geniric Goal（通用目标，简称GG）。
+
+SG包含的Practic叫做Specific Practic（特定实践，简称SP）
+GG包含的Practic叫做Geniric Practic（通用实践，简称GP）
+
+3,大家如果去看看CMMI的标准，会发现每个PA的SP内容都不一样的，但GP看上去基本类似，
+只是个别的单词换掉。实际上CMMI的制定者对这些内容进行了精心的提炼，
+他们总结出不管是哪个PA，都需要有类似的要求，这些要求就被总结成GG和GP。
+
+4,
+GG（Generic Goal）有以下几种层次：
+GG1：达到特殊目标的要求(只要所有SG都满足了，GG1就满足了)
+GG2：制度化一个可管理的过程(10个GP)
+GG3：制度化一个已定义的过程(2个GP)
+GG4：制度化一个定量管理的过程
+GG5：制度化一个持续改进的过程
+
+5,GG1非常简单，只要所有SG都满足了，GG1就满足了。
+
+6,GG2就复杂很多，要求制度化一个可管理的过程，
+GG2包含10个GP（Generic Practice），内容涉及到方针、计划、资源、责任、人员培训、配置管理、干系人的管理、计划跟踪、QA、高级别领导检查等十方面的内容，
+这些内容，每个PA都有要求，要全部满足这些要求是不那么容易的。
+
+7,GG3只有两个GP，分别是建立已定义的过程以及收集改进的信息，尽管只有两个GP，
+但要建立覆盖所有SP的已定义过程是不容易的，并且要不断的收集该PA的改进信息。
+
+8,在进行阶段式评估的时候，对于GG，只需要评估GG2、GG3就可以了，但如果进行连续式的评估，就可能需要评估GG4、GG5。如果一个PA能达到 GG4的要求，说这个PA达到了定量管理的层次，达到4级的要求。
+如果一个PA能达到GG5的要求，说明这个PA在"定量管理的层次"上能"持续地优化"，达到了 5级的要求。
+
+9,不知道大家开始晕了没有？为了简单起见，暂时不详细介绍连续式是怎么回事，
+大家先把精力面向GG2、GG3，本论坛也暂时以阶段式为主介绍CMMI。
+
+// --------------------------------------------------------------
+10, 详细介绍Staged的GG2,GG3的GP
+
+GP2.1 Establlish and maintain an organizational poliicy for planning and performing then XXX process.
+GP2.2 Establish and maintain the plan for performing XXX process.
+GP2.3 Provide adequate resources for performing XXX process,developing the work products,and providing the services of the process.
+GP2.4 Assign responsibility and authority for performing the process,developing the work products,and providing the services of XXX process.
+GP2.5 Traing the people performing or supporting XXX process as needed.
+GP2.6 Place designed work products of XXX process under appropriate levels of configuration management.
+GP2.7 Identify and involve the relevant stakeholders of XXX process as planned.
+GP2.8 Monitor and control XXX process against the plan for performing the process and take appropriate corrective action.
+GP2.9 Objectively evaluate adherence of XXX processn against its process description,standards,and procedures,and address noncompliance.
+GP2.10 Review the activities,status,and results of XXX process with highter level management and resolve issues.
+GP3.1 Establish and maintain the description of a XXX process.
+GP3.2 Collect work products,measures,measurement results,and improvement information derived from planning and performing XXX process to support the future use and improvement of the organization's processes and process assets.
+
+不同的PA，XXX就会替换成相应过程的文字，如PP，XXX就会替换成“project planning”。
+
+11,如果一个PA是2级的要求，但是因为过3级，所以2级的PA也要过，那么关于这个PA的GG，是GG2，GG3都要完成，还是只要GG2就够了？
+
+如果要过3级，2级的GG3是要满足的，如果只过2级，只需要满足GG2。
+
+12,因为ML3(Staged)对应GG3的要求, 所以才会在ML3所要求的各个PA中可以同时表达连续式和阶段式的内容(连续式适用于任何GG), 
+而ML2级不要求GG3满足, 因此其所对应的PA中不会出现这种两种形式的同时表达.
+
+13,连续式的PA评级
+
+连续式每个PA都会评级，具体如下：
+0级：表示该PA的SP没有做到。
+1级：表示该PA的SP做到了。 注:我们一般都是冲着SP来的
+2级：表示该PA的SP做到了，并且GP2.x也做到了。
+3级：表示该PA的SP做到了，并且GP2.x GP3.x也做到了。
+4级：表示该PA的SP做到了，并且GP2.x GP3.x GP4.x也做到了。
+5级：表示该PA的SP做到了，并且GP2.x GP3.x GP4.x GP5.x也做到了。
+
+14,
+
+
+

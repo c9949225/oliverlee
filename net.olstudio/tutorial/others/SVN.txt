@@ -1,0 +1,26 @@
+********************************
+1-删除所有svn 元数据
+********************************
+起因：每个svn目录都有一个.svn目录包含svn元数据信息。一个项目的svn数据很是庞大，打包的时候需要删除。
+
+解决方案：
+使用cygwin命令
+find . -type d -name ".svn" | xargs rm -rf
+
+2-如果出现cant move *.tmp ..的出错信息，说明要更新的文件正在被某个程序访问，关闭占用该文件的程序就
+可以了。比如jar正在被web server使用。
+
+********************************
+2-忽略项
+********************************
+Do not check in the Eclipse control files in your SCM, you can (and should) regenerate them every time you need them!
+
+When using CVS, put these files in the .cvsignore file of every module. A basic version will look something like this:
+
+.classpath
+.project
+.settings
+target
+
+For SVN, use the svn:ignore property in the root directory of each project.
+

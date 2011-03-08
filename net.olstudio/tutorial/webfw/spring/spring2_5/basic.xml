@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- 构造函数参数注入之参数类型 -->
+	<bean id="exampleBean" class="examples.ExampleBean">
+		<constructor-arg type="int" value="7500000" />
+		<constructor-arg type="java.lang.String" value="42" />
+		<!-- 注入null值 -->
+		<property name="email">
+			<null />
+		</property>
+	</bean>
+
+	<!-- 构造函数参数注入之参数序号 -->
+	<bean id="exampleBean2" class="examples.ExampleBean">
+		<constructor-arg index="0" value="7500000" />
+		<constructor-arg index="1" value="42" />
+	</bean>
+
+	<!-- setter注入 -->
+	<bean id="exampleBean3" class="examples.ExampleBean">
+		<!-- setter injection using the nested <ref/> element -->
+		<property name="beanOne">
+			<!-- <ref local="..." /> 表示引用在同一配置文件中的Bean -->
+			<ref bean="anotherExampleBean" />
+		</property>
+		<!-- setter injection using the neater 'ref' attribute -->
+		<property name="beanTwo" ref="yetAnotherBean" />
+		<property name="integerProperty" value="1" />
+	</bean>
+	<bean id="anotherExampleBean" class="examples.AnotherBean" />
+	<bean id="yetAnotherBean" class="examples.YetAnotherBean" />
+
+	<!-- idref -->
+	<bean id="theTargetBean" class="..." />
+	<bean id="theClientBean" class="...">
+		<property name="targetName">
+			<idref bean="theTargetBean" />
+		</property>
+	</bean>
+
+	<!-- inner bean -->
+	<bean id="outer" class="...">
+		<!-- instead of using a reference to a target bean, simply define the target bean inline -->
+		<property name="target">
+			<bean class="com.example.Person"><!-- this is the inner bean -->
+				<property name="name" value="Fiona Apple" />
+				<property name="age" value="25" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Collections -->
+	<bean id="moreComplexObject" class="example.ComplexObject">
+		<!-- results in a setAdminEmails(java.util.Properties) call -->
+		<property name="adminEmails">
+			<props>
+				<prop key="administrator">
+					administrator@example.org
+				</prop>
+				<prop key="support">support@example.org</prop>
+				<prop key="development">development@example.org</prop>
+			</props>
+		</property>
+		<!-- results in a setSomeList(java.util.List) call -->
+		<property name="someList">
+			<list>
+				<value>a list element followed by a reference</value>
+				<ref bean="myDataSource" />
+			</list>
+		</property>
+		<!-- results in a setSomeMap(java.util.Map) call -->
+		<property name="someMap">
+			<map>
+				<entry>
+					<key>
+						<value>an entry</value>
+					</key>
+					<value>just some string</value>
+				</entry>
+				<!-- 简洁的书写方式 -->
+				<entry key-ref="myKeyBean" value-ref="myValueBean" />
+				<entry>
+					<key>
+						<value>a ref</value>
+						<!-- more bean definitions go here -->
+					</key>
+					<ref bean="myDataSource" />
+				</entry>
+			</map>
+		</property>
+		<!-- results in a setSomeSet(java.util.Set) call -->
+		<property name="someSet">
+			<set>
+				<value>just some string</value>
+				<ref bean="myDataSource" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- collection merging 
+		合并后的属性文件
+		administrator=administrator@example.com
+		sales=sales@example.com
+		support=support@example.co.uk
+	-->
+	<bean id="parent" abstract="true" class="example.ComplexObject">
+		<property name="adminEmails">
+			<props>
+				<prop key="administrator">
+					administrator@example.com
+				</prop>
+				<prop key="support">support@example.com</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="child" parent="parent">
+		<property name="adminEmails">
+			<!-- the merge is specified on the *child* collection definition -->
+			<props merge="true">
+				<prop key="sales">sales@example.com</prop>
+				<prop key="support">support@example.co.uk</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 'depends-on' 后面的Bean要首先初始化 -->
+	<bean id="beanOne" class="ExampleBean"
+		depends-on="manager,accountDao">
+		<property name="manager" ref="manager" />
+	</bean>
+	<bean id="manager" class="ManagerBean" />
+	<bean id="accountDao" class="x.y.jdbc.JdbcAccountDao" />
+
+	<!-- 延迟加载,ApplicationContext启动的时候lazy不会加载,not.lazy会加载 -->
+	<bean id="lazy" class="com.foo.ExpensiveToCreateBean"
+		lazy-init="true" />
+	<bean name="not.lazy" class="com.foo.AnotherBean" />
+
+	<!-- 延迟加载的全局设置
+		<beans default-lazy-init="true">
+		<!-- no beans will be pre-instantiated... 
+		</beans > -->
+
+	<!-- lookup-method
+		
+		// no more Spring imports!
+		public abstract class CommandManager {
+		
+		public Object process(Object commandState) {
+		// grab a new instance of the appropriate Command interface
+		Command command = createCommand();
+		// set the state on the (hopefully brand new) Command instance
+		command.setState(commandState);
+		return command.execute();
+		}
+		// okay... but where is the implementation of this method?in spring descriptor
+		protected abstract Command createCommand();
+		
+		} -->
+	<!-- a stateful bean deployed as a prototype (non-singleton) -->
+	<bean id="command" class="fiona.apple.AsyncCommand"
+		scope="prototype">
+		<!-- inject dependencies here as required -->
+	</bean>
+	<!-- commandProcessor uses statefulCommandHelper -->
+	<bean id="commandManager" class="fiona.apple.CommandManager">
+		<lookup-method name="createCommand" bean="command" />
+	</bean>
+
+	<!-- ------------------------------------------------------------------------------- -->
+	<!-- replacementComputeValue需要实现MethodReplacer接口 -->
+	<bean id="myValueCalculator" class="x.y.z.MyValueCalculator">
+		<!-- 使用另外一个类的方法reimplement来替换computeValue方法 -->
+		<replaced-method name="computeValue"
+			replacer="replacementComputeValue">
+			<arg-type>String</arg-type>
+		</replaced-method>
+	</bean>
+
+	<bean id="replacementComputeValue" class="a.b.c.ReplacementComputeValue" />
+	<!-- ------------------------------------------------------------------------------- -->
+
+	<!-- ObjectFactoryCreatingFactoryBean-----------------------------------------------
+		 import org.springframework.beans.factory.ObjectFactory;
+		 public class NewsFeedManager {
+		 
+		 	private ObjectFactory factory;
+		 
+		 	public void setFactory(ObjectFactory factory) {
+		 		this.factory = factory;
+			}
+			
+			public void printNews() {
+				// here is where the lookup is performed; note that there is no
+				// need to hard code the name of the bean that is being looked up...
+				NewsFeed news = (NewsFeed) factory.getObject();
+				
+				System.out.println(news.getNews());
+			}
+		}
+		
+		import org.springframework.context.ApplicationContext;
+		import org.springframework.context.support.ClassPathXmlApplicationContext;
+		import x.y.NewsFeedManager;
+		
+		public class Main {
+			public static void main(String[] args) throws Exception {
+				ApplicationContext ctx = new ClassPathXmlApplicationContext("beans.xml");
+				NewsFeedManager manager = (NewsFeedManager) ctx.getBean("newsFeedManager");
+				manager.printNews();
+				manager.printNews();
+			}
+		}
+	 -->
+	<bean id="newsFeedManager" class="x.y.NewsFeedManager">
+		<property name="factory">
+			<bean
+				class="org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean">
+				<property name="targetBeanName">
+					<idref local="newsFeed" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="newsFeed" class="x.y.NewsFeed" scope="prototype">
+		<property name="news" value="... that's fit to print!" />
+	</bean>
+	
+	<!-- Bean definition inheritance---------------------------------------------------------- -->
+
+
+
+
+
+
+</beans>
+
+<!-- 
+	获得IOC Container:
+	ApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"services.xml", "daos.xml"});
+	
+	另外一种加载多配置文件的方法,import中的文件相对
+	<beans>
+	<import resource="services.xml"/>
+	<import resource="resources/messageSource.xml"/>
+	<import resource="/resources/themeSource.xml"/>
+	<bean id="bean1" class="..."/>
+	<bean id="bean2" class="..."/>
+	</beans>
+	
+-->

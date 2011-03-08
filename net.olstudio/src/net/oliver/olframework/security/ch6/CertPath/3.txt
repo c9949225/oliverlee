@@ -1,0 +1,63 @@
+
+X.509 Cert Path: length = 2.
+[
+=========================================================Certificate 1 start.
+[
+[
+  Version: V1
+  Subject: CN=Liu Fang, OU=Packaging, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@c9ba38
+  Validity: [From: Thu Dec 05 12:04:35 CST 2002,
+               To: Mon Feb 21 12:04:35 CST 2011]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3deed053 ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: D2 3F 52 38 62 BF ED 59   D0 E5 B1 83 E3 4C 56 C9  .?R8b..Y.....LV.
+0010: 9C 8F C8 37 13 35 31 2F   36 F7 A0 9E CD 04 2C 58  ...7.51/6.....,X
+0020: 72 DE 0C B6 46 F9 AF CD   96 E3 2D CF 70 9E 1A E5  r...F.....-.p...
+0030: 9A B3 D9 12 97 EA 7C 97   4A F9 E6 8B 93 52 C4 42  ........J....R.B
+0040: 13 6F EC 43 FD 30 ED B2   19 92 13 FD 0B DA A6 8C  .o.C.0..........
+0050: 9B 3F 08 62 A9 9F 4B 23   CD A8 A0 CB BE 60 09 85  .?.b..K#.....`..
+0060: E4 EC 3C 5E D7 CE BC 44   E7 F5 43 0B 01 EA 93 A3  ..<^...D..C.....
+0070: CB EA 83 B3 BF 2F B4 2E   83 12 54 A4 55 AE E2 5C  ...../....T.U..\
+
+]
+=========================================================Certificate 1 end.
+
+
+=========================================================Certificate 2 start.
+[
+[
+  Version: V1
+  Subject: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@30e280
+  Validity: [From: Thu Dec 05 10:56:03 CST 2002,
+               To: Sun Nov 17 10:56:03 CST 2013]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3deec043 ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: BE D5 F3 3C FE 53 16 0E   DC FE A0 1C 7C F1 AF 31  ...<.S.........1
+0010: F3 3B 0C 36 2E 1D 32 1F   87 B3 B4 1D 82 BB 4A BB  .;.6..2.......J.
+0020: DE 5D 35 90 BC A8 CF 42   45 61 ED 3D 19 DF 7D AB  .]5....BEa.=....
+0030: 45 F2 4A 19 C1 6B 19 0E   F7 EC CE C6 1A 40 9F A9  E.J..k.......@..
+0040: 6B 8C 49 DA CC 85 67 D9   C8 91 67 DB 33 6B 47 96  k.I...g...g.3kG.
+0050: 70 D6 91 69 24 43 D5 81   6C 9D C5 9D 4D 40 23 01  p..i$C..l...M@#.
+0060: 65 72 B6 27 FB 1B F3 8F   4A 16 0B 31 E2 EB 19 42  er.'....J..1...B
+0070: 50 C7 70 62 6E FC A4 76   03 3E 22 7C 26 00 47 ED  P.pbn..v.>".&.G.
+
+]
+=========================================================Certificate 2 end.
+
+
+
+]

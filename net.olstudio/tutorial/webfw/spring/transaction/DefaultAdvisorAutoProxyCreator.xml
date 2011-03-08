@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- 
+两种实现方案:
+1. 使用 DefaultAdvisorAutoProxyCreator, 需要事务控制的类实现一个标志性接口
+2. 使用 BeanNameAutoProxyCreator, 需要事务控制的 bean 声明时名称需要满足一定规则, 如 xxxManager, xxxService -->
+
+<beans>
+	<!-- Transaction manager for a single Hibernate SessionFactory (alternative to JTA) -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory"/>
+		</property>
+	</bean>
+	
+	<!-- 事务属性源是一个方法是否需要代理的关键,TransactionAttributeSourceAdvisor根据事务属性源来确定一个方法是否和一些事务属性关联,即据配置的transactionInterceptor
+		 的AttributeSource属性来决定是否对一个方法进行事务代理。
+		 
+		 其他的属性源还有比如:
+		 MethodMapTransactionAttributeSource,NameMatchTransactionAttributeSource -->
+	
+	<!--   <property name="transactionAttributeSource">
+                     <ref bean = "transactionAttributeSource"/>
+              </property> -->
+		 
+	<!--
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="transactionAttributeSource">
+			<value>com.skyon.user.manager.UserManager.*=PROPAGATION_REQUIRED
+				   <!-- 添加新的需要事务管理的Bean，通过指定类名  
+				   你的那个标志性接口不用定义任何方法吗, 我试了somepackage.IService.* = PROPAGATION_REQUIRED貌似不行。
+				   因为Spring AOP会去找这个接口定义的方法，空接口是不允许的，因为它找不到任何Method。 --><!--
+			</value>
+		</property>
+	</bean> -->
+	
+	<!--最后的方案是使用BeanNameAutoProxyCreator，还是不要空的接口。-->
+	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<property name="transactionManager" ref="transactionManager"/>
+		<!-- 配置transactionAttributes而不是transactionAttributeSource。-->
+		<property name="transactionAttributes">
+			<props>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean> 
+	
+	<!-- DefaultAdvisorAutoProxyCreator,DefaultAopProxyFactory将在应用上下文中遍历advisor，自动用它来代理匹配"advisor的pointcut"的所有bean。 -->
+	<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+				<!-- 增加新的 Interceptor -->
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 对于事务，应该使用的advisor是TransactionAttributeSourceAdvisor
+		 (Adivisor就是Advice和Pointcut的组合，Advice是拦截器,定义了在切入点要做些什么,Pointcut定义了哪些方法作为切入点) -->
+	<bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">
+		<property name="transactionInterceptor" ref="transactionInterceptor"/>
+	</bean>
+
+</beans> 
+
+<!-- 最后一件要做的事情就是删除所有TransactionProxyFactoryBean的实例，并把"服务bean"重命名回它们原来正确的名称。 -->

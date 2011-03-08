@@ -1,0 +1,85 @@
+securityContextHolderAwareRequestFilter的配置及作用
+<bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+该Filter 负责通过Decorate Model(装饰模式)，装饰的HttpServletRequest对象。
+其Wapper是ServletRequest包装类 HttpServletRequestWrapper的子类(SavedRequestAwareWrapper或 SecurityContextHolderAwareRequestWrapper)，
+附上获取用户权限信息，request参数，headers, Date headers 和 cookies 的方法。
+
+在appfuse中使用的struts-menu.xml对用户菜单权限的控制参数role进行配置时必须结合该Filter，
+因为该filter有isUserInRole方法，
+而struts menu也是通过request.isUserInRole方法来控制菜单是否显示的
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+刚刚接触Struts Menu的时候，对Struts Menu基于角色的菜单显示很好理解，
+但是如何将Web应用中的角色管理映射到Struts Menu中，是困扰笔者良久的问题。
+经过摸索，在查阅了Tomcat的手册之后，笔者找到了答案。
+
+Servlet容器和web应用都可以控制web应用资源的安全，因此Tomcat管理域有容器管理和应用程序管理两种，
+默认使用容器管理。
+通常web应用中使用的登陆Servlet和JSP则是应用程序管理。
+
+这就涉及到Realm的概念。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Tomcat在%CATALINA_HOME%/conf/server.XML文件中配置Realm,
+结合在%CATALINA_HOME%/WEB-INF/mywebapp/web.xml文件中配置的<security-constraint>,
+定义了存储用户和角色的信息，以及进行用户验证的方式。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Tomcat中定义的Realm有如下几种实现：
+UserDatabaseRealm,
+JDBCRealm,
+JNDIRealm,
+JAASRealm。
+下载Tomcat解压缩后默认使用的是UserDatabaseRealm。
+UserDatabaseRealm从%CATALINA_HOME%/conf/tomcat-users.xml静态文件中加载内存，Tomcat运行期间不会动态加载。
+因此所有的用户、角色和密码都是在Tomcat启动之前配置好的，只存在于内存中。修改tomcat-users.xml文件后必须重新启动Tomcat，
+该文件的具体配置请参考Tomcat手册。
+
+本文要着重介绍的是JDBCRealm，该Realm使用关系数据库，能够动态访问数据。用户、角色和密码都保存在数据库中，一旦数据库有变化，JDBCRealm会立即访问。
+相应，JDBCRealm的设置需要数据库的访问参数。Tomcat5.0.28中给出了几种数据库的配置参数，示例如下：
+
+<Realm  className="org.apache.catalina.realm.JDBCRealm"
+		debug="99" digest="MD5"
+
+        driverName="Oracle.jdbc.driver.OracleDriver"
+        connectionURL="jdbc:oracle:thin:@ntserver:1521:ORCL"
+        connectionName="scott" connectionPassword="tiger"
+        userTable="users" userNameCol="user_name" userCredCol="user_pass"
+        userRoleTable="user_roles" roleNameCol="role_name" 
+/>
+
+有了这些定义，web应用中定义的用户和角色就可以在Struts Menu中，用于配置基于角色可见与否的菜单。
+
+PermissionsAdapter接口，在菜单框架中定义可插入的适配器，该适配器原来校验对菜单的访问。
+接口中只有一个方法：public boolean isAllowed(MenuComponent menu)，参数是menu-config.XML文件中定义的一个菜单（Menu）或菜单项（Item），
+该方法判断该菜单是否允许被显示。
+
+在显示菜单的时候，每个菜单或菜单项都要作为参数调用isAllowed方法，如果返回true就显示该菜单，否则就不显示菜单。
+          
+Struts-menu项目中内置有类RolesPermissionsAdapter实现了PermissionsAdapter接口。
+该适配器在容器管理安全性是被用来进行菜单访问的验证，
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+将Web.xml文件中定义的用户安全角色映射到menu-config.xml文件中设置的菜单/菜单项允许访问角色列表。其中的角色是在。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+1.2.       步骤0
+该步骤通常是J2EE/JAAS等安全配置的一部分。为每个用户或用户组分配角色。角色是在web.xml文件中定义的。
+1.3.       步骤1：为菜单定义PermissionsAdapter
+用来显示菜单的JSP标记<menu:useMenuDisplayer/>标记中有一个可选的属性：permissions。如果设置了该属性，该属性值就作为名字，在application/request/session/page域内查找PermissionsAdapter的对象。然后将找到的适配器应用到菜单的显示中。
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+值得注意的是，在permissions的属性值中有一个值是特殊处理的――rolesAdapter。
+如果设置了permissions="rolesAdapter"，就说明在验证菜单是否显示的过程中，
+不是在application/request/session/page域中查找适配器，而是创建并使用新的RolesPermissionsAdapter对象。
+这样就只需要在<menu:useMenuDisplayer/>标记中添加属性permissions="rolesAdapter"，而无需定义自己的PermissionsAdapter实现。
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+
+1.4.       步骤2：将角色映射到menu-config.xml中的菜单/菜单项
+
+在menu-config.xml文件中的<Menu/>和<Item/>标记有一个可选的属性：roles。该属性在与RolesPermissionsAdapter联合使用的时候，
+其值是所有可以看到该菜单/菜单项的角色列表，角色之间以空格分隔。
+RolesPermissionsAdapter对象会根据空格从角色列表中取得各个角色，并为每个角色调用request.isUserInRole()方法。
+对于调用返回true的角色，就显示对应的菜单/菜单项。
+

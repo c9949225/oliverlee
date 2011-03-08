@@ -1,0 +1,274 @@
+/* 全局 */
+body {
+	margin:0; /* 外边距 */
+	font-family:"Trebuchet MS", Arial, Verdana;
+	font-size:0.74em;
+	color:#555555; /* body内的字体颜色为灰色 */
+	background-color:#FFFFFF;
+	text-align:left;
+}
+
+input {
+	background-color:#FFFFFF;
+	padding:3px; /* 输入框内部字体和边界的空间 */
+	font-family:Verdana, Arial, Helvetica, sans-serif; /* 输入的字体风格 */
+	font-size:10px; /* 输入的字体大小 */
+	color:#ffffff; /* 输入的字体颜色 */
+	border:1px solid #728c40; /* 输入框边界色 */
+	background-color:#94ae62; /* 输入框背景色 */
+	margin-bottom:2px; /* 控制输入框外底部的空白 */
+}
+
+input[type=submit] {
+	background-color:#FFFFFF;
+	padding:3px;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:10px;
+	color:#666666;
+	border:1px solid #728c40;
+	margin-bottom:2px;
+}
+
+a {
+	color:#4D87CE; /* 潜点的蓝色 */
+	font-weight:bold;
+	text-decoration:none; /* 去掉下划线 */
+}
+
+a:hover {
+	color:#2a65ad; /* 深点的蓝色 */
+}
+
+ol,ul {
+
+}
+
+li {
+	list-style-image:url(../images/backgrounds/li.gif); /* 所有的列表li,左边都会有一个银色的圆点图片 */
+	line-height:20px; /* 每行上下之间的距离,如果调得很高那么上下距离就会变大,字体大小不变 */
+	text-align:left; /* li中的文本靠左对齐,这样左边的圆点也对齐了 */
+}
+
+/* 顶部菜单横幅 */
+#menu {
+	width:100%;
+	/* 这里图片的带色高度为50px,除以2,再减去链接本身的高度5px,所以就是20px*/
+	padding-top:20px; /* div里的链接到内部顶端的距离,图片会左右拉伸但不会上下拉伸,所以这里不能设置太高 */
+	padding-bottom:20px;
+	background-color:#94AE62; /* 貌似用了图片后设置颜色不起作用 */
+	margin-bottom:50px; /* 距离底部正文内容空间 */
+	color:#FFFFFF; /* 白色字体 */
+	text-align:center; /* 字体居中 */
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:11px;
+	font-variant:small-caps; /* 以小型大写字母方式显示 */
+	/* 由于没有设置width:720px;那么这个div是横跨整个屏幕的 */
+	background-image:url(../images/backgrounds/menu.jpg); /* 和主题风格一致的灰绿色图片 */
+}
+
+/* 顶部菜单横幅内的链接 */
+#menu a {
+	color:#FFFFFF; 
+	text-decoration:none; /* 去掉下划线 */
+	padding:10px; /* ？这个是默认的内边距?? */
+	padding-top:20px; /* 链接的上内空间,可以看到链接距离顶端有20px */
+	padding-bottom:20px; /* 链接的下内空间,可以看到链接距离底端有20px */
+}
+
+#menu a:hover {
+	border-bottom:1px solid #ffffff; /* 下边框 1px为边框的宽度，如果调为10可以看到边框很宽*/
+	border-left:1px solid #728d40; /* 左边框 同上*/
+	border-right:1px solid #e9ffb7; /* 右边框 同上 */
+	padding-left:9px; /* 链接字体当鼠标移动到上面的时候左边白色的距离 */
+	padding-right:9px; /*链接字体当鼠标移动到上面的时候右边白色的距离  */
+	color:#000000; /* */
+	background-color:#FFFFFF;
+	background-image:url(../images/backgrounds/a_hover.jpg); /* 当鼠标移动到链接上时显示的白色图片 */
+}
+
+/* 主标题 */
+#header {
+	width:750px; /* 宽度 */
+	margin:0 auto 0 auto; /* 居中 */
+	margin-bottom:40px; /* 底部空间 */
+}
+
+/* header内的h1,h2 
+
+	<div id="header">
+				<h1>plain v1.0</h1>
+				<h2>A simple CSS &amp; XHTML web template focusing on whitespace and its importance </h2>
+		</div>
+*/
+#header h1 {
+	font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif; 
+	font-size:30px; /* 覆盖了全局的0.74em */
+	text-transform:uppercase; /* 全变为大写 */
+	font-weight:normal; /* 设置或检索对象中的文本字体的粗细。作用由用户端系统安装的字体的特定字体变量映射决定。系统选择最近的匹配。也就是说，用户可能看不到不同值之间的差异。*/
+	margin:0; /* */
+	padding:0; /* */
+	padding-top:5px; /* */
+	color:#736451; /* */
+	margin-bottom:10px; /* 显示下边框 就是看到的菜单标题下的横线 */
+	text-align:left; /* 字体靠左 */
+}
+#header h2 {
+	font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;  
+	font-size:15px; /* 覆盖了全局的0.74em */
+	text-transform:uppercase; /* 全变为大写 */
+	text-align:right; /* 字体靠右*/
+	font-weight:normal; /* 设置或检索对象中的文本字体的粗细。作用由用户端系统安装的字体的特定字体变量映射决定。系统选择最近的匹配。也就是说，用户可能看不到不同值之间的差异。*/
+	margin:0; /* */
+	padding:0; /* */
+	color:#000000; /* */
+	border-bottom:1px solid #eeeeee; /* 下边界可见宽度为1px,颜色为灰色,就是看到的横线*/
+}
+
+/* 内容 */
+#content {
+	width:720px; /* 主标题稍微宽于内容 */
+	margin:0 auto 0 auto; /* 居中 */
+	text-align:left; /* 字体靠左 */
+}
+
+/* 标志 */
+.logo {
+	float:right;/* 靠右 */
+	margin-right:30px;/* 右外边距 */
+}
+
+/* 介绍 */
+.introduction {
+	font-family:Helvetica, Arial, sans-serif; /* */
+	line-height:20px; /* 行高度 */
+	font-size:12px;/* */
+	color:#99B198;/* */
+	text-indent:25px;/* 缩进 */
+	background-image:url(../images/backgrounds/desc.jpg);/* 背景图片，潜白色 */
+	/* 设置或检索对象的背景图像位置。必须先指定background-image属性。默认值为：(0% 0%)。
+如果只指定了一个值，该值将用于横坐标。纵坐标将默认为50%。第二个值将用于纵坐标。
+该属性定位不受对象的补丁属性(padding)设置影响。*/
+	background-position:bottom left;
+	padding-left:0;/* */
+	padding-right:200px;/* */
+	padding-bottom:35px;/* */
+	padding-top:0;/* */
+	/*
+	repeat : 　背景图像在纵向和横向上平铺
+	no-repeat : 　背景图像不平铺
+	repeat-x : 　背景图像在横向上平铺
+	repeat-y : 　背景图像在纵向平铺
+	*/
+	background-repeat:no-repeat;/* */
+}
+
+.clearer {
+	clear:both;/* */
+}
+
+/* 边导航栏 */
+#sidebar {
+	width:160px;/* 宽度固定 */
+	float:right;/* 菜单靠右 */
+	font-size:95%;/* */
+	color:#6C534A;/* 统一棕色,但子菜单可能设置其他色覆盖该值 */
+	text-align:left;/* 字体靠左 */
+}
+
+/* 边导航栏内的标题 */
+#sidebar h1 {
+	font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;/* */
+	font-size:20px;/* 字体大小 */
+	text-transform:uppercase; /* 全部大写 */
+	font-weight:normal; /* 设置或检索对象中的文本字体的粗细。作用由用户端系统安装的字体的特定字体变量映射决定。系统选择最近的匹配。也就是说，用户可能看不到不同值之间的差异。*/
+	border-bottom:1px solid #eeeeee;/* 底边框为银色显式 */
+	color:#728c40;/* 设置菜单标题为绿色 */
+	text-align:right;/* 字体靠右 */
+}
+
+/* 边导航栏内的标题下的菜单 */
+.submenu {
+}
+
+/* 边导航栏内的标题下的菜单内的链接 */ 
+.submenu a {
+	/*
+	block : 　CSS1　块对象的默认值。用该值为对象之后添加新行
+	none : 　CSS1　隐藏对象。与visibility属性的hidden值不同，其不为被隐藏的对象保留其物理空间
+	inline : 　CSS1　内联对象的默认值。用该值将从对象中删除行
+	compact : 　CSS2　分配对象为块对象或基于内容之上的内联对象
+	marker : 　CSS2　指定内容在容器对象之前或之后。要使用此参数，对象必须和:after及:before 伪元素一起使用
+	inline-table : 　CSS2　将表格显示为无前后换行的内联对象或内联容器
+	list-item : 　CSS1　将块对象指定为列表项目。并可以添加可选项目标志
+	run-in : 　CSS2　分配对象为块对象或基于内容之上的内联对象
+	table : 　CSS2　将对象作为块元素级的表格显示
+	table-caption : 　CSS2　将对象作为表格标题显示
+	table-cell : 　CSS2　将对象作为表格单元格显示
+	table-column : 　CSS2　将对象作为表格列显示
+	table-column-group : 　CSS2　将对象作为表格列组显示
+	table-header-group : 　CSS2　将对象作为表格标题组显示
+	table-footer-group : 　CSS2　将对象作为表格脚注组显示
+	table-row : 　CSS2　将对象作为表格行显示
+	table-row-group : 　CSS2　将对象作为表格行组显示
+	*/
+	display:block;
+	width:100%;/* 完全占据sidebar 160px 的宽度 */
+	background-image:url(../images/backgrounds/submenua.gif);/* 右边的箭头 */
+	background-position:right;/* 靠右显示*/
+	background-repeat:no-repeat;/* */
+	padding:5px;/* */
+	padding-right:0;/* 右内边距 */
+}
+.submenu a:hover {
+	background-color:#eeeeee; /* 当鼠标移动的时候完全背景为银灰色 */
+	background-image:url(../images/backgrounds/submenua_hover.jpg); /* 当鼠标移动到的时候改变背景图片 */
+	background-repeat:repeat-y; /* 纵向平铺,否则可能不可完全覆盖链接 */
+}
+
+/* ===================================================================== */
+#mainbar {
+	margin-right:185px;/* */
+	padding-right:35px;/* */
+	background-image:url(../images/backgrounds/mainbar.jpg);/* */
+	background-position:top right;
+	background-repeat:no-repeat;
+}
+
+#mainbar h1 {
+	font-family:"Century Gothic", "Trebuchet MS", "Arial Narrow", Arial, sans-serif;/* */
+	font-size:25px;/* */
+	text-transform:uppercase;/* */
+	font-weight:normal;/* */
+	border-bottom:1px solid #eeeeee;/* */
+	color:#728c40;/* */
+}
+
+#mainbar p {
+	padding:15px;/* */
+	line-height:20px;/* */
+}
+
+#mainbar .articleimg {
+	float:right;/* */
+	padding:5px;/* */
+	border:1px solid #eeeeee;/* */
+	margin-left:20px;/* */
+	margin-top:20px;/* */
+	margin-bottom:20px;
+}
+
+#footer {
+	width:100%;/* */
+	background-color:#b6cf84;/* */
+	border-top:1px solid #d8efa6;/* */
+	border-bottom:5px solid #94ae62;/* */
+	padding-top:5px;/* */
+	padding-bottom:5px;/* */
+	color:#FFFFFF;/* */
+}
+#footer a {
+	color:#006600;/* */
+}
+#footer a:hover {
+	color:#009900;/* */
+}

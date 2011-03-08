@@ -1,0 +1,9 @@
+// 1, 使用org.springframework.core.io.InputStreamResource;配置BeanFactory
+InputStream is = new FileInputStream("beans.xml");
+InputStreamResource isr = new InputStreamResource(is);
+BeanFactory beanFactory = new XmlBeanFactory(isr);
+
+// 2, 使用org.springframework.core.io.ClassPathResource;配置BeanFacotry
+ClassPathResource res = new ClassPathResource("beans.xml");
+XmlBeanFactory beanFactory = new XmlBeanFactory(res);
+

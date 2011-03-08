@@ -1,0 +1,20 @@
+两年前曾写了棵CSS无限级树形菜单: 那时写的树存在一个致命弱点:数据量比较大时,
+很容易导致浏览器卡死. 
+
+这两天重写了一下代码,除了在CSS的写法上与前一次基本一样外,
+javascript代码部分可以说是脱胎换骨了,哈哈.
+
+新写的树:   
+1.解决了大数量加载过慢的问题   
+2.改进应用接口,可扩展性更强    
+
+实例演示:   
+http://www.jb51.net/tools/cssTREE/index.html 
+
+http://www.jb51.net/tools/cssTREE/index.big.html (大数据量(3000结点)效果演示)    
+
+代码下载:    
+http://www.jb51.net/tools/cssTREE/lTREE.rar  
+使用说明:   
+待写中...   
+欢迎反馈您在使用过程所遇到的问题,以便我加以改进.E-Mail: CNLei.y.l@Gmail.com 

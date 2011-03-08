@@ -1,0 +1,39 @@
+在处理反射时安全性是一个较复杂的问题。反射经常由框架型代码使用，由于这一点，
+我们可能希望框架能够全面接入代码，无需考虑常规的接入限制。
+
+但是，在其它情况下，不受控制的接入会带来严重的安全性风险，例如当代码在不值得信任的代码共享的环境中运行时。
+
+由于这些互相矛盾的需求，Java编程语言定义一种多级别方法来处理反射的安全性。
+基本模式是对反射实施与应用于源代码接入相同的限制：
+n         从任意位置到类公共组件的接入
+n         类自身外部无任何到私有组件的接入
+n         受保护和打包（缺省接入）组件的有限接入
+
+不过至少有些时候，围绕这些限制还有一种简单的方法。我们可以在我们所写的类中，
+
+扩展一个普通的基本类 java.lang.reflect.AccessibleObject 类。
+这个类定义了一种setAccessible方法，使我们能够启动或关闭对这些类中其中一个类的实例的接入检测。
+
+唯一的问题在于如果使用了安全性管理器，它将检测正在关闭接入检测的代码是否许可了这样做。
+
+如果未许可，安全性管理器抛出一个例外。下面是一段程序，在TwoString 类的一个实例上使用反射来显示安全性正在运行：
+public class ReflectSecurity {
+    public static void main(String[] args) {
+        try {
+            TwoString ts = new TwoString("a", "b");
+            Field field = clas.getDeclaredField("m_s1");
+// ====================================================================================
+//          field.setAccessible(true);
+// ====================================================================================
+            System.out.println("Retrieved value is " +
+                field.get(inst)); // field.get(inst)为得到inst实例的该属性值
+        } catch (Exception ex) {
+            ex.printStackTrace(System.out);
+        }
+    }
+}
+如果我们编译这一程序时，不使用任何特定参数直接从命令行运行，它将在field .get(inst)调用中抛出一个IllegalAccessException异常。
+如果我们不注释field.setAccessible(true)代码行，那么重新编译并重新运行该代码，它将编译成功。
+
+最后，如果我们在命令行添加了JVM参数- Djava.security.manager以实现安全性管理器，它仍然将不能通过编译，
+除非我们定义了ReflectSecurity类的许可权限。

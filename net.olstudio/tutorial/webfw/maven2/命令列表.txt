@@ -1,0 +1,96 @@
+1-创建Java项目
+
+注:groupId表明的是组织所以在父模块和子模块之间不需要变化
+  artifactId是用来区分不同模块的标识
+
+mvn archetype:create -DgroupId=net.olstudio 
+					 -DartifactId=project-name 
+					 -Dpackagename=net.olstudio
+					 
+2-创建Web项目
+
+mvn archetype:create -DgroupId=net.olstudio 
+ 					 -DartifactId=project-name-web
+            	     -Dpackagename=net.olstudio.web 
+					 -DarchetypeArtifactId=maven-archetype-webapp 
+					 
+注:生成子模块的时候会自动添加parent,modules等配置，不需手工设置
+注:自定义的模块使用${project.version}来保持版本的统一
+
+
+3-清理先前项目内生产的文件
+
+mvn clean:clean 
+
+attempts to clean a project's working directory of the files that we're generated at build-time. 
+By default, it discovers and deletes the directories configured in project.build.directory, project.build.outputDirectory, project.build.testOutputDirectory, 
+and project.reporting.outputDirectory.
+
+4-将指定的artiFact(非本地源编译)安装到本地Repository,默认使用settings.xml中定义的本地Repository
+
+mvn install:install-file  -Dfile=path-to-your-artifact-jar \
+                          -DgroupId=your.groupId \
+                          -DartifactId=your-artifactId \
+                          -Dversion=version \
+                          -Dpackaging=jar \
+                          -DpomFile=path-to-pom \
+                          -DlocalRepositoryPath=path-to-specific-local-repo \
+                          -DlocalRepositoryId=id-for-specific-local-repo
+
+mvn install:install-file -DgroupId=javax.jms/com.sun.jmx/com.sun.jdmk
+						 -DartifactId=jms/jmxri/jmxtools
+						 -Dversion=1.1/1.2.1/1.2.1
+						 -Dpackaging=jar
+						 -Dfile=D:\environment\maven2_artifacts\jms1.1\lib\jms.jar
+						 ------------------------------------------------------------------
+						 -DgeneratePom=true 
+						 ------------------------------------------------------------------
+						 This command installs the jar in your local repository with the generated generic pom.
+						 Well, this doesn't work in Maven 2.0.2. It just gives the message "Cannot execute mojo: install-file. It requires a project with an existing pom.xml, but the build is not using one." --kreiger@imcode.com
+						 This worked fine for me using Maven 2.0.4 without a pom.xml file --cdoremus
+						 
+
+5-显示继承过后完整的pom
+
+mvn help:effective-pom 
+
+6-产生Eclipse工程文件(下载依赖包及源码)
+
+mvn eclipse:eclipse -DdownloadSources=true
+    				-DdownloadJavadocs=true
+
+清除先前的配置,注:会删除生成的.project文件	
+mvn eclise:clean 
+    				
+
+7-
+mvn -Declipse.workspace=<path-to-eclipse-workspace> eclipse:add-maven-repo 
+
+
+8-
+mvn resources:resources
+将resources:resources目录的内容移动到classpath下
+
+You can also define the M2_REPO classpath variable inside Eclipse. From the 
+menu bar, select Window > Preferences. Select the Java > Build Path > Classpath 
+Variables page. Add a new one with a name of M2_REPO and Path of to your local 
+Maven repository (/Users/${username}/.m2/repository on OS X and 
+C:\Documents and Settings\${username}\.m2\repository on Windows). 
+
+
+9-mvn archetype:create-from-project
+根据现有的项目创建Maven项目原型
+
+附:
+
+1-创建Tapestry项目:
+
+mvn archetype:create 
+-DarchetypeGroupId=org.apache.tapestry 
+-DarchetypeArtifactId=tapestry-simple 
+-DarchetypeVersion=5.0.2 
+-DgroupId=org.example 
+-DartifactId=myapp 
+-DpackageName=org.example.myapp 
+-Dversion=1.0.0-SNAPSHOT  
+					 

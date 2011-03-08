@@ -1,0 +1,157 @@
+<!-- share.xml 这个文件不会作为一个独立的 Ant 编译文件进行工作，
+因为它没有定义 "setup" 所依赖的 "set-properties" 目标。-->
+
+<project name="share">
+
+    <target name="setup" depends="set-properties">
+      <mkdir dir="${dest}/classes"/>
+      <mkdir dir="${dest}/lib"/>
+	</target>
+	
+    <target name="compile" depends="setup">
+      <javac srcdir="${src}" destdir="${dest}/classes">
+        <classpath refid="compile-classpath"/>
+	  </javac>
+	</target>
+	
+    <target name="jar" depends="compile">
+      <jar destfile="${dest}/lib/${jar.name}" basedir="${dest}/classes"/>
+	</target>
+	
+</project>
+
+<!--  组件 A 的编译文件可能类似于 -->
+
+ <project name="A" default="jar">
+    <target name="set-properties">
+      <property name="dest" location="../dest/A"/>
+      <property name="src" location="src"/>
+      <property name="jar.name" value="module-A.jar"/>
+      <path id="compile-classpath"/>
+	</target>
+	<!-- import 的用法 -->
+    <import file="../share.xml"/>
+</project>
+
+
+<!--  它仅设置适当的环境，然后将全部的编译逻辑交给被导入的文件负责。
+注意该编译文件创建了一个空的路径作为编译 CLASSPATH，因为它是自包含的。
+模块 B 依赖于 A，它的编译文件将类似于 -->
+
+<project name="B" default="jar">
+    <target name="set-properties">
+      <property name="dest" location="../dest/B"/>
+      <property name="src" location="src"/>
+      <property name="jar.name" value="module-B.jar"/>
+      <path id="compile-classpath">
+        <pathelement location="../dest/A/module-A.jar"/>
+      </path>
+	</target>
+    <import file="../share.xml"/>
+</project>
+
+<!-- 您将注意到该编译文件与A的编译文件几乎一样，因此似乎有可能将大多数的 set-properties 目标也推送到 shared.xml 中。
+实际上，我们可以假定有一个对 dest 和 src 目标一致的命名惯例，以实现这一目的。-->
+
+<project name="share">
+
+    <target name="set-properties">
+      <property name="dest" location="../dest/${ant.project.name}"/>
+      <property name="src" location="src"/>
+      <property name="jar.name" value="module-${ant.project.name}.jar"/>
+	</target>
+	
+	<target name="setup" depends="set-properties">
+      <mkdir dir="${dest}/classes"/>
+      <mkdir dir="${dest}/lib"/>
+	</target>
+	
+    <target name="compile" depends="setup">
+      <javac srcdir="${src}" destdir="${dest}/classes">
+        <classpath refid="compile-classpath"/>
+	  </javac>
+	</target>
+	
+    <target name="jar" depends="compile">
+      <jar destfile="${dest}/lib/${jar.name}" basedir="${dest}/classes"/>
+	</target>
+
+</project>
+
+<!-- ant.project.name 是一个内置的属性，即可以直接使用的属性。
+它包含了最外面的project标记的名称属性的值。
+因此，如果模块 A 的编译文件导入了 share.xml，那么它将拥有值 A。
+注意，所有的文件都与导入编译文件的基本目录相关，因此 scr 属性的实际值依赖于导入文件。
+为此，A 的编译文件将简单地变为 -->
+
+<project name="A" default="jar">
+    <path id="compile-classpath"/>
+    <import file="../share.xml"/>
+</project>
+
+ <!-- B 的编译文件将变为 -->
+ <project name="B" default="jar">
+    <path id="compile-classpath">
+      <pathelement location="../dest/A/module-A.jar"/>
+    </path>
+    <import file="../share.xml"/>
+</project>
+
+  <project name="B" default="jar">
+    <path id="compile-classpath">
+      <pathelement location="../dest/A/module-A.jar"/>
+    </path>
+    <import file="../share.xml"/>
+	
+    <target name="compile" depends="share.compile">
+      <!-- 这只是使 B 的 "compile" 在原来的 "compile" 目标使用之后运行 <rmic> -->
+      <rmic base="${dest}/classes" includes="**/Remote*.class"/>
+	</target>
+</project>
+
+ <!-- 如果我们想在编译之前生成一些 Java 源代码（例如通过 XDoclet)，
+ 我们可以使用类似下面的方法：-->
+
+    <import file="../share.xml"/>
+	<!-- share.compile -->
+    <target name="compile" depends="setup,xdoclet,share.compile"/>
+    <target name="xdoclet">
+       .. details of XDoclet invocation omitted ..
+</target>
+
+<!-- &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& -->
+<!-- 多重条件的设置 -->
+<target name="myTarget" depends="myTarget.check" if="myTarget.run">
+    <echo>Files foo.txt and bar.txt are present.</echo>
+</target>
+
+<target name="myTarget.check">
+    <condition property="myTarget.run">
+        <and>
+            <available file="foo.txt"/>
+            <available file="bar.txt"/>
+        </and>
+    </condition>
+</target>
+
+<!-- A task is a piece of code that can be executed.
+There is a set of built-in tasks, along with a number of  optional tasks, 
+but it is also very easy to write your own. -->
+
+<!-- 路径集合 
+	 location-指定单个路径
+	 path-指定多个路径，一般和预先定义的路径使用
+-->
+    <classpath>
+      <pathelement path="${classpath}"/>
+      <pathelement location="lib/helper.jar"/>
+    </classpath>
+    
+    
+
+ 
+
+
+
+
+

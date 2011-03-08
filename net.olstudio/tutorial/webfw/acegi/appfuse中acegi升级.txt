@@ -1,0 +1,52 @@
+第一步: pom.xml
+
+如果使用spring2.5.x,但不想牵扯到spring2.0.x,就需要对spring2.0.x进行exclusion
+
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-core-tiger</artifactId>
+    <version>${spring.security.version}</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-support</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+...
+<dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-taglibs</artifactId>
+    <version>${spring.security.version}</version>
+    <exclusions>
+        <exclusion>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+
+第二步: taglib
+
+Changed taglib prefix from "authz" to "security" and change the associated taglib declaration to:
+
+<%@ taglib uri="http://www.springframework.org/security/tags" 
+    prefix="security" %>
+    
+    
+第三步: 
+
+<init-param>
+        <param-name>targetBeanName</param-name>
+        <param-value>springSecurityFilterChain</param-value>
+</init-param>
+
+第四步:
+
+
+
+

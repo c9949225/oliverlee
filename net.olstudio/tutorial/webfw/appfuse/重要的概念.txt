@@ -1,0 +1,36 @@
+1-Archetype项目是用来创建自定义的archetype(项目原型)的，具体自定义项目原型的
+创建方法参见webfw/maven2/创建自定义的项目原型(archetype).txt。
+当appfuse的项目原型发布到官网后，用户就可以使用-Darchetype=Appfuse-XX-XX
+来创建appfuse的项目原型了。
+
+2-几种Basic Archetype的archetype.xml几乎一样的，差别只是框架自己所需要的特性
+比如:Struts需要一个struts.xml而Tapestry需要一个tapestry.application
+其他的都一样
+
+3-当在Basic Archetype根目录下执行mvn eclipse:eclipse的时候都
+下载了大概一下相关内容
+	
+	maven-warpath-plugin 2.0.1
+	appfuse-ibatis-2.0.1.pom
+	appfuse-tapestry-2.0.1.pom
+	appfuse-web-2.0.1.pom
+	appfuse-service-2.0.1.pom
+	appfuse-web-common-2.0.1.pom
+	appfuse-web-common-2.0.1.war
+	appfuse-tapestry-2.0.1.war
+	appfuse-ibatis-2.0.1.jar
+	appfuse-service-2.0.1.jar
+	
+*******************************
+由此可以看出war是可以依赖war的(可能是由于maven-warpath-plugin的实现)
+*******************************
+
+所有的archetype都是类似的,主要是依赖的war,jar不同而已
+比如如果依赖appfuse-ibatis那么数据层就使用ibatis
+如果依赖appfuse-tapestry-xx那么显示层就使用tapestry
+不过依赖的war,jar要和archetype的资源文件要配套啊
+比如依赖tapestry就要有tapestry.aplication
+
+4-要善于把一些通用的功能提取成common项目
+
+5-关于Appfuse对Spring的依赖,

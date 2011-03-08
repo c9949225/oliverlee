@@ -1,0 +1,59 @@
+<bean id="authenticationDao" class="net.sf.acegisecurity.providers.dao.jdbc.JdbcDaoImpl">
+
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+    
+	<!-- 其实定义各种users属性目的就是为了通过某些方法创建UserDetails实例 
+	      例如usersByUserNameQuery可以在前面加上createUsersByUserNameQuery -->
+	      
+    <property name="usersByUserNameQuery">
+      <!-- 将默认的users表替换为自定义的student表 -->
+      <value>SELECT login, password FROM student WHERE login=?</value>
+    </property>
+
+</bean>
+
+现在JdbcDaoImpl知道如何在Student表中查找用户的认证信息了。但是，还有一件事遗漏了。Student表中没有标志表明用户是使能的还是禁用的。
+
+对于JdbcDaoImpl，提供给usersByUserNameMapping属性的"MappingSqlQuery对象"要求能够将一个
+ResultSet（通过usersByUserNameQuery属性执行用户查询获得）转换为一个net.sf.acegisecurity.UserDetails对象。
+
+  public class UsersByUsernameMapping extends MappingSqlQuery {
+
+    protected UsersByUsernameMapping(DataSource dataSource) {
+      super(dataSource, usersByUsernameQuery);
+      declareParameter(new SqlParameter(Types.VARCHAR));
+      compile();
+    }
+
+
+    protected Object mapRow(ResultSet rs, int rownum) throws SQLException {
+
+      String username = rs.getString(1);
+      String password = rs.getString(2);
+
+	  // true表示是使能的
+      UserDetails user = new User(username, password, true, 
+      					new GrantedAuthority[]{new GrantedAuthorityImpl("HOLDER")});
+      return user;
+
+    }
+  }
+  
+  
+  <bean id="authenticationDao" class="net.sf.acegisecurity.providers.dao.jdbc.JdbcDaoImpl">
+
+    <property name="dataSource">
+      <ref bean="dataSource"/>
+    </property>
+
+    <property name="usersByUserNameQuery">
+      <value>SELECT login, password FROM student WHERE login=?</value>
+    </property>
+
+    <property name="usersByUserNameMapping">
+      <bean class="com.springinaction.training.security.UsersByUsernameMapping"/>
+    </property>
+
+  </bean>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="kwikEMartTarget" class="demo.ApuKwikEMart"></bean>
+	
+	<bean id="performanceThresholdInterceptor"
+		class="demo.advice.PerformanceThresholdInterceptor">
+		<constructor-arg>
+			<value>5000</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- 使用RegexpMethodPointcutAdvisor来匹配切入点完成个一个Advisor; -->
+	<bean id="regexpFilterPointcutAdvisor"
+		class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<property name="pattern">
+			<!--    
+				匹配的名字为方法名;
+			-->
+			<value>.*buy.*</value>
+		</property>
+		<property name="advice">
+			<ref bean="performanceThresholdInterceptor" />
+		</property>
+	</bean>
+
+	<!-- DefaultAdvisorAutoProxyCreator 和BeanNameAutoProxyCreator不同的是，DefaultAdvisorAutoProxyCreator只和Advisor 匹配 -->
+	<bean id="defaultAdvisorAutoProxyCreator"
+		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" />
+
+</beans>
+
+<!-- 用法:
+
+/**
+* 创建defaultAdvisorAutoProxyCreator动态代理;
+*/
+   public static void defaultAdvisorProxy() {
+ 
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("demo/defaultAdvisorProxy.xml");
+ 
+        KwikEMart akem = (KwikEMart) context.getBean("kwikEMartTarget");
+        try {
+             akem.buyCheese(new Customer());
+        } catch (KwikEMartException e) {
+             e.printStackTrace();
+        }
+   }
+   
+-->

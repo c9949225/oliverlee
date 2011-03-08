@@ -1,0 +1,18 @@
+1-web-common的Spring配置了DataSource而已
+(jdbc.properties在每个Web子项目中)
+
+2-web-common的hibernate.cfg.xml只是指明了要映射
+user role的类而已
+
+3-web-common的web.xml是空的，不能删除因为war类型的maven需要
+具体的web.xml由依赖该war的子项目提供
+
+4-appfuse的所有的Spring配置文件都在web.xml的contextConfigLocation参数中
+配置由ContextLoaderListener一次性全部加载没有实现分层的概念
+在获取的时候就在StartupListener中使用
+ApplicationContext ctx =
+WebApplicationContextUtils.getRequiredWebApplicationContext(context);
+获取
+
+5-
+

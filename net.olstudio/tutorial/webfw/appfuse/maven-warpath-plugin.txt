@@ -1,0 +1,5 @@
+1-作用
+
+可以使你把<packaging>war</packaging>类型中WEB-IN/classes中的类作为依赖
+
+2-还可以利用传递性依赖war所依赖的jar

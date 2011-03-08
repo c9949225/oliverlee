@@ -1,0 +1,27 @@
+1-
+这不是Spring 的问题，跟本问题要搞清楚，
+public class SomeServece extends BaseService implements SomeInterFace
+{
+	************************************************
+	private UserInfo user = super.getUserInfo();
+	************************************************
+	public someMethod()
+	{
+	int userID = this.user.getUserID();
+	String userName = this.user.getUserName();
+	//bla bla do something user userID and userNaem
+	}
+}
+
+不能在service类里面写这种东西。居然有人说要用ThreadLocal...无语。
+
+Spring建议以singleton方式注入的依赖尽量是stateless的,无状态的即不保存任何特定性质
+保证对任何对象都是相同的。
+
+从架构方面考虑，Service层是封装了对domain model的处理逻辑，是无状态的。
+
+service 被配置为 singleton, 就和 servlet 一样, 不允许有可写的成员变量, 这是 java 程序员的基本知识, 
+Acegi SecurityContextHolder 默认采用 ThreadLocal 存储 authentication 对象, 
+每次使用当然都要重新获取, 在 singleton 的 service 成员变量中获取, 获取到的是第一次调用时得到的用户。
+
+

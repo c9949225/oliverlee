@@ -1,0 +1,51 @@
+[
+[
+  Version: V1
+  Subject: CN=Liu Fang, OU=Packaging, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@91cee
+  Validity: [From: Tue Nov 26 12:22:23 CST 2002,
+               To: Sat Jan 25 12:22:23 CST 2003]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3de2f6ff ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: 97 C4 6B 2F 72 71 C8 C8   C3 27 1C 26 95 37 51 AF  ..k/rq...'.&.7Q.
+0010: 72 4A 2A F0 45 79 B6 5F   34 CC C9 67 AF 96 13 85  rJ*.Ey._4..g....
+0020: A2 80 CF F6 A1 68 F3 4A   30 B8 AB 95 2E 4D A5 A4  .....h.J0....M..
+0030: 1D 0D 16 BE AB D1 19 79   81 5C 12 4F CB 21 E7 FF  .......y.\.O.!..
+0040: 4D 9E E8 BA 6D 24 42 FB   A0 B5 C9 01 13 48 FE ED  M...m$B......H..
+0050: F3 61 79 E4 57 36 3D D3   55 39 A0 38 68 32 D7 4F  .ay.W6=.U9.8h2.O
+0060: FC 0C 72 80 AE 23 EA 98   F8 87 4C AD 2B 05 8E FA  ..r..#....L.+...
+0070: CD 47 5B 97 01 C1 A5 7E   6E EE 63 71 81 67 90 53  .G[.....n.cq.g.S
+
+]
+[
+[
+  Version: V1
+  Subject: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@bc887b
+  Validity: [From: Fri Nov 22 11:52:20 CST 2002,
+               To: Thu Feb 20 11:52:20 CST 2003]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3ddda9f4 ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: 31 6E 92 9A 00 47 FF C5   5E 16 25 F3 19 6A 10 6C  1n...G..^.%..j.l
+0010: 4B A8 50 2A B7 54 92 AA   6E F9 6E 7D 4B 79 DF 20  K.P*.T..n.n.Ky. 
+0020: 31 2A 4F 72 92 D0 FD BA   49 0C 07 66 B5 3E 9E 2D  1*Or....I..f.>.-
+0030: 17 36 C4 E2 93 37 9B C0   0A 1C 2D D4 E3 36 6C 4D  .6...7....-..6lM
+0040: 04 2B 1B 71 A8 26 97 64   D2 79 2A BD 92 8D EF 06  .+.q.&.d.y*.....
+0050: 20 FC A8 64 CF 26 18 C7   9D C0 08 99 AD F0 98 14   ..d.&..........
+0060: 72 17 3B DA 2E F5 EA 22   5D 2B B9 77 8B 0C A0 AE  r.;...."]+.w....
+0070: 49 64 B7 EB 4F 23 1A 91   88 7A FF 4C E9 20 63 A0  Id..O#...z.L. c.
+
+]
+Hi

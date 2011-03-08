@@ -1,0 +1,380 @@
+************************************************************************
+1-js的Dom中 <parent>value</parent>也算一个节点 value节点名为#text
+
+2-a.若与Tortoise 同时使用，那么尽量不要同时使用Tortoise和eclipse对一个目录进行操作。
+  b.在把其他目录的文件拷贝到受SVN管理的项目中时， 需要按目录提交，而不是按文件提交。
+  c.在对类名/文件名进行重构时，需要按目录(文件所在的目录)提交，而不是对单个的文件进行提交。
+
+3-为什么我遇到 Out of date: '/dev-src/xxx/yyy' in transaction '102-1'
+当本机修改的文件不是服务器上的最新版本，修改本机文件后commit， 会提示out of date的错误。
+需要先从服务器上获取最新版本(update), 然后进行修改，这时候再提交就可以了。
+
+4- document.createElement("tr");
+
+5- firstChild.appendChild(tr);
+
+6-只要xml 有schema, 就可以在 WTP中使用 code assist功能
+
+7-如果页面的参数大小总和超过200KB那么就会报数组越界
+
+8-(you can use a different JRE for different application servers, if necessary)in wtp
+
+9-Maven2和Eclipse整合的终极目标是让build path中的依赖和Pom中的依赖同步起来
+比如 pom 中有 x.jar 那么在build path中就应该有 M2_REPO:/../x.jar
+
+10-Javascript的 stack   overflow   at:line   0
+open()   is   a   method   of   window   object,   if   you   define   a   function   with   the   same   name   "open",   it   will   replace   the   original   method.  
+  So   when   you   call   window.open()   inside   open(),   it   will   call   your   function   again   and   will   lead   to   an   infinite   loop   and   result   in   stack   overflow.    
+  rename   your   function   to   something   else,   like   openWin
+
+11-UE中竖行修改,alt+c 列模式
+
+12-重大发现,原来servlet-api包中应该是只有接口的定义,而不同的容器会对
+这些接口有不同的实现,如果不使用容器的默认容器的实现,例如,可以子定义request的Wrapper
+在filter或listenr中进行对request进行封装。
+
+13-静态方法是不可以继承的,是这java的一个很容易出错的地方,不可继承的方法,当然不可以是虚方法.
+
+14-遍历Map for (Iterator i = mm.keySet().iterator(); i.hasNext();)
+
+15-表单提交不能超过200K
+
+16-XHTML是HTML向XML过度的一个桥梁。XHTML是当前替代HTML4标记语言的标准，使用XHTML 1.0，只要你小心遵守一些简单规则，
+就可以设计出既适合XML系统，又适合当前大部分HTML浏览器的页面。使用XHTML的另一个优势是：它非常严密。当前网络上的HTML的糟糕情况让人震惊，
+早期的浏览器接受私有的HTML标签，所以人们在页面设计完毕后必须使用各种浏览器来检测页面，
+看是否兼容，往往会有许多莫名其妙的差异，人们不得不修改设计以便适应不同的浏览器。 感谢XML的Namespaces功能，浏览器制造商不需要再创造新的私有标签(tags)，
+他们只需要在XHTML代码里包含XML代码片段，或者XML代码里包含XHTML代码片段。
+
+17-
+
+************************************************************************
+Hibernate的问题
+************************************************************************
+Session.iterate 在Hibernate3中的替代方法---》Query
+
+hibernate2 和 hibernate3 mapping文件的区别--->lazy many-to-one one-to-many
+
+************************************************************************
+Tapestry的问题
+************************************************************************
+
+把workflow service象user manager那样配置进去 workflow id 和 实体 id 对应起来就实现了整合
+
+ognl:@com.ejsun.entapps.simpleoa.domain.Attribute@DATE_TYPE 表示调用某个类的某个方法
+
+ActionLink报StaleLink的错误
+
+RequestCycle.getListenerParameters的替代方法
+
+allow-informal-parameters的意思 informal就是html标签
+
+Foreach组件和For组件的区别: 基本上一样,但For组件会把source参数中的集合 转成字符串保存起来 来避免当 Foreach组件 
+被嵌套在Form组件中的时候的二次解析错误
+
+simpleoa的问题
+14:39:14.937 INFO   [SocketListener0-2] org.springframework.transaction.interceptor.TransactionInterceptor.onThrowable(TransactionInterceptor.java:190) >41> Invoking rollback for transaction on method 'login' in class [com.ejsun.entapps.organization.service.OrganizationService] due to throwable [com.ejsun.entapps.core.service.GenericServiceException: loginId.error]
+14:39:14.937 INFO   [SocketListener0-2] org.springframework.transaction.support.AbstractPlatformTransactionManager.rollback(AbstractPlatformTransactionManager.java:347) >42> Initiating transaction rollback
+14:39:15.406 INFO   [SocketListener0-8] org.mortbay.http.SocketListener.isLowOnResources(SocketListener.java:350) >04> LOW ON THREADS ((10-9+0)<2) on SocketListener0@0.0.0.0:8081
+14:39:15.406 WARN!! [SocketListener0-8] org.mortbay.http.SocketListener.isOutOfResources(SocketListener.java:383) >30> OUT OF THREADS: SocketListener0@0.0.0.0:8081
+
+************************************************************************
+Spring的問題
+************************************************************************
+
+byName 是否可以將Bean注入-->一定要有getter/setter 
+
+ApplicationContext 和 XmlWebApplicationContext 的关系:是上下级分级关系
+通过指定xml来创建不同的context 通过setParent()来指定父一级的context
+平一级的不可以互相访问bean,父级不可以访问子级的bean，子级可以访问父级的bean
+所以，可以把所有context通用的context放到共用的父级bean中。
+
+************************************************************************
+Tomcat问题
+************************************************************************
+apache-tomcat-5.5.25-admin.zip 下载
+
+************************************************************************
+Parser 读源文件
+Assembly 记录读取结果
+Assembler 翻译读取结果为可执行
+
+A parser is an object that recognizes a language.
+
+An assembler helps a parser build a result.提供一个工作空间
+
+An assembly provides a parser with a work area.
+
+堆栈  内容
+
+[]^Congress/admitted/Colorado/in/1876.0 
+[]^admitted/(/colorado/,/1876.0/)
+
+
+************************************************************************
+JavaScript
+************************************************************************
+
+客户端输入内容的编码由输入页面的语言声明决定  而页面的语言声明是在你提供页面内容时给定的  
+
+************************************************************************
+Tapestry
+************************************************************************
+这样不可以
+Binding for template parameter selected (StaticBinding[queryvalue]) may not be updated.
+<a jwcid="@LinkSubmits" selected="queryvalue" tag="current" listener="listener:withdrawsomeLinkAction" >部分撤消</a>
+
+这样就可以
+<a jwcid="withdrawsomeLink" >部分撤消</a> 
+<component id="withdrawsomeLink" type="LinkSubmit">
+       <binding name="listener" value="listener:withdrawsomeLinkAction"/>
+       <binding name="selected" value="queryvalue"/>
+       <binding name="tag" value="current"/>
+</component>
+
+
+Each column definition must be of one of the following types:
+
+    * id
+    * id:expression
+    * id:description:expression
+
+id defines the identification of the column, the 
+expression is an OGNL expression that extracts the column value from the row object
+description is the title of the column if it is not defined otherwise.
+
+Each column definition may be prefixed by the ! character, which identifies the column as non-sortable.
+
+
+EJB和webservice是两个概念，它们都能够实现远程调用，ejb部署到ejb容器里，webservice部署到webservice服务器上，
+ejb通常是基于rmi的，webservice是基于http的，ejb是一种服务器组件，webservice是服务器方法实现 
+
+************************************************************************
+<?xml version="1.0"?>
+<!DOCTYPE facelet-taglib PUBLIC
+"-//Sun Microsystems, Inc.//DTD Facelet Taglib 1.0//EN"
+"https://facelets.dev.java.net/source/browse/*checkout*
+/facelets/src/etc/facelet-taglib_1_0.dtd">
+
+将xml的dtd地址改到自己的cvs或svn上，这样给开发带来便利
+
+2-WTP 中配置 XML CATALOG
+可以让你使用 alt + / 来选择要创建的xml模板 直接创建页面模板
+alt + /还可以让你选择要创建的xml元素
+************************************************************************
+关于异常的一些说明
+************************************************************************
+1-在catch后要做足处理
+2-要分清任何具体的异常来catch 针对不同的异常做不同的处理
+3-充分利用finally, 在finally里面可以抛出异常，但最后不要因为是处理异常的最后时机
+4-在出现异常时，最好能够提供一些文字信息，例如当前正在执行的类、方法和其他状态信息，包括以一种更适合阅读的方式整理和组织printStackTrace提供的信息。
+5-不要使用大块的try,会给程序调试带来困难。
+6-全面考虑可能出现的异常以及这些异常对执行流程的影响，已经输出的数据怎么办？使用这些数据的人或设备将收到一份不完整的（因而也是错误的）数据，却得不到任何有关这份数据是否完整的提示。对于有些系统来说，数据不完整可能比系统停止运行带来更大的损失。
+************************************************************************
+Maven2
+************************************************************************
+1-maven2插件通过读取pom,来了解项目的相关信息,以及自己的参数。
+2-可以在项目的life cycle中加入一些plugin来使项目在对应的周期中调用这些plugin的goal
+3-当建立一个工程后，执行 mvn eclipse:eclipse ，建立一个maven的工程，用eclipse打开后，发现报如下错误：
+Unbound classpath variable: 'M2_REPO/junit/junit/3.8.1/junit-3.8.1.jar' in project my-webapp   ，
+这是因为在Eclipse 没有配置 M2_REPO 变量，配置步骤：window >> preferences >> Java >> Build Path >> Classpath Variables
+新建一个 M2_REPO 的变量，变量值指向你系统的Maven2的数据仓库位置。C:\Documents and Settings\Administrator\.m2\repository
+4-mvn install eclipse:eclipse 到底是自动为你配置M2_REPO变量呢，还是自动帮你执行mvn install呢？
+************************************************************************
+Eclipse使用
+************************************************************************
+Preference->Internet->Cache->Disable   caching选项取消，然后在联网状态下验证一次，就自动cache了
+
+************************************************************************
+JavaScript
+************************************************************************
+
+<script language="javascript">
+function load()
+{
+  document.all["text1"].focus();
+}
+function ChangeFocus()
+{
+  if( event.keyCode == 13 )
+   document.all["text2"].focus();
+}
+</script>
+
+<form onload="load()"... >
+...
+<input type="text" name="text1" onkeypress="ChangeFocus()">
+<input type="text" name="text2" >
+
+（1）遇到提交类型按钮提交
+（2）遇到普通Text框模拟[Tab]
+（3）遇到多行Text框模拟换行 txtother,txtBother
+
+			function document.onkeydown()
+			{
+				//2003/04/03 edit & test OK!
+				var e=event.srcElement;
+				if (event.keyCode==13 && !((e.tagName=="INPUT" && e.type=="submit") || (e.tagName=="INPUT" && e.type=="button")))
+				{
+					if (e.name!="txtother" || e.name!="Txtbother")
+					{
+						event.keyCode=9;//Tab keycode
+					}
+				}
+}
+************************************************************************
+Maven2
+************************************************************************
+
+不要使用maven2相关的ide。
+实际上，多使用命令。比如mvn eclipse.然后，导入到eclipse工程。
+有更新，再执行mvn eclipse，在刷新工程就可以。
+我非常反对，过多的依赖IDE。单元测试比较难做，无法做到持续集成！ 
+
+You don't have to hunt around to know in which other JARs (and in which versions) you need to run Hibernate 3.0.3; Maven will do it for you!
+
+As googling resulted only with some tips pointing to ".settings/.component" file which seems is no longer read by wtp (or it just didn't work for me) so I have hacked a little eclipse plugin to do the dirty work for me, and by "dirty work" I mean linking maven resolved dependencies directly into "src/main/webapp/WEB-INF/lib", which results in double classpath entries in project but at last WTP publish the application with all the libraries. Now I can use maven within Eclipse for every project type I could dream of /images/emoticons/happy.gif
+If you want to obtain the plugin just point the update manager to http://adam.kruszewski.name/eclipse/, it contributes a property page for every project
+************************************************************************
+Xml配置
+************************************************************************
+Xml catalog:
+
+In some contexts, it's more useful to refer to a resource by name than by address.
+-//OASIS//DTD DocBook XML V4.1.2//EN
+
+You'll see this identifier in the two doctype declarations I used earlier. This identifier gives no indication of where the resource (the DTD) may be found, but it does uniquely name the resource. That public identifier, now and forever refers to the XML version of DocBook V4.1.2.
+ you must have a name resolution mechanism that allows you to determine what resource is referred to by a given name.
+
+
+
+jar:file:D:/分项总结/lib/Tapestry4.0.2-lib/tapestry-4.0.2.jar!/org/apache/tapestry/parse/Tapestry_4_0.dtd
+
+wtp对很多dtd文件作了缓存的。
+
+自己也可以定义
+Preference->Web and Xml->XML Catalog
+右面的Xml Catalog Entries里指向了各种dtd。
+
+你可以在User Specified Entries里添加。
+uri里是实际的指向，
+key type选public ID好了
+key 就是xml中用的名字。
+
+If you select Public ID, the value you enter in the Key field should be the same as the Public ID in the XML file's DOCTYPE declaration. 
+If you select System ID, the value you enter should correspond to the System ID in an XML file's DOCTYPE declaration. 
+
+When the XML file is processed by the XML processor, it will first try to use the Public ID to locate the DTD, and if this fails, it will use the System ID to find it. 
+
+
+note that it is trying to find the DTD file in the same directory as the XML file
+
+Becase you are telling it to with the following line:<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+despite the fact that I have told it to look in another place through the XML Catalog entry.
+
+This is where your URI comes into play, it is used to lookup a matching URI (like a hastable lookup) in the XML catalog, notice how your URI is "defslog4j/lib/log4j.dtd", and no where in your DOCTYPE do you mention that URI? So the XML editor says "Ok XML Catalog, give me back an entry for the key "defslog4j/lib/log4j.dtd" and the Catalog returns null, so the editor looks at the location of the dtd specified, "log4j.dtd" (in the current dir) and tries to load it"
+
+I would suggest using as an example the default web.xml file from a new web project. Check out how the entry looks for the web_2_4.xsd file, and then check the XML catalog for the web_2_4.xsd entry and see how the URIs match/etc.
+************************************************************************
+ either tablemodel or source---》getSource返回了 null
+
+ NumberFormat Exception----》在ognl中使用了，== 比较字符串
+
+ multiple attribute ---》把js移出来就可以了
+
+ 如果是多个字符的话 在ognl中使用.equals('56'),如果是单个的话 .equals(&quot1&quot)
+
+************************************************************************
+The second way to add goals to phases is to configure plugins in your project. Plugins are artifacts that provide goals to Maven. Furthermore, a plugin may have one or more goals wherein each goal represents a capability of that plugin. For example, the Compiler plugin has two goals: compile  and testCompile . The former compiles the source code of your main code, while the later compiles the source code of your test code.
+
+plugins can contain information that indicates which lifecycle phase to bind a goal to. Note that adding the plugin on its own is not enough information - you must also specify the goals you want to run as part of your build.
+
+If more than one goal is bound to a particular phase, the order used is that those from the packaging are executed first, followed by those configured in the POM. Note that you can use the <executions>  element to gain more control over the order of particular goals.
+
+A Build Phase is Made Up of Goals。The order of execution depends on the order in which the goal(s) and the build phase(s) are invoked. 
+************************************************************************
+Element type 	NodeType
+			Element 	1
+			Attribute 	2
+			Text 		3
+			Comment 	8
+			Document 	9
+************************************************************************
+按住ctrl 当鼠标移动到某个变量的时候，该变量会变成链接，可以转向定义变量的地方。
+************************************************************************
+3-SVN本地配置
+设置全局忽略样式 (文件浏览器-〉鼠标右键-〉TortoriseSVN—〉设置-〉常规设置)
+target *.jar *.class *.log *.bak 
+
+最后在multiple目录下执行
+mvn install
+mvn eclipse:eclipse
+
+即会在multiple，multiple-core，multiple-module中产生Eclipse所需要的档案，要使用的话只要在 Eclipse中import multiple project，就会连带将multiple-core，multiple-module等一并加入Eclipse中。
+************************************************************************
+Eclipse中点击--->
+	     <--- 按钮会自动链接到左侧的文件中
+************************************************************************
+
+private 的属性 要在cleanup方法中清空的，但如果是abstract就不需要手动清空，是public
+
+***********************************************************************
+ORA-12899: value too large for column "QUDAO"."PRO_TRADEJOURNAL"."HOSTSEQNO" 
+用户名.表名.字段名
+***********************************************************************
+
+  /*
+         switch(getOs())
+         {
+             case 1:window.showModalDialog("UploadFile.html");;break;;
+             case 2:ifclose = window.open('UploadFile.html','文件上传','height=400,width=600,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,loca浏览器！");;break;;
+         }*/
+***********************************************************************
+linux下调用dll
+***********************************************************************
+东莞-ThinCat<sbo2004@gmail.com> 10:17:23
+自己写的dll？还是第三方 的
+如果有源码，就在linux下编译一个so，如果没有就没办法了
+
+
+调调(287195759) 10:18:53
+飞扬的麦子　　你去看看ｊｎｉ
+长空银雪(24404961) 10:18:54
+通过corba或者webservices啊
+长空银雪(24404961) 10:19:06
+对，jni也可以
+
+长空银雪(24404961) 10:29:53
+你要再linux 下用word应该不行，不过可以通过webservices调用windows系统下的word的api然后生成文件返回链接或者就返回文件给linux系统
+
+调调(287195759) 10:34:19
+用ｒｍｉ调用ｊｎｉ调用ｄｌｌ
+
+1-jacob
+2-pdf
+3-openoffice
+
+
+长沙-德哥(79257295) 10:57:43
+我有框架,整合好的.jbpm3.2.2+struts2+spring+hibernate,有简单web页流程例子,可实现图形流程监控,100元.款到就发源代码.
+
+****************************************************************************************
+"<a href='http://127.0.0.1:8081/cjteller/download?filename='"+filepath+"'>
+标示href='http://127.0.0.1:8081/cjteller/download?filename='就完成了..你后面加上去的东西会导致异常..
+
+ Map map = this.getCondition();
+            Iterator it = map.entrySet().iterator();
+            while (it.hasNext())
+            {
+                Map.Entry entry = (Map.Entry) it.next();
+                Object key = entry.getKey();
+                Object value = entry.getValue();
+            }
+
+数组长度是固定的
+
+for (Iterator iter = collection.iterator(); iter.hasNext();)
+{
+          type element = (type) iter.next();                   
+}
+

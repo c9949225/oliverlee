@@ -1,15 +1,7 @@
 package net.oliver.olframework.util.string;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 //Pattern pattern = Pattern.compile("[\\w[.-]]+@[\\w[.-]]+\\.[\\w]+");
 //Pattern pattern = Pattern.compile("\\(\\d{3}\\)\\d{3}\\-\\d{4}");
@@ -20,7 +12,14 @@ public class test {
 	 * @throws IOException 
 	 */
 	public static void main(String[] args) throws IOException {
-		    BufferedReader in;
+		
+		/*File file = new File("C:/wsdl/HelloGspService/client/x.txt");
+		System.out.println(file.getCanonicalPath());
+		String x = file.getCanonicalPath().replaceAll("[/|\\\\]", ".");
+		System.out.println(x .substring(x.indexOf("client.x")));*/
+		String x = "00000";
+		System.out.println(x.substring(3));
+		  /*  BufferedReader in;
 
 		    Map display_var = new LinkedHashMap();
 		    Map symbol_var = new LinkedHashMap();
@@ -79,6 +78,6 @@ public class test {
 //				System.out.println("第"+(String)entry.getKey()+"行："+value);
 //				System.out.println("变量名"+(String)symbol_var.get((String)entry.getKey()));
 //			}
-	}
+*/	}
 
 }

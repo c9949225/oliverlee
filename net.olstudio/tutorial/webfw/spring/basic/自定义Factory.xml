@@ -1,0 +1,52 @@
+<!--
+	
+	public class PersonFactory
+	{
+	    public Person getPerson(String ethnic)
+	    {
+	        if (ethnic.equalsIgnoreCase("chin"))
+	        {
+	            return new Chinese();
+	        }
+	        else
+	        {
+	            return new American();
+	        }
+	    }
+	}
+	
+	public class Chinese implements Person
+	{
+	    public String sayHello(String name)
+	    {
+	        return name + "，您好";
+	    }
+	
+	    public String sayGoodBye(String name)
+	    {
+	        return name + "，下次再见";
+	    }
+	}
+	 
+-->
+
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="personFactory" class="lee.PersonFactory"/>
+	<!-- factory bean factory-method -->
+	<bean id="chinese" factory-bean="personFactory" factory-method="getPerson">
+		<constructor-arg>
+            <value>chin</value>
+        </constructor-arg>
+	</bean>
+
+	<bean id="american" factory-bean="personFactory" factory-method="getPerson">
+		<constructor-arg>
+            <value>ame</value>
+        </constructor-arg>
+	</bean>
+
+</beans>

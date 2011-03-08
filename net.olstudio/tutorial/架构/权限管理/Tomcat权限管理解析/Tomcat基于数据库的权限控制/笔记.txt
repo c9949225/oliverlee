@@ -1,0 +1,78 @@
+======================================================================
+个人总结:
+
+1-当在web.xml中配置了某url-pattern必须为某个角色的用户才能访问的时候,
+如果未登录用户访问(或已登录不具有角色权限的用户)该url的时候,就会
+
+	1.1 如果验证方式为BASIC的话,会弹出对话框让用户输入
+			1.1.1 如果Realm是Memory的话就会读取tomcat-users.xml来验证登录
+			1.1.2 如果Realm是Jdbc的话就会从数据库读取用户信息来验证
+			
+	1.2 如果验证方式为Form的话,就会重定向到包含Form的页面
+			1.2.1 如果Realm是Memory的话就会读取tomcat-users.xml来验证登录
+			1.1.2 如果Realm是Jdbc的话就会从数据库读取用户信息来验证
+
+2-至于request.isUserInRole是如何判断用户名是什么,不同的服务器有不同的实现
+  应该是在验证过后将用户信息放入了Session
+  
+3-以上为容器实现权限控制,那么如果要让应用程序实现权限控制的话,那么如何处理和容器控制的
+关系呢？
+			
+======================================================================
+
+1-security-constriaint元素在web.xml中应该出现在login-config的紧前面,可以有多个
+它包含是个可能的子元素，分别是：
+web-resource-collection,确定应该保护的资源。所有security-constraint元素都必须包含至少一个web-resource-collection项
+auth-constraint,指出哪些用户应该具有受保护资源的访问权。
+user-data-constraint,指出在访问相关资源时使用任何传输层保护，<transport-guarantee>CONFIDENTIAL</transport-guarantee> Https 链接
+display-name
+
+2-以上的配置部分属于可移植的配置,即无论在任何平台容器都是通用的，到此为止，这个过程的可移植部分结束了。
+  
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %服务器怎样确定哪些用户处于任何角色以及它怎样存放用户的口令，完全有赖于具体的系统%
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+讨论已经集中到完全由容器（服务器）处理的安全问题之上了。但servlet以及JSP页面也能够处理它们自己的安全问题。
+例如，容器可能允许用户从bigwig或bigcheese角色访问一个显示主管人员额外紧贴的页面，但只允许bigwig用户修改此页面的参数。完成这种更细致的控制的一种常见方法是调用HttpServletRequset的isUserInRole方法，并据此修改访问。
+
+例如，假如编写了一个调用 request.isUserInRole（"boss"）的servlet，
+但后来该servlet被用在了一个其口令文件调用角色manager而不是boss的服务器中。
+下面的程序段使该servlet能够使用这两个名称中的任何一个。
+
+
+3-验证方式为Form的话必须以下面的形式来创建表单,
+	3.1 必须包含输入用户名和密码的输入框
+	3.2 对应的名字必须为j_username,j_password
+	3.3 action的值必须为j_security_check
+	如下
+	<form method="POST" action="j_security_check">
+		<input type="text" name="j_username">
+		<input type="password" name="j_password">
+	</form>
+
+4-Tomcat默认使用memory realm,读取tomcat-users.xml并存入内存。
+
+
+<servlet>
+<!-- ... -->
+<security-role-ref>
+<role-name>boss</role-name> <!-- New alias -->
+<role-link>manager</role-link> <!-- Real name -->
+</security-role-ref>
+</servlet>
+
+
+例如，Tomcat使用install_dir/conf/tomcat-users.xml将用户名与角色名和口令相关联，正如下面例子中所示，它指出用户joe（口令bigshot）和jane（口令enaj）属于administrator和kahuna角色。
+<tomcat-users>
+<user name="joe" password="bigshot" roles="administrator,kahuna" />
+<user name="jane" password="enaj" roles="kahuna" />
+</tomcat-users>
+
+
+
+
+
+注意-url-pattern仅适用于直接访问这些资源的客户机。
+特别是，它不适合于通过MVC体系结构利用 RequestDispatcher来访问的页面，
+或者不适合于利用类似jsp:forward的手段来访问的页面。这种不匀称如果利用得当的话很有好处。例如，servlet可利用MVC体系结构查找数据，把它放到bean中，发送请求到从bean中提取数据的JSP页面并显示它。我们希望保证决不直接访问受保护的JSP页面，而只是通过建立该页面将使用的bean的servlet来访问它。url-pattern和auth-contraint元素可通过声明不允许任何用户直接访问JSP页面来提供这种保证。但是，这种不匀称的行为可能让开发人员放松警惕，使他们偶然对应受保护的资源提供不受限制的访问。 

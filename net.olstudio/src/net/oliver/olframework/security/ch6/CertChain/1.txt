@@ -1,0 +1,49 @@
+
+Keystore 类型： jks
+Keystore 提供者： SUN
+
+您的 keystore 包含 2 输入
+
+别名名称： lf
+创建日期： 2002-12-5
+输入类型：KeyEntry
+认证链长度： 2
+认证 [1]:
+Owner: CN=Liu Fang, OU=Packaging, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+发照者： CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+序号： 3deed053
+有效期间： Thu Dec 05 12:04:35 CST 2002 至： Mon Feb 21 12:04:35 CST 2011
+认证指纹：
+	 MD5：  D3:7E:C0:72:5D:41:46:CA:7A:8E:85:21:1B:DA:89:0F
+	 SHA1： C8:85:45:B7:A8:37:1F:23:DE:A3:C1:DF:A1:B4:83:C3:B9:F1:B7:FA
+认证 [2]:
+Owner: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+发照者： CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+序号： 3deec043
+有效期间： Thu Dec 05 10:56:03 CST 2002 至： Sun Nov 17 10:56:03 CST 2013
+认证指纹：
+	 MD5：  B2:DC:75:CD:60:B7:1E:7A:97:EE:E8:A4:31:D6:26:C6
+	 SHA1： 32:E5:89:16:7E:25:7F:86:16:94:34:36:95:44:D7:CF:14:C8:F2:1E
+
+
+*******************************************
+*******************************************
+
+
+别名名称： camytest
+创建日期： 2002-12-5
+输入类型： trustedCertEntry
+
+Owner: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+发照者： CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+序号： 3deec043
+有效期间： Thu Dec 05 10:56:03 CST 2002 至： Sun Nov 17 10:56:03 CST 2013
+认证指纹：
+	 MD5：  B2:DC:75:CD:60:B7:1E:7A:97:EE:E8:A4:31:D6:26:C6
+	 SHA1： 32:E5:89:16:7E:25:7F:86:16:94:34:36:95:44:D7:CF:14:C8:F2:1E
+
+
+*******************************************
+*******************************************
+
+

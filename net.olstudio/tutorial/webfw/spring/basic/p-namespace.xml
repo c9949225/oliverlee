@@ -1,0 +1,182 @@
+<!--
+	The key thing to remember is that the new custom tags work best for infrastructure or integration beans: 
+	for example, AOP, collections, transactions, integration with 3rd-party frameworks such as Mule, etc., 
+	
+	while the existing bean tags are best suited to application-specific beans, such as DAOs, 
+	service layer objects, validators, etc.
+-->
+
+<!-- 
+	you can write your own domain-specific configuration tags that would better represent 
+	your application's domain; 
+-->
+
+<!-- 从DTD-style转移到new XML Schema-style -->
+----------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+    "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+    
+<beans>
+	<!-- <bean/> definitions here -->
+</beans>
+----------------------------------------------------------------------
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+<!-- <bean/> definitions here -->
+</beans>
+
+<!-- The 'xsi:schemaLocation' fragment is not actually required, but can be included to reference a local copy of a schema (which can be useful during development). -->
+----------------------------------------------------------------------
+
+
+2-使用util标签
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+1, 静态变量
+<!-- 旧的模式
+<bean id="..." class="...">
+  <property name="isolation">
+    <bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE"
+    class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean" />
+  </property>
+</bean>
+-->
+
+<bean id="..." class="...">
+  <property name="isolation">
+  	<!-- 使用util:constant获取一个类的静态变量 -->
+    <util:constant static-field="java.sql.Connection.TRANSACTION_SERIALIZABLE"/>
+  </property>
+</bean>
+
+2, Bean的属性
+<!--旧
+<bean id="testBean" class="org.springframework.beans.TestBean" scope="prototype">
+  <property name="age" value="10"/>
+  <property name="spouse">
+    <bean class="org.springframework.beans.TestBean">
+      <property name="age" value="11"/>
+    </bean>
+  </property>
+</bean>
+<!-- will result in 10, which is the value of property 'age' of bean 'testBean'
+<bean id="testBean.age" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/> -->
+
+<!-- 新 -->
+<!-- target bean to be referenced by name -->
+<bean id="testBean" class="org.springframework.beans.TestBean" scope="prototype">
+  <property name="age" value="10"/>
+  <property name="spouse">
+    <bean class="org.springframework.beans.TestBean">
+      <property name="age" value="11"/>
+    </bean>
+  </property>
+</bean>
+
+<!-- will result in 10, which is the value of property 'age' of bean 'testBean' -->
+<util:property-path id="name" path="testBean.age"/>
+
+3, 属性路径
+<!-- 旧
+// target bean to be referenced by name
+<bean id="person" class="org.springframework.beans.TestBean" scope="prototype">
+  <property name="age" value="10"/>
+  <property name="spouse">
+    <bean class="org.springframework.beans.TestBean">
+      <property name="age" value="11"/>
+    </bean>
+  </property>
+</bean>
+
+// will result in 11, which is the value of property 'spouse.age' of bean 'person'
+<bean id="theAge"
+    class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+  <property name="targetBeanName" value="person"/>
+  <property name="propertyPath" value="spouse.age"/>
+</bean>
+ -->
+ 
+4,创建一个Properties实例
+<!-- 旧 creates a java.util.Properties instance with values loaded from the supplied location 
+<bean id="jdbcConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+  <property name="location" value="classpath:com/foo/jdbc-production.properties"/>
+</bean> 
+-->
+<!-- 新 -->
+<!-- creates a java.util.Properties instance with values loaded from the supplied location -->
+<util:properties id="jdbcConfiguration" location="classpath:com/foo/jdbc-production.properties"/>
+
+
+5,创建一个List实例
+<!-- 旧 creates a java.util.List instance with values loaded from the supplied 'sourceList' 
+<bean id="emails" class="org.springframework.beans.factory.config.ListFactoryBean">
+  <property name="sourceList">
+      <list>
+        <value>pechorin@hero.org</value>
+        <value>raskolnikov@slums.org</value>
+        <value>stavrogin@gov.org</value>
+        <value>porfiry@gov.org</value>
+      </list>
+  </property>
+</bean>
+-->
+<!-- 新 -->
+<!-- creates a java.util.List instance with values loaded from the supplied 'sourceList' -->
+<util:list id="emails">
+    <value>pechorin@hero.org</value>
+    <value>raskolnikov@slums.org</value>
+    <value>stavrogin@gov.org</value>
+    <value>porfiry@gov.org</value>
+</util:list>
+<!-- 新 类似地创建Map,Set -->
+<!-- creates a java.util.Map instance with values loaded from the supplied 'sourceMap' -->
+<util:map id="emails">
+    <entry key="pechorin" value="pechorin@hero.org"/>
+    <entry key="raskolnikov" value="raskolnikov@slums.org"/>
+    <entry key="stavrogin" value="stavrogin@gov.org"/>
+    <entry key="porfiry" value="porfiry@gov.org"/>
+</util:map>
+<util:set id="emails" set-class="java.util.TreeSet">
+    <value>pechorin@hero.org</value>
+    <value>raskolnikov@slums.org</value>
+    <value>stavrogin@gov.org</value>
+    <value>porfiry@gov.org</value>
+</util:set>
+
+<!-- jee前缀是JNDI相关的 -->
+<!-- lang前缀支持将JRuby,Groovy写的对象输出为Bean -->
+<!-- tx前缀用来支持事务管理 -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+<!-- <bean/> definitions here -->
+</beans>
+<!-- aop前缀用来支持Aop -->
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+<!-- <bean/> definitions here -->
+</beans>
+<!-- tool前缀用来添加tooling-specific metadata到自定义标签 -->
+<!-- beans前缀 2.0比较新的内容是添加meta当开发自定义标签的时候 -->
+
+</beans>

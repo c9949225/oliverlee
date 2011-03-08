@@ -1,0 +1,143 @@
+一、AOP 概念
+
+Joinpoint：它定义在哪里加入你的逻辑功能，对于Spring AOP，Jointpoint指的就是Method。
+
+Advice：特定的Jointpoint处运行的代码，对于Spring AOP 来讲，有Before advice、AfterreturningAdvice、ThrowAdvice、AroundAdvice(MethodInteceptor)等。
+
+Pointcut：一组Joinpoint，就是说一个Advice可能在多个地方织入，
+
+Aspect：这个我一直迷惑，它实际是Advice和Pointcut的组合，但是Spring AOP 中的Advisor也是这样一个东西，
+
+但是Spring中为什么叫Advisor而不叫做Aspect。
+Aspect是Advice(通知)在抽象概念上的表述，如果说用把Aspect当作Java类的话，那么Advice就是其Aspect具体的实现。
+但绝对与Advice＋Pointcut的组合没有关系，这两者的组合在spring中有另外一个名词就是"Advisor"
+
+Weaving：将Aspect加入到程序代码的过程，对于Spring AOP，由ProxyFactory或者ProxyFactoryBean负责织入动作。
+
+Target：这个很容易理解，就是需要Aspect功能的对象。
+
+Introduction：引入，就是向对象中加入新的属性或方法，一般是一个实例一个引用对象。当然如果不引入属性或者引入的属性做了线程安全性处理或者只读属性，则一个Class一个引用也是可以的（自己理解）。
+Per-class lifecycle or per-instance life cycle 
+
+二、AOP 种类
+
+1、静态织入：指在编译时期就织入Aspect代码，AspectJ好像是这样做的。
+
+2、动态织入：在运行时期织入，Spring AOP属于动态织入，动态织入又分静动两种，静则指织入过程只在第一次调用时执行；
+动则指根据代码动态运行的中间状态来决定如何操作，每次调用Target的时候都执行（性能较差）。
+
+三、Spring AOP 代理原理
+
+Spring AOP 是使用代理来完成的，Spring 会使用下面两种方式的其中一种来创建代理：
+
+1、JDK动态代理，特点只能代理接口，性能相对较差，需要设定一组代理接口。
+2、CGLIB 代理，可代理接口和类（final method除外），性能较高(生成字节码)。
+
+1,"JDK动态代理"与"CGLIB代理”的性能差别楼主恰好说反了，JDK动态代理是在1.x中是要比CGLIB快一些，但是目前2.0版本应该差不多了。
+2,其实他们两者最主要区别还不在于性能上的差别，主要是要看实际的项目的特点（比如说该项目是否一个遗留系统）
+a)JDK动态代理：使用接口于实现分离，面向接口编程是spring推荐的方式。
+b)CGLIB代理： 主要适用于改造遗留系统，这些系统一般不会继承特定的接口。
+以下是spring2.0文档对其进行的一些阐述：
+Imagine that in our example above, there was no Person interface: we needed to advise a class called Person 
+that didn't implement any business interface. In this case, you can configure Spring to use CGLIB proxying,
+rather than dynamic proxies. Simply set the proxyTargetClass property on the ProxyFactoryBean above to true. 
+While it's best to program to interfaces, rather than classes, the ability to advise classes that don't 
+implement interfaces can be useful when working with legacy code. (In general, Spring isn't prescriptive. 
+While it makes it easy to apply good practices, it avoids forcing a particular approach.)
+
+There's little performance difference between CGLIB proxying and dynamic proxies. As of Spring 1.0, dynamic proxies are slightly faster. However, this may change in the future.
+Performance should not be a decisive consideration in this case
+
+四、Spring AOP 通知类型
+
+1、BeforeAdvice：前置通知需实现MethodBeforeAdvice，但是该接口的Parent是BeforeAdvice，致于什么用处我想可能是扩展性需求的设计吧。或者Spring未来也并不局限于Method的JoinPoint（胡乱猜测）。BeforeAdvice可以修改目标的参数，也可以通过抛出异常来阻止目标运行。
+
+2、AfterreturningAdvice：实现AfterreturningAdvice，我们无法修改方法的返回值，但是可以通过抛出异常阻止方法运行。
+
+3、AroundAdvice：Spring 通过实现MethodInterceptor(aopalliance)来实现包围通知，最大特点是可以修改返回值，当然它在方法前后都加入了自己的逻辑代码，因此功能异常强大。通过MethodInvocation.proceed()来调用目标方法（甚至可以不调用）。
+
+4、ThrowsAdvice：通过实现若干afterThrowing()来实现。
+
+5、IntroductionInterceptor：Spring 的默认实现为DelegatingIntroductionInterceptor
+
+五、Spring AOP Pointcut
+
+以上只是Advice，如果不指定切入点，Spring 则使用所有可能的Jointpoint进行织入（当然如果你在Advice中进行方法检查除外）。因此切入点在AOP中扮演一个十分重要的角色。 
+
+Spring 2.0 推荐使用AspectJ的Annocation的切入点表达式来定义切入点，或者使用<aop:xxx/>来定义AOP，这方面本篇不做考虑。
+
+1、Pointcut：它是Spring AOP Pointcut的核心，定义了getClassFilter()和getMethodMatcher()两个方法。
+
+2、ClassFilter：定义了matches(Class cls)一个方法。
+
+3、MethodMatcher() 定义了matches(Method，Class)，isRuntime()，matches(Mathod，Class，Object[])三个方法，如果isRuntime()返回true则表示为动态代理（实际是动态代理的动态代理），则调用第三个方法（每访问一次调用一次），否则调用第一个方法（并且只调用一次）
+
+4、Spring AOP　静态切入点的几个实现。
+
+ComposablePointcut 太复杂一个切入点无法表达就用这个,union MethodMatcher和ClassFilter或者intersection MethodMatcher、ClassFilter和Pointcut。为什么不实现union Pointcut? 而只能通过Pointcuts类对Pointcut进行union操作。
+
+ControlFlowPointcut 想对程序的运行过程进行追踪就用这个
+
+DynamicMatchMatcherPointcut 想用动态AOP 就用这个
+
+JdkRegexpMethodPointcut 想使用正则表达式就用这个
+
+Perl5RegexpMethodPointcut
+
+NameMatchMethodPointcut 想用方法名字来匹配就用这个
+
+StaticMethodMatcherPointcut 静态切入点就用这个
+没有人反对你直接实现Pointcut。
+
+六、Spring AOP 中的Advisor其实就是Aspect
+
+1、 PointcutAdvisor
+
+其实一般使用DefaultPointcutAdvisor就足够了，给它Advice和Pointcut。
+
+当然如果想少写那么几行代码也可以使用NameMatchMethodPointcutAdvisor，RegexpMethodPointcutAdvisor等。
+更多Advisor可以查看API文档。
+
+
+2、 IntroductionAdvisor
+默认实现为DefaultIntroductionAdvisor。
+
+七、AOP ProxyFactory
+
+使用代码实现AOP 可使用ProxyFactory
+
+声明式AOP 可使用ProxyFactoryBean
+
+ProxyFactoryBean 需要设定 target，interceptorNames（可以是Advice或者Advisor，注意顺序）
+对接口代理需设置proxyInterfaces 
+
+八 自动代理
+
+BeanNameAutoProxyCreator 
+
+ <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">  
+     <property name="beanNames"><value>jdk*,onlyJdk</value></property>  
+     <property name="interceptorNames">  
+         <list>  
+             <value>myInterceptor</value>  
+         </list>  
+     </property>  
+ </bean> 
+
+DefaultAdvisorAutoProxyCreator 
+
+<bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"/>  
+	<bean class="org.springframework.transaction.interceptor.TransactionAttributeSourceAdvisor">  
+    	<property name="transactionInterceptor" ref="transactionInterceptor"/>  
+    </bean>  
+    <bean id="customAdvisor" class="com.mycompany.MyAdvisor"/>  
+    <bean id="businessObject1" class="com.mycompany.BusinessObject1">  
+    <!-- Properties omitted -->  
+</bean>  
+    
+<bean id="businessObject2" class="com.mycompany.BusinessObject2"/>  
+
+九、Spring 2.0 AOP 略
+
+以上为本人这段时间来看Spring AOP的一些学习体会，有什么说的不对的地方请批评指正。
+

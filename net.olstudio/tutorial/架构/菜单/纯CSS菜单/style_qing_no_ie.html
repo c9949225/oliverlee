@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>css menu</title>
+<style type="text/css">
+/*<![CDATA[*/
+ul.menu
+{
+width:180px;
+cursor:hand;
+list-style-type:none;
+border:1px solid #cccccc;
+padding:0px;
+margin:0px;
+
+}
+
+ul.menu li{
+width:100%;
+display:block;
+position:relative;  
+}
+ul.menu li a
+{
+background-color:#06829C;
+color:#ffffff;
+width:100%;
+display:block;
+font-size:9pt;
+padding:2px;
+padding-left:10px;
+}
+ul.menu li ul.menu
+{
+display:none;
+width:190px;
+position:absolute;
+z-index:1000;
+left:80%;
+top:-10px;
+}
+ul.menu li:hover > a
+{
+width:100%;
+background-color:#64ACF8;
+color:#ffffff;
+}
+
+ul.menu li:hover > ul.menu
+{
+display:block;
+}
+/*]]>*/
+</style>
+</head>
+<body>
+<ul class="menu">
+<li><a href="#">Item 1</a></li>
+<li>
+<a href="#">Menu Item ></a>
+<ul class="menu">
+<li><a href="#">item</a></li>
+<li>
+<a href="#">item ></a>
+<ul class="menu">
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+</ul>
+</li>
+<li>
+<a href="#">item ></a>
+<ul class="menu">
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+</ul>
+</li>
+<li>
+<a href="#">item ></a>
+<ul class="menu">
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+<li><a href="#">menu item</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</body>
+</html>

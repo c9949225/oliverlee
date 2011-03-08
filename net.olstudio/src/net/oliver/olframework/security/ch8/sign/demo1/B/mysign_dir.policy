@@ -1,0 +1,9 @@
+/* AUTOMATICALLY GENERATED ON Tue Dec 24 21:48:49 CST 2002*/
+/* DO NOT EDIT */
+
+keystore "file:/c:/java/ch8/sign/demo1/b/clienttrustlf", "JKS";
+
+grant signedBy "lf" {
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\*", "read";
+};
+

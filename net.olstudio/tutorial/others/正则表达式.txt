@@ -1,0 +1,131 @@
+****************************************
+1-查询一段字符串中是否包含"某段字符串"
+****************************************
+private final Pattern wbclPattern = Pattern.compile("要找的字符");
+Matcher m= wbclPattern.matcher("要找的字符-全部的字符串-要找的字符");; //操作的字符串
+int count = 0;
+while (m.find()) {
+	count += 1;
+} 
+ 
+count = 2;
+
+****************************************
+查询
+****************************************　
+
+　　String str="abc efg ABC";
+
+　　String regEx="a|f"; //表示a或f
+
+　　Pattern p=Pattern.compile(regEx);
+
+　　Matcher m=p.matcher(str);
+
+　　boolean rs=m.find();
+　　
+　　如果str中有regEx，那么rs为true，否则为flase。
+    如果想在查找时忽略大小写，则可以写成Pattern p=Pattern.compile(regEx,Pattern.CASE_INSENSITIVE);
+    
+****************************************
+提取
+****************************************
+
+　　String regEx=".+\(.+)$"; // 第一个点表示任何字符 第二个点前面有\ 表示真正的'.'。用(.+)表示任何字符+1到多个'.'+$结束
+
+　　String str="c:\dir1\dir2\name.txt";
+
+　　Pattern p=Pattern.compile(regEx);
+
+　　Matcher m=p.matcher(str);
+
+　　boolean rs=m.find(); // 找到了
+
+　　for(int i=1;i<=m.groupCount();i++){ // 找到多少个
+
+　　	System.out.println(m.group(i)); // group()提取
+
+　　}
+　　
+　　以上的执行结果为name.txt，提取的字符串储存在m.group(i)中，其中i最大值为m.groupCount();
+
+    
+****************************************
+分割
+****************************************
+	String regEx="::"; // 使用::分隔
+
+　　Pattern p=Pattern.compile(regEx);
+
+　　String[] r=p.split("xd::abc::cde"); // Pattern.split
+
+　　执行后，r就是{"xd","abc","cde"}，其实分割时还有跟简单的方法：
+
+　　String str="xd::abc::cde";
+
+　　String[] r=str.split("::");
+　　
+****************************************
+替换（删除）
+****************************************
+
+　　String regEx="a+"; //表示一个或多个a
+
+　　Pattern p=Pattern.compile(regEx);
+
+　　Matcher m=p.matcher("aaabbced a ccdeaa");
+
+　　String s=m.replaceAll("A"); // s为替换后的结果
+　　
+　　结果为"Abbced A ccdeA"
+　　
+　　如果写成空串，既可达到删除的功能，比如：
+　　
+　　String s=m.replaceAll("");
+　　
+　　结果为"bbced ccde"
+
+   另:appendReplacement用法
+	
+   Pattern p = Pattern.compile("cat");
+        
+   Matcher m = p.matcher("one cat two cats in the yard");
+   
+   StringBuffer sb = new StringBuffer();
+   
+   while (m.find()) {
+            
+   		m.appendReplacement(sb, "dog"); // 读一段给StringBuffer加一段，当遇到匹配的时候用dog替换匹配并追加
+   }
+   
+   m.appendTail(sb);
+   
+   System.out.println(sb.toString()); ------>"one dog two dogs in the yard"
+   
+   
+　
+***************************************
+　　附：
+　　
+　　\D 等於 [^0-9] 非数字
+　　\s 等於 [ \t\n\x0B\f ] 空白字元
+　　\S 等於 [^ \t\n\x0B\f ] 非空白字元
+　　\w 等於 [a-zA-Z_0-9] 数字或是英文字
+　　\W 等於 [^a-zA-Z_0-9] 非数字与英文字
+　　
+　　^ 表示每行的开头
+　　$ 表示每行的结尾
+
+-----------------------------------------------------------------------------------------------------
+理论
+-----------------------------------------------------------------------------------------------------
+Matcher:
+创建匹配器后，可以使用它执行三种不同的匹配操作：
+
+      matches:尝试将整个区域与模式匹配,方法尝试将'整个'输入序列与该模式匹配。注:这个表示不是在输入字符串内查找而是对比整个输入字符串
+      
+      lookingAt: 尝试将输入序列从头开始与该模式匹配。
+      
+      find: 方法扫描输入序列以查找与该模式匹配的'下一个'子序列。注:输入字符串内的下一个匹配
+
+每个方法都返回一个表示成功或失败的布尔值。

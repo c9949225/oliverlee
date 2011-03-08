@@ -1,0 +1,49 @@
+***************************************************
+1-UrlRewriteFilter
+***************************************************
+http://tuckey.org/urlrewrite/#download
+
+<filter>
+       <filter-name>UrlRewriteFilter</filter-name>
+       <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
+</filter>
+<filter-mapping>
+       <filter-name>UrlRewriteFilter</filter-name>
+       <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+配置方式
+<rule> 
+	<!-- http://www.nihaoblog.com/content.jsp?id=1&contentid=404 -->
+    <from>/content/([0-9]+)_([0-9]+).html</from> 
+    <!-- http://www.nihaoblog.com/content/1_404.html -->
+    <to>/content.jsp?id=$1&amp;contentid=$2</to> 
+</rule> 
+
+更多配置:http://tuckey.org/urlrewrite/manual/
+
+所用基于动态的url http://www.nihaoblog.com/content.jsp?id=1&contentid=404按照各大搜索引擎的喜好，
+应该美化成http://www.nihaoblog.com/content/1_404.html静态网页的方式，
+尽管目前的google及几大搜索引擎宣称支持动态页网的抓取，但与传统的html文件相比较抓取率仍不在一个数量级。
+Apche的 mod_rewrite模块具有此功能，但是对于租用虚拟主机的用户来说就比较麻烦不太可能对所有运营商有更多的要求，
+需要条件依赖就不具通用性。
+
+***********************************************
+2-OpenSessionInViewFilter
+***********************************************
+如果在你的应用中没有使用OpenSessionInViewFilter或者OpenSessionInViewInterceptor。session会在transaction结束后关闭。
+
+如果应用中使用了OpenSessionInViewFilter或者OpenSessionInViewInterceptor，所有打开的session会被保存在一个线程变量里。在线程退出前通过
+OpenSessionInViewFilter或者OpenSessionInViewInterceptor断开这些session。 为什么这么做？这主要是为了实现Hibernate的延迟加载功能。
+基于一个请求一个hibernate session的原则。
+它会在spring的web应用的上下文根中查找Session工厂。它也支持通过在web.xml中定义的“SessionFactoryBeanName”的init-param元素 指定的Session工厂对应的bean的
+名字来查找session工厂。
+
+默认的bean的名字是"sessionFactory".他通过每一次请求查找一次SessionFactory的方式来避免由初始化顺序引起的问题（当使用ContextLoaderServlet
+来集成spring的时候 ，spring 的应用上下文是在这个filter 之后才被初始化的）。
+
+***********************************************
+3-RequestContextFilter  
+***********************************************
+让你可以使Spring Bean 使用request session 等作用域
+

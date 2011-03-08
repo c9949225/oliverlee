@@ -1,0 +1,15 @@
+/* AUTOMATICALLY GENERATED ON Wed Dec 25 17:35:33 CST 2002*/
+/* DO NOT EDIT */
+
+keystore "file:/c:/java/ch8/sign/trust", "JKS";
+
+grant signedBy "lf" {
+  permission java.io.FilePermission "c:\\autoexec.bat", "read";
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\*", "read";
+};
+
+grant codeBase "file:/c:/java/ch8/sign/demo2/pro2/-" {
+  permission java.io.FilePermission "c:\\autoexec.bat", "read";
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\*", "read";
+};
+

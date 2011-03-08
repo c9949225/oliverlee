@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head> 
+
+<title>Testing Universal Tooltips for IE</title>
+
+<meta http-equiv="content-Type" content="text/html; charset=iso-8859-1" /> 
+<meta name="mssmarttagspreventparsing" content="true" />
+<meta http-equiv="imagetoolbar" content="no" />
+
+<style type="text/css">
+
+html, body {
+	margin: 0; 
+	padding: 0; 
+	border: 0;
+}
+
+body {
+	color: #000; 
+	margin: 30px 10%;			 
+	text-align: center;
+	font-size: 100.01%;
+}
+			 
+.wrapper {
+	width: 700px;
+	border: 2px solid #000;
+	background: #ddd;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	padding: 20px;
+}			 
+
+.divstyles {
+	width: 404px;
+	height: 360px;
+	float: left;
+	margin: 0 20px 10px 0;
+}
+			 
+img {
+	border: 5px solid #a5b;
+	display: block;
+}			 
+			 
+h1 {
+	margin: 0 30px .2em;
+}			 
+			 
+.popup-parent {
+	position: relative; 
+	background-color:#aac;
+	color:#000;
+	text-decoration:none;
+}
+
+.popup-parent span {
+	display: none;
+}
+
+div.popup-parent:hover {
+	background-color:#0f0;
+}				
+		
+div.popup-parent:hover span { /*the span will display just on :hover state*/
+	display:block;
+	position:absolute;
+	top: 150px; 
+	left:300px; 
+	width:200px;
+	border: 2px solid #a5b;
+	position: absolute;
+	background-color:#91d2e4; 
+	color:#000;
+	text-align: center;
+	padding: 10px;
+	font-family: arial;
+}
+
+.note {
+	font-size: 85%;
+	color: #a5b;
+}
+
+</style>
+
+<!--[if IE]>
+  <style type="text/css">
+		body {behavior: url(csshover.htc);}
+  </style>
+<![endif]-->
+
+<!-- It has been found that if the .htc file is called with a relative path and 
+is not in the same folder as the calling page, IE will fail to read the .htc file.
+You may use an absolute page complete with "http://", which works fine, assuming
+that the served MIME-type for this .htc file is  "text/x-component". -->
+ 
+ 
+</head>
+
+<body> 
+
+<div class="wrapper">
+
+	<h1>Ostriches!</h1>
+
+	<div class="divstyles">
+		<div class="popup-parent">
+			<img src="ostriches.jpg" alt="" />
+
+			<span>Aren't these big birds cute? Ostriches can be up to 2.5 meters tall (8 ft) with a 
+			mass over 155 kilograms (320 lbs), plus they can run 65 km/h (40 mph). You might not 
+			want to mess with <em>these</em> babies! 
+			</span>
+
+		</div>
+	</div>
+
+	<p class="note">
+	<strong>Note:</strong> To view the tooltip effect in IE/Win browsers, you will need to download 
+	the <a href="http://www.xs4all.nl/~peterned/htc/csshover.htc"><strong>csshover.htc</strong></a> 
+	file and save it in the same directory that this file is saved in.
+	</p>
+
+	<p>
+	The big image to the left is <em>not a link</em>, and yet Explorer for windows 
+	(IE5 and up) will still obey the <strong>:hover</strong> rules that make the popup possible,
+	thanks to <strong>Peter Nederlof's</strong> wonderful Jscript. Woohoo! 
+	</p>
+	
+	<p>
+	Notice how when the pointer is moved off the image the popup vanishes, but when 
+	the pointer is moved off the image but remains on the popup, the popup is still 
+	there. This effect will make possible a simple CSS dropdown menu later on in the 
+	series. 
+	</p>
+	
+	<h3>Opera 7 Bug</h3>
+	
+	<p>
+	This image was originally in a div that was floated to the left, but it so happens that
+	if the element that serves as the popup "parent" is also floated, then Opera 7 will
+	clip any part of the popup that lies across the float's margin (if any), and beyond that 
+	point it will not vanish once the popup parent is no longer hovered. Ick.
+	</p>
+	
+	<p>
+	This bug can easily be prevented by floating an outer div container, and letting 
+	an inner non-floated div be the popup parent. Only when a single element is both 
+	floated <em>and</em> launches a popup, will this Opera 7 bug occur.  
+	</p>
+	
+	<h3>IE5.x/Win Bug</h3>
+	
+	<p>
+	A problem crops up when viewing in IE5 or IE5.5 for Windows, with the result that 
+	the <strong>:hover</strong> rules are ignored. This only happens when the :hover rule 
+	selector does not contain the "type" of element being hovered. This means that if the 
+	popup parent is a div, the selector must read:
+	</p> 
+	
+	<p><strong>div.popup-parent:hover {styles}</strong></p>
+	
+	<p>
+	and not just:
+	</p>
+	
+	<p><strong>.popup-parent:hover {styles}</strong></p>
+	
+	<p>
+	This also applies to the <strong>div.popup-parent:hover span {styles}</strong>. 
+	While this is a pain, it's not a fatal flaw when the bug is understood. We don't yet know
+	if it is a basic bug in the older IE browsers, or if the Jscript just needs to be improved.
+	If so, this problem may go away soon.
+	</p>
+	
+</div>
+
+</body>
+</html>

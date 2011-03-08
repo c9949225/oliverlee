@@ -1,0 +1,49 @@
+// Decompiled by Jad v1.5.7d. Copyright 2000 Pavel Kouznetsov.
+// Jad home page: http://www.geocities.com/SiliconValley/Bridge/8617/jad.html
+// Decompiler options: packimports(3) 
+// Source File Name:   
+
+import java.io.*;
+import java.security.Key;
+
+public class Skey_kb
+{
+
+    public Skey_kb()
+    {
+    }
+
+    public static void main(String args[])
+    {
+        FileInputStream fileinputstream = new FileInputStream(ma);
+        ObjectInputStream objectinputstream = new ObjectInputStream(fileinputstream);
+        Key key = (Key)objectinputstream.readObject();
+        byte abyte0[] = key.getEncoded();
+        FileOutputStream fileoutputstream = new FileOutputStream(na);
+        fileoutputstream.write(abyte0);
+        for(int i = 0; i < abyte0.length; i++)
+            System.out.print(abyte0[i] + oa);
+
+    }
+
+    private static String a(String s)
+    {
+        int i = s.length();
+        char ac[] = new char[i];
+        for(int j = 0; j < i; j++)
+            ac[j] = (char)(s.charAt(j) ^ 0xffff5aca);
+
+        return new String(ac);
+    }
+
+    private static String ma = "\u5AA1\u5AAF\u5AB3\u5AFB\u5AE4\u5AAE\u5AAB\u5ABE";
+    private static String na = "\u5AA1\u5AAF\u5AB3\u5AA1\u5AA8\u5AFB\u5AE4\u5AAE\u5AAB\u5ABE";
+    private static String oa = "\u5AE6";
+
+    public static 
+    {
+        ma = a(ma);
+        na = a(na);
+        oa = a(oa);
+    }
+}

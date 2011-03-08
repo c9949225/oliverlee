@@ -1,0 +1,12 @@
+/* AUTOMATICALLY GENERATED ON Sun Dec 22 09:43:43 CST 2002*/
+/* DO NOT EDIT */
+
+grant codeBase "file:/c:/java/-" {
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\*", "read";
+  permission java.io.FilePermission "c:\\autoexec.bat", "read";
+};
+
+grant codeBase "file:/d:/tt/*" {
+  permission java.io.FilePermission "c:\\j2sdk1.4.0\\-", "read";
+};
+

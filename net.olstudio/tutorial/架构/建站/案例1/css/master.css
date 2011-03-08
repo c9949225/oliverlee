@@ -1,0 +1,165 @@
+/* 一般我们把body标签放在css文件的顶端，当然你要是执意要把它放在尾部，浏览器不会和你计较。font-family内的顺序决定字体显示优先级，
+   比方如果所在计算机没有Arial字体，浏览器就会指向Helvetica字体，依次类推；color指字体颜色；background指背景颜色。*/
+/* 设置全局的文本样式 */
+body {
+	font-family: Arial, Helvetica, Verdana, Sans-serif;
+	font-size: 12px;
+	color: #666666;
+	background: #ffffff;
+}
+
+/* 定义一个伪类任何标签都可使用 <dl class="hidden"> */
+.hidden {
+	display: none;
+}
+
+/* 定义页面最外层的容器 */
+#page-container {
+	width: 760px;
+	margin: auto; /* 使内容居中 */ 
+	/* background: red; 因为在最外层的容器中设置了背景为红色,那么只要子盒子不覆盖的地方背景都是红色 */
+}
+
+/* 最外层的容器和浏览器的顶端会有8px宽的空隙，这是由于浏览器的默认的填充和边界造成的。
+   要使最外层容器完全占据整个浏览器，需添加下面的内容 */
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+/* Main Navigation */
+#main-nav { height: 50px; }
+#main-nav dl { margin: 0; padding: 0; }
+
+
+/* IE5 Mac Hack \*/ 
+#main-nav { padding-left: 11px; } 
+/*/ 
+#main-nav { padding-left: 11px; overflow: hidden; } 
+/* End Hack */
+
+#main-nav dt { float: left; }
+
+#main-nav dt a {
+	display: block;
+	height: 0px !important;
+	height /**/:50px; /* IE 5/Win hack */ 
+	padding: 50px 0 0 0;
+	overflow: hidden;
+	background-repeat: no-repeat;
+}
+
+#main-nav dt a:hover {
+	background-position: 0 -50px;
+}
+
+#main-nav dt#about,
+#main-nav dt#about a { width: 71px; background-image: url(../images/nav/about.gif); }
+
+#main-nav dt#services,
+#main-nav dt#services a { width: 84px; background-image: url(../images/nav/services.gif); }
+
+#main-nav dt#portfolio,
+#main-nav dt#portfolio a { width: 95px; background-image: url(../images/nav/portfolio.gif); }
+
+#main-nav dt#contact,
+#main-nav dt#contact a { width: 106px; background-image: url(../images/nav/contact.gif); }
+
+body.about dt#about,
+body.about dt#about a,
+body.services dt#services,
+body.services dt#services a,
+body.portfolio dt#portfolio,
+body.portfolio dt#portfolio a,
+body.contact dt#contact,
+body.contact dt#contact a {
+	background-position: 0 -100px;
+}
+
+body.about #header {
+	height: 150px;
+	background: #db6d16
+		    url(../images/headers/about.jpg);
+}
+
+/* 将页面内的各个部分区分开来 */
+#main-nav {
+	height: 50px;
+}
+
+#header {
+	height: 150px;
+	background: #db6d16
+	url(../images/headers/about.jpg);
+}
+
+/* 让sidebar-a(div)移动到右边 */
+#sidebar-a {
+	float: right;
+	width: 280px;
+	line-height: 18px;
+}
+
+#content {
+	margin-right: 280px; /* 设置content盒子的右边界距离容器盒子的右边界有280px */
+	line-height: 18px;
+}
+
+/* <h1>等标签的默认大小和边距(margin)造成标题周围会有空白，先要消除这些空白,需要加入 */
+h1 {
+	margin: 0;
+	padding: 0;
+	float: right;
+	margin-top: 57px;
+	padding-right: 31px;
+}
+
+/* 这样我们就告诉浏览器，仅仅是隶属于content层的<h2><p>标签的margin和padding的值为0！*/
+#content h2 {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 15px; /**/
+}
+
+#content p {
+	margin: 0;
+	padding: 0;
+	padding-bottom: 15px; /**/
+}
+
+#content .padding {
+	padding: 25px;
+}
+
+/* Footer ==================================================================================== */
+
+/* 在设置该处之前sidebar-a(div)会将自己的底部延伸到容器盒子的底部,
+   这是由于我们将边框向右浮动，由于是浮动，所以可以理解为它位于整个盒子之上的另一层。因此，底框和内容盒子对齐了
+   设置footer可以让它底部不延伸 */
+#footer {
+	clear: both; /* 这里*/
+	height: 66px;
+	font-family: Tahoma, Arial, Helvetica, Sans-serif;
+	font-size: 10px;
+	color: #c9c9c9;
+	border-top: 1px solid #efefef;
+	padding: 13px 25px;
+	line-height: 18px;
+}
+
+#footer a {
+	color: #c9c9c9;
+	text-decoration: none; /* 让下划线消失 */
+}
+
+#footer a:hover {
+	color: #db6d16; /* 让存在链接的文本，在鼠标悬停在其上方时变色为#db6d16 */
+}
+
+#footer #altnav {
+	width: 350px;
+	float: right;
+	text-align: right;
+}
+
+

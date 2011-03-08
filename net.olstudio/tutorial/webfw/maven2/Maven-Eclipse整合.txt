@@ -1,0 +1,62 @@
+1- Maven,Eclipse整合的关键问题是Maven鼓励使用深度项目结构,Eclipse缺不支持深度项目结构,
+
+Solution1:
+一个解决办法是强制使Maven使用平度项目结构(或者专门建立一个Workspace供一个Maven使用workspace的根目录,
+作为Maven的根目录):
+
+平整结构(子项目都在和父项目平级的目录):这样做的缺点,一些Maven's tools将不再能使用比如release-plugin
+因为这些工具不支持平整结构
+.....
+<modules>
+  <module>../module1</module>
+  <module>../module2</module>
+</modules>
+.....
+
+Solution2:
+
+最好的办法是按照Maven的需求使用深度结果,让maven-eclipse-plugin驱使WTP去符合Maven的标准:
+(it's easier to convert a WTP dynamic web project into a M2 project 
+than a M2 project into a dynamic web project)
+.....
+<modules>
+  <module>module1</module>
+  <module>module2</module>
+</modules>
+.....
+-------------------------------------------------------------------------------
+如果你同时工作于所有模块，你应该具有eclipse 的项目依赖，而不是二进制依赖，
+你可以设置一个新的workspace，并且从step-by-step/guide-ide-eclipse中导入。
+记住，你必须先删除父项目的.project文件。
+结果和从命令行检出整个项目相同，运行mvn eclipse:eclipse并且最后把项目导入到你的eclipse工作空间。
+两种方式都可以使用eclipse同步你对项目的修改。
+-------------------------------------------------------------------------------
+对于有许多人参与的大项目而言，检出所有模块并且保持更新是一件相当乏味的工作。特别是你只对其中某（几）个模块感兴趣。
+这种情况，使用二进制依赖更合适。只要在eclipse上检出你需要工作的模块，然后为每个模块运行mvn eclipse:eclipse。
+当然所有用到的artifacts在你的maven仓库中必须可用。
+-------------------------------------------------------------------------------
+扁平项目布局：
+有可能将父POM的目录搬移到和模块相同级别的目录。
+1、在guide-ide-eclipse下创建一个名为guide-ide-eclipse-project的新目录，并且将父POM搬移到这个目录。
+
+2、对父POM修改模块引用：
+
+    ../guide-ide-eclipse-site
+    ../guide-ide-eclipse-core
+    ../guide-ide-eclipse-module1
+    
+问题：发布(releasee)插件不支持扁平结构。
+
+-------------------------------------------------------------------------------
+Due to the workspace idea many eclipse users are used to a flat layout and 
+therefore want to keep this structure,
+which is possible but not recommended. 
+Actually, the only reason for a flat multiple module project layout 
+is the possibility to checkout and edit the parent POM without 
+checking out the whole project. The following sample shows how to 
+handle maven multiple module projects with eclipse while keeping the recommended hierachical project layout.
+
+
+
+
+

@@ -1,0 +1,13 @@
+1-Hibernate的映射类型,推荐使用包装类型,因为这样可以用Null表示未知
+
+Java      |     Hibernate    |     Sql
+
+String					 string						VARCHAR(VARCHAR2 Oracle)
+
+Integer 					integer或int       		INTEGER
+
+Double					double                DOUBLE
+
+Boolean/boolean    yes_no              CHAR(1) 'Y' 'N'
+   ...             true_false          CHAR(1) 'T' 'F'
+   

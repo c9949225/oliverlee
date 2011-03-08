@@ -1,0 +1,102 @@
+1-Eclipse3.2可以在项目中创建项目,这样我就可以检出一个包含子模块的Maven项目
+并正确地显示出来，而不是手工一个个地把子模块检出来。
+但现在我可以手工一个一个地在子模块的根目录检出该子模块，但当选择父模块的根路径的话
+没有对应的所有子模块的列表让我选择，该怎么办呢？在父模块的根路径下执行mvn eclipse:eclipse
+么？
+
+Checkout your project root.
+Run mvn -DuseProjectReferences=false  eclipse:eclipse 
+at the project root. 
+
+(I recommend not using project references so that you get
+repository copies and only when you need to work on related projects
+that you are changing sources files for at the same time to switch to
+project references)
+
+Rename the ROOT/.project file to something else
+
+File -> Import -> General -> Existing Projects and browse to your
+workspace and the project root.
+
+Because there is no .project file eclipse will show all the
+subprojects as being available.  
+
+Select them and click ok.
+
+Now rename the ROOT/.project file back.
+
+Press F5 to refresh your Navigator view.
+
+You should have all your projects links up hierarchically!
+
+---------------
+i don't get this step working...it doesn't show submodule projects as being availble, even if each of them have their respective .project and .classpath 
+
+
+If you have a structure like this:
+
+root
+|--module1
+|--module2
+    |--submodule2-1
+
+... you would have to make sure that you hide/delete/rename the .project
+file in both the root and module2 directories for the submodule2-1
+project to show up on the import. 
+
+When Eclipse finds a .project file at a node in the file tree, all projects from the subtree rooted at that
+node are hidden, because Eclipse does not support hierarchical project
+structures.
+
+IMO, moving your parent pom to a subdir is a better compromise than
+having all of your files show up two or more times in Eclipse. I would
+use the technique outlined in this thread ONLY in cases where you could
+not move the parent pom to a subdirectory. 
+
+-------------------------------------------------------------------------------------------------------
+ I have module "microemu-injected" with artifact <classifier>inject</classifier>
+
+<dependency>
+<groupId>org.microemu</groupId>
+<artifactId>microemu-injected</artifactId>
+<version>${version}</version>
+<classifier>inject</classifier>
+</dependency>
+
+When I generate eclipse project I got dependency on complete project not just to its artifact.
+<classpathentry kind="src" path="/microemu-injected"/>
+
+When generating project for each module separately
+<classpathentry kind="var" path="M2_REPO/org/microemu/microemu-injected/2.0.1-SNAPSHOT/microemu-injected-2.0.1-SNAPSHOT-inject.jar"/>
+And this is what I need.
+
+But I have other project dependancy so I can't use useProjectReferences:false
+
+Project https://microemulator.svn.sourceforge.net/svnroot/microemulator/trunk/microemulator
+
+Is it posible to add filter to configuration of maven-eclipse-plugin
+to trigger different behaviour for this situation.
+like this:
+
+<dependencySets>
+<dependencySet>
+<useProjectReferences>false</useProjectReferences>
+<includes>
+<include>microemu-injected</include>
+</includes>
+</dependencySet>
+</dependencySets>
+
+or
+Simple :
+<useProjectReferencesWithclassifier>false<useProjectReferencesWithclassifier>
+
+
+suggested solution for problem
+
+<noProjectReferences>
+<noProjectReference>special-module1<noProjectReference>
+<noProjectReference>special-module2<noProjectReference>
+<noProjectReferences>
+
+-------------------------------------------------------------------------------------------------------

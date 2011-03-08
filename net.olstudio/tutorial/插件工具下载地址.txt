@@ -1,0 +1,18 @@
+WTP 2 	All-in-one version : http://download.eclipse.org/webtools/downloads 	
+
+Sysdeo Tomcat Plugin : http://www.eclipsetotale.com/tomcatPlugin.html 	
+
+Hibernate Tools Hibernate Plugin : http://www.hibernate.org/255.html 	
+
+Spring IDE with AspectJ Development Tools and Mylyn : http://springide.org/updatesite
+
+Subclipse 	http://subclipse.tigris.org/update_1.2.x 
+
+M2 Plugin 	http://m2eclipse.codehaus.org/update 
+
+Checkstyle 	http://eclipse-cs.sourceforge.net/update
+
+PMD 	http://pmd.sourceforge.net/eclipse 	Update URL
+
+Buckminster 	http://download.eclipse.org/technology/buckminster/updates
+

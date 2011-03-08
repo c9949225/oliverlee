@@ -1,0 +1,96 @@
+<!--
+	I suggest that you do this from the command line and 
+	not from the M2eclipse plugin:
+	
+	1. >mvn eclipse:clean   (clean out the existing Eclipse configuration)
+	2. >mvn eclipse:eclipse -Dwtpversion=1.5 
+	(this will create the .project, .classpath, and .settings dir files that you will need)
+	
+	If you want to have the maven project nature included in the .project file, 
+	check the maven eclipse plugin configuration and 
+	add the properties to the build section of your pom. 
+	The resulting pom should look something like the following: -->
+
+<plugins>
+	<plugin>
+		<artifactId>maven-eclipse-plugin</artifactId>
+		<configuration>
+			<additionalProjectnatures>
+				<projectnature>
+					org.springframework.ide.eclipse.core.springnature
+				</projectnature>
+				<projectnature>
+					org.maven.ide.eclipse.maven2Nature
+				</projectnature>
+				<projectnature>
+					org.eclipse.wst.common.project.facet.core.nature
+				</projectnature>
+				<projectnature>
+					org.eclipse.wst.common.modulecore.ModuleCoreNature
+				</projectnature>
+				<projectnature>
+					org.eclipse.jem.workbench.JavaEMFNature
+				</projectnature>
+				<projectnature>
+					org.maven.ide.eclipse.maven2projectnature
+				</projectnature>
+				<projectnature>
+					org.springframework.ide.eclipse.core.springprojectnature
+				</projectnature>
+				<projectnature>
+					edu.umd.cs.findbugs.plugin.eclipse.findbugsprojectnature
+				</projectnature>
+				<projectnature>
+					org.eclipse.ajdt.ui.ajnature
+				</projectnature>
+				<projectnature>
+					org.eclipse.ajdt.ui.ajprojectnature
+				</projectnature>
+			</additionalProjectnatures>
+			<additionalBuildcommands>
+				<buildCommand>
+					<name>org.eclipse.ajdt.core.ajbuilder</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>
+						org.eclipse.wst.common.project.facet.core.builder
+					</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>
+						org.eclipse.wst.validation.validationbuilder
+					</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>
+						edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder
+					</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>org.eclipse.ajdt.core.ajbuilder</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>org.maven.ide.eclipse.maven2Builder</name>
+					<arguments></arguments>
+				</buildCommand>
+				<buildCommand>
+					<name>
+						org.springframework.ide.eclipse.core.springbuilder
+					</name>
+					<arguments></arguments>
+				</buildCommand>
+			</additionalBuildcommands>
+		</configuration>
+	</plugin>
+</plugins>
+
+<!-- 
+Currently, executing a maven build before deploying from Eclipse (using the server deploy tool) 
+is not supported (by anyone that I know). However, this should give you a good start.  -->
+
+

@@ -1,0 +1,25 @@
+1,XMLBuddy
+
+由于打开XML 文件时会根据XML 文件里定义的DTD 去网上查找相应的DTD 文件，
+这样导至打开的时候会相当慢，特别是如果你的机器上不了外网的话，就更慢了。
+解决的办法有两个：
+
+一、在本机开启Web 服务（如Tomcat 等等），并设置端口为80，然后根据DTD 的目
+录结构建立相应的结构，并把DTD 文件放进去。然后在hosts 文件里把本机的地址映射到
+相应的DTD 指定的网站去，如：
+127.0.0.1 www.springframework.org
+这样打开XML 文件时就会在本机寻找DTD 文件进行验证，速度就快很多了?
+二、打开XMLBuddy 插件的安装目录， 并找到其中的cache 目录， 比如：
+%ECLIPSE_HOME%\PlugInsNew\xmlbuddy\eclipse\plugins\com.objfac.xmleditor_2.0.72\.cache
+打开meta.xml 文件，一看就知道怎么处理了吧，如法炮制，选把DTD 文件拷贝到这个
+cache 目录里，再增加内容到meta.xml 里来，比如：
+<file>
+<pub>-//SPRING//DTD BEAN//EN</pub>
+<abs>http://www.springframework.org/dtd/spring-beans.dtd</abs>
+<rel>spring-beans.dtd</rel>
+</file>
+要增加其它的DTD 文件方法类似，不断地增加说明与DTD 文件即可。
+于是在编辑XML 文件时就会有相关的提示及错误提示信息，可以减少一些书写XML
+文件时发生的低级错误了。
+
+2, Wtp

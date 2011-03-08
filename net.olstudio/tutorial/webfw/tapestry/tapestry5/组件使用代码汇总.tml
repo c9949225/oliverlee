@@ -1,0 +1,5 @@
+<!-- 1: If -->
+<t:if test="message">
+	<p><strong> <span id="message">${message}</span> </strong></p>
+</t:if>
+

@@ -1,0 +1,20 @@
+在最新的Maven archetype插件的2.0-alpha-2版本中，archetype的创建方式和之前大不一样，将使用 archetype:generate 来创建项目，而不是之前的 archetype:create。archetype:generate方式创建项目将更加人性化，而且对于各种archetype的归类和项目创建提示帮助都很大，如你还没有使用过，你只需输入mvn archetype:generate就可以体验到啦。
+     为了更好地体验archetype:generate的功能，我们需要讲述一下新的archetype:generate是如何查找各个 archetype jar文件的。archetype:generate是通过archetypeCatalog设置来查找相关的archetype，这里 archetype catalog相当于archetype库，一个catalog包含多个archetype。这个库是什么样的呢，其实就是一个描述文件，名称为 archetype-catalog.xml，格式如下：
+    <?xml version="1.0" encoding="UTF-8"?>
+<archetype-catalog>
+    <archetypes>
+        <archetype>
+            <groupId>org.mvnsearch.ridd</groupId>
+            <artifactId>ridd-archetype-simple</artifactId>
+            <version>1.0</version>
+            <repository>http://www.mvnsearch.org/maven2</repository>
+            <description>Create RIDD Web Application</description>
+        </archetype>
+    </archetypes>
+</archetype-catalog>
+   通过该xml文件，就可以将相关的archetype组织在一起。     我们使用archetype:generate时，需要通过archetypeCatalog来给其制定一个archetype库，这里库分为3种类型： 1. 缺省库， 2. 用户库， 3. 第三方库。缺省库，很容易理解，就是archetype插件自身就包含的各个archetype，如果你没有指定任何库，缺省库就会其作用，在 archetype插件中使用internal对其进行命名。用户库是指最终用户平时自己使用的库，这个库的文具存放于file://~/.m2/archetype-catalog.xml，在archetype插件中通过local对其进行命名。第三方库，也就是以上两者之外的所有库，如存放于本地磁盘的一个目录，远程服务上等。如果公司内部有很多archetype，就可以建一个这样的库，存在服务器上，大家可以进行共享。第三方库中，由于repo1.maven.org是官方支持的，所以有一个别名：remote，用于标识官方的库。
+   现在如果你想创建一个archetype，首先确定库，然后根据archetype:generate提供的提示进行创建即可。以下是常见的几种方式：
+   mvn archetype:generate   调用internal库进行创建
+   mvn archetype:generate -DarchetypeCatalog=local   调用local库进行创建
+   mvn archetype:generate -DarchetypeCatalog=http://www.mvnsearch.org/maven2 调用http://www.mvnsearch.org/maven2/archetype-catalog.xml 提供的库进行创建。
+   了解这些以后，如果你有相关的archetype想和别人共享，只要将库的地址发给对方就可以啦，依据archetype创建将非常简单。

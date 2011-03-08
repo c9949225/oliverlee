@@ -1,0 +1,188 @@
+
+X.509 Cert Path: length = 3.
+[
+=========================================================Certificate 1 start.
+[
+[
+  Version: V3
+  Subject: CN=www.ftc.gov, OU=Terms of use at www.verisign.com/rpa (c)00, O=Federal Trade Commission, L=Washington, ST=District of Columbia, C=US
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@6fa474
+  Validity: [From: Thu Jan 24 08:00:00 CST 2002,
+               To: Thu Feb 13 07:59:59 CST 2003]
+  Issuer: OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign, OU=VeriSign International Server CA - Class 3, OU="VeriSign, Inc.", O=VeriSign Trust Network
+  SerialNumber: [    3a3249a2 dae41a4b e98009c2 84528a7d ]
+
+Certificate Extensions: 8
+[1]: ObjectId: 2.16.840.1.113733.1.6.15 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 0B 16 09 30 30 33 32   35 37 37 39 37           ....003257797
+
+
+[2]: ObjectId: 1.3.6.1.5.5.7.1.1 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 28 30 26 30 24 06 08   2B 06 01 05 05 07 30 01  .(0&0$..+.....0.
+0010: 86 18 68 74 74 70 3A 2F   2F 6F 63 73 70 2E 76 65  ..http://ocsp.ve
+0020: 72 69 73 69 67 6E 2E 63   6F 6D                    risign.com
+
+
+[3]: ObjectId: 2.16.840.1.113730.1.1 Criticality=false
+NetscapeCertType [
+   SSL server
+]
+
+[4]: ObjectId: 2.5.29.31 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 3F 30 3D 30 3B A0 39   A0 37 86 35 68 74 74 70  .?0=0;.9.7.5http
+0010: 3A 2F 2F 63 72 6C 2E 76   65 72 69 73 69 67 6E 2E  ://crl.verisign.
+0020: 63 6F 6D 2F 43 6C 61 73   73 33 49 6E 74 65 72 6E  com/Class3Intern
+0030: 61 74 69 6F 6E 61 6C 53   65 72 76 65 72 2E 63 72  ationalServer.cr
+0040: 6C                                                 l
+
+
+[5]: ObjectId: 2.16.840.1.113733.1.6.7 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 22 16 20 37 34 66 32   65 65 63 62 34 31 61 65  .". 74f2eecb41ae
+0010: 31 64 65 33 63 62 34 37   39 31 64 32 63 32 62 30  1de3cb4791d2c2b0
+0020: 30 38 36 61                                        086a
+
+
+[6]: ObjectId: 2.5.29.37 Criticality=false
+ExtendedKeyUsages [
+[2.16.840.1.113730.4.1, 1.3.6.1.5.5.7.3.1, 1.3.6.1.5.5.7.3.2]]
+
+[7]: ObjectId: 2.5.29.32 Criticality=false
+CertificatePolicies [
+  [CertificatePolicyId: [2.16.840.1.113733.1.7.23.3]
+[PolicyQualifierInfo: [
+  qualifierID: 1.3.6.1.5.5.7.2.1
+  qualifier: 0000: 16 1C 68 74 74 70 73 3A   2F 2F 77 77 77 2E 76 65  ..https://www.ve
+0010: 72 69 73 69 67 6E 2E 63   6F 6D 2F 72 70 61        risign.com/rpa
+
+]]  ]
+]
+
+[8]: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+CA:false
+PathLen: undefined
+]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: 45 4D F8 FA F7 A8 84 DE   0E 20 A2 02 56 C2 AE BB  EM....... ..V...
+0010: 15 CF A5 4A 96 3A FB E0   18 05 D9 A6 DF 90 E2 63  ...J.:.........c
+0020: C0 07 E3 3F BC EC 96 1F   03 E5 95 E5 FD B4 F0 49  ...?...........I
+0030: 8E 2F 9C 58 EB F4 CC F4   F0 66 16 54 12 5D 73 7C  ./.X.....f.T.]s.
+0040: 18 29 3F 7F 57 23 C5 C3   A5 D4 B9 3C BB 17 46 FC  .)?.W#.....<..F.
+0050: EC C3 1E F3 BB 39 D9 EC   E0 58 32 3A 21 00 39 0C  .....9...X2:!.9.
+0060: C1 BB C1 5A FB FB B4 8D   4A D4 A0 A6 73 67 E4 3F  ...Z....J...sg.?
+0070: C2 BB 7E 5B CD 9C B2 88   04 C8 08 D1 02 CB 3E FA  ...[..........>.
+
+]
+=========================================================Certificate 1 end.
+
+
+=========================================================Certificate 2 start.
+[
+[
+  Version: V3
+  Subject: OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign, OU=VeriSign International Server CA - Class 3, OU="VeriSign, Inc.", O=VeriSign Trust Network
+  Signature Algorithm: SHA1withRSA, OID = 1.2.840.113549.1.1.5
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@5b0afd
+  Validity: [From: Thu Apr 17 08:00:00 CST 1997,
+               To: Tue Oct 25 07:59:59 CST 2011]
+  Issuer: OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+  SerialNumber: [    78ee48de 185b2071 c9c9c3b5 1d7bddc1 ]
+
+Certificate Extensions: 6
+[1]: ObjectId: 2.16.840.1.113730.1.1 Criticality=false
+NetscapeCertType [
+   SSL CA
+   S/MIME CA
+]
+
+[2]: ObjectId: 2.5.29.31 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 2D 30 2B 30 29 A0 27   A0 25 86 23 68 74 74 70  .-0+0).'.%.#http
+0010: 3A 2F 2F 63 72 6C 2E 76   65 72 69 73 69 67 6E 2E  ://crl.verisign.
+0020: 63 6F 6D 2F 70 63 61 33   2D 67 32 2E 63 72 6C     com/pca3-g2.crl
+
+
+[3]: ObjectId: 2.5.29.15 Criticality=false
+KeyUsage [
+  Key_CertSign
+  Crl_Sign
+]
+
+[4]: ObjectId: 2.5.29.37 Criticality=false
+ExtendedKeyUsages [
+[1.3.6.1.5.5.7.3.1, 1.3.6.1.5.5.7.3.2, 2.16.840.1.113730.4.1, 2.16.840.1.113733.1.8.1]]
+
+[5]: ObjectId: 2.5.29.32 Criticality=false
+CertificatePolicies [
+  [CertificatePolicyId: [2.16.840.1.113733.1.7.1.1]
+[PolicyQualifierInfo: [
+  qualifierID: 1.3.6.1.5.5.7.2.1
+  qualifier: 0000: 16 1C 68 74 74 70 73 3A   2F 2F 77 77 77 2E 76 65  ..https://www.ve
+0010: 72 69 73 69 67 6E 2E 63   6F 6D 2F 43 50 53        risign.com/CPS
+
+]]  ]
+]
+
+[6]: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+CA:true
+PathLen:0
+]
+
+]
+  Algorithm: [SHA1withRSA]
+  Signature:
+0000: 23 5D EE A6 24 05 FD 76   D3 6A 1A D6 BA 46 06 AA  #]..$..v.j...F..
+0010: 6A 0F 03 90 66 B2 B0 A6   C2 9E C9 1E A3 55 53 AF  j...f........US.
+0020: 3E 45 FD DC 8C 27 DD 53   38 09 BB 7C 4B 2B BA 95  >E...'.S8...K+..
+0030: 4A FE 70 4E 1B 69 D6 3C   F7 4F 07 C5 F2 17 5A 4C  J.pN.i.<.O....ZL
+0040: A2 8F AC 0B 8A 06 DB B9   D4 6B C5 1D 58 DA 17 52  .........k..X..R
+0050: E3 21 F1 D2 D7 5A D5 E5   AB 59 7B 21 7A 86 6A D4  .!...Z...Y.!z.j.
+0060: FE 17 11 3A 53 0D 9C 60   A0 4A D9 5E E4 1D 0C 29  ...:S..`.J.^...)
+0070: AA 13 07 65 86 1F BF B4   C9 82 53 9C 2C 02 8F 23  ...e......S.,..#
+
+]
+=========================================================Certificate 2 end.
+
+
+=========================================================Certificate 3 start.
+[
+[
+  Version: V1
+  Subject: OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+  Signature Algorithm: MD2withRSA, OID = 1.2.840.113549.1.1.2
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@b64435
+  Validity: [From: Mon Jan 29 08:00:00 CST 1996,
+               To: Sat Jan 01 07:59:59 CST 2000]
+  Issuer: OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+  SerialNumber: [    02a10000 01]
+
+]
+  Algorithm: [MD2withRSA]
+  Signature:
+0000: 75 66 6C 3E D1 CD 81 DB   B5 F8 2F 36 51 B6 F7 42  ufl>....../6Q..B
+0010: BC CD 42 AF DC 0E FA 15   6C F8 67 93 57 3A EB B6  ..B.....l.g.W:..
+0020: 92 E8 B6 01 CA 8C B7 8E   43 B4 49 65 F9 3E EE BD  ........C.Ie.>..
+0030: 75 46 2E C9 FC 25 5D A8   C7 2F 8B 9B 8F 68 CF B4  uF...%]../...h..
+0040: 9C 97 18 C0 4D EF 1F D9   AF 82 B3 E6 64 B8 84 5C  ....M.......d..\
+0050: 8A 9A 07 52 43 61 FB 74   9E 5B 3A 36 FC 4C B2 FC  ...RCa.t.[:6.L..
+0060: 1A 3F 15 2E A5 5B 3C 1B   90 EC 88 29 E4 59 16 F9  .?...[<....).Y..
+0070: CE 07 AD EC E9 DD DA D2   31 8A 4F D6 D8 EF 17 8D  ........1.O.....
+
+]
+=========================================================Certificate 3 end.
+
+
+
+]

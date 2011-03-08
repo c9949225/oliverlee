@@ -1,0 +1,18 @@
+simp {
+
+   com.sun.security.auth.module.KeyStoreLoginModule optional
+     keyStoreURL ="file:C:/java/ch9/multiLoginModule/store1"
+try_first_pass=true
+     keyStoreAlias=Email;
+
+   com.sun.security.auth.module.KeyStoreLoginModule sufficient
+     keyStoreURL ="file:C:/java/ch9/multiLoginModule/store1"
+try_first_pass=true
+     keyStoreAlias=web;
+
+   com.sun.security.auth.module.KeyStoreLoginModule required
+     keyStoreURL ="file:C:/java/ch9/multiLoginModule/kstore2"
+try_first_pass=true
+     keyStoreAlias=proxy;
+
+};

@@ -1,0 +1,17 @@
+1-SecurityContextHolderAwareRequestWrapper重写了
+ public boolean isUserInRole(String role) 方法
+ ...
+ Authentication auth = getAuthentication();
+
+ if ((auth == null) || (auth.getPrincipal() == null) || (auth.getAuthorities() == null)) {
+            return false;
+  }
+  for (int i = 0; i < auth.getAuthorities().length; i++) {
+        if (role.equals(auth.getAuthorities()[i].getAuthority())) {
+                return true;
+        }
+   }
+        
+   return false;
+   
+  这样在判断用户角色的时候就是读取acegi中定义的角色了。

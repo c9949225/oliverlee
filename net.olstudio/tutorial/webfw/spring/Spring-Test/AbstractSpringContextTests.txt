@@ -1,0 +1,5 @@
+AbstractSpringContextTests扩展于ConditionalTestCase，它维护了一个static类型的缓存器（HashMap），
+它使用键保存Spring ApplicationContext实例，
+这意味着Spring ApplicationContext是JVM级的，不同测试用例、不同测试方法都可以共享这个实例。
+也就是说，在运行多个测试用例和测试方法时， Spring容器仅需要实例化一次就可以了，极大地提高了基于Spring容器测试程序的运行效率。
+Spring通过这个测试帮助类解决了前面我们所指出的第1)个问题。

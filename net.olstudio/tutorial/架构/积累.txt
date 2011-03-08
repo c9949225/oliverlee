@@ -1,0 +1,17 @@
+1-实现接口来继承常量
+public class VelocityEngine implements RuntimeConstants
+
+2-使用这样的方式来初始化
+			initializeProperties();
+            initializeLog();
+            initializeResourceManager();
+            initializeDirectives();
+            initializeEventHandlers();
+            initializeParserPool();
+            
+3-ExtenedProperties的使用
+
+4-设计方法的时候,设计一种参数完全灵活的方法1,设计一种默认常用参数的方法2,然后调用方法1并传入常
+用的参数
+
+5-要提高表单提交的onSubmit方法

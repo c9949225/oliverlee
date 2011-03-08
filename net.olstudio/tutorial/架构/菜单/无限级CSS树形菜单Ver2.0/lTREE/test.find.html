@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-cn">
+<head>
+<title>CNL Tree Menu Ver1.02 - 无限级树形菜单 Written by CNLei, 枫岩 </title>
+<meta http-equiv="content-type" content="text/html;charset=gb2312" />
+<meta name="generator" content="editplus" />
+<meta name="author" content="CNLei,枫岩,www.cnlei.net" />
+<meta name="keywords" content="CSS Menu,树形菜单,CNLei" />
+<meta name="description" content="" />
+<style type="text/css">
+li.lovelyChild {background:#ccc;}
+</style>
+</head>
+<body>
+<div>
+<ul>
+  <li class="Opened"><a href="http://WWW.CNLEI.COM">CNLEI.COM</a>
+  <ul>
+    <li><a href="#1">技术区</a>
+	  <ul>
+       <li><a href="#">网页技术</a>
+	    <ul>
+	     <li class="lovelyChild"><a href="#">JavaScript</a></li><!--Child Node-->
+	     <li class="Child"><a href="#">HTML/XHTML/CSS</a></li>
+	     <li class="Child"><a href="#">Ajax</a></li>
+	     <li class="Child"><a href="#">网页制作工具</a></li>
+	     <li class="Child"><a href="#">设计/图形</a></li>
+	     <li class="Child"><a href="#">Flash/多媒体</a></li>
+	     <li class="Child"><a href="#">VML/Web3D</a></li>
+	    </ul></li><!--Sub Node 3-->
+     </ul></li><!--Sub Node 2-->
+  </ul></li><!--Sub Node 1 -->
+</ul>
+<ul>
+  <li class="Opened"><a href="http://WWW.CNLEI.COM">CNLEI.COM</a>
+  <ul>
+    <li><a href="#1">技术区</a>
+	  <ul>
+       <li><a href="#">网页技术</a>
+	    <ul>
+	     <li class="Child"><a href="#">JavaScript</a></li><!--Child Node-->
+	     <li class="Child"><a href="#">HTML/XHTML/CSS</a></li>
+	     <li class="lovelyChild"><a href="#">Ajax</a></li>
+	     <li class="Child"><a href="#">网页制作工具</a></li>
+	     <li class="Child"><a href="#">设计/图形</a></li>
+	     <li class="Child"><a href="#">Flash/多媒体</a></li>
+	     <li class="Child"><a href="#">VML/Web3D</a></li>
+	    </ul></li><!--Sub Node 3-->
+     </ul></li><!--Sub Node 2-->
+  </ul></li><!--Sub Node 1 -->
+</ul>
+</div><!-- lTREEMenu -->
+<!--lTREEMenu End-->
+<script type="text/javascript" src="js/Array.js"></script>
+<script type="text/javascript" src="js/lDOM.js"></script>
+<script type="text/javascript">
+<!--
+var path="li.lovelyChild";
+lDOM.find(path,document.body,null,false).each(function(s,i){
+	alert(path+"\n"+i+"\n"+s.innerHTML);
+});
+path="ul li.lovelyChild";
+lDOM.find(path,document.body,null,false).each(function(s,i){
+	alert(path+"\n"+i+"\n"+s.innerHTML);
+});
+path="ul li ul li.lovelyChild";
+lDOM.find(path,document.body,null,false).each(function(s,i){
+	alert(path+"\n"+i+"\n"+s.innerHTML);
+});
+-->
+</script>
+
+</body>
+</html>

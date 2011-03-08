@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!--以下定义了将要被引用的目标bean-->
+	<bean id="person" class="lee.Person">
+		<property name="age"><value>30</value></property>
+			<property name="son">
+				<bean class="lee.Son">
+				<property name="age"><value>11</value></property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="valueGnerator" class="lee.ValueGenerator"/>
+
+	<!-- Age 都代表了一个属性 -->
+	
+	<!-- 这个Bean其实就代表了person Bean的age属性,输出为11-->
+	<bean id="theAge" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+		<property name="targetBeanName"><value>person</value></property>
+		<property name="propertyPath"><value>son.age</value></property>
+	</bean>
+	
+	<!-- 这个Bean其实是代表了新建Bean lee.Person的age属性,输出为12-->
+	<bean id="theAge2" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+		<property name="targetObject">
+			<bean class="lee.Person">
+				<property name="age"><value>12</value></property>
+			</bean>
+		</property>
+		<property name="propertyPath"><value>age</value></property>
+	</bean>
+	
+	<bean id="theAge3" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean">
+        <property name="staticField">
+            <value>java.sql.Connection.TRANSACTION_SERIALIZABLE</value>
+        </property>
+	</bean>
+
+	<!-- Sons 都代表了一个对象 -->
+	<!-- son1代表了person Bean的son属性 -->
+	<bean id="son1" class="org.springframework.beans.factory.config.PropertyPathFactoryBean">
+		<property name="targetBeanName"><value>person</value></property>
+		<property name="propertyPath"><value>son</value></property>
+	</bean>
+
+	<!--如下将会该son2这个bean传入bean person的age属性值-->
+	<bean id="son2" class="lee.Son">
+		<property name="age">
+			<!--以下是访问bean属性的简单方式,这样可以将person这个bean的age属性赋值给son2这个bean的age属性-->
+			<bean id="person.son.age" class="org.springframework.beans.factory.config.PropertyPathFactoryBean"/>
+		</property>
+	</bean>
+	
+	<!--如下根据java.sql.Connection的field TRANSACTION_SERIALIZABLE的值给son3的age赋值-->
+	<bean id="son3" class="lee.Son">
+		<property name="age">
+			<bean id="java.sql.Connection.TRANSACTION_SERIALIZABLE" class="org.springframework.beans.factory.config.FieldRetrievingFactoryBean"/>
+		</property>
+	</bean>
+	
+	<!-- 通过调用一个类的静态方法的返回值给Bean的属性赋值 -->
+	<bean id="son4" class="lee.Son">
+		<property name="age">
+            <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                <property name="targetClass"><value>lee.ValueGenerator</value></property>
+                <property name="targetMethod"><value>getStaticValue</value></property>
+            </bean>
+		</property>
+	</bean>
+
+	<bean id="son5" class="lee.Son">
+		<property name="age">
+            <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+                <property name="targetObject"><ref local="valueGnerator"/></property>
+                <property name="targetMethod"><value>getValue</value></property>
+            </bean>
+		</property>
+	</bean>
+
+	<!-- 输出System类的getProperties返回内容 -->
+    <bean id="sysProps" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetClass"><value>java.lang.System</value></property>
+        <property name="targetMethod"><value>getProperties</value></property>
+    </bean>
+
+    <bean id="javaVersion" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject"><ref local="sysProps"/></property>
+        <property name="targetMethod"><value>getProperty</value></property>
+        <property name="arguments">
+			<list>
+                <value>java.version</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

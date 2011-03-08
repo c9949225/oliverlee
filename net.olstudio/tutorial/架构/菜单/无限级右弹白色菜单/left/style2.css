@@ -1,0 +1,45 @@
+BODY {
+FONT: 11px verdana
+}
+UL {
+PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; WIDTH: 150px; PADDING-TOP: 0px; BORDER-BOTTOM: #ccc 1px solid; LIST-STYLE-TYPE: none
+}
+UL LI {
+POSITION: relative
+}
+LI UL {
+DISPLAY: none; LEFT: 149px; POSITION: absolute; TOP: 0px
+}
+
+li ul li ul{
+position: absolute;
+left: 149px; /* Set 1px less than menu width */
+top: 0;
+display: none;
+}
+
+UL LI A {
+BORDER-RIGHT: #ccc 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #ccc 1px solid; DISPLAY: block; PADDING-LEFT: 5px; BACKGROUND: #fff; PADDING-BOTTOM: 5px; BORDER-LEFT: #ccc 1px solid; COLOR: #777; PADDING-TOP: 5px; BORDER-BOTTOM: #ccc 0px solid; TEXT-DECORATION: none
+}
+ HTML UL LI {
+FLOAT: left; HEIGHT: 1%
+}
+ HTML UL LI A {
+HEIGHT: 1%
+}
+UL LI A:hover {
+BACKGROUND: #f9f9f9; COLOR: #e2144a
+}
+LI UL LI A {
+PADDING-RIGHT: 5px; PADDING-LEFT: 5px; PADDING-BOTTOM: 2px; PADDING-TOP: 2px
+}
+LI:hover UL {
+DISPLAY: block
+}
+
+LI.over UL {
+DISPLAY: block
+}
+LI.out UL{
+DISPLAY:none
+}

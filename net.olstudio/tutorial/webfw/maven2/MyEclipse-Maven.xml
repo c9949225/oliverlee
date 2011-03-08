@@ -1,0 +1,102 @@
+<!--
+	Maven有自己的一套约定目录规则，与MyEclipse的有冲突，其实结合也很简单，
+	因为MyEclipse的目录可配置。
+	
+	1 用maven创建一个web project
+	mvn archetype:create   -DgroupId=com.lifesting  
+	-DartifactId=test  
+	-DarchetypeArtifactId=maven-archetype-webapp
+	
+	2 补全某些目录
+	cd test\src
+	mkdir main\java
+	mkdir test\resources
+	mkdir test\java
+	
+	3 修改pom文件，在生成eclipse项目的时候maven eclipse plugin使用此配置
+	在project/build下面插入
+	
+-->
+<plugins>
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-eclipse-plugin</artifactId>
+		<configuration>
+			<projectnatures>
+				<java.lang.String>
+					com.genuitec.eclipse.j2eedt.core.webnature
+				</java.lang.String>
+				<java.lang.String>
+					org.eclipse.jdt.core.javanature
+				</java.lang.String>
+			</projectnatures>
+			<outputDirectory>
+				src/main/webapp/WEB-INF/classes
+			</outputDirectory>
+		</configuration>
+	</plugin>
+</plugins>
+
+<!--  
+	project nature是eclipse开发中一个概念，比如加入javanature就表示此项目是一个java project，
+	会绑定一个java builder用来编译java文件，而webnature告诉MyEclipse这是一个MyEclipse web项目，
+	更多MyEclipse projectNature：
+	webservice-- com.genuitec.eclipse.ws.xfire.wsnature
+	facelet-- com.genuitec.eclipse.jsf.faceletsnature
+	jsf--com.genuitec.eclipse.jsf.jsfnature
+	struts--com.genuitec.eclipse.cross.easystruts.eclipse.easystrutsnature
+	或者在插件里面使用这个方法：
+	
+	IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject("test");
+	try {
+	String[] natures = project.getDescription().getNatureIds();
+	for (String nature :natures)
+	System.out.println(nature);
+	} catch (CoreException e) {
+	e.printStackTrace();
+	}
+	
+	可以将项目所有的nature打印出来
+	
+	outputDirectory主要是告诉maven eclipse plugin编译输出在什么位置，
+	默认在target/classes下面，web项目不同，
+	应该放在src/main/webapp/WEB- INF/classes 才能够被MyEclipse package到服务器。
+	
+	4 在命令行test目录下运行mvn eclipse:eclipse生成Eclipse项目。
+	
+	5 在MyEclipse中将test project 导入到workspace，MyEclipse通过projectNature识别到test是一个MyEclipse web project，
+	它会在项目目录下生成一个.mymetadata文件。
+	再关闭MyEclipse，这么做的原因是因为默认MyEclipse的 webRoot不可配置。
+	
+	6 修改MyEclipse下面的.mymetadata文件，比如我的test项目文件内容为
+	
+	
+-->
+<project-module type="WEB" name="test" id="myeclipse.1207117121765"
+	j2ee-spec="1.4" archive="test.war">
+	<attributes>
+		<attribute name="webrootdir" value="/WebRoot" />
+	</attributes>
+</project-module>
+
+<!-- 增加一行，修改一行为： -->
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module type="WEB" name="test" id="myeclipse.1207117121765"
+	context-root="/test" " j2ee-spec="1.4" archive="test.war">
+	<attributes>
+		<attribute name="webrootdir" value="/src/main/webapp" />
+	</attributes>
+</project-module>
+
+<!--  
+可以看到，增加的一行 context-root="/test" 表示web的上下文为test.
+修改的一行为webrootdir的值，将/WebRoot改为maven默认的web项目source目录/src/main/webapp。
+
+7 重新启动MyEclipse，一切搞定了，调试开发两不误。
+-->
+
+
+
+
+

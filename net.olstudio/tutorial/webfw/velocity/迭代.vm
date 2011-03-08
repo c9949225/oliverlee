@@ -1,0 +1,42 @@
+## 实现调用其他的函数
+#macro(eval $_macro)$_macro#end
+
+## Calls itself recursively 10 times.
+#macro(recursive $_level)
+     #if ($_level < 10)
+			<p>We are at level $_level.</p>
+         #set ($_level = $_level + 1)
+         #eval("#recursive($_level)")
+     #end
+#end
+
+#recursive(0)
+
+## 输出：
+##We are at level 0.
+##We are at level 1.
+##We are at level 2.
+##We are at level 3.
+##We are at level 4.
+##We are at level 5.
+##We are at level 6.
+##We are at level 7.
+##We are at level 8.
+##We are at level 9.
+
+
+## Appends items to a global array.
+#macro(append)
+     #set ($_size = $_array.size())
+     #if (($_size < 10) && $_array.add("New Item $_size"))
+         #eval("#append()")
+     #end
+#end
+
+#set ($_array = [ "First item 0" ])
+#append()
+<p>Array size: $_array.size()</p>
+
+## Produces:
+
+## Array size: 10

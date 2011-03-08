@@ -1,0 +1,25 @@
+1-在介绍PA的时候只介绍每个PA的SG,因为所有的PA的GG几乎全部相同,所以将GG单独拿出来进行学习。
+
+2-
+
+
+1-A process is a series of steps that help to solve a problem.
+readily understood and capable of being followed in a consistent manner by anyone using the process.
+
+2-A process area is an area that the CMMI has selected that your organization needs to focus
+on, such as Project Planning or Configuration Management. It is a set of related
+tasks that address an area of concern.
+
+3-Implementation is simply performing a task within the process area.
+
+4-Institutionalization is the result of implementing the process again and again.
+An infrastructure to support this way of doing business exists and provides support for the process and
+the individuals "following" it.
+
+5-The CMMI is structured as follows:
+	5.1	Maturity Levels (staged representation) or Capability Levels (continuous representation)
+	5.2	Process Areas
+	5.3	Goals—Generic and Specific
+	5.4	Practices—Generic and Specific
+	
+6-

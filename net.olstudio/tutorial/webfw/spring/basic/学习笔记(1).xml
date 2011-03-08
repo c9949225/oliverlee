@@ -1,0 +1,108 @@
+1-定义资源文件获得资源文件的消息，国际化信息
+
+<bean id="messageResource" class="org.springFramework.context.support.ResourceBoundleMessageSource">
+	<property name="basenames">
+	  MyName
+	</property>
+</bean>
+
+将会搜索MyName.properties,MyName_zh.properties,MyName_ch.properties等。
+
+程序里使用资源文件 ：ctx.getMessage('key',arg);(context的属性)
+页面上使用资源文件：<spring:message code="keyxxx"/>
+
+2-使用其他文件
+Resource rs = ctx.getResource("classpath:config.properties");
+File file = rs.getFile();
+
+目录规则：
+file：c：/test.txt
+/config.properties
+classpath:config.properties
+三种方式。
+
+3-WebApp获取ApplicaionContext的方法，
+首先是在web.xml中进行配置，可以配置成一个listener，也可以配置成一个servlet。
+然后程序里使用WebApplicationContextUtils.getWebApplicationContext获得引用。
+
+
+4-数据持久层（重要）对事务的封装
+Spring是依赖容器的参数化事务管理不用写代码。
+
+1, 配置文件中配置完数据(DataSource)
+2, 配置事务管理bean(TransactionManager)，(DataSource)是它的属性。
+3, DAO,(DataSource)是它的属性。
+4, 事务代理(TransactionProxyFactoryBean)，事务策略(transactionAttributes)，事务bean(TransactionManager)，DAO都是它的属性。
+
+6-数据持久层，对JDBC的封装(org.springframework.jdbc.core.JdbcTemplate)
+
+JdbcTemplate jdbctemplate = new JdbcTemptlate( datasource );
+
+jdbctemplate.update("xxxxx");
+
+jdbctemplate.update("xxxxx",new PreparedStatementSetter(){
+  public void setValues( PreparedStatementSetter ps ){
+   ps.setInt(1,15);
+   ps.setString(2,"jjjjjjj");
+  }
+});
+
+jdbctemplate.query("select ...",new RollbackHandler(){
+  public void processRow( ResultSet rs ){
+   User user = new User();
+   user.setName= rs.getString("name");
+   userList.add( user )；
+  }
+});
+
+.call()可以调用存储过程。
+query,update还有很多不同版本的实现。
+
+7-JDBC封装还要引入事务管理机制，默认是没有事务的。
+
+两种方式
+1，代码控制的，在DAO里TransactionTemplate使用它的方法。
+2，参数化配置的事务。配置一个ProxyDAO，不用写这个类，只需要在配置文件里增加他对DAO的事物设置。
+  使得DAO代码十分简洁。
+
+测试代码：
+InputStream is = new FileInputStream("xxx.xml");
+XmlBeanFactory factory = new XmlBeanFactoy( is );
+UserDAO dao = (UserDAO)factory.getBean("ProxyDAO");
+dao.insert();//这样就行了
+
+
+8-Hibernate in Spring
+
+1, 增加一个bean名字为sessionFactory,DataSource作为他的属性。
+
+2, TrsactionManager的属性：sessionFactory
+
+3, IDao接口：定义数据库操作方法。
+
+4, Dao实现类 继承HibernateDAOSupport
+		    实现IDao接口
+		    属性：sessionFactory(注入到了HibernateDAOSupport)
+   		    里面使用getHibernateTemplate模版进行数据库操作
+   			
+5, TransactionProxyFactoryBean的属性：transactionManager,(target)DAO.
+
+
+	测试例子：
+	IUserDAO dao=(IUserDAO)factory.getBean("ProxyUserDAO"); 
+	User user = new User();
+	user.setxxx...
+	dao.insertOrUpdate(user);
+	
+9- Aop配置(Method 参数 主对象)
+
+1, 基本的Bean
+
+2, Bean的Adivsor 
+
+3, ProxyFactoryBean  proxyInterfaces属性 为基本Bean的接口
+					 target属性 基本Bean
+					 interceptorNames属性 所有的Adivsors 
+						
+
+   

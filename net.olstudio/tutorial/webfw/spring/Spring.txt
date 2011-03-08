@@ -1,0 +1,65 @@
+<beans>
+        <import resource="billingServices.xml"/>
+        <import resource="shippingServices.xml"/>
+        <bean id="orderService"
+            class="com.lizjason.spring.OrderService"/>
+    <beans>
+
+
+ String[] serviceResources =
+        {"orderServices.xml",
+        "billingServices.xml",
+        "shippingServices.xml"};
+    ApplicationContext orderServiceContext = new
+        ClassPathXmlApplicationContext(serviceResources);
+
+
+当bean的全部的属性（或某类属性）需要被明确设置或自动绑定时，依赖检验便显得很有用。
+
+    <bean id="orderService"
+        class="com.lizjason.spring.OrderService"
+        dependency-check="objects">
+        <property name="companyName"
+            value="lizjason"/>
+        <constructor-arg ref="orderDAO"/>
+    </bean>
+
+　　在这个例子里，容器确保为orderService bean设置的属性不是primitives 或者 collections。为所有的bean设置默认依赖检测也是可以的，但是我们很少这样做，是因为有些bean的属性根本就不必设置。
+
+
+最好使用descriptive id和名称来代替在XML配置文件中的注释。此外，加上一个配置文件header也很有用处，它可以概述文件中所定义的bean。你可以选择将描述内容加入description标签中。例如：
+
+    <beans>
+        <description>
+            This file defines billing service
+            related beans and it depends on
+            baseServices.xml,which provides
+            service bean templates...
+        </description>
+        ...
+    </beans>
+
+
+　　使用description标签的一个好处是可以容易地利用工具从标签中选取出description（的内容）。
+
+
+Setter injection优于constructor injection
+
+　　Spring提供3种类型的依赖注入： constructor injection,setter injection, 和method injection。我们一般只用前两种类型。
+
+    <bean id="orderService"
+        class="com.lizjason.spring.OrderService">
+        <constructor-arg ref="orderDAO"/>
+    </bean>
+
+    <bean id="billingService"
+        class="com.lizjason.spring.BillingService">
+        <property name="billingDAO"
+            ref="billingDAO">
+    </bean>
+
+
+　　这个例子中，orderService类使用的是constructor injection，而BillingService类使用的是setter injection。constructor injection可以确保bean不会在一个非法状态下被创建，但是setter injection更加灵活并且更易管理，尤其当类存在很多属性并且其中一些是可选的情况下。
+
+全局的对象不应该通过ApplicationContext来创建。
+

@@ -1,0 +1,677 @@
+1-mvn help:describe -Dplugin=help -Dfull : print a full list of goals with parameters,
+
+注:lifecycles can be customized by packaging types.plugin can both introduce a new packaging type and customize the lifecycle.
+
+注:A Mojo? In Maven, a Plugin goal is known as a Mojo.
+
+2-mvn archetype:create -DgroupId=com.sonatype.maven.ch03
+		       -DartifactId=simple
+		       -DpackageName=com.sonatype.maven
+
+mvn is the Maven 2 command. 
+
+archetype:create is called a Maven goal. If you are familiar with Apache Ant, a
+Maven goal is analogous to an Ant target; both describe a unit of work to be completed in a build.
+
+-Dname=value pairs are arguments that are passed to the goal and take the form of -D properties,
+
+3-mvn install
+$ java -cp target/simple-1.0-SNAPSHOT.jar com.sonatype.maven.App Hello World!
+
+4-mvn help:effective-pom 項目根目錄下
+
+
+注:A Maven Plugin is a collection of one or more goals.
+Jar plugin which contains goals for creating JAR files, 
+Compiler plugin which contains goals for compiling source code and unit tests 
+Surefire plugin which contains goals for executing unit tests and generating
+reports.
+
+注:When referring to a plugin goal, we frequently use the shorthand notation: pluginId:goalId. For
+example, when referring to the create plugin in the Archetype plugin, we write archetype:create.
+
+***************************************************************************************
+注:Plugin goals can be attached to a lifecycle phase. As Maven moves through the phases in a lifecycle, it will
+execute the goals attached to each particular phase. Each phase may have zero or more goals bound to it.
+***************************************************************************************
+
+注:executing a phase will first execute all proceeding phases in
+order ending with the phase specified on the command-line. Each phases corresponds to zero or more goals, and
+since we haven't performed any plugin configuration or customization, this example binds a set of standard plugin
+goals to the default lifecycle.
+
+5-Phase and goals
+
+resources:resources
+
+The resources goal of the Resources plugin is bound to the resources phase. This goal copies all of the
+resources from src/main/resources and any other configured resource directories to the output directory.
+
+compiler:compile
+The compile goal of the Compiler plugin is bound to the compile phase. This goal compiles all of the source
+code from src/main/java or any other configured source directories to the output directory.
+
+resources:testResources
+The testResources goal of the Resources plugin is bound to the test-resources phase. This goal copies all
+of the resources from src/test/resources and any other configured test resource directories to a test output
+directory.
+
+compiler:testCompile
+The testCompile goal of the Compiler plugin is bound to the test-compile phase. This goal compiles test
+cases from src/test/java and any other configured test source directories to a test output directory.
+
+surefire:test
+The test goal of the Surefire plugin is bound to the test phase. This goal executes all of the tests and creates
+output files that capture detailed results. By default this goal will terminate a build if there is a test failure.
+
+jar:jar
+The jar goal of the Jar plugin is bound to the package phase. This goal packages the output directory into a
+JAR file.
+
+6-
+mvn resources:resources \
+compiler:compile \
+resources:testResources \
+compiler:testCompile \             ==========>   mvn package
+surefire:test \
+jar:jar
+
+注:When Maven executes a goal, each goal has access to the information defined
+in a project's POM. When the jar:jar goal needs to create a JAR file, it looks to the POM to find out what the Jar
+file's name is. When the compiler:compile tasks compiles Java source code into bytecode, it looks to the POM to
+see if there are any parameters for the compile goal. Goals execute in the context of a POM. Goals are actions we
+wish to take upon a project, and a project is defined by a POM.
+
+注:The default remote repositories can be replaced or augmented with references
+to custom Maven repositories maintained by your organization. There are multiple products available to allow
+organizations to manage and maintain mirrors of the public Maven repositories.
+
+注:The standard for a Maven repository is to store an artifact in the following directory relative to the root of the repository:
+/<groupId>/<artifactId>/<version>/<artifactId>-<version>.<packaging>
+
+注:Maven resolved the coordinates of the JUnit
+dependency—junit:junit:3.8.1—to a path in a Maven repository /junit/junit/3.8.1/junit-3.8.1.jar.
+
+7-mvn site
+this lifecycle is concerned solely with processing
+site content under the src/site directories and generating reports. After this command executes, you should see a
+project web site in the target/site directory. Load target/site/index.html and you should see a basic shell of
+a project site.
+
+注:How did we find these dependencies? Did we just "know" the appropriate groupId and artifactId values? Some
+of the dependencies are so widely used (like Log4J) that you'll just remember what the groupId and artifactId
+are every time you need to use them. Velocity, Dom4J, and Jaxen were all located using the helpful web site
+http://www.mvnrepository.com. This site provides a search interface to the Maven repository, you can use it to
+search for dependencies.
+
+注:support for transitive dependencies. Let's say
+your project depends on a library which, in turn, depends on five or ten other libraries (something like Spring or
+Hibernate, for example). Instead of having to track down all of these dependencies and list them in your pom.xml
+explicitly, you can simply depend on the library you are interested in and Maven will add the dependencies of this
+library to your project's dependencies implicitly.Maven will also take care of working out conflicts between
+dependencies, and Maven also provides you with the ability to customize the default behavior and exclude certain
+transitive dependencies.
+
+注:Note that
+Maven doesn't just download the JUnit JAR file, Maven also downloads a POM file for the JUnit dependency.
+The fact that Maven downloads POM files in addition to artifacts is central to Maven's support for transitive
+dependencies.
+
+注:When you install your project's artifact in the local Maven repository, you will also notice that Maven publishes a
+slightly modified version of the project's pom.xml file in the same directory as the JAR file.
+
+注:The simple project's pom.xml contains a single
+dependency—junit:junit:jar:3.8.1—with a scope of test. When a dependency has a scope of test, this
+means that it will not be available to the compile goal of the Compiler plugin. It will only be added to the
+classpath for the compiler:testCompile and surefire:test goals.
+
+
+注:The provided scope tells Maven that a dependency is needed for
+compilation, but should not be bundled with the output of a build. The provided scope comes in handy when you
+are developing a web application, you'll need to compile your code against the Servlet specification, but you don't
+want to include the Servlet API JAR in your web application's WEB-INF/lib directory.
+
+注:Site reports
+are customized by configuring which reports are included in a build via the pom.xml file.
+
+注:To parse the XML response from Yahoo!, we're going to be using Dom4J and Jaxen, to format the output of this command-line program we are going to be using Velocity, and we will also need to add a dependency for Log4J which we will be using for
+logging.If you add these dependencies to the project's pom.xml file and
+then run mvn install, you will see Maven downloading all of these dependencies and other transitive.
+
+注:How did we find these dependencies?http://www.mvnrepository.com. This site provides a search interface to the Maven repository, you can use it to
+search for dependencies.
+
+注:the Main class configures Log4J with a classpath resource named
+log4j.properties, and the WeatherFormatter references a Velocity template from the classpath named
+output.vm. Both of these resources need to be in the default package (or the root of the classpath).
+To add these resources, we'll need to create a new directory from the base directory of the
+project—src/main/resources. Since this directory was not created by the archetype:create task, we need to
+create it.
+
+注:Using the Exec plugin from the Codehaus Mojo project we can execute this program. To execute the Main class,
+execute the following command from the project's base directory.
+$ mvn install
+$ mvn exec:java -Dexec.mainClass=com.sonatype.maven.weather.Main
+
+注:The Exec plugin allows you to execute Java classes and other scripts. It is not a core Maven plugin, but it is
+available from the Mojo project hosted by Codehaus. For a full description of the Exec plugin, run:
+$ mvn help:describe -Dplugin=exec -Dfull
+
+注:The Exec plugin made it possible for us to run this program without having to load the appropriate dependencies
+into the classpath. In any other build system, we would have had to copy all of the program dependencies to some
+sort of lib/ directory containing a collection of JAR files. Then, we would have had to write a simple script
+which included our program's bytecode and all of our dependencies on a classpath.
+
+8-mvn dependency:resolve -X使它显示得更多更详细
+If you need to find out what is on the classpath, you can use the Maven Dependency plugin to print
+out a list of resolved dependencies.
+
+注:Apache Commons IO—the IOUtils class. IOUtils provides
+a number of helpful static functions that take most of the work out of Input/Output operations. In this particular
+unit test we use IOUtils.toString() to copy the format-expected.dat classpath resource to a String.
+
+注:A test-scoped dependency is a dependency which is only available on the classpath during test compilation and
+test execution. If your project has war or ear packaging, a test-scoped dependency would not be included in the
+project's output archive. 
+<dependency>
+<groupId>org.apache.commons</groupId>
+<artifactId>commons-io</artifactId>
+<version>1.3.2</version>
+<scope>test</scope>
+</dependency>
+
+注:测试的时候也是需要资源的比如需要一些回路的xml文件来冒充数据。src/test/resource
+
+注:The Maven Surefire plugin has a test goal which is bound to the test phase. This test goal executes all of the
+unit tests this project can find under src/test/java. In the case of this project, you can see that the Surefire
+plugin's test goal executed WeatherFormatterTest and YahooParserTest. When the Maven Surefire plugin runs
+the JUnit tests, it also generates XML and text reports in the ${basedir}/target/surefire-reports directory.
+
+注:If you
+have failing unit tests, and you would still like to produce build output, you are going to have to tell Maven to
+ignore build failures.
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<configuration>
+<testFailureIgnore>true</testFailureIgnore>
+</configuration>
+</plugin>
+</plugins>
+
+
+9-mvn install -Dmaven.test.skip=true 忽略测试
+
+10-mvn install assembly:assembly
+
+we're going to use
+the predefined jar-with-dependencies format. To configure the Maven Assembly Plugin, we need to add the
+following plugin configuration to our existing build configuration in the pom.xml.
+<plugins>
+<plugin>
+<artifactId>maven-assembly-plugin</artifactId>
+<configuration>
+<descriptorRefs>
+<descriptorRef>jar-with-dependencies</descriptorRef>
+</descriptorRefs>
+</configuration>
+</plugin>
+</plugins>
+
+Once our assembly is assembled in target/simple-weather-1.0-jar-with-dependencies.jar, we can run the
+Main class again from the command line. To run the Simple Weather's Main class, execute the following
+$ cd target
+$ java -cp simple-weather-1.0-jar-with-dependencies.jar com.sonatype.maven.weather.Main 10002
+
+
+注:The jar-with-dependencies format creates a single JAR file which includes all of the bytecode from the
+simple-weather project and the unpacked bytecode from all of the dependencies.
+dependencies. This somewhat unconventional
+format produces a 9 MiB JAR file containing approximately 5290 classes, but it does provide for an easy
+distribution format for applications you've developed with Maven.
+
+11-mvn archetype:create -DgroupId=com.sonatype.maven.ch05 \
+-DartifactId=simple-webapp \
+-DpackageName=com.sonatype.maven \
+/////////////////////////////////////////////////
+-DarchetypeArtifactId=maven-archetype-webapp
+////////////////////////////////////////////////
+
+注:A project with war packaging, is going to create a WAR file in the
+target/ directory, the default name of this file is ${artifactId}-${version}.war. 
+自定义war名
+
+<build>
+<finalName>simple-webapp</finalName>
+</build>
+
+注：Once you've compiled, tested, and packaged your web application, you'll likely want to deploy it to a servlet
+container and test the index.jsp which was created by the Maven Archetype plugin.
+
+给web项目配置Jetty:
+<build>
+<finalName>simple-webapp</finalName>
+<plugins>
+<plugin>
+<groupId>org.mortbay.jetty</groupId>
+<artifactId>maven-jetty-plugin</artifactId>
+</plugin>
+</plugins>
+</build>
+
+12-~/examples$ mvn jetty:run
+
+注:Maven expects the document root of the web application to be stored in src/main/webapp.
+
+注:在给maven web项目添加完servlet后，运行mvn compile
+
+注:To write a servlet, we'll need to add the Servlet API as a project dependency. The Servlet specification is a JAR
+file that can be downloaded from Sun Microsystems at http://java.sun.com/products/servlet/download.html. Once
+the JAR file is downloaded you'll need to install the resulting JAR in you local Maven repository located at
+~/.m2/repository. The same process will have to be repeated for all of the J2EE APIs maintained by Sun
+Microsystems—JNDI, JDBC, Servlet, JSP, JTA, and others. If this strike you as somewhat tedious, you are not
+alone. Lucky for you, there is a simpler alternative to downloading all of these libraries and installing them
+manually—Apache Geronimo's independent open-source implementations.
+
+注:Now, for the purposes of your programming, there is little to
+no difference between the Servlet API JAR downloaded from Sun Microsystems and the Servlet API JAR
+implemented by the Apache Geronimo project, both have passed a rigorous Test Compatibility Kit (TCK) from
+Sun Microsystems.
+
+注:To add the Servlet specification API as a dependency to your project's POM,
+<dependency>
+<groupId>org.apache.geronimo.specs</groupId>
+<artifactId>geronimo-servlet_2.4_spec</artifactId>
+<version>1.1.1</version>
+<scope>provided</scope>
+</dependency>
+</dependencies>
+
+注:SUN的JAR的协议是不可再传播，只能从SUN官方下载，现在geronimo也可以发布了。
+
+注:If you were interested in writing a custom JSP tag for this simple web application, you would need to add a
+dependency on the JSP 2.0 spec.Use the following configuration to add this dependency.
+
+<dependency>
+<groupId>org.apache.geronimo.specs</groupId>
+<artifactId>geronimo-jsp_2.0_spec</artifactId>
+<version>1.1</version>
+<scope>provided</scope>
+</dependency>
+
+12-mvn clean install
+Once you've add the Servlet specification as a dependency, run mvn clean install followed by mvn jetty:run.
+
+注:
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.sonatype.maven.ch06</groupId>
+<artifactId>simple-parent</artifactId>
+<packaging>pom</packaging>
+<version>1.0</version>
+<name>Simple Parent Project</name>
+<modules>
+<module>simple-weather</module>
+<module>simple-webapp</module>
+</modules>
+<dependencies>
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>3.8.1</version>
+<scope>test</scope>
+</dependency>
+</dependencies>
+</project>
+
+
+These modules are defined in the modules element and each module element
+corresponds to a subdirectory off of the simple-parent/ directory. Maven knows to look in these directories for
+pom.xml files, and it will add submodules to the list of Maven projects included in a build.
+
+注:
+<parent>
+<groupId>com.sonatype.maven.ch06</groupId>
+<artifactId>simple-parent</artifactId>
+<version>1.0</version>
+</parent>
+
+13-mvn clean install
+since
+simple-webapp depends on simple-weather, the simple-weather JAR needs to be created before the
+simple-webapp project can compile. To do this, you will run mvn clean install command from the
+simple-parent project.
+
+~/examples/ch06/simple-parent$ mvn clean install
+[INFO] Scanning for projects...
+[INFO] Reactor build order:
+[INFO] Simple Parent Project
+[INFO] simple-weather
+[INFO] simple-webapp Maven Webapp
+[INFO] ----------------------------------------------------------------------------
+
+
+注:When Maven is executed against a project with submodules, Maven first loads the parent POM and locates all of
+the submodule POMs. Maven then puts all of these project POMs into something called the Maven Reactor which
+analyzes the dependencies between modules. The Reactor takes care of ordering components to ensure that
+interdependent modules are compiled and installed in the proper order. Once the Reactor figures out the order in
+which projects must be built, Maven then executes the specified goals for every module in a multi-module build.
+In this example, you can see that Maven builds simple-weather before simple-webapp effectively executing
+mvn clean install for each submodule.
+
+注:When you specify clean, you make sure that Maven is going
+to remove old output before it compiles and packages an application. Running clean isn't necessary,
+but it is a useful precaution to make sure that you are performing a "clean build".
+
+*************************************************************************************************
+注:Once the multi-module project has been installed with mvn clean install from the parent project,
+simple-project, you can then change directories into the simple-webapp project and run the Run goal of the
+Jetty plugin.
+*************************************************************************************************
+
+simple-model
+This module defines a simple object model which models the data returned from the Yahoo! Weather feed.
+
+simple-weather
+This module contains all of the logic required to retrieve data from the Yahoo! Weather feed and parse the
+resulting XML.
+
+simple-persist
+This module contains some Data Access Objects (DAO) which are configured to store Weather objects in an
+embedded database.
+
+simple-webapp
+The web application project contains two Spring MVC Controller implementations which use the
+WeatherService defined in simple-weather and the DAOs defined in simple-persist.
+
+simple-command
+This module contains a simple command-line tool which can be used to query the Yahoo! Weather feed.
+
+注:webapp使用weather获取数据使用persist存入数据库
+
+
+This simple-parent project has a pom.xml which references five sub-modules: simple-command, simple-model,
+simple-weather, simple-persist, and simple-webapp.
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+http://maven.apache.org/maven-v4_0_0.xsd">
+<modelVersion>4.0.0</modelVersion>
+<groupId>com.sonatype.maven.ch07</groupId>
+<artifactId>simple-parent</artifactId>
+<packaging>pom</packaging>
+<version>1.0</version>
+<name>Simple Parent Project</name>
+<modules>
+<module>simple-command</module>
+<module>simple-model</module>
+<module>simple-weather</module>
+<module>simple-persist</module>
+<module>simple-webapp</module>
+</modules>
+<build>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<configuration>
+<source>1.5</source>
+<target>1.5</target>
+</configuration>
+</plugin>
+</plugins>
+</build>
+<dependencies>
+<dependency>
+<groupId>junit</groupId>
+<artifactId>junit</artifactId>
+<version>3.8.1</version>
+<scope>test</scope>
+</dependency>
+</dependencies>
+</project>
+
+
+14-mvn hibernate3:hbm2ddl
+
+To run the web application, you'll first need to build the database using the Hibernate3 plugin. To do this run the
+following from the simple-webapp project directory:
+Once you've done this, there should be a ${basedir}/data directory which will contain the HSQLDB database.
+You can then start the web application with:
+
+--------------------------------------------------------------------------------------------------------
+
+Every project which uses Hibernate might also have a
+dependency on the Spring Framework and a MySQL JDBC driver. Instead of having to include these
+dependencies in every project that uses Hibernate, Spring, and MySQL you could create a special POM that does
+nothing more than declare a set of common dependencies. You could create a project called persistence-deps
+(short for Persistence Dependencies), and have every project that needs to do persistence depend on this
+convenience project:
+
+<project>
+<groupId>com.sonatype.maven</groupId>
+<artifactId>persistence-deps</artifactId>
+<version>1.0</version>
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+<packaging>pom</packaging>
+&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&
+<dependencies>
+<dependency>
+<groupId>org.hibernate</groupId>
+<artifactId>hibernate</artifactId>
+<version>${hibernateVersion}</version>
+</dependency>
+<dependency>
+<groupId>org.hibernate</groupId>
+<artifactId>hibernate-annotations</artifactId>
+<version>${hibernateAnnotationsVersion}</version>
+</dependency>
+<dependency>
+<groupId>org.springframework</groupId>
+<artifactId>spring-hibernate3</artifactId>
+<version>${springVersion}</version>
+</dependency>
+<dependency>
+<groupId>mysql</groupId>
+<artifactId>mysql-connector-java</artifactId>
+<version>${mysqlVersion}</version>
+</dependency>
+</dependencies>
+<properties>
+<mysqlVersion>(5.1,)</mysqlVersion>
+<springVersion>(2.0.6,)</springVersion>
+<hibernateVersion>3.2.5.ga</hibernateVersion>
+<hibernateAnnotationsVersion>3.3.0.ga</hibernateAnnotationsVersion>
+</properties>
+</project>
+
+If you create this project in a directory named persistence-deps, all you need to do is create this pom.xml and
+run mvn install. Since the packaging type is pom, this POM is installed in your local repository. You can now add
+this project as a dependency and all of it's dependencies will be added to your project. When you declare a
+dependency on this persistence-deps project, don't forget to specify the dependency type as pom.
+Example 8.14. Declaring a Dependency on a POM
+<project>
+<description>This is a project requiring JDBC</description>
+...
+<dependencies>
+...
+<dependency>
+<groupId>com.sonatype.maven</groupId>
+<artifactId>persistence-deps</artifactId>
+<version>1.0</version>
+<type>pom</type>
+</dependency>
+</dependencies>
+</project>
+
+If you later decide to switch to a different JDBC driver, for example, JTDS, just replace the dependencies in the
+persistence-deps project to use net.sourceforge.jtds:jtds instead of mysql:mysql-java-connector and
+update the version number. All projects depending on persistence-deps will use JTDS if they decide to update
+to the newer version.
+
+If you need to share a large number of
+dependencies between projects, you could also just establish parent-child relationship between projects and
+refactor all common dependencies to the parent project, but the disadvantage to the parent-child approach is that a
+project can only have one dependency. Sometimes it makes more sense to group similar dependencies together
+and reference a pom dependency, this way your project can reference as many of these consolidated dependency
+POMs as it needs to .
+
+---------------------------------------------------------------
+
+注:There is a difference between inheriting from a parent project, and being managed by an multi-module project. 
+
+A parent project is one that passes its values to its children. 
+
+A multi-module project simply manages a group of other sub-projects or modules. The multi-module relationship is defined from the top-most level downwards. 
+
+When setting up a multi-module project, you are simply telling a project that its build should include the specified modules. Multi-module builds are to be used to group modules together in a single build. 
+
+The parent/child relationship is defined from the leaf node upwards. The parent/child relationship deals more with the definition of a particular project. When you associate a child with its parent, you are telling Maven that a project's POM is
+derived from another.
+
+注:
+1-the Maven project used to generate this book --->modules
+2-a hypothetical project that contains a number of logically grouped modules.--->parent
+
+we run mvn package in a multi-module project named
+maven-book. This multi-module project includes two submodules: book-examples and book-chapters. Neither of
+these projects share the same parent, they are related only in that they are modules in the maven-book project.
+When we run the
+book-examples build from book-examples/ directory with mvn package, it has no knowledge that it is a part of
+
+submodule 是用来将多个项目打包成一个项目
+parent 是多个项目有很多共同的依赖包和配置项，需要都放在父项目
+
+Everything is a submodule for reasons of convenience, to build the entire system just go to the
+big-system project directory and run mvn package.
+
+When it makes sense to share dependencies and build configuration, a parent/child
+relationship should be used. When it doesn't make sense is when there are distinct differences between two
+projects. Take, for example, the server-side and client-side projects. It is possible to create a system where
+client-side and server-side inherited a common POM from big-system, but as soon as a significant
+divergence between the two child projects develops, you then have to figure out creative ways to factor out
+common build configuration to big-system without affecting all of the children. Even though client-side and
+server-side might both depend on Log4J, they also might have distinct plugin configurations.
+
+Life Cycle
+
+1-clean
+	1.1-pre-clean
+	1.2-clean
+	1.3-post-clean
+
+mvn clean:clean 只执行1.2
+mvn clean 执行1.1 1.2 1.3
+
+The Clean plugin's clean goal (clean:clean) deletes the output of a build by deleting
+the build directory. If you haven't customized the location of the build directory it will be the ${basedir}/target
+directory as defined by the Super POM. 
+
+When you execute the clean:clean goal you do not do so by executing
+the goal directly with mvn clean:clean, you do so by executing the clean phase of the clean lifecycle. 
+Executing the clean phase gives Maven an opportunity to execute any other goals which may be bound to the pre-clean
+phase.
+
+binds the antrun:run goal to the pre-clean phase to echo an alert that the
+project artifact is about to be deleted. In this example, the antrun:run goal is being used to execute some
+arbitrary Ant commands to check for an existing project artifact. If the project's artifact is about to be deleted it
+will print this to the screen
+
+<project>
+...
+<build>
+<plugins>... 
+<plugin>
+<artifactId>maven-antrun-plugin</artifactId>
+<executions>
+<execution>
+<id>file-exists</id>
+<phase>pre-clean</phase>
+<goals>
+<goal>run</goal>
+</goals>
+<configuration>
+<tasks>
+<!-- adds the ant-contrib tasks (if/then/else used below) -->
+<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+<available file="${project.build.directory}/${project.build.finalName}.jar"
+property="file.exists" value="true" />
+<if>
+<not>
+<isset property="file.exists" />
+</not>
+<then>
+<echo>No
+${project.build.finalName}.${project.packaging} to
+delete</echo>
+</then>
+<else>
+<echo>Deleting
+${project.build.finalName}.${project.packaging}</echo>
+</else>
+</if>
+</tasks>
+</configuration>
+</execution>
+</executions>
+<dependencies>
+<dependency>
+<groupId>ant-contrib</groupId>
+<artifactId>ant-contrib</artifactId>
+<version>1.0b2</version>
+</dependency>
+</dependencies>
+</plugin>
+</plugins>
+</build>
+</project>
+
+
+
+Maven2插件开发
+
+注:A Maven Plugin is a Maven artifact which contains a plugin descriptor and one or more Mojos.
+A Mojo can be thought of as a goal in Maven, and every goal corresponds to a Mojo.
+
+注:When you write your own plugin, you are simply grouping together a set of related Mojos
+(or goals) in a single plugin artifact.
+
+注:A Mojo is much more than just a goal in Maven, it is a component managed by Plexus that can include references
+to other Plexus components.
+
+注:This plugin descriptor is present in the plugin JAR file in META-INF/maven/plugin.xml. When
+Maven loads a plugin, it reads this XML file, instantiates and configures plugin objects to make the Mojos
+contained in a plugin available to Maven.
+
+注:When you are writing custom Maven plugins, you will almost never need to think about writing a plugin
+descriptor.The lifecycle goals bound to the maven-plugin packaging type show that the plugin:descriptor goal is bound to the generate-resources phase.
+
+注:When Maven uses a plugin,
+it will download any required dependencies before it attempts to execute a goal from this plugin.
+
+Groups are a powerful feature of Nexus, they allow you to combine multiple repositories in a single URL. Nexus
+ships with two groups: public and public-snapshots. The public group combines the three hosted repositories: 3rd
+Party, Releases, and Snapshots with the Central Maven repository. The public-snapshots repository combines the
+Apache Snapshots and Codehaus Snapshots repositories.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

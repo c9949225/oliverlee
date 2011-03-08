@@ -1,0 +1,95 @@
+应该说，Spring通过 AbstractSpringContextTests或AbstractSingleSpringContextTests准备好了集成测试的一些基础设施，
+在建筑学上，这叫夯实地基，而AbstractDependencyInjectionSpringContextTests是在此地基之上建起的第一幢楼房。 
+
+AbstractDependencyInjectionSpringContextTests所新添的主要功能是其子类的属性能被Spring容器中的Bean自动装配，
+
+*****************************************************************
+你无需手工通过ApplicationContext#getBean()从容器中获取目标Bean自行装配。
+*****************************************************************
+
+
+import org.springframework.test.AbstractDependencyInjectionSpringContextTests; 
+import com.baobaotao.service.UserService; 
+
+public class DependencyInjectionCtxTest extends AbstractDependencyInjectionSpringContextTests 
+{ 
+	private UserService userService; 
+	
+	public void setUserService(UserService userService) 
+	{	①该属性设置方法会被自动调动 
+		this.userService = userService; 
+	} 
+
+@Override protected String[] getConfigLocations() 
+{
+	 ②指定Spring配置文件所在位置 
+	 return new String[]{"baobaotao-service.xml","baobaotao-dao.xml"}; 
+} 
+
+public void testHasMatchUser()
+{
+	 ③测试方法 
+	 boolean match = userService.hasMatchUser("tom","123456"); 
+	 assertEquals(true, match); } … 
+}
+
+
+在②处，我们指定了Spring配置文件所在的位置， AbstractDependencyInjectionSpringContextTests将使用这些配置文件初始化好Spring容器，并将它们保存于static的缓存中。
+然后马上着手根据类型匹配机制（byType），自动将Spring容器中匹配测试类属性的Bean通过Setter注入到测试类中。
+为了方便说明这一重要的特性，我们先看一下baobaotao-service.xml的内容：  
+
+<beans>
+<tx:annotation-driven/>
+	①按类型匹配于DependencyInjectionCtxTest的userService属性
+	<bean id="userService" class="com.baobaotao.service.UserServiceImpl">
+	<property name="userDao" ref="userDao"/>
+	<property name="loginLogDao" ref="loginLogDao"/>
+</bean>
+…
+</beans> 
+
+根据baobaotao-service.xml 配置文件的内容，我们知道Spring容器中有一个UserService Bean，AbstractDependencyInjectionSpringContextTests探测到Spring容器中存在一个匹配于 userService属性的Bean后，就将其注入到DependencyInjectionCtxTest的userService属性中。 userService是这个集成测试类的测试固件，因此我们说 AbstractDependencyInjectionSpringContextTests可以自己装配测试固件。
+如果Spring容器中拥有多个匹配UserService类型的Bean，
+由于Spring没有足够的信息做出取舍决策，因此会抛出 UnsatisfiedDependencyException异常。
+假设我们采用以下传统的事务管理的配置方式对UserService进行配置，
+按类型匹配的自动装配机制就会引发问题：
+
+①用于被代理的目标Bean，按类型匹配于UserService 
+<bean id="userServiceTarget" class="com.baobaotao.service.UserServiceImpl"> 
+<property name="userDao" ref="userDao" /> 
+<property name="loginLogDao" ref="loginLogDao">
+</property> 
+</bean>
+
+②通过事务代理工厂为UserServiceImpl创建的代理Bean，也按匹配于UserService
+
+<bean id="userService"
+class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+<property name="transactionManager" ref="transactionManager" />
+<property name="target" ref="userServiceTarget" />
+<property name="transactionAttributes">
+…
+</property>
+</bean> 
+
+由于①处和②处的Bean都按类型匹配于UserService，在对DependencyInjectionCtxTest的userService属性进行自动装配将会引发问题。有两种针对该问题的解决办法：
+
+调整配置文件，使按类型匹配于UserService的Bean仅有一个，具体有以下两个方法：
+
+将①处的Bean作为②处的内部Bean进行装配；
+
+使用基于注解驱动的事务管理配置机制，这样就无需在配置文件中定义两个UserService的Bean了。
+关于注解驱动事务管理配置的详细信息，请参见9.6小节的内容。
+
+*****************************************************************************
+改变DependencyInjectionCtxTest的自动装配机制：
+
+Spring默认使用byType类型的自动装配机制，但它允许你通过setAutowireMode()的方法改变默认自动装配的机制，
+比如你可以调用setAutowireMode(AUTOWIRE_BY_NAME)方法启用按名称匹配的自动装配机制。
+AbstractDependencyInjectionSpringContextTests定义了三个代表自动装配机制类型的常量，分别说明如下：
+
+AUTOWIRE_BY_TYPE：按类型匹配的方式进行自动装配，这个默认的机制；
+AUTOWIRE_BY_NAME：按名字匹配的方式进行自动装配
+AUTOWIRE_NO：不使用自动装配机制，这意味着你需要手工调用getBean()进行装配。
+
+***************************************************************************** 

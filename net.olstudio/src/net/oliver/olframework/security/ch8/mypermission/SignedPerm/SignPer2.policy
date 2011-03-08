@@ -1,0 +1,5 @@
+keystore "file:/c:/java/ch8/mypermission/SignedPerm/clienttrustlf", "JKS";
+grant codeBase "file:/c:/java/ch8/-" {
+  permission my.test.RatePermission "setR", signedBy "lf";
+};
+

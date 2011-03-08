@@ -1,0 +1,16 @@
+1-一般用Log4j记日志,可以实现com.opensymphony.clickstream.logger.ClickstreamLogger
+提供自定义的日志方式。com.opensymphony.clickstream.logger.SimpleClickstreamLogger
+只发送一个INFO log statement到commons-logging,which in turn can talk to several logging providers, 
+including Log4j.
+
+2-/WEB-INF/classes/clickstream.xml 
+<clickstream>
+    <!-- there can only be one logger -->
+    <logger class="com.opensymphony.clickstream.logger.SimpleClickstreamLogger"/>
+
+    <!-- there can be zero or more bot-hosts -->
+    <bot-host name="someBotHost"/>
+
+    <!-- there can be zero or more bot-agents -->
+    <bot-agent name="someBotAgent"/>
+</clickstream>

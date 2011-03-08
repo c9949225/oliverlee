@@ -1,0 +1,18 @@
+http://cssglobe.com/lab/tablecloth/
+
+Apearance modification is performed with css file tablecloth.css. 
+Tablecloth enables you to style even and odd rows, and over, out, down 
+and selected state for table elements (th and td), Apart from that, 
+you are able to select whether you want to highlight columns, 
+rows or both and if you want elements to be selected on click. 
+It is done by modifying values of 3 variables found 
+
+in tablecloth.js :
+ 
+highlightCols, 
+highlightRows, 
+selectable. 
+
+
+Set the values to either true or false. 
+Change settings for following examples to see the difference.

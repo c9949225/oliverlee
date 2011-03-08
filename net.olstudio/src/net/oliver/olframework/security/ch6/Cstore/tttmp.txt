@@ -1,0 +1,94 @@
+CollectionCertStoreParameters: [
+  collection: [[
+[
+  Version: V3
+  Subject: OU=www.verisign.com/CPS Incorp.by Ref. LIABILITY LTD.(c)97 VeriSign, OU=VeriSign International Server CA - Class 3, OU="VeriSign, Inc.", O=VeriSign Trust Network
+  Signature Algorithm: SHA1withRSA, OID = 1.2.840.113549.1.1.5
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@decdec
+  Validity: [From: Thu Apr 17 08:00:00 CST 1997,
+               To: Tue Oct 25 07:59:59 CST 2011]
+  Issuer: OU=Class 3 Public Primary Certification Authority, O="VeriSign, Inc.", C=US
+  SerialNumber: [    78ee48de 185b2071 c9c9c3b5 1d7bddc1 ]
+
+Certificate Extensions: 6
+[1]: ObjectId: 2.16.840.1.113730.1.1 Criticality=false
+NetscapeCertType [
+   SSL CA
+   S/MIME CA
+]
+
+[2]: ObjectId: 2.5.29.31 Criticality=false
+Extension unknown: DER encoded OCTET string =
+0000: 04 2D 30 2B 30 29 A0 27   A0 25 86 23 68 74 74 70  .-0+0).'.%.#http
+0010: 3A 2F 2F 63 72 6C 2E 76   65 72 69 73 69 67 6E 2E  ://crl.verisign.
+0020: 63 6F 6D 2F 70 63 61 33   2D 67 32 2E 63 72 6C     com/pca3-g2.crl
+
+
+[3]: ObjectId: 2.5.29.15 Criticality=false
+KeyUsage [
+  Key_CertSign
+  Crl_Sign
+]
+
+[4]: ObjectId: 2.5.29.37 Criticality=false
+ExtendedKeyUsages [
+[1.3.6.1.5.5.7.3.1, 1.3.6.1.5.5.7.3.2, 2.16.840.1.113730.4.1, 2.16.840.1.113733.1.8.1]]
+
+[5]: ObjectId: 2.5.29.32 Criticality=false
+CertificatePolicies [
+  [CertificatePolicyId: [2.16.840.1.113733.1.7.1.1]
+[PolicyQualifierInfo: [
+  qualifierID: 1.3.6.1.5.5.7.2.1
+  qualifier: 0000: 16 1C 68 74 74 70 73 3A   2F 2F 77 77 77 2E 76 65  ..https://www.ve
+0010: 72 69 73 69 67 6E 2E 63   6F 6D 2F 43 50 53        risign.com/CPS
+
+]]  ]
+]
+
+[6]: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+CA:true
+PathLen:0
+]
+
+]
+  Algorithm: [SHA1withRSA]
+  Signature:
+0000: 23 5D EE A6 24 05 FD 76   D3 6A 1A D6 BA 46 06 AA  #]..$..v.j...F..
+0010: 6A 0F 03 90 66 B2 B0 A6   C2 9E C9 1E A3 55 53 AF  j...f........US.
+0020: 3E 45 FD DC 8C 27 DD 53   38 09 BB 7C 4B 2B BA 95  >E...'.S8...K+..
+0030: 4A FE 70 4E 1B 69 D6 3C   F7 4F 07 C5 F2 17 5A 4C  J.pN.i.<.O....ZL
+0040: A2 8F AC 0B 8A 06 DB B9   D4 6B C5 1D 58 DA 17 52  .........k..X..R
+0050: E3 21 F1 D2 D7 5A D5 E5   AB 59 7B 21 7A 86 6A D4  .!...Z...Y.!z.j.
+0060: FE 17 11 3A 53 0D 9C 60   A0 4A D9 5E E4 1D 0C 29  ...:S..`.J.^...)
+0070: AA 13 07 65 86 1F BF B4   C9 82 53 9C 2C 02 8F 23  ...e......S.,..#
+
+], [
+[
+  Version: V1
+  Subject: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@415de6
+  Validity: [From: Thu Dec 05 10:56:03 CST 2002,
+               To: Sun Nov 17 10:56:03 CST 2013]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3deec043 ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: BE D5 F3 3C FE 53 16 0E   DC FE A0 1C 7C F1 AF 31  ...<.S.........1
+0010: F3 3B 0C 36 2E 1D 32 1F   87 B3 B4 1D 82 BB 4A BB  .;.6..2.......J.
+0020: DE 5D 35 90 BC A8 CF 42   45 61 ED 3D 19 DF 7D AB  .]5....BEa.=....
+0030: 45 F2 4A 19 C1 6B 19 0E   F7 EC CE C6 1A 40 9F A9  E.J..k.......@..
+0040: 6B 8C 49 DA CC 85 67 D9   C8 91 67 DB 33 6B 47 96  k.I...g...g.3kG.
+0050: 70 D6 91 69 24 43 D5 81   6C 9D C5 9D 4D 40 23 01  p..i$C..l...M@#.
+0060: 65 72 B6 27 FB 1B F3 8F   4A 16 0B 31 E2 EB 19 42  er.'....J..1...B
+0070: 50 C7 70 62 6E FC A4 76   03 3E 22 7C 26 00 47 ED  P.pbn..v.>".&.G.
+
+]]
+]
+SUN version 1.2
+Collection

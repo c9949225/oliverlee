@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
 <project name="OLFrameWork" default="pack">
-	
 	<property name="src.dir" value="src" />
 	<property name="report.dir" value="report" />
 	<property name="classes.dir" value="classes" />

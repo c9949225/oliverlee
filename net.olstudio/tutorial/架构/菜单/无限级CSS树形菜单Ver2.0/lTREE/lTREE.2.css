@@ -1,0 +1,28 @@
+/****************************
+CSS Code for lTREEMenu
+Version: Ver 2.0
+Author : CNLei, 枫岩
+E-Mail : CNLei.Y.L@Gmail.com
+MySite : http://www.cnlei.com
+Passed : IE6.0+, FF1.0+, Opera8.5+, Safari 3.0+
+Update : 2008-5-19
+****************************/
+a {text-decoration:none;}
+a,a:visited {color:#000;background:inherit;}
+body {margin:0;padding:20px;font:12px tahoma,宋体,sans-serif;}
+h4 {margin:0;padding:0;font-size:18px;}
+p {margin:0;padding:0 0 0 18px;}
+p a,p a:visited {color:#00f;background:inherit;}
+
+/*lTREEMenu Start*/
+/* 底部2px 左部17px */
+.lTREEMenu dl {padding:0;margin:0 0 2px 17px;clear:both;}
+#dlroot {padding:0;margin:0 0 2px 0px;clear:both;}
+.lTREEMenu a {background:none;}/*消除在FF2.0,Opera9下有重复背景图bug*/
+.lTREEMenu dd {padding:0;margin:0px;list-style:none;clear:both;}
+.lTREEMenu dd button {width:38px;height:18px;overflow:hidden;cursor:pointer;vertical-align:middle;border:none;background:url(img/01/opened.gif) no-repeat 3px 1px;}
+.lTREEMenu dd.Closed dl {display:none;}
+.lTREEMenu dd.Closed button {background-image:url(img/01/closed.gif);}
+/* 一般是17,但是叶子节点要多向右移动来,放置leaf.gif,所以为22px */
+.lTREEMenu dt {margin:0px;padding:0 0 0 22px;background:url(img/01/leaf.gif) no-repeat 0 2px;line-height:18px;}
+/*lTREEMenu End*/

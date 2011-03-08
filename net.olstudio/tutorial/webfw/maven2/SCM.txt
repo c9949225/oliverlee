@@ -1,0 +1,84 @@
+1-简介:
+
+提供一个通用的协同版本接口，无论你使用什么底层实现:cvs,svn...
+
+
+2-Svn配置
+
+使用:做为分隔符,候选的为|
+
+scm:svn:file:///svn/root/module
+scm:svn:file://localhost/path_to_repository
+scm:svn:file://my_server/path_to_repository
+scm:svn:http://svn.apache.org/svn/root/module
+scm:svn:https://username@svn.apache.org/svn/root/module
+scm:svn:https://username:password@svn.apache.org/svn/root/module
+
+
+    * scm:add  - command to add file
+    * scm:changelog - command to show the source code revisions
+    * scm:checkin - command for commiting changes
+    * scm:checkout - command for getting the source code
+    * scm:diff - command for showing the difference of the working copy with the remote one
+    * scm:edit - command for starting edit on the working copy
+    * scm:status - command for showing the scm status of the working copy
+    * scm:tag - command for tagging a certain revision
+    * scm:unedit - command to stop editing the working copy
+    * scm:update - command for updating the working copy with the latest changes
+    * scm:validate - validates the scm information in the pom
+
+
+3-配置你的配置目录
+
+3.1,$user.home/.scm/svn-settings.xml
+
+<svn-settings>
+  <configDirectory>your_configuration_directory</configDirectory>
+</svn-settings>
+
+3.2,mvn -Dmaven.scm.svn.config_directory=your_configuration_directory scm:update
+
+
+4- mvn scm:bootstrap
+
+从版本库中取得最新的版本,并放在target/checkout目录下  
+
+<project>
+  [...]
+  <packaging>jar</packaging>
+  <version>1.0-SNAPSHOT</version>
+  <name>SCM Sample Project</name>
+  <url>http://somecompany.com</url>
+  ----------------------------------------------------------------------------------------
+  <scm>
+    <connection>scm:svn:http://somerepository.com/svn_repo/trunk</connection>
+    <developerConnection>scm:svn:https://somerepository.com/svn_repo/trunk</developerConnection>
+    <url>http://somerepository.com/view.cvs</url>
+  <scm>
+  ----------------------------------------------------------------------------------------
+  [...]
+  <build>
+    [...]
+    <plugins>
+      <plugin>
+        ----------------------------------------------------------------------------------------
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-plugin</artifactId>
+        <version>1.0</version>
+        <configuration>
+          <goals>install</goals>
+        </configuration>
+        ----------------------------------------------------------------------------------------
+      </plugin>
+    </plugins>
+    [...]
+  </build>
+  [...]
+</project>
+
+
+
+
+
+
+

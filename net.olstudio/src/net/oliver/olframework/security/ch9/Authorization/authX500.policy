@@ -1,0 +1,12 @@
+grant {
+	permission javax.security.auth.AuthPermission "createLoginContext";
+	permission javax.security.auth.AuthPermission "doAs";
+	permission javax.security.auth.AuthPermission "doAsPrivileged";
+	permission javax.security.auth.AuthPermission "modifyPrincipals";
+	permission javax.security.auth.AuthPermission "getSubject"; 
+};
+
+grant 	Principal javax.security.auth.x500.X500Principal
+    "CN=Webmaster,OU=NC,O=Shanghai University,L=ZB,ST=Shanghai,C=CN" {
+                permission java.io.FilePermission "c:\\-", "read";
+};

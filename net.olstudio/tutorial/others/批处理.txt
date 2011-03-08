@@ -1,0 +1,141 @@
+****************************************************
+1-windows批处理中对带空格路径的处理
+****************************************************
+一般在Windows的软件大部分安装在c:\ Program Files下面，比如我机器上的Java位置就是C:\Program Files\Java\jdk1.5.0_12，假如如果你在批处理中调用java或者javaw，会这么写：
+
+set JAVA_HOME=C:\Program Files\Java\jdk1.5.0_12
+
+set EXE_JAVA=%JAVA_HOME%\bin\java
+
+%EXE_JAVA% -version
+
+
+
+那样会报告一个错误：
+
+'C:\Program' 不是内部或外部命令，也不是可运行的程序
+
+或批处理文件。
+
+
+
+以前为了避免这种问题，会把把JDK挪到c:\，但不是一个通用的解决办法，现在可以采用两种方式来解决：
+
+
+
+1 加上引号，表示一个完整路径，这个在好多服务器批处理中常用到比如jboss,  tomcat。
+
+set JAVA_HOME=C:\Program Files\Java\jdk1.5.0_12
+
+set EXE_JAVA="%JAVA_HOME%"\bin\java 
+
+%EXE_JAVA% -version
+
+
+
+2 转成短路径，这个我认为是最好的解决办法。
+
+set JAVA_HOME=C:\Program Files\Java\jdk1.5.0_12
+
+for %x in ("%JAVA_HOME%") do set JAVA_HOME=%~sx
+
+set EXE_JAVA=%JAVA_HOME%\bin\java
+
+%EXE_JAVA% -version
+
+
+
+需要注意的是，在批处理文件比如 run.bat 中，上面的for语句的变量有两个%%号。
+
+for %%x in ("%JAVA_HOME%") do set JAVA_HOME=%%~sx
+
+****************************************************
+2-在批处理中加载某个目录所有的jar
+****************************************************
+我平常做服务器或者应用程序的时候喜欢把各种依赖包如log4j, jdbc, commons-lang等放到一个lib目录下，然后启动的时候将这些jar包设置到classpath上。以前我经常使用set classpath=log4j.jar;jdbc.jar;commons-lang.jar硬加载，但问题就是每新加入一个jar，就得改批处理一次，再就是每开发一个就得这么设置一次。很烦人，perl 创始人说，偷懒的程序员才是好程序员:)，我需要一个通用的加载方式。
+
+
+
+不管linux/windows或其它OS，都提供一个shell与kernel交互，并且shell都有一个类似的for内置commnd。
+
+
+
+下面是linux bash的尝试
+
+#!/usr/bin/sh
+
+
+
+clspath="bootstrap.jar"
+
+for k in *.jar
+
+do
+
+ clspath=$clspath:$PWD/$k
+
+ echo "current jar is $k."
+
+done
+
+printf "classpath is %s" $clspath
+
+
+
+
+工作的很好，于是在windows同样try了一下batch
+
+@echo off
+
+
+
+set clspath=bootstrap.jar
+
+for %%j in (*.jar) do (
+
+set clspath=%clspath%;%cd%\%%j
+
+echo current jar is %%j.
+
+)
+
+echo classpath is %clspath%
+
+
+
+很奇怪的是最后的结果却是 classpath is bootstrap.jar;D:\workflow\bingo\lib\servlet-api.jar。很显然batch默认不支持变量迭代更改。
+
+google了一下，发现原因，稍微改一下：
+
+ 
+ 1@echo off
+
+ 2
+
+ 3set clspath=bootstrap.jar
+
+ 4setlocal enabledelayedexpansion
+
+ 5for %%j in (*.jar) do (
+
+ 6set clspath=!clspath!;%cd%\%%j
+
+ 7echo current jar is %%j.
+
+ 8)
+
+ 9echo classpath is %clspath%
+
+10endlocal
+
+
+
+对比一下，可以发现：
+
+
+   1.     第4行加上了setlocal enabledelayedexpansion，即变量延迟展开。
+   2.     第10行有一个endlocal，结束这个设置
+   3.     第6行把%classpath%变成了!classpath!。 
+
+
+虽然目的达到了，还是要鄙视微软的dos batch，实在很弱，不知Powershell怎样。

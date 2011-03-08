@@ -1,0 +1,168 @@
+/**
+如果要在servlet中获得Spring Bean，
+通常需要使用 WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext())来获得WebApplicationContext，
+然后调用WebApplicationContext.getBean("beanName")来获得对象的引用，
+这实际上是使用了依赖查找来获得对象，并且在servlet代码中硬编码了应用对象的bean名字。
+
+为了能在 servlet中感知spring中bean，可采用如下步骤来实现：
+
+1- 将servlet作为bean定义在context.xml文件中，和要应用的bean定义放在一起；
+
+2- 实现一个代理servlet
+*************************************************************************************************************
+(实际的没有在Spring中配置的Servlet,用来接受请求并在Spring中选择合适的ServletBean后得到该ServletBean的实例，并将请求传递给它)，
+*************************************************************************************************************
+该servlet用WebApplicationContext来获得在context.xml中定义的servlet的对象，
+并将任务委托给context.xml中定义的servlet
+
+3- 在web.xml中用ContextLoaderListener来初始化spring的context，
+同时在代理servlet的定义中用初始化参数来定义context.xml中servlet的bean名字。
+
+4- 在web.xml中定义代理servlet的mapping.*/
+
+/**
+ 附：对Filter，springframework1.2以后自带了
+    org.springframework.web.filter.DelegatingFilterProxy来实现Filter和业务对象之间的代理，不需要自行开发了。
+ */
+
+// 1, 代理servlet：
+package chen;
+
+import java.io.IOException;
+
+import javax.servlet.GenericServlet;
+import javax.servlet.Servlet;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+public class ServletToBeanProxy extends GenericServlet {
+
+	private String targetBean;
+
+	private Servlet proxy;
+
+	public void init() throws ServletException {
+		System.out.println("proxy init");
+		// 得到配置文件中配置的要使用的Servlet
+		this.targetBean = getInitParameter("targetBean");
+	    // 根据得到的配置的Servlet名字初始化Bean
+		getServletBean();
+	    // 将init任务传递给从Spring中获取的Servlet
+		proxy.init(getServletConfig());
+	}
+
+	public void service(ServletRequest req, ServletResponse res)
+			throws ServletException, IOException {
+		// 将service任务传递给从Spring中获取的Servlet
+		proxy.service(req, res);
+
+	}
+
+	private void getServletBean() {
+		// 得到Spring环境
+		WebApplicationContext wac = WebApplicationContextUtils
+				.getRequiredWebApplicationContext(getServletContext());
+		this.proxy = (Servlet) wac.getBean(targetBean);
+	}
+}
+
+// 2,web.xml中配置
+
+/*
+ * <!-- 定义Spring配置文件位置 --> <context-param> <param-name>contextConfigLoaction</param-name>
+ * <param-value>/WEB-INF/context.xml</param-value> </context-param> <!--
+ * 定义Spring的Listener可以使Web项目获取到SpringContext--> <listener>
+ * <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ * </listener> <servlet> <servlet-name>ProxyBean</servlet-name>
+ * <servlet-class>chen.ServletToBeanProxy</servlet-class> <init-param> <!--
+ * 给代理Servlet配置真实的Servlet Bean id参数 --> <param-name>targetBean</param-name>
+ * <param-value>servletBean</param-value> </init-param> </servlet>
+ * 
+ * <servlet-mapping> <servlet-name>ProxyBean</servlet-name>
+ * <url-pattern>/ProxyBean</url-pattern> </servlet-mapping>
+ * 
+ */
+
+// 3, 完成实际任务的servlet定义，该servlet会引用另一个Book的对象
+
+package chen;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+
+/**
+ * Servlet implementation class for Servlet: ServletBean
+ * 
+ */
+ public class ServletBean extends javax.servlet.GenericServlet implements javax.servlet.Servlet {
+
+  private Book book;
+ 
+  public ServletBean() {
+   super();
+  }
+  
+  public void init() throws ServletException {
+   super.init();
+  }
+ 
+  public void service(ServletRequest req, ServletResponse res) throws ServletException, IOException {
+   book.showInfo();
+  }
+
+  public Book getBook() {
+   return book;
+  }
+  
+  public void setBook(Book book) {
+   this.book = book;
+  }  
+}
+
+// ================================Book.java==============================
+
+package chen;
+
+public class Book {
+ private String isbn;
+ private String name;
+ 
+ public String getIsbn() {
+  return isbn;
+ }
+ public void setIsbn(String isbn) {
+  this.isbn = isbn;
+ }
+ public String getName() {
+  return name;
+ }
+ public void setName(String name) {
+  this.name = name;
+ }
+ public void showInfo() {
+  System.out.println("book info...");
+ }
+}
+
+// 4, context.xml配置
+
+<beans>
+ <!-- 被Servlet Bean引用的book bean-->
+ <bean id="book" class="chen.Book"/>
+ 
+ <!-- 实际工作的Servlet Bean-->
+ <bean id="servletBean" class="chen.ServletBean">
+  <property name="book">
+   <ref bean="book"/>
+  </property>
+ </bean>
+ 
+</beans>
+

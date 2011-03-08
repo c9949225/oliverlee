@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+	"http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<!-- 第一步:创建一个基本的Bean -->
+	<bean id="personTarget" class="lee.PersonImpl">
+		<property name="name">
+			<value>Wawa</value>
+		</property>
+		<property name="age">
+			<value>51</value>
+		</property>
+	</bean>
+
+ 	<!-- 第二步:创建所需要的Advisor -->
+	<bean id="myAdvisor" class="lee.MyBeforeAdvisor"/> <!-- 实现MethodBeforeAdvice接口 -->
+	<bean id="myAroundInterceptor" class="lee.MyAroundInterceptor"/> <!-- 实现MethodInterceptor接口 -->
+	
+	<bean id="runAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+		<!--  advice属性确定处理bean-->
+		<property name="advice">
+			<bean class="lee.MyAfterAdvisor"/> <!-- 实现AfterReturningAdvice接口 -->
+		</property>
+		<!--  patterns确定正则表达式模式，可以有其他方式-->
+		<property name="patterns">
+			<list>
+				<!--  可以使用多个value,正则表达式-->
+				<value>.*run.*</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 第三步:创建所基础Bean需要的代理,在实际中就使用这个 -->
+	<bean id="person" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>lee.Person</value>
+		</property> 
+		<property name="target">
+			<ref local="personTarget"/>		
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>runAdvisor</value>
+				<value>myAdvisor</value>
+				<value>myAroundInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>

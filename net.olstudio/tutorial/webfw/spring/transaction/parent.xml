@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="gb2312"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close">
+		<property name="driverClassName"><value>com.mysql.jdbc.Driver</value></property>
+        <property name="url"><value>jdbc:mysql://wonder:3306/j2ee</value></property>
+        <property name="username"><value>root</value></property>
+        <property name="password"><value>32147</value></property>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource"><ref local="dataSource"/></property>
+    </bean>
+
+	<bean id="test1" class="lee.TransactionTestImpl">
+		<property name="ds"><ref local="dataSource"/></property>
+	</bean>
+
+	<bean id="test2" class="lee.TestImpl">
+		<property name="ds"><ref local="dataSource"/></property>
+	</bean>
+
+    <bean id="baseTxProxy" lazy-init="true" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true"> 
+        <property name="transactionManager"><ref bean="transactionManager"/></property> 
+        <property name="transactionAttributes"> 
+            <props> 
+                <prop key="*">PROPAGATION_REQUIRED</prop> 
+            </props> 
+        </property> 
+    </bean> 
+	<!-- 关注这里 -->
+    <bean id="testTrans1" parent="baseTxProxy"> 
+        <property name="target"> 
+            <ref local="test1"/> 
+        </property> 
+    </bean> 
+    <bean id="testTrans2" parent="baseTxProxy"> 
+        <property name="target"> 
+            <ref local="test2"/> 
+        </property> 
+    </bean> 
+</beans>

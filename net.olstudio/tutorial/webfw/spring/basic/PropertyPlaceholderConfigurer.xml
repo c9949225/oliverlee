@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<!-- 配置一个属性占位符bean.ApplictionContext支持从自动识别PropertyPlaceholderConfigurer的bean  -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>dbconn.properties</value>
+				<!--如果有多个属性文件,依次在下面列出来-->
+				<!--value>wawa.properties</value-->
+			</list>
+		</property>
+	</bean>
+
+	<!-- 配置本地的 C3P0 数据源 -->
+	<!-- 所有的数据源都有close方法,该方法会在此数据源bean销毁时候被关闭 -->
+	<!--bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${jdbc.driverClassName}"/>
+		<property name="jdbcUrl" value="${jdbc.url}"/>
+		<property name="user" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean-->
+
+	<!-- 配置本地的 DBCP 数据源 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
+	</bean>
+</beans>

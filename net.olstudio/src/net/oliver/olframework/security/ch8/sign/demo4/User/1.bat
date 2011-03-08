@@ -1,0 +1,1 @@
+java -Djava.security.manager -Djava.security.policy=mypri_dir2.policy -classpath ../package/showfile4.jar;. RunShowFile4 C:\j2sdk1.4.0\readme.txt

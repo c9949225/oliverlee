@@ -1,0 +1,8 @@
+1-在下面的例子中，c盘是POSIX根，而d盘被映射到/d。本例中，根是一个系统范围的安装点，它对所有用户都是可见的，而/d仅对当前用户可见。
+c:\> mount
+f:\cygwin\bin on /usr/bin type system (binmode)
+f:\cygwin\lib on /usr/lib type system (binmode)
+f:\cygwin on / type system (binmode)
+e:\src on /usr/src type system (binmode)
+c: on /cygdrive/c type user (binmode,noumount)
+e: on /cygdrive/e type user (binmode,noumount)

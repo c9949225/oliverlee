@@ -1,0 +1,25 @@
+[
+[
+  Version: V1
+  Subject: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  Signature Algorithm: MD5withRSA, OID = 1.2.840.113549.1.1.4
+
+  Key:  com.sun.net.ssl.internal.ssl.JSA_RSAPublicKey@cd2c3c
+  Validity: [From: Thu Dec 05 10:56:03 CST 2002,
+               To: Sun Nov 17 10:56:03 CST 2013]
+  Issuer: CN=Xu Yingxiao, OU=Network Center, O=Shanghai University, L=ZB, ST=Shanghai, C=CN
+  SerialNumber: [    3deec043 ]
+
+]
+  Algorithm: [MD5withRSA]
+  Signature:
+0000: BE D5 F3 3C FE 53 16 0E   DC FE A0 1C 7C F1 AF 31  ...<.S.........1
+0010: F3 3B 0C 36 2E 1D 32 1F   87 B3 B4 1D 82 BB 4A BB  .;.6..2.......J.
+0020: DE 5D 35 90 BC A8 CF 42   45 61 ED 3D 19 DF 7D AB  .]5....BEa.=....
+0030: 45 F2 4A 19 C1 6B 19 0E   F7 EC CE C6 1A 40 9F A9  E.J..k.......@..
+0040: 6B 8C 49 DA CC 85 67 D9   C8 91 67 DB 33 6B 47 96  k.I...g...g.3kG.
+0050: 70 D6 91 69 24 43 D5 81   6C 9D C5 9D 4D 40 23 01  p..i$C..l...M@#.
+0060: 65 72 B6 27 FB 1B F3 8F   4A 16 0B 31 E2 EB 19 42  er.'....J..1...B
+0070: 50 C7 70 62 6E FC A4 76   03 3E 22 7C 26 00 47 ED  P.pbn..v.>".&.G.
+
+]

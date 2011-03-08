@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="gb2312"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<!-- 根据Bean名称自动代理创建 -->
+<beans>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+		destroy-method="close">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://wonder:3306/j2ee</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>32147</value>
+		</property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="test1" class="lee.TransactionTestImpl">
+		<property name="ds">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="test2" class="lee.TestImpl">
+		<property name="ds">
+			<ref local="dataSource" />
+		</property>
+	</bean>
+
+	<bean id="transactionInterceptor"
+		class="org.springframework.transaction.interceptor.TransactionInterceptor">
+		<!--  事务拦截器bean需要依赖注入一个事务管理器 -->
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="transactionAttributes">
+			<!--  下面定义事务传播属性-->
+			<props>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="find*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- 定义BeanNameAutoProxyCreator-->
+	<bean
+		class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<!--  指定对满足哪些bean name的bean自动生成业务代理 -->
+		<property name="beanNames">
+			<!--  下面是所有需要自动创建事务代理的bean-->
+			<list>
+				<!-- 需要事务控制的bean声明时名称需要满足一定规则, 如 xxxManager, xxxService  -->
+				<value>test1</value>
+				<value>test2</value>
+			</list>
+			<!--  此处可增加其他需要自动创建事务代理的bean-->
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>transactionInterceptor</value>
+				<!-- 此处可增加其他新的Interceptor -->
+			</list>
+		</property>
+	</bean>
+
+</beans>
