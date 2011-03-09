@@ -1,0 +1,218 @@
+@charset "UTF-8";                                                        
+/* Background-Styles */                                                  
+                                                                         
+body {                                                                   
+    margin:0px; padding:0px;                                             
+    background-color:#131211;    
+
+	/* 添加字体风格 */
+	font-family:Arial, Helvetica, sans-serif;  
+	color:#7f7d78;  
+	font-size:13px;  
+	line-height:19px;                                         
+}   
+      
+   
+h2 {  
+     margin:0px 0px 10px 0px;/* 上 右 下 左 */  
+     font-size:36px;  
+     font-family:Helvetica, Arial, Sans-serif;  
+     color:#000000;  
+}  
+
+/* 用于小标题 */
+small {  
+    color:#595856;  
+    font-weight:bold;  
+    font-size:11px;  
+    display:block;  
+    margin-bottom:15px;  
+} 
+
+a {  
+    color:#007de2;  
+    text-decoration:none;  
+}  
+
+a:hover { text-decoration:underline; }  
+
+/* 重置p的默认值 */
+p { margin: 0px 0px 15px 0px; }  
+  
+/* 创建一种按钮样式 */
+/* 为什么不直接定义为.button呢？因为后面可能还会使用input来创建另外一种按钮样式 */
+a.button {  
+    background:#32312f url(images/button_bg.jpg) repeat-x;  
+    padding:5px 10px 5px 10px;  
+    color: #ffffff;  
+    text-decoration: none;  
+    border:1px solid #32312f;  
+    text-transform:uppercase;  
+    font-size:9px;  
+	/* 如果不设置位置就会有偏移 */
+    line-height:25px;  /* fix for IE which otherwise cuts off the button.  */
+}  
+
+a.button:hover {  
+    background:#007de2 url(images/button_bg_o.jpg) repeat-x;  
+    border-color:#007de2;  
+}  
+                                                                
+#main {                                                                  
+    background:#c4c0be url(images/background_light_slice.jpg) repeat-x;  
+}
+
+/* 除了下面定义的container样式，这里附加定义main下的container，共同生效 */
+#main .container {                                                       
+    background-image:url(images/background_light.jpg);                   
+    background-repeat:no-repeat;                                         
+    min-height:400px;                                                    
+}                                                                        
+#footer {                                                                
+    background-image:url(images/background_footer.jpg);                  
+    background-repeat:repeat-x;                                          
+    color:white;                                                         
+    padding:40px;                                                        
+}
+
+/* footer下的container使用这个 */                                                                        
+.container {                                                             
+    width:950px;                                                         
+    margin:0 auto; /* 居中 */                                                       
+    position:relative; /* 因为容器使用了相对定，因此我们可以在该容器内进行绝对定位，设置菜单right:0px它就会移动到最右边 */
+}                                                                        
+
+ #header {  
+     padding-top:20px;  
+ }  
+ 
+ #logo h1, #logo small {  
+     margin:0px;  
+     display:block;  
+     text-indent:-9999px;  /* 比display:hidden要好 */
+ }  
+ #logo {  
+     background-image:url(images/logo.png);  
+     background-repeat:no-repeat;  
+     width:194px;  
+     height:83px;  
+ }  
+ 
+ ul#menu {  
+     margin:0px; padding:0px; 
+	 /* 绝对定位到右边*/ 
+     position:absolute;  
+     right:0px;  
+ }  
+ ul#menu li {  
+ 	 margin-left:12px; 
+     display:inline;  
+ } 
+ 
+ ul#menu li a{
+	 text-decoration:none;
+	 color:#716d6a; 
+	 font-family:Verdana, Arial, Helvetica, sans-serif; 
+	 font-size:10px;  
+     font-weight:bold;  
+	 text-transform:uppercase;
+ }
+ 
+ ul#menu li a.active, ul#menu li a:hover {  
+     color:#211e1e;  
+ }  
+ 
+ 
+ /* 下载一段脚本，解决IE6对PNG的支持 */  
+img, #logo { behavior: url(scripts/iepngfix.htc); }  
+
+
+ /* 
+  *   Block-Styles 
+  */   
+ .block {  
+     border:1px solid #a3a09e;  
+     background-color:#ffffff;  
+     margin-bottom:20px; 
+	 position:relative;  /* 给丝带的父容器添加相对定位，这样丝带容器就能相对父容器绝对定位了 */ 
+ }  
+ 
+ .block_inside {  
+     display:block;  
+     border:1px solid #ffffff;  
+     background: #ffffff url(images/background_block_slice.jpg) repeat-x;  
+     padding:30px;  
+     overflow:auto;  
+ }  
+   
+ /* 图片容器 */
+ .image_block {  
+     border:1px solid #b5b5b5;  
+     background-color:#d2d2d2;  
+     padding:5px; /* 留出一定的间隙，这样图片就有边框了 */
+     float:left; /* 向左浮动后，就与下面的div成一行了*/
+	 /*border:1px solid red;  */
+ }  
+ 
+ .image_block img {  
+     border:1px solid #b5b5b5;  
+ }  
+ 
+ .text_block {  
+     float:left; /* 也向左浮动才能与图片成一行*/ 
+     width:430px;  
+     margin-left:30px;/* 与图片保持30px的距离 */  
+ }  
+ 
+ /* 要绝对定位，往上和往右超出3像素，这样才能显示出覆盖捆绑的效果 */
+.ribbon {  
+    position:absolute;  
+    top:-3px;  
+    right:-3px;  
+	border:1px solid red;
+} 
+
+ /*  
+  *  下半部分的风格
+  *  Portfolio-Home-Styles 
+  */  
+ #block_portfolio {  
+ 	 /* 因为有两个两个浮动的列，如果overflow:auto不加该属性，他们会溢出footer.*/
+     overflow:auto;  
+     margin-bottom:20px;  /* 距父容器底部 20px */
+	 border:1px solid blue;
+ } 
+  
+  /* 三个item的容器 */
+ #portfolio_items {  
+     width:615px;  
+     margin-right:25px;  
+     float:left;  /* 向左 */
+     border:1px solid green;
+ } 
+  
+ /* 靠右显示items之外的一段文字 */
+ #text_column {  
+     float:right;  
+     width:310px;  
+ }  
+ 
+ #text_column h2#text_title {  
+     /* 使用该属性使文本消失，而不通过背景图片的方式 */
+	 text-indent:-9999px;  
+     background-image:url(images/creatif.jpg);  
+     background-repeat:no-repeat;  
+     width:310px;  
+     height:129px;  
+ }  
+   
+ .mini_portfolio_item {  
+     border:1px solid #a3a09e;  
+     margin-bottom:10px;  
+   
+ }  
+ .mini_portfolio_item .block_inside {  
+     background:none; background-color:#e2dddc;  
+     padding:25px 30px 15px 30px;  
+ }  
+ .mini_portfolio_item .thumbnail { float:left; margin-right:20px; border:1px solid #979390; }  
