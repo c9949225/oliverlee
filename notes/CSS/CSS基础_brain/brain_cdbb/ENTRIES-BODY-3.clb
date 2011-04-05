@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="EditLive! 7.5.2.13" />
+<meta name="generator" content="PersonalBrain 6.0.6.4" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+<!--
+body {
+font-family: Arial;  font-size: small;  background: #ffffff;  color: #000000;
+}
+p {
+margin-top: 0pt;  margin-bottom: 0pt;
+}
+-->
+</style>
+</head>
+<body>
+<p>/* 如果从 .container 中删除了 overflow:hidden，则可以将此类放置在 &#60;br /&#62; 或空 div 中，作为&#160;#container 内最后一个浮动 div 之后的最终元素 */</p>
+<p>&#160;</p>
+<p>.clearfloat {&#160;</p>
+<p>&#160;&#160;&#160;&#160;clear:both;</p>
+<p>&#160;&#160;&#160;&#160;height:0;</p>
+<p>&#160;&#160;&#160;&#160;font-size: 1px;</p>
+<p>&#160;&#160;&#160;&#160;line-height: 0px;</p>
+<p>}</p>
+<p>&#160;</p>
+</body>
+</html>
