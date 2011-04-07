@@ -1,7 +1,7 @@
-04-02 17:16:43 jdbc[3]: SQLException
+04-06 16:28:30 jdbc[3]: SQLException
 org.h2.jdbc.JdbcSQLException: Table "BRAINSYSTEMINFO" not found; SQL statement:
 SELECT version FROM BrainSystemInfo WHERE GUID != '' [42102-145]
-04-02 17:16:43 jdbc[2]: Connection not closed
+04-06 16:28:30 jdbc[2]: Connection not closed
 java.lang.Exception: Stack Trace
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:121)
 	at org.h2.jdbc.JdbcConnection.<init>(JdbcConnection.java:94)
@@ -16,7 +16,7 @@ java.lang.Exception: Stack Trace
 	at com.thebrain.personal.view.wd.k(sxc:2275)
 	at com.thebrain.personal.view.sc.run(sxc:2819)
 	at java.lang.Thread.run(Unknown Source)
-04-02 17:17:59 jdbc[3]: SQLException
+04-06 18:32:32 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-145]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
 	at org.h2.message.DbException.get(DbException.java:167)
@@ -49,7 +49,7 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-145]
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
-04-02 17:54:29 jdbc[2]: SQLException
+04-07 17:57:04 jdbc[2]: SQLException
 org.h2.jdbc.JdbcSQLException: The object is already closed [90007-145]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
 	at org.h2.message.DbException.get(DbException.java:167)
@@ -82,23 +82,3 @@ org.h2.jdbc.JdbcSQLException: The object is already closed [90007-145]
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.pumpEvents(Unknown Source)
 	at java.awt.EventDispatchThread.run(Unknown Source)
-04-06 16:28:30 jdbc[2]: SQLException
-org.h2.jdbc.JdbcSQLException: The object is already closed [90007-145]
-	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
-	at org.h2.message.DbException.get(DbException.java:167)
-	at org.h2.message.DbException.get(DbException.java:144)
-	at org.h2.message.DbException.get(DbException.java:133)
-	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1330)
-	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1308)
-	at org.h2.jdbc.JdbcConnection.createStatement(JdbcConnection.java:164)
-	at com.thebrain.common.b.z.k(ckf:20)
-	at com.thebrain.common.b.z.k(ckf:48)
-	at com.thebrain.common.b.z.k(ckf:155)
-	at com.thebrain.personal.a.a.k.A(lld:487)
-	at com.thebrain.c.e.n.i(bvf:374)
-	at com.thebrain.personal.a.a.n.J(jmd:290)
-	at com.thebrain.personal.view.wd.k(sxc:4009)
-	at com.thebrain.personal.view.wd.J(sxc:2850)
-	at com.thebrain.personal.view.wd.k(sxc:2275)
-	at com.thebrain.personal.view.sc.run(sxc:2819)
-	at java.lang.Thread.run(Unknown Source)
