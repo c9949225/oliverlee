@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta name="generator" content="EditLive! 7.5.2.13" />
+<meta name="generator" content="PersonalBrain 6.0.6.4" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<style type="text/css">
+<!--
+body {
+font-family: Arial;  font-size: small;  background: #ffffff;  color: #000000;
+}
+p {
+margin-top: 0pt;  margin-bottom: 0pt;
+}
+-->
+</style>
+</head>
+<body>
+<p>The common component contains common utilities and infrastructure which are required by the Web Tools Platform project, but which are not specific to web tooling. The most notable examples are Facet APIs, Validation, the Snippets View, and an Extensible URI Resolver. These components may make use of the prerequisites for WTP itself, such as EMF/SDO/XSD, GEF, and DTP, but require no WTP plug-ins from outside of the Common project.</p>
+</body>
+</html>
