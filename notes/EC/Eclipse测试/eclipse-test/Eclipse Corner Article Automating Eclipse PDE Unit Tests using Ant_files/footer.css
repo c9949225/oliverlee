@@ -1,0 +1,15 @@
+#footer {
+	BACKGROUND: url(/eclipse.org-common/themes/Nova/images/footer.png) no-repeat; PADDING-TOP: 15px
+}
+#footer * {
+	COLOR: #fff; TEXT-DECORATION: none
+}
+#footer UL {
+	PADDING-LEFT: 20px; FLOAT: left; FONT-SIZE: 11px
+}
+#footer UL LI {
+	PADDING-RIGHT: 15px; DISPLAY: inline
+}
+#copyright {
+	PADDING-RIGHT: 20px; FLOAT: right; COLOR: #222; CLEAR: none; FONT-SIZE: 12px; FONT-WEIGHT: bold
+}

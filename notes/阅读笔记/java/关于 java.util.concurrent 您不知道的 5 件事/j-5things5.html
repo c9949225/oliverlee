@@ -1,0 +1,1167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+
+
+  
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>关于 java.util.concurrent 您不知道的 5 件事，第 2 部分</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 
+&quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 
+nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen 
+true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l
+ gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="除了具有很好的并发性的 
+Collections，java.util.concurrent 
+还引入了其他一些预先构建的组件，它们可帮助您调整和执行多线程应用程序中的线程。Ted Neward 介绍在 Java 编程过程中使用 
+java.util.concurrent 包要注意的 5 点。">
+<meta name="Description" content="除了具有很好的并发性的 
+Collections，java.util.concurrent 
+还引入了其他一些预先构建的组件，它们可帮助您调整和执行多线程应用程序中的线程。Ted Neward 介绍在 Java 编程过程中使用 
+java.util.concurrent 包要注意的 5 点。">
+<meta name="Keywords" content="java.util.concurrent, Concurrency 
+Collections, synchronization,     mulithreaded, Executor, threads, 
+locks, gates, bugs, tips, tricks, 5 things, Ted     Neward, 同步, 多线程, 线程,
+ 锁, 门, 技巧, 5 件事, tttjca">
+<meta name="DC.Date" scheme="iso8601" content="2010-07-09">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" 
+content="SOFDCJVACN">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM 
+Corporation&nbsp;2010">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2010-07-09">
+<meta name="title" content="关于 java.util.concurrent 您不知道的 5 件事，第 2 部分">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="j-5things5_files/all.css" media="all" rel="stylesheet" 
+title="www" type="text/css">
+<link href="j-5things5_files/screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/screen-uas.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/screen-fonts.css" media="screen,projection"
+ rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/handheld.css" media="handheld" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/print.css" media="print" rel="stylesheet" 
+title="www" type="text/css">
+<!-- dW-specific CSS -->
+<link href="j-5things5_files/dw-screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/dw-local-site.css" 
+media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="j-5things5_files/jquery.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+
+<script src="j-5things5_files/ibmcommon.js" type="text/javascript">//</script><link
+ title="IBM Search" 
+href="http://www.ibm.com/search/opensearch/description.xml" 
+type="application/opensearchdescription+xml" rel="search">
+<script src="j-5things5_files/dynamicnav.js" type="text/javascript">//</script>
+<!-- Pull-down script --> 
+<script type="text/javascript" src="j-5things5_files/dropdown.js">//</script>
+<!-- dW functional JS -->
+<script language="JavaScript" src="j-5things5_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+
+// ]]>
+</script>
+
+
+<script language="JavaScript" src="j-5things5_files/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="j-5things5_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="j-5things5_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="j-5things5_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script charset="UTF-8" src="j-5things5_files/flash-detect.js" type="text/javascript" id="flashdetect"></script><script charset="UTF-8" src="j-5things5_files/cnzh-utf8.js" type="text/javascript" id="mhMenu"></script><script charset="UTF-8" src="j-5things5_files/Controller" type="text/javascript" id="dynavEA"></script><script charset="UTF-8" src="j-5things5_files/Controller_002" type="text/javascript" id="wiBundle"></script></head><body
+ id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#main">跳转到主要内容</a></div><div 
+id="ibm-masthead"><div id="ibm-logo"><a href="http://www.ibm.com/cn/zh/"><img
+ src="j-5things5_files/ibm-logo.gif" alt="IBM®" height="50" width="110"></a></div><ul
+ id="ibm-geo"><li class="ibm-first" id="ibm-country">中国</li><li 
+id="ibm-change-country">[ <a 
+href="http://www.ibm.com/developerworks/cn/country/">选择</a> ]</li></ul><form
+ id="ibm-search-form" 
+action="//www.ibm.com/developerworks/search/searchResults.jsp" 
+method="get" name="form1"><input name="searchType" value="1" 
+type="hidden"><input name="searchSite" value="dWChina" type="hidden"><input
+ name="pageLang" value="zh" type="hidden"><input name="langEncoding" 
+value="UTF8" type="hidden"><p><span id="ibm-search-scope"><label 
+for="sn"><img src="j-5things5_files/c_002.gif" alt="Search in:" 
+height="1" width="1"></label><select class="input-local" 
+name="searchScope" id="sn" size="1"><option value="dW" 
+selected="selected">dW 全部内容</option><option value="dW">--------------</option><option
+ value="aixunix">&nbsp;&nbsp;AIX and UNIX</option><option value="dmdd">&nbsp;&nbsp;Info
+ Mgmt</option><option value="lotusdd">&nbsp;&nbsp;Lotus</option><option 
+value="rdd">&nbsp;&nbsp;Rational</option><option value="wsdd">&nbsp;&nbsp;WebSphere</option><option
+ value="dW">--------------</option><option value="javaZ">&nbsp;&nbsp;Java
+ technology</option><option value="linuxZ">&nbsp;&nbsp;Linux</option><option
+ value="opensrcZ">&nbsp;&nbsp;Open source</option><option 
+value="webservZ">&nbsp;&nbsp;SOA &amp; Web services</option><option 
+value="webarchZ">&nbsp;&nbsp;Web dev</option><option value="xmlZ">&nbsp;&nbsp;XML</option><option
+ value="dW">--------------</option><option value="all">IBM 全部内容</option></select></span><label
+ for="q"><img alt="搜索:" src="j-5things5_files/c_002.gif" height="1" 
+width="1"></label><input name="query" maxlength="100" id="q" type="text"><input
+ id="ibm-search" class="ibm-btn-search" name="Search" value="搜索" 
+type="submit"></p></form><div id="ibm-site-name"><!-- IBM site name container --></div><div
+ id="ibm-universal-nav"><ul><li class="ibm-first" id="ibm-unav-home"><a 
+href="http://www.ibm.com/cn/zh/">首页</a></li><li id="ibm-unav-solutions"><a
+ class=" ibm-unav-has-child" href="http://www.ibm.com/solutions/cn/zh/">解
+决方案</a><div id="gi-96ac2367" class="ibm-unav-menu"><span 
+id="gi-96ac2367-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li
+ class=" ibm-place-holder"><a id="gi-f7ebbe76-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按行业分类</a><div id="gi-f7ebbe76" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-f7ebbe76-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/">金融业</a></li><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/banking.shtml">银行
+业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/insurance.shtml">保
+险业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/retail/index.shtml?ca=masterhead&amp;me=cndotcom">零
+售业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/manufacture/index.shtml?ca=masterhead&amp;me=cndotcom">制
+造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/">流通业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_commu.shtml">电
+子行业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/telecom/solution/">电信业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/smb/industries/media/index.shtml?ca=masterhead&amp;me=cndotcom">媒
+体与娱乐业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/transport.shtml">交
+通运输业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_aero.shtml">航
+空航天造船业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_auto.shtml">汽
+车制造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_petro.shtml">石
+油石化业</a></li><li><a href="http://www.ibm.com/cn/public/offertogov/h/">政府
+与公众事业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/education/solution/">教育</a></li><li><a
+ href="http://www.ibm.com/cn/public/healthcare/solutions/">医疗与生命科学</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-212366a3-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按业务需求分类</a><div id="gi-212366a3" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-212366a3-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/smb/cn/business/infrastructure/index.shtml?ca=masterhead&amp;me=cndotcom">IT
+ 基础架构解决方案</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/bi/index.shtml?ca=masterhead&amp;me=cndotcom">商
+务智能（BI）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/scm/index.shtml?ca=masterhead&amp;me=cndotcom">供
+应链管理（SCM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/erp/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资源规划（ERP）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/crm/index.shtml?ca=masterhead&amp;me=cndotcom">客
+户关系管理（CRM）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/plm/index.shtml?ca=masterhead&amp;me=cndotcom">产
+品生命周期管理（PLM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/oa/index.shtml?ca=masterhead&amp;me=cndotcom">办
+公自动化(OA)</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/eam/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资产管理(EAM)</a></li><li><a 
+href="http://www.ibm.com/software/cn/db2/content-management/industry-solutions/">内
+容管理</a></li><li><a 
+href="http://www.ibm.com/cn/software/solution/info_conformity.html">信息集成</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-576af96d-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按顶级业务合作伙伴分类</a><div id="gi-576af96d" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-576af96d-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/services/hotsale/cisco/index.shtml">IBM 和 
+Cisco</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/oracle/index.shtml">IBM
+ 与 Oracle</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/sap/index.shtml">IBM 与
+ SAP</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/">业务咨询</a></li><li><a 
+href="http://www.ibm.com/systems/cn/dihub/index.shtml">IBM 动态架构</a></li><li><a
+ href="http://www.ibm.com/software/cn/smartwork/">IBM智慧运作</a></li><li><a
+ href="http://www.ibm.com/software/cn/nihub/">IBM新锐洞察</a></li><li><a 
+href="http://www.ibm.com/software/cn/spsm/">IBM智慧产品与服务</a></li><li><a 
+href="http://www.ibm.com/software/cn/soa/launch/index.html">面向服务架构 (SOA)</a></li><li><a
+ href="http://www.ibm.com/cn/financing/index.shtml">融资租赁</a></li><li><a 
+href="http://www.ibm.com/smb/cn/business/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的解决方案</a></li><li><a 
+href="http://www.ibm.com/software/cn/solution/">软件行业解决方案</a></li><li><a 
+href="http://www.ibm.com/city/cn/index.shtml?re=masthead">IBM 区域解决方案</a></li><li><a
+ href="http://www.ibm.com/cn/services/bcs/">更多业务解决方案</a></li></ul></div></li><li
+ id="ibm-unav-services"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/technologyservices/cn/zh/">服务</a><div 
+id="gi-f1d66575" class="ibm-unav-menu"><span id="gi-f1d66575-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-e108a155-trigger" class=" ibm-unav-menu-has-child" href="#">按服务项目
+分类</a><div id="gi-e108a155" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-e108a155-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www-31.ibm.com/cn/services/managedservices/">弹性运维服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/bcrs/c1000411">业
+务连续与灾难恢复服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/imc/c1025977">企
+业终端用户服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/gn/c1000412">网络
+服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025997">IT
+ 策略与基础架构服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000418">维
+护与技术支持服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025998">中
+间件服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/gts/outsourcing.html">外包服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/so/c1000405">企
+业 IT 安全服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025999">服
+务器服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1026000">数
+据中心及智能化集成服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000416">数
+据与存储服务</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-b3e489cb-trigger" class=" ibm-unav-menu-has-child" href="#">按业务类型
+分类</a><div id="gi-b3e489cb" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-b3e489cb-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024566">竞
+争策略</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024555">营
+运/委外</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024567">顾
+客服务及忠诚度</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024553">通
+路策略实施</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024556">IT
+ 最适化</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024568">全
+新的工作环境</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024557">灵
+活可靠的基础建设</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024554">安
+全和防御</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024569">价
+值链效益</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-8e38d73b-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-8e38d73b" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-8e38d73b-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024588">跨
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024537">金融
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024548">银行
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024546">保险
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024547">零售
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024540">消费
+品</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024545">批发
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024550">电子
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024543">电信
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024538">媒体
+与娱乐</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024541">旅游
+和运输业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024542">汽车
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024552">石油
+石化行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024549">政府
+部门</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024644">能源
+与公用事业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024544">教育
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024536">医疗
+保健</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024539">生命
+科学</a></li></ul></div></li><li><a href="http://www.ibm.com/training/cn/">培
+训服务</a></li><li><a href="http://www.ibm.com/cn/software/service/">软件服务</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/igs/?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss">更多服务</a></li></ul></div></li>
+<li id="ibm-unav-products"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/products/cn/zh/">产品</a><div id="gi-47537855" 
+class="ibm-unav-menu"><span id="gi-47537855-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/shop/special.shtml">特惠产品和方案</a></li><li 
+class=" ibm-place-holder"><a id="gi-e4580799-trigger" class=" 
+ibm-unav-menu-has-child" href="#">软件</a><div id="gi-e4580799" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-e4580799-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/software/">所有软件</a></li><li><a 
+href="http://www.ibm.com/software/products/cn/zh">产品目录</a></li><li><a 
+href="http://www.ibm.com/cn/software/db2/">Information Management 信息管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/lotus/">Lotus 协作办公软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/rational/">Rational 开发软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/tivoli/">Tivoli 服务管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/websphere/">WebSphere 应用系统和整合软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/zseries/">System z 服务器软件</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-1b5a091a-trigger" class=" 
+ibm-unav-menu-has-child" href="#">Systems 与服务器</a><div id="gi-1b5a091a" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-1b5a091a-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a href="http://www.ibm.com/systems/cn/">所
+有 IBM Systems 和服务器</a></li><li><a 
+href="http://www.ibm.com/systems/cn/power/index.shtml">Power Systems</a></li><li><a
+ href="http://www.ibm.com/cn/systems/i/index.shtml">System i （i系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/p/">System p （p系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/x/">System x （x系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/z/">System z （z系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/bladecenter/">BladeCenter 刀片服务器</a></li><li><a
+ href="http://www.ibm.com/cn/openpower">OpenPower 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/xseries/l1350.shtml">群集服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/unix/">UNIX 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/linux/index.shtml">Linux 服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/power/index.shtml">POWER 处理器的服务器</a></li><li><a
+ href="http://www.ibm.com/cn/servers/jump_intel.shtml">基于英特尔架构的服务器</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-66b42c4d-trigger" class=" 
+ibm-unav-menu-has-child" href="#">存储产品</a><div id="gi-66b42c4d" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-66b42c4d-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a href="http://www.ibm.com/storage/cn/">所
+有存储产品</a></li><li><a href="http://www.ibm.com/storage/cn/disk/">磁盘存储系统</a></li><li><a
+ href="http://www.ibm.com/storage/cn/tape/">磁带存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/san/">存储区域网络</a></li><li><a 
+href="http://www.ibm.com/storage/cn/nas/">网络连接存储</a></li><li><a 
+href="http://www.ibm.com/storage/cn/software/">存储软件</a></li><li><a 
+href="http://www.ibm.com/storage/cn/product/index.shtml">存储产品排序（A - Z）</a></li></ul></div></li><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/offerfamily/igs/c1025846">网
+络安全</a></li><li><a href="http://www.ibm.com/cn/products/pos/">零售终端</a></li><li><a
+ 
+href="http://www.infoprintsolutionscompany.com/internet/wwsites.nsf/vwWebPublished/mainT1_cn">打
+印机 (InfoPrint)</a></li><li><a 
+href="http://www.ibm.com/cn/financing/icpe/">IBM 官方认证再制造设备</a></li><li><a
+ href="http://www.ibm.com/cn/servers/eserver/xseries/options.shtml">选件</a></li><li><a
+ href="http://www.ibm.com/cn/promotion/esg/xseries/">中低端产品特惠商城</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/hardware/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的特惠产品</a></li></ul></div></li>
+<li id="ibm-unav-support"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/support/cn/zh/">支持与下载</a><div id="gi-f83bf69f" 
+class="ibm-unav-menu"><span id="gi-f83bf69f-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-a9f01332-trigger" class=" ibm-unav-menu-has-child" href="#">下载</a><div
+ id="gi-a9f01332" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-a9f01332-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/download/download.shtml">驱动程序和软件下载</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/support/troubleshooting/cn/">故障诊断与排除</a></li><li><a
+ href="http://www.ibm.com/support/advsrch.wss?rs=0&amp;loc=zh_CN">搜索</a></li><li
+ class=" ibm-place-holder"><a id="gi-734631e3-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按产品查看</a><div id="gi-734631e3" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-734631e3-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/support/productsupport/sw_support.shtml">软件产
+品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/eserver.shtml">服务器</a></li><li><a
+ 
+href="http://www.ibm.com/cn/support/productsupport/storage_support.shtml">存
+储产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/print_support.shtml">打
+印机 (InfoPrint)</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/mysupport/">个性化支持</a></li><li><a 
+href="http://www.ibm.com/support/publications/cn/index.html">产品资料中心</a></li><li
+ class=" ibm-place-holder"><a id="gi-2d53bd17-trigger" class=" 
+ibm-unav-menu-has-child" href="#">电子化工具</a><div id="gi-2d53bd17" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-2d53bd17-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/electronic/uprtransition.wss?category=2&amp;locale=zh_CN">提
+交服务请求</a></li><li><a 
+href="https://www.ibm.com/support/electronic/portal/%21ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLt4y3dAXJgFku-pHIIgbxjnABX4_83FT9IKBEpDlQxCVQPyonNT0xuVI_WN9bP0C_IDc0otzb0REAowWZNg%21%21/delta/base64xml/L2dJQSEvUUt3QS80SVVFLzZfOV85RQ%21%21?category=4&amp;locale=zh_CN">专
+项服务</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/viewdoc/knowledgebase">技术知识库</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn">在线客户支持</a></li><li><a 
+href="http://www.ibm.com/support/warranties/cn/">保修、许可和维护</a></li></ul></div></li>
+<li id="ibm-unav-myibm"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/account/cn/zh/">个性化服务</a><div id="gi-4c0713c9" 
+class="ibm-unav-menu"><span id="gi-4c0713c9-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/account/myaccounts/cn/zh/">我的账户</a></li><li 
+class=" ibm-myinterest"><a id="gi-6c3a2d3f-trigger" 
+href="http://www.ibm.com/account/myibm/myinterestView.do?cc=cn&amp;lc=zh">我
+的收藏夹</a><div id="gi-6c3a2d3f" class="ibm-unav-menu ibm-myinterest"><span
+ id="gi-6c3a2d3f-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-5things5_files/c.gif" alt=""></span><a class="ibm-access"></a><ul></ul></div></li><li><a
+ href="http://www.ibm.com/account/myibm/profile.do?cc=cn&amp;lc=zh">我的概要
+信息</a></li><li class=" ibm-place-holder"><a id="gi-ebdcdb79-trigger" 
+class=" ibm-unav-menu-has-child" href="#">客户支持</a><div id="gi-ebdcdb79" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-ebdcdb79-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-5things5_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/operations/cn/zh/contracts">合同</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/orderdelivery">订单与发货</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/inventory">库存与维护</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/invoicespayments">发票与
+付款</a></li><li><a href="http://www.ibm.com/support/operations/cn">更多客户支持</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/account/cn/zh/">了解更多</a></li></ul></div></li>
+</ul>
+</div>
+
+</div>
+
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li 
+class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks
+ 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/java/">Java
+ technology</a></li><li><a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp">文
+档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>关于 java.util.concurrent 您不知道的 5 件事，第 2 部分</h1><p><em>并发编程意味着更智慧地工作，而
+不是更困难地工作</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" 
+href="#author1">Ted Neward</a>, 主管, Neward &amp; Associates</div><div 
+style="display: none;" id="authortip1" class="dwauthor-onload-state 
+ibm-no-print"><div class="position"><img 
+src="j-5things5_files/p-tneward.jpg" alt="Ted Neward 的照片" height="80" 
+width="64"></div>Ted Neward 是 Neward &amp; Associates 的主管，负责有关 
+Java、.NET、XML 服务和其他平台的咨询、指导、培训和推介。他现在居住在华盛顿州西雅图附近。</div>
+<p></p>
+  <p><b>简介：</b>&nbsp;除了具有很好的并发性的 Collections，<code>java.util.concurrent</code>
+ 还引入了其他一些预先构建的组件，它们可帮助您调整和执行多线程应用程序中的线程。Ted Neward 介绍在 Java™ 编程过程中使用 <code>java.util.concurrent</code>
+ 包要注意的 5 点。</p>
+
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div 
+id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a
+ class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return
+ false;" href="#">标记本文！</a></div><div id="interestShow" 
+class="ibm-no-print"></div>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>发布日期：</b>&nbsp;2010 年 7 月 09 日
+  
+<br><b>级别：</b>&nbsp;初级
+  <br class="ibm-ind-link"><b>其他语言版本：</b>&nbsp;<a 
+onmouseover="linkQueryAppend(this)" 
+href="http://www.ibm.com/developerworks/java/library/j-5things5.html">英文</a>
+  
+
+<br><b>访问情况</b>&nbsp;2392 次浏览
+<br><b>建议:</b>&nbsp;<span id="nCmts">2&nbsp;(<a href="#icomments">查看或添加评
+论</a>)</span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" value="5" type="hidden"></p><div 
+id="art-rating-widget"><a href="javascript:void(0);"><img alt="1 star" 
+title="点击评分 1 星" src="j-5things5_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="2 stars" 
+title="点击评分 2 星" src="j-5things5_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="3 stars" 
+title="点击评分 3 星" src="j-5things5_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="4 stars" 
+title="点击评分 4 星" src="j-5things5_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="5 stars" 
+title="点击评分 5 星" src="j-5things5_files/avg-star-on.gif" height="20" 
+width="20"></a><span id="rateTxt">  平均分 （共 13 个评分 ）</span></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ //  widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>并发 Collections 
+提供了线程安全、经过良好调优的数据结构，简化了并发编程。然而，在一些情形下，开发人员需要更进一步，思考如何调节和/或限制线程执行。由于 <code>java.util.concurrent</code>
+ 的总体目标是简化多线程编程，您可能希望该包包含同步实用程序，而它确实包含。</p>
+			<p>本文是 <a 
+href="https://www.ibm.com/developerworks/cn/java/j-5things4.html">第 1 部分</a>
+ 的延续，将介绍几个比核心语言原语（监视器）更高级的同步结构，但它们还未包含在 Collection 
+类中。一旦您了解了这些锁和门的用途，使用它们将非常直观。</p>
+			<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>关于
+本系列</h2><div class="ibm-container-body">
+				
+				<p>您觉得自己懂 Java 编程？事实是，大多数开发人员都只领会到了 Java 平台的皮毛，所学也只够应付工作。在本 <a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp?search_by=%E6%82%A8%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84+5+%E4%BB%B6%E4%BA%8B">系
+列</a> 中，Ted Neward 深度挖掘 Java 平台的核心功能，揭示一些鲜为人知的事实，帮助您解决最棘手的编程困难。</p>
+			</div></div>
+			<p><a name="N1008F"><span class="atitle">1. Semaphore</span></a></p>
+			<p>在一些企业系统中，开发人员经常需要限制未处理的特定资源请求（线程/操作）数量，事实上，限制有时候能够提高系统的吞吐量，因为它们减少了
+对特定资源的争用。尽管完全可以手动编写限制代码，但使用 Semaphore 类可以更轻松地完成此任务，它将帮您执行限制，如清单 1 所示：</p>
+			<br><a name="listing1"><b>清单 1. 使用 Semaphore 执行限制</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.util.*;import java.util.concurrent.*;
+
+public class SemApp
+{
+    public static void main(String[] args)
+    {
+        Runnable limitedCall = new Runnable() {
+            final Random rand = new Random();
+            final Semaphore available = new Semaphore(3);
+            int count = 0;
+            public void run()
+            {
+                int time = rand.nextInt(15);
+                int num = count++;
+                
+                try
+                {
+                    available.acquire();
+                    
+                    System.out.println("Executing " + 
+                        "long-running action for " + 
+                        time + " seconds... #" + num);
+                
+                    Thread.sleep(time * 1000);
+
+                    System.out.println("Done with #" + 
+                        num + "!");
+
+                    available.release();
+                }
+                catch (InterruptedException intEx)
+                {
+                    intEx.printStackTrace();
+                }
+            }
+        };
+        
+        for (int i=0; i&lt;10; i++)
+            new Thread(limitedCall).start();
+    }
+}
+</pre></td></tr></tbody></table><br>
+			<p>即使本例中的 10 个线程都在运行（您可以对运行 <code>SemApp</code> 的 Java 进程执行 <code>jstack</code>
+ 来验证），但只有 3 个线程是活跃的。在一个信号计数器释放之前，其他 7 个线程都处于空闲状态。（实际上，<code>Semaphore</code>
+ 类支持一次获取和释放多个 <em>permit</em>，但这不适用于本场景。）</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N100B4"><span class="atitle">2. CountDownLatch</span></a></p>
+			<p>如果 <code>Semaphore</code> 是允许一次进入一个（这可能会勾起一些流行夜总会的保安的记忆）线程的并发性类，那么
+ <code>CountDownLatch</code> 
+就像是赛马场的起跑门栅。此类持有所有空闲线程，直到满足特定条件，这时它将会一次释放所有这些线程。</p>
+			<br><a name="listing2"><b>清单 2. CountDownLatch：让我们去赛马吧！</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.util.*;
+import java.util.concurrent.*;
+
+class Race
+{
+    private Random rand = new Random();
+    
+    private int distance = rand.nextInt(250);
+    private CountDownLatch start;
+    private CountDownLatch finish;
+    
+    private List&lt;String&gt; horses = new ArrayList&lt;String&gt;();
+    
+    public Race(String... names)
+    {
+        this.horses.addAll(Arrays.asList(names));
+    }
+    
+    public void run()
+        throws InterruptedException
+    {
+        System.out.println("And the horses are stepping up to the gate...");
+        final CountDownLatch start = new CountDownLatch(1);
+        final CountDownLatch finish = new CountDownLatch(horses.size());
+        final List&lt;String&gt; places = 
+            Collections.synchronizedList(new ArrayList&lt;String&gt;());
+        
+        for (final String h : horses)
+        {
+            new Thread(new Runnable() {
+                public void run() {
+                    try
+                    {
+                        System.out.println(h + 
+                            " stepping up to the gate...");
+                        start.await();
+                        
+                        int traveled = 0;
+                        while (traveled &lt; distance)
+                        {
+                            // In a 0-2 second period of time....
+                            Thread.sleep(rand.nextInt(3) * 1000);
+                            
+                            // ... a horse travels 0-14 lengths
+                            traveled += rand.nextInt(15);
+                            System.out.println(h + 
+                                " advanced to " + traveled + "!");
+                        }
+                        finish.countDown();
+                        System.out.println(h + 
+                            " crossed the finish!");
+                        places.add(h);
+                    }
+                    catch (InterruptedException intEx)
+                    {
+                        System.out.println("ABORTING RACE!!!");
+                        intEx.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+
+        System.out.println("And... they're off!");
+        start.countDown();        
+
+        finish.await();
+        System.out.println("And we have our winners!");
+        System.out.println(places.get(0) + " took the gold...");
+        System.out.println(places.get(1) + " got the silver...");
+        System.out.println("and " + places.get(2) + " took home the bronze.");
+    }
+}
+
+public class CDLApp
+{
+    public static void main(String[] args)
+        throws InterruptedException, java.io.IOException
+    {
+        System.out.println("Prepping...");
+        
+        Race r = new Race(
+            "Beverly Takes a Bath",
+            "RockerHorse",
+            "Phineas",
+            "Ferb",
+            "Tin Cup",
+            "I'm Faster Than a Monkey",
+            "Glue Factory Reject"
+            );
+        
+        System.out.println("It's a race of " + r.getDistance() + " lengths");
+        
+        System.out.println("Press Enter to run the race....");
+        System.in.read();
+        
+        r.run();
+    }
+}
+</pre></td></tr></tbody></table><br>
+			<p>注意，在 <a href="#listing2">清单 2</a> 中，<code>CountDownLatch</code> 
+有两个用途：首先，它同时释放所有线程，模拟马赛的起点，但随后会设置一个门闩模拟马赛的终点。这样，“主” 线程就可以输出结果。 
+为了让马赛有更多的输出注释，可以在赛场的 “转弯处” 和 “半程” 点，比如赛马跨过跑道的四分之一、二分之一和四分之三线时，添加 <code>CountDownLatch</code>。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N100DE"><span class="atitle">3. Executor</span></a></p>
+			<p>
+				<a href="#listing1">清单 1</a> 和 <a href="#listing2">清单 2</a> 
+中的示例都存在一个重要的缺陷，它们要求您直接创建 <code>Thread</code> 对象。这可以解决一些问题，因为在一些 JVM 中，创建
+ <code>Thread</code> 是一项重量型的操作，重用现有 <code>Thread</code> 
+比创建新线程要容易得多。而在另一些 JVM 中，情况正好相反：<code>Thread</code> 
+是轻量型的，可以在需要时很容易地新建一个线程。当然，如果 Murphy 
+拥有自己的解决办法（他通常都会拥有），那么您无论使用哪种方法对于您最终将部署的平台都是不对的。</p>
+			<p>JSR-166 专家组（参见 <a href="#resources">参考资料</a>）在一定程度上预测到了这一情形。Java 
+开发人员无需直接创建 <code>Thread</code>，他们引入了 <code>Executor</code> 
+接口，这是对创建新线程的一种抽象。如清单 3 所示，<code>Executor</code> 使您不必亲自对 <code>Thread</code>
+ 对象执行 <code>new</code> 就能够创建新线程：</p>
+			<br><a name="listing3"><b>清单 3. Executor</b></a><br><table border="0"
+ cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+Executor exec = getAnExecutorFromSomeplace();
+exec.execute(new Runnable() { ... });
+</pre></td></tr></tbody></table><br>
+			<p>使用 <code>Executor</code> 的主要缺陷与我们在所有工厂中遇到的一样：工厂必须来自某个位置。不幸的是，与 CLR
+ 不同，JVM 没有附带一个标准的 VM 级线程池。</p>
+			<p>
+				<code>Executor</code> 类<em>实际上</em> 充当着一个提供 <code>Executor</code> 
+实现实例的共同位置，但它只有 <code>new</code> 
+方法（例如用于创建新线程池）；它没有预先创建实例。所以您可以自行决定是否希望在代码中创建和使用 <code>Executor</code> 
+实例。（或者在某些情况下，您将能够使用所选的容器/平台提供的实例。）</p>
+			<p><a name="N10141"><span class="smalltitle">ExecutorService 随时可以使用</span></a></p>
+			<p>尽管不必担心 <code>Thread</code> 来自何处，但 <code>Executor</code> 接口缺乏 Java 
+开发人员可能期望的某种功能，比如结束一个用于生成结果的线程并以非阻塞方式等待结果可用。（这是桌面应用程序的一个常见需求，用户将执行需要访问数据库
+的 UI 操作，然后如果该操作花费了很长时间，可能希望在它完成之前取消它。）</p>
+			<p>对于此问题，JSR-166 专家创建了一个更加有用的抽象（<code>ExecutorService</code> 
+接口），它将线程启动工厂建模为一个可集中控制的服务。例如，无需每执行一项任务就调用一次 <code>execute()</code>，<code>ExecutorService</code>
+ 可以接受一组任务并返回一个表示每项任务的未来结果的<em>未来列表</em>。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N10164"><span class="atitle">4. ScheduledExecutorServices</span></a></p>
+			<p>尽管 <code>ExecutorService</code> 
+接口非常有用，但某些任务仍需要以计划方式执行，比如以确定的时间间隔或在特定时间执行给定的任务。这就是 <code>ScheduledExecutorService</code>
+ 的应用范围，它扩展了 <code>ExecutorService</code>。</p>
+			<p>如果您的目标是创建一个每隔 5 秒跳一次的 “心跳” 命令，使用 <code>ScheduledExecutorService</code>
+ 可以轻松实现，如清单 4 所示：</p>
+			<br><a name="listing4"><b>清单 4. ScheduledExecutorService 模拟心跳</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.util.concurrent.*;
+
+public class Ping
+{
+    public static void main(String[] args)
+    {
+        ScheduledExecutorService ses =
+            Executors.newScheduledThreadPool(1);
+        Runnable pinger = new Runnable() {
+            public void run() {
+                System.out.println("PING!");
+            }
+        };
+        ses.scheduleAtFixedRate(pinger, 5, 5, TimeUnit.SECONDS);
+    }
+}</pre></td></tr></tbody></table><br>
+			<p>这项功能怎么样？不用过于担心线程，不用过于担心用户希望取消心跳时会发生什么，也不用明确地将线程标记为前台或后台；只需将所有的计划细节
+留给 <code>ScheduledExecutorService</code>。</p>
+			<p>顺便说一下，如果用户希望取消心跳，<code>scheduleAtFixedRate</code> 调用将返回一个 <code>ScheduledFuture</code>
+ 实例，它不仅封装了结果（如果有），还拥有一个 <code>cancel</code> 方法来关闭计划的操作。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N101A0"><span class="atitle">5. Timeout 方法</span></a></p>
+			<p>为阻塞操作设置一个具体的超时值（以避免死锁）的能力是 <code>java.util.concurrent</code> 
+库相比起早期并发特性的一大进步，比如监控锁定。</p>
+			<p>这些方法几乎总是包含一个 <code>int</code>/<code>TimeUnit</code> 
+对，指示这些方法应该等待多长时间才释放控制权并将其返回给程序。它需要开发人员执行更多工作 — 如果没有获取锁，您将如何重新获取？ — 
+但结果几乎总是正确的：更少的死锁和更加适合生产的代码。（关于编写生产就绪代码的更多信息，请参见 <a href="#resources">参考资
+料</a> 中 Michael Nygard 编写的 <em>Release It!</em>。）</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N101C3"><span class="atitle">结束语</span></a></p>
+			<p>
+				<code>java.util.concurrent</code> 包还包含了其他许多好用的实用程序，它们很好地扩展到了 
+Collections 之外，尤其是在 <code>.locks</code> 和 <code>.atomic</code> 
+包中。深入研究，您还将发现一些有用的控制结构，比如 <code>CyclicBarrier</code> 等。 </p>
+			<p>与 Java 平台的许多其他方面一样，您无需费劲地查找可能非常有用的基础架构代码。在编写多线程代码时，请记住本文讨论的实用程序和 <a
+ href="http://www.ibm.com/developerworks/cn/java/j-5things4.html">上一篇文章</a>
+ 中讨论的实用程序。</p>
+			<p>下一次，我们将进入一个新的主题：关于 Jars 您不知道的 5 件事。</p>
+		<!-- CMA ID: 499753 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file:  dw-article-6.0-beta.xsl -->
+<br><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><span
+ class="atitle"><a name="download">下载</a></span></p><table 
+class="ibm-data-table" border="0" cellpadding="0" cellspacing="0" 
+width="100%"><tbody><tr><th scope="col">描述</th><th scope="col">名字</th><th
+ scope="col">大小</th><th scope="col">下载方法</th></tr><tr><td class="tb-row"
+ scope="row">本文的示例代码</td><td nowrap="nowrap">5things5-src.zip</td><td 
+nowrap="nowrap">10KB</td><td nowrap="nowrap"><a class="fbox" 
+href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=499753&amp;filename=5things5-src.zip&amp;method=http&amp;locale=zh_CN">HTTP</a></td></tr></tbody></table><p><a
+ href="http://www.ibm.com/developerworks/cn/whichmethod.html" 
+class="ibm-forward-link">关于下载方法的信息</a></p><br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><b>学习</b></p><ul><li>“<a
+ href="http://www.ibm.com/developerworks/cn/java/j-5things4.html">关于 
+java.util.concurrent 您不知道的 5 件事，第 1 部分</a>”（Ted 
+Neward，developerworks，2010 年 5 月）：了解 5 个并发性类，它们为 <code>List</code> 和 <code>Map</code>
+ 等传统集合注入了新的活力。<br><br></li><li>“<a 
+href="http://pragprog.com/titles/mnee/release-it">
+					<em>Release it!</em>
+				</a>”（Michael Nygard，2007 年 3 月，Pragmatic 
+Programmers）：设计和搭建您的应用程序，实现最长的运行时间、最高的性能和投资回报。<br><br></li><li>
+				<a href="http://jcp.org/en/jsr/detail?id=166">JSR 166</a>：了解关于 <code>Executor</code>
+ 接口和通过此 JSR 引入的其他更改的更多信息。<br><br></li><li>“<a 
+href="http://www.ibm.com/developerworks/java/library/j-jtp07233.html" 
+onmouseover="linkQueryAppend(this)">
+					<em>Java theory and practice</em>: Concurrent collections classes</a>”
+（Brian Goetz，developerWorks，2003 年 7 月）：学习 Doug Lea 的 <code>util.concurrent</code>
+ 包如何为标准集合类型 <code>List</code> 和 <code>Map</code> 注入新的活力。<br><br></li><li>“<a
+ href="http://www.ibm.com/developerworks/cn/java/j-collections.html">使用泛
+型和并发改善集合</a>”（John Zukowski，developerWorks，2008 年 4 月）：介绍 Java 6 中 Java 
+Collections Framework 的变化。<br><br></li><li>
+				<a 
+href="http://java.sun.com/javase/6/docs/api/java/util/concurrent/package-summary.html">Package
+ java.util.concurrent, Java platform SE 6</a>：进一步学习本文讨论的工具类。<br><br></li><li>
+				<a href="http://www.ibm.com/developerworks/cn/java/">developerWorks 
+Java 技术专区</a>：关于 Java 编程各个方面的数百篇文章。<br><br></li></ul><p><b>讨论</b></p><ul><li>加
+入 <a href="http://www.ibm.com/developerworks/cn/mydeveloperworks">My 
+developerWorks 中文社区</a>。<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div 
+class="ibm-container ibm-portrait-module ibm-alternate-two"><div 
+class="ibm-container-body"><img src="j-5things5_files/p-tneward.jpg" 
+class="dw-author-img" alt="Ted Neward 的照片" height="80" width="64"><p><a 
+name="author1"> </a>Ted Neward 是 Neward &amp; Associates 的主管，负责有关 
+Java、.NET、XML 服务和其他平台的咨询、指导、培训和推介。他现在居住在华盛顿州西雅图附近。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">建议</a></span></p>
+  <div id="dw-icomments-container" class="ibm-no-print">
+    <div class="ibm-alternate-rule"><hr></div>
+    <div class="ibm-alternate-rule"><hr></div>
+    <!-- Comment_Script -->
+    
+    <a id="comments" 
+href="http://www.ibm.com/developerworks/cn/java/comments"></a>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signIn = '登录';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.cmt = '评论：';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <b>{1}</b>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+// ]]>
+    </script>
+    <script language="JavaScript" src="j-5things5_files/insertcomment.js" type="text/javascript">//</script>
+    <div id="threadShow"><div id="cmtTog" style=""><p><span id="numCmts">2</span>&nbsp;
+条评论 <span class="dw-bar">|</span> <a 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-5things5.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk" 
+class="dw-icomment-link">添加评论</a><a class="dw-icomment-report" 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834">举
+报不良信息</a></p><div class="ibm-alternate-rule"><hr></div><div 
+style="display: none;" id="commentForm"><div class="ibm-container"><h2>添
+加评论</h2><div class="ibm-container-body"><p>标有星号（<span 
+class="ibm-required">*</span>）的是必填项目。</p><span id="infoCmt"></span><div 
+class="ibm-rule"><hr></div><form method="post" action="" 
+class="ibm-column-form" enctype="multipart/form-data" focus="name" 
+name="form"><p><label for="newCmt">评论：<span class="ibm-required">*</span></label><br><textarea
+ name="newCmt" id="newCmt" cols="120" rows="4"></textarea></p><div 
+class="ibm-alternate-rule"><hr></div><p class="ibm-buttons-row"><input 
+value="发布" name="postCmt" class="ibm-btn-arrow-sec" id="postCmt" 
+type="button"><span class="ibm-sep">&nbsp;</span><input value="清除评论" 
+name="clearCmt" class="ibm-btn-cancel-sec" id="clearCmt" type="button"><span
+ class="ibm-sep">&nbsp;</span><input value="取消" name="cancelCmt" 
+class="ibm-btn-cancel-sec" id="cancelCmt" type="button"></p></form></div></div></div><div
+ id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table
+ class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>推
+荐一个国内开源javaweb框架<br>
+http://code.google.com/p/simpleframework/</p></td></tr><tr><td><p 
+class="ibm-item-note-alternate">由 <b><a 
+href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=309952">cknet</a></b>
+  于 30 08 2010 </p></td></tr></tbody></table></div></div><div 
+class="comment"><div class="dw-icomment-container"><table 
+class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>Love
+ it</p></td></tr><tr><td><p class="ibm-item-note-alternate">由 <b><a 
+href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=269023">i.flower</a></b>
+  于 05 08 2010 </p></td></tr></tbody></table></div></div></div><div 
+id="paging"><p><a style="display: none;" id="lastCmts" 
+class="dw-icomment-link">显示最新的 5 条评论</a><span style="display: none;" 
+id="cmtDivider"> <span class="dw-bar">|</span> </span><a style="display:
+ none;" id="nextCmts" class="dw-icomment-link">显示后 5 条评论</a><span 
+style="display: none;" id="cmtDivider2"> <span class="dw-bar">|</span> </span><a
+ style="display: none;" id="viewAllCmts" class="dw-icomment-link">显示所有评论</a></p></div><p><a
+ 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-5things5.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk2" 
+href="#icomments">添加评论</a></p><div class="ibm-alternate-rule"><hr></div><div
+ class="ibm-alternate-rule"><hr></div></div></div>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+    </script>
+  </div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" 
+href="#ibm-pcon">回页首</a></p>
+  <p><a href="http://www.ibm.com/developerworks/cn/ibm/trademarks/">商标</a>
+ &nbsp;|&nbsp; <a 
+href="http://www.ibm.com/developerworks/cn/mydw_terms/">My 
+developerWorks 使用条款与条件</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div
+ class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Java 
+technology</div><div class="metavalue">ArticleID=499753</div><div 
+class="metavalue">ArticleTitle=关于 java.util.concurrent 您不知道的 5 件事，第 2 部分</div><div
+ class="metavalue">publish-date=07092010</div><div class="metavalue">author1-email=ted@tedneward.com</div><div
+ class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace('<', '%3C')+'</div>');</script><div
+ class="metavalue">url=http://www.ibm.com/developerworks/cn/java/j-5things5.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img
+ alt="" src="j-5things5_files/c.gif" height="1" width="1"><ul 
+class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N1008F">1.
+ Semaphore</a></li><li><a class="ibm-feature-link" href="#N100B4">2. 
+CountDownLatch</a></li><li><a class="ibm-feature-link" href="#N100DE">3.
+ Executor</a></li><li><a class="ibm-feature-link" href="#N10164">4. 
+ScheduledExecutorServices</a></li><li><a class="ibm-feature-link" 
+href="#N101A0">5. Timeout 方法</a></li><li><a class="ibm-feature-link" 
+href="#N101C3">结束语</a></li><li><a class="ibm-feature-link" 
+href="#download">下载</a></li><li><a class="ibm-feature-link" 
+href="#resources">参考资料 </a></li><li><a class="ibm-feature-link" 
+href="#author">关于作者</a></li><li><a class="ibm-feature-link" 
+href="#icomments">建议</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img
+ alt="Help" src="j-5things5_files/help_icon.gif" align="top" height="16"
+ width="16"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state 
+ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 
+中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong>
+ 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标
+签&lt; /strong&gt; 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</strong></p></div>
+<div class="ibm-access"><strong>使用搜索文本框在 My developerWorks 
+中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java 
+technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java 
+technology，Linux，WebSphere）。</strong></div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form 
+action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" 
+method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong><strong>搜索所有标签</strong></strong></label>
+<strong><input name="lang" value="zh" type="hidden">
+<input id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input
+ src="j-5things5_files/short-btn.gif" class="ibm-btn-view" alt="submit 
+search" title="提交搜索" value="Search" type="image"></strong></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a
+ id="a-my" href="javascript:;">我的文章标签</a><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><strong><a 
+id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的
+文章标签</strong></strong></p><strong><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></div>
+<div id="dw-tag-cloud"></div><strong>  
+</strong></div><strong>   
+</strong></div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+<strong> <!-- END_IBM-PCON -->
+</strong></div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><strong><a href="http://www.ibm.com/ibm/cn/zh/">关于
+IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></strong></li>
+<li><strong><a href="http://www.ibm.com/contact/cn/zh/">联系IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/legal/cn/zh/">使用条款</a></strong></li>
+<li><a href="http://www.ibm.com/ibm/syndication/cn/zh/">IBM RSS 可定制阅读服务</a></li><li><a
+ href="http://www.ibm.com/employment/cn/">求才启事</a></li></ul>
+<div id="ibm-social-tools"><ul><li><a rel="print" href="#" title="打印本页面"
+ class="ibm-share-print"></a></li><li><a rel="email" href="#" 
+title="用电子邮件发送本页面" class="ibm-share-email"></a></li></ul></div></div>
+<!-- FOOTER_END -->
+
+<strong> <!-- END_IBM-TOP -->
+</strong><div id="ibm-overlay-top"></div></div>
+<strong> 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="j-5things5_files/jquery_002.js"></script>
+<script type="text/javascript" language="JavaScript" src="j-5things5_files/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="j-5things5_files/jquery_003.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end --><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=1&ibmAdoptPhase=650&ibmRole=36";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+</strong><div id="ibm-metrics">
+<script src="j-5things5_files/stats.js" type="text/javascript">//</script>
+</div>
+
+<div style="position: absolute; z-index: 95; display: none;" 
+id="cluetip-waitimage"></div><div style="z-index: 96; display: none; 
+position: absolute;" id="cluetip"><div style="z-index: 95; opacity: 0.1;
+ top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 
+0);"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; 
+position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: 
+absolute; background-color: rgb(0, 0, 0);"></div><div style="z-index: 
+92; opacity: 0.1; top: 4px; left: 4px; position: absolute; 
+background-color: rgb(0, 0, 0);"></div><div style="z-index: 91; opacity:
+ 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 
+0, 0);"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 
+6px; position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="position: relative; z-index: 97;" id="cluetip-outer"><h3 
+id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div 
+id="cluetip-extra"></div><div style="z-index: 97;" id="cluetip-arrows" 
+class="cluetip-arrows"></div></div><div style="position: absolute; 
+display: none; z-index: 9999;" id="livemargins_control"><img 
+src="j-5things5_files/monitor-background-horizontal.png" 
+style="position: absolute; left: -77px; top: -5px;" height="5" 
+width="77">	<img src="j-5things5_files/monitor-background-vertical.png" 
+style="position: absolute; left: 0pt; top: -5px;">	<img 
+id="monitor-play-button" src="j-5things5_files/monitor-play-button.png" 
+onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5" 
+style="position: absolute; left: 1px; top: 0pt; opacity: 0.5; cursor: 
+pointer;"></div></body></html>

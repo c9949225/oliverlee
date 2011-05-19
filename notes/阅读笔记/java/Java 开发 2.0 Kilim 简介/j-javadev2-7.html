@@ -1,0 +1,1192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+
+
+  
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Java 开发 2.0: Kilim 简介</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 
+&quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 
+nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen 
+true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l
+ gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="并发编程是 Java 开发 2.0 
+的核心概念，但可能不是基于线程的并发性。Andrew Glover 解释为什么在多核系统中进行并发编程时，角色优于线程。他然后介绍 Kilim 
+—— 一种基于角色的消息传递框架，结合了并发编程和分布式编程。">
+<meta name="Description" content="并发编程是 Java 开发 2.0 
+的核心概念，但可能不是基于线程的并发性。Andrew Glover 解释为什么在多核系统中进行并发编程时，角色优于线程。他然后介绍 Kilim 
+—— 一种基于角色的消息传递框架，结合了并发编程和分布式编程。">
+<meta name="Keywords" content="Kilim, actors, actor model, Java 
+concurrency, multicore, multithreaded programming, Java threads, 
+thread-based, Java development 2.0, Andy Glover, Andrew Glover, 角色, 
+角色模型, Java 并发性, 多核, 多线程编程, Java 线程, 基于线程, tttjca">
+<meta name="DC.Date" scheme="iso8601" content="2010-05-17">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" 
+content="SOFDCJVACN">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM 
+Corporation&nbsp;2010">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2010-05-17">
+<meta name="title" content="Java 开发 2.0: Kilim 简介">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="j-javadev2-7_files/all.css" media="all" rel="stylesheet" 
+title="www" type="text/css">
+<link href="j-javadev2-7_files/screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/screen-uas.css" media="screen,projection"
+ rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/screen-fonts.css" 
+media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/handheld.css" media="handheld" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/print.css" media="print" rel="stylesheet"
+ title="www" type="text/css">
+<!-- dW-specific CSS -->
+<link href="j-javadev2-7_files/dw-screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/dw-local-site.css" 
+media="screen,projection" rel="stylesheet" title="www" type="text/css">
+<link href="j-javadev2-7_files/jquery.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+
+<script src="j-javadev2-7_files/ibmcommon.js" type="text/javascript">//</script><link
+ title="IBM Search" 
+href="http://www.ibm.com/search/opensearch/description.xml" 
+type="application/opensearchdescription+xml" rel="search">
+<script src="j-javadev2-7_files/dynamicnav.js" type="text/javascript">//</script>
+<!-- Pull-down script --> 
+<script type="text/javascript" src="j-javadev2-7_files/dropdown.js">//</script>
+<!-- dW functional JS -->
+<script language="JavaScript" src="j-javadev2-7_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+
+// ]]>
+</script>
+
+
+<script language="JavaScript" src="j-javadev2-7_files/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="j-javadev2-7_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="j-javadev2-7_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="j-javadev2-7_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script charset="UTF-8" src="j-javadev2-7_files/flash-detect.js" type="text/javascript" id="flashdetect"></script><script charset="UTF-8" src="j-javadev2-7_files/cnzh-utf8.js" type="text/javascript" id="mhMenu"></script><script charset="UTF-8" src="j-javadev2-7_files/Controller" type="text/javascript" id="dynavEA"></script><script charset="UTF-8" src="j-javadev2-7_files/Controller_002" type="text/javascript" id="wiBundle"></script></head><body
+ id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#main">跳转到主要内容</a></div><div 
+id="ibm-masthead"><div id="ibm-logo"><a href="http://www.ibm.com/cn/zh/"><img
+ src="j-javadev2-7_files/ibm-logo.gif" alt="IBM®" height="50" 
+width="110"></a></div><ul id="ibm-geo"><li class="ibm-first" 
+id="ibm-country">中国</li><li id="ibm-change-country">[ <a 
+href="http://www.ibm.com/developerworks/cn/country/">选择</a> ]</li></ul><form
+ id="ibm-search-form" 
+action="//www.ibm.com/developerworks/search/searchResults.jsp" 
+method="get" name="form1"><input name="searchType" value="1" 
+type="hidden"><input name="searchSite" value="dWChina" type="hidden"><input
+ name="pageLang" value="zh" type="hidden"><input name="langEncoding" 
+value="UTF8" type="hidden"><p><span id="ibm-search-scope"><label 
+for="sn"><img src="j-javadev2-7_files/c_002.gif" alt="Search in:" 
+height="1" width="1"></label><select class="input-local" 
+name="searchScope" id="sn" size="1"><option value="dW" 
+selected="selected">dW 全部内容</option><option value="dW">--------------</option><option
+ value="aixunix">&nbsp;&nbsp;AIX and UNIX</option><option value="dmdd">&nbsp;&nbsp;Info
+ Mgmt</option><option value="lotusdd">&nbsp;&nbsp;Lotus</option><option 
+value="rdd">&nbsp;&nbsp;Rational</option><option value="wsdd">&nbsp;&nbsp;WebSphere</option><option
+ value="dW">--------------</option><option value="javaZ">&nbsp;&nbsp;Java
+ technology</option><option value="linuxZ">&nbsp;&nbsp;Linux</option><option
+ value="opensrcZ">&nbsp;&nbsp;Open source</option><option 
+value="webservZ">&nbsp;&nbsp;SOA &amp; Web services</option><option 
+value="webarchZ">&nbsp;&nbsp;Web dev</option><option value="xmlZ">&nbsp;&nbsp;XML</option><option
+ value="dW">--------------</option><option value="all">IBM 全部内容</option></select></span><label
+ for="q"><img alt="搜索:" src="j-javadev2-7_files/c_002.gif" height="1" 
+width="1"></label><input name="query" maxlength="100" id="q" type="text"><input
+ id="ibm-search" class="ibm-btn-search" name="Search" value="搜索" 
+type="submit"></p></form><div id="ibm-site-name"><!-- IBM site name container --></div><div
+ id="ibm-universal-nav"><ul><li class="ibm-first" id="ibm-unav-home"><a 
+href="http://www.ibm.com/cn/zh/">首页</a></li><li id="ibm-unav-solutions"><a
+ class=" ibm-unav-has-child" href="http://www.ibm.com/solutions/cn/zh/">解
+决方案</a><div id="gi-9951cae8" class="ibm-unav-menu"><span 
+id="gi-9951cae8-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li
+ class=" ibm-place-holder"><a id="gi-f080b39a-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按行业分类</a><div id="gi-f080b39a" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-f080b39a-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/">金融业</a></li><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/banking.shtml">银行
+业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/insurance.shtml">保
+险业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/retail/index.shtml?ca=masterhead&amp;me=cndotcom">零
+售业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/manufacture/index.shtml?ca=masterhead&amp;me=cndotcom">制
+造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/">流通业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_commu.shtml">电
+子行业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/telecom/solution/">电信业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/smb/industries/media/index.shtml?ca=masterhead&amp;me=cndotcom">媒
+体与娱乐业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/transport.shtml">交
+通运输业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_aero.shtml">航
+空航天造船业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_auto.shtml">汽
+车制造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_petro.shtml">石
+油石化业</a></li><li><a href="http://www.ibm.com/cn/public/offertogov/h/">政府
+与公众事业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/education/solution/">教育</a></li><li><a
+ href="http://www.ibm.com/cn/public/healthcare/solutions/">医疗与生命科学</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-7675a85e-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按业务需求分类</a><div id="gi-7675a85e" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-7675a85e-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/smb/cn/business/infrastructure/index.shtml?ca=masterhead&amp;me=cndotcom">IT
+ 基础架构解决方案</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/bi/index.shtml?ca=masterhead&amp;me=cndotcom">商
+务智能（BI）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/scm/index.shtml?ca=masterhead&amp;me=cndotcom">供
+应链管理（SCM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/erp/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资源规划（ERP）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/crm/index.shtml?ca=masterhead&amp;me=cndotcom">客
+户关系管理（CRM）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/plm/index.shtml?ca=masterhead&amp;me=cndotcom">产
+品生命周期管理（PLM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/oa/index.shtml?ca=masterhead&amp;me=cndotcom">办
+公自动化(OA)</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/eam/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资产管理(EAM)</a></li><li><a 
+href="http://www.ibm.com/software/cn/db2/content-management/industry-solutions/">内
+容管理</a></li><li><a 
+href="http://www.ibm.com/cn/software/solution/info_conformity.html">信息集成</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-7d0a889c-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按顶级业务合作伙伴分类</a><div id="gi-7d0a889c" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-7d0a889c-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/services/hotsale/cisco/index.shtml">IBM 和 
+Cisco</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/oracle/index.shtml">IBM
+ 与 Oracle</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/sap/index.shtml">IBM 与
+ SAP</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/">业务咨询</a></li><li><a 
+href="http://www.ibm.com/systems/cn/dihub/index.shtml">IBM 动态架构</a></li><li><a
+ href="http://www.ibm.com/software/cn/smartwork/">IBM智慧运作</a></li><li><a
+ href="http://www.ibm.com/software/cn/nihub/">IBM新锐洞察</a></li><li><a 
+href="http://www.ibm.com/software/cn/spsm/">IBM智慧产品与服务</a></li><li><a 
+href="http://www.ibm.com/software/cn/soa/launch/index.html">面向服务架构 (SOA)</a></li><li><a
+ href="http://www.ibm.com/cn/financing/index.shtml">融资租赁</a></li><li><a 
+href="http://www.ibm.com/smb/cn/business/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的解决方案</a></li><li><a 
+href="http://www.ibm.com/software/cn/solution/">软件行业解决方案</a></li><li><a 
+href="http://www.ibm.com/city/cn/index.shtml?re=masthead">IBM 区域解决方案</a></li><li><a
+ href="http://www.ibm.com/cn/services/bcs/">更多业务解决方案</a></li></ul></div></li><li
+ id="ibm-unav-services"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/technologyservices/cn/zh/">服务</a><div 
+id="gi-194263c6" class="ibm-unav-menu"><span id="gi-194263c6-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-3c55a253-trigger" class=" ibm-unav-menu-has-child" href="#">按服务项目
+分类</a><div id="gi-3c55a253" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-3c55a253-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www-31.ibm.com/cn/services/managedservices/">弹性运维服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/bcrs/c1000411">业
+务连续与灾难恢复服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/imc/c1025977">企
+业终端用户服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/gn/c1000412">网络
+服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025997">IT
+ 策略与基础架构服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000418">维
+护与技术支持服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025998">中
+间件服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/gts/outsourcing.html">外包服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/so/c1000405">企
+业 IT 安全服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025999">服
+务器服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1026000">数
+据中心及智能化集成服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000416">数
+据与存储服务</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-6b9e0ef-trigger" class=" ibm-unav-menu-has-child" href="#">按业务类型分
+类</a><div id="gi-6b9e0ef" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-6b9e0ef-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024566">竞
+争策略</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024555">营
+运/委外</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024567">顾
+客服务及忠诚度</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024553">通
+路策略实施</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024556">IT
+ 最适化</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024568">全
+新的工作环境</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024557">灵
+活可靠的基础建设</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024554">安
+全和防御</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024569">价
+值链效益</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-7ad721eb-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-7ad721eb" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-7ad721eb-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024588">跨
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024537">金融
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024548">银行
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024546">保险
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024547">零售
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024540">消费
+品</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024545">批发
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024550">电子
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024543">电信
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024538">媒体
+与娱乐</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024541">旅游
+和运输业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024542">汽车
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024552">石油
+石化行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024549">政府
+部门</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024644">能源
+与公用事业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024544">教育
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024536">医疗
+保健</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024539">生命
+科学</a></li></ul></div></li><li><a href="http://www.ibm.com/training/cn/">培
+训服务</a></li><li><a href="http://www.ibm.com/cn/software/service/">软件服务</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/igs/?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss">更多服务</a></li></ul></div></li>
+<li id="ibm-unav-products"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/products/cn/zh/">产品</a><div id="gi-ac798eba" 
+class="ibm-unav-menu"><span id="gi-ac798eba-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/shop/special.shtml">特惠产品和方案</a></li><li 
+class=" ibm-place-holder"><a id="gi-ffa36f4a-trigger" class=" 
+ibm-unav-menu-has-child" href="#">软件</a><div id="gi-ffa36f4a" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-ffa36f4a-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/software/">所有软件</a></li><li><a 
+href="http://www.ibm.com/software/products/cn/zh">产品目录</a></li><li><a 
+href="http://www.ibm.com/cn/software/db2/">Information Management 信息管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/lotus/">Lotus 协作办公软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/rational/">Rational 开发软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/tivoli/">Tivoli 服务管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/websphere/">WebSphere 应用系统和整合软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/zseries/">System z 服务器软件</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-27543fb6-trigger" class=" 
+ibm-unav-menu-has-child" href="#">Systems 与服务器</a><div id="gi-27543fb6" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-27543fb6-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a href="http://www.ibm.com/systems/cn/">所
+有 IBM Systems 和服务器</a></li><li><a 
+href="http://www.ibm.com/systems/cn/power/index.shtml">Power Systems</a></li><li><a
+ href="http://www.ibm.com/cn/systems/i/index.shtml">System i （i系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/p/">System p （p系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/x/">System x （x系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/z/">System z （z系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/bladecenter/">BladeCenter 刀片服务器</a></li><li><a
+ href="http://www.ibm.com/cn/openpower">OpenPower 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/xseries/l1350.shtml">群集服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/unix/">UNIX 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/linux/index.shtml">Linux 服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/power/index.shtml">POWER 处理器的服务器</a></li><li><a
+ href="http://www.ibm.com/cn/servers/jump_intel.shtml">基于英特尔架构的服务器</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-216476db-trigger" class=" 
+ibm-unav-menu-has-child" href="#">存储产品</a><div id="gi-216476db" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-216476db-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a href="http://www.ibm.com/storage/cn/">所
+有存储产品</a></li><li><a href="http://www.ibm.com/storage/cn/disk/">磁盘存储系统</a></li><li><a
+ href="http://www.ibm.com/storage/cn/tape/">磁带存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/san/">存储区域网络</a></li><li><a 
+href="http://www.ibm.com/storage/cn/nas/">网络连接存储</a></li><li><a 
+href="http://www.ibm.com/storage/cn/software/">存储软件</a></li><li><a 
+href="http://www.ibm.com/storage/cn/product/index.shtml">存储产品排序（A - Z）</a></li></ul></div></li><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/offerfamily/igs/c1025846">网
+络安全</a></li><li><a href="http://www.ibm.com/cn/products/pos/">零售终端</a></li><li><a
+ 
+href="http://www.infoprintsolutionscompany.com/internet/wwsites.nsf/vwWebPublished/mainT1_cn">打
+印机 (InfoPrint)</a></li><li><a 
+href="http://www.ibm.com/cn/financing/icpe/">IBM 官方认证再制造设备</a></li><li><a
+ href="http://www.ibm.com/cn/servers/eserver/xseries/options.shtml">选件</a></li><li><a
+ href="http://www.ibm.com/cn/promotion/esg/xseries/">中低端产品特惠商城</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/hardware/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的特惠产品</a></li></ul></div></li>
+<li id="ibm-unav-support"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/support/cn/zh/">支持与下载</a><div id="gi-1430bc33" 
+class="ibm-unav-menu"><span id="gi-1430bc33-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-18f06e76-trigger" class=" ibm-unav-menu-has-child" href="#">下载</a><div
+ id="gi-18f06e76" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-18f06e76-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/download/download.shtml">驱动程序和软件下载</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/support/troubleshooting/cn/">故障诊断与排除</a></li><li><a
+ href="http://www.ibm.com/support/advsrch.wss?rs=0&amp;loc=zh_CN">搜索</a></li><li
+ class=" ibm-place-holder"><a id="gi-512baea-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按产品查看</a><div id="gi-512baea" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-512baea-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/support/productsupport/sw_support.shtml">软件产
+品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/eserver.shtml">服务器</a></li><li><a
+ 
+href="http://www.ibm.com/cn/support/productsupport/storage_support.shtml">存
+储产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/print_support.shtml">打
+印机 (InfoPrint)</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/mysupport/">个性化支持</a></li><li><a 
+href="http://www.ibm.com/support/publications/cn/index.html">产品资料中心</a></li><li
+ class=" ibm-place-holder"><a id="gi-29196578-trigger" class=" 
+ibm-unav-menu-has-child" href="#">电子化工具</a><div id="gi-29196578" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-29196578-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/electronic/uprtransition.wss?category=2&amp;locale=zh_CN">提
+交服务请求</a></li><li><a 
+href="https://www.ibm.com/support/electronic/portal/%21ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLt4y3dAXJgFku-pHIIgbxjnABX4_83FT9IKBEpDlQxCVQPyonNT0xuVI_WN9bP0C_IDc0otzb0REAowWZNg%21%21/delta/base64xml/L2dJQSEvUUt3QS80SVVFLzZfOV85RQ%21%21?category=4&amp;locale=zh_CN">专
+项服务</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/viewdoc/knowledgebase">技术知识库</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn">在线客户支持</a></li><li><a 
+href="http://www.ibm.com/support/warranties/cn/">保修、许可和维护</a></li></ul></div></li>
+<li style="z-index: 8;" class=" ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active" id="ibm-unav-myibm"><a class=" 
+ibm-unav-has-child" href="http://www.ibm.com/account/cn/zh/">个性化服务</a><div
+ style="z-index: 9; display: none;" id="gi-3a6a1c34" 
+class="ibm-unav-menu"><span style="display: none; height: 113px;" 
+id="gi-3a6a1c34-ehb" class="ibm-unav-menu-ehb ibm-is-active"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/account/myaccounts/cn/zh/">我的账户</a></li><li 
+class=" ibm-myinterest"><a id="gi-de0e275c-trigger" 
+href="http://www.ibm.com/account/myibm/myinterestView.do?cc=cn&amp;lc=zh">我
+的收藏夹</a><div id="gi-de0e275c" class="ibm-unav-menu ibm-myinterest"><span
+ id="gi-de0e275c-ehb" class="ibm-unav-menu-ehb"><img 
+src="j-javadev2-7_files/c.gif" alt=""></span><a class="ibm-access"></a><ul></ul></div></li><li><a
+ href="http://www.ibm.com/account/myibm/profile.do?cc=cn&amp;lc=zh">我的概要
+信息</a></li><li class=" ibm-place-holder"><a id="gi-cc1e925b-trigger" 
+class=" ibm-unav-menu-has-child" href="#">客户支持</a><div id="gi-cc1e925b" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-cc1e925b-ehb" 
+class="ibm-unav-menu-ehb"><img src="j-javadev2-7_files/c.gif" alt=""></span><a
+ class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/operations/cn/zh/contracts">合同</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/orderdelivery">订单与发货</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/inventory">库存与维护</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/invoicespayments">发票与
+付款</a></li><li><a href="http://www.ibm.com/support/operations/cn">更多客户支持</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/account/cn/zh/">了解更多</a></li></ul></div></li>
+</ul>
+</div>
+
+</div>
+
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li 
+class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks
+ 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/java/">Java
+ technology</a></li><li><a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp">文
+档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>Java 开发 2.0: Kilim 简介</h1><p><em>一种用于实现 Java 并发性的角色框架</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" 
+href="#author1">Andrew Glover</a>, 作家和开发人员</div><div style="display: 
+none;" id="authortip1" class="dwauthor-onload-state ibm-no-print"><div 
+class="position"><img src="j-javadev2-7_files/p-aglover.jpg" alt="" 
+height="80" width="64"></div>Andrew Glover 
+是一名开发人员、作家、演讲家和企业家，他对行为驱动开发、持续集成和敏捷软件开发有巨大的热情。可以通过他的 <a 
+href="http://www.thediscoblog.com/">博客</a> 关注他。</div>
+<p></p>
+  <p><b>简介：</b>&nbsp;并发编程是 Java™ 开发 2.0 的核心概念，但可能不是基于线程的并发性。Andrew 
+Glover 解释为什么在多核系统中进行并发编程时，角色优于线程。他然后介绍 Kilim —— 
+一种基于角色的消息传递框架，结合了并发编程和分布式编程。</p>
+<p class="ibm-no-print"><a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp?search_by=Java+%E5%BC%80%E5%8F%91+2.0">查
+看本系列更多内容</a></p>
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div 
+id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a
+ class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return
+ false;" href="#">标记本文！</a></div><div id="interestShow" 
+class="ibm-no-print"></div>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>发布日期：</b>&nbsp;2010 年 5 月 17 日
+  
+<br><b>级别：</b>&nbsp;初级
+  <br class="ibm-ind-link"><b>其他语言版本：</b>&nbsp;<a 
+onmouseover="linkQueryAppend(this)" 
+href="http://www.ibm.com/developerworks/java/library/j-javadev2-7.html">英
+文</a>  
+
+<br><b>访问情况</b>&nbsp;1144 次浏览
+<br><b>建议:</b>&nbsp;<span id="nCmts">0&nbsp;(<a href="#icomments">添加评论</a>)</span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" value="5" type="hidden"></p><div 
+id="art-rating-widget"><a href="javascript:void(0);"><img alt="1 star" 
+title="点击评分 1 星" src="j-javadev2-7_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="2 stars" 
+title="点击评分 2 星" src="j-javadev2-7_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="3 stars" 
+title="点击评分 3 星" src="j-javadev2-7_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="4 stars" 
+title="点击评分 4 星" src="j-javadev2-7_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="5 stars" 
+title="点击评分 5 星" src="j-javadev2-7_files/avg-star-on.gif" height="20" 
+width="20"></a><span id="rateTxt">  平均分 （共 6 个评分 ）</span></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ //  widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>对于软件开发人员而言，调试多线程应用程序中的非确定缺陷是最痛苦的工作。因此，像大多数人一样，我钟爱使用 Erlang 和 Scala 
+等函数语言进行并发编程。</p>
+			<p>Scala 和 Erlang 都采用了角色模型来进行并发编程，没有采用线程概念。围绕角色模型的创新并不仅限于语言本身，角色模型也可供
+ Kilim 等基于 Java 的角色框架使用。</p>
+			<p>Kilim 对角色模型的使用非常直观，稍后您将看到，该库使构建并发应用程序变得异常简单。</p>
+			<p><a name="N10074"><span class="atitle">多核挑战</span></a></p>
+			<p>在 2005 年，Herb Sutter 编写了一篇现在仍然颇为著名的文章 “The Free Lunch is Over: A
+    Fundamental Turn Toward Concurrency in 
+Software”。在这篇文章中，他摒弃了一直误导着人们的观念，那就是摩尔定律将继续促进越来越高的 CPU 时钟速率。</p>
+			<p>Sutter 预言了 “免费午餐” 
+的终结，通过越来越快的芯片来捎带提升软件应用程序的性能将不再可能。相反，他认为应用程序性能的显著提升将需要利用多核芯片架构来实现。</p>
+			<p>事实证明他是对的。芯片制造商已经达到了一种硬性限制，芯片速率已稳定在 3.5 GHz 
+左右多年了。随着制造商越来越快地增加芯片上的核心数量，摩尔定律在多核领域继续得以满足。</p>
+			<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>关于
+本系列</h2><div class="ibm-container-body">
+				
+				<p>自 Java 技术首次诞生以来，Java 
+开发格局已发生了翻天覆地的变化。得益于成熟的开源框架和可靠的租赁部署基础设施，现在可以迅速而经济地组装、测试、运行和维护 Java 
+应用程序。在本 <a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp?search_by=Java+%E5%BC%80%E5%8F%91+2.0">系
+列</a> 中，Andrew Glover 探索使这种新的 Java 开发风格成为可能的各种技术和工具。</p>
+			</div></div>
+			<p>Sutter 
+还提到并发编程将使开发人员能够利用多核架构。但是，他补充道，“相比如今的各种语言提供的编程模型，我们亟需一种更高级的并发编程模型。”</p>
+			<p>Java 等语言的基本编程模型是<em>基于线程的</em>。尽管多线程应用程序并不是很难编写，但<em>正确</em> 
+编写它们仍然面临许多挑战。并发编程的一个困难之处是利用线程来考虑并发性。如今已有许多并发模型，一种特别有趣并获得了 Java 
+社区认可的模型就是角色模型。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N100A0"><span class="atitle">角色模型</span></a></p>
+			<p>角色模型是一种不同的并发进程建模方式。与通过共享内存与锁交互的线程不同，角色模型利用了 “角色” 
+概念，使用邮箱来传递异步消息。在这里，<em>邮箱</em> 
+类似于实际生活中的邮箱，消息可以存储并供其他角色检索，以便处理。邮箱有效地将各个进程彼此分开，而不用共享内存中的变量。</p>
+			<p>角色充当着独立且完全不同的实体，不会共享内存来进行通信。实际上，角色仅能通过邮箱通信。角色模型中没有锁和同步块，所以不会出现由它们引
+发的问题，比如死锁、严重的丢失更新问题。而且，角色能够并发工作，而不是采用某种顺序方式。因此，角色更加安全（不需要锁和同步），角色模型本身能够处
+理协调问题。在本质上，角色模型使并发编程更加简单了。</p>
+			<p>角色模型并不是一个新概念，它已经存在很长时间了。一些语言（比如 Erlang 和 
+Scala）的并发模型就是基于角色的，而不是基于线程。实际上，Erlang 在企业环境中的成功（Erlang 由 Ericsson 
+创建，在电信领域有着悠久的历史）无疑使角色模型变得更加流行，曝光率更高，而且这也使它成为了其他语言的一种可行的选择。Erlang 
+是角色模型更安全的并发编程方法的一个杰出示例。</p>
+			<p>不幸的是，角色模型并没有植入到 Java 平台中，但我们可以通过各种方式使用它。JVM 对替代语言的开放性意味着您可以通过 Java
+ 平台语言（比如 Scala 或 Groovy）来利用角色（参见 <a href="#resources">参考资料</a>，了解 Groovy
+ 的角色库 GPars）。另外，您可以试用一种支持角色模型且基于 Java 的库，比如 Kilim。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N100B9"><span class="atitle">Kilim 中的角色</span></a></p>
+			<p>Kilim 是一个使用 Java 编写的库，融入了角色模型的概念。在 Kilim 中，“角色” 是使用 Kilim 的 <code>Task</code>
+ 类型来表示的。<code>Task</code> 是轻量型的线程，它们通过 Kilim 的 <code>Mailbox</code> 
+类型与其他 <code>Task</code> 通信。</p>
+			<p>
+				<code>Mailbox</code> 可以接受任何类型的 “消息”。例如，<code>Mailbox</code> 类型接受 <code>java.lang.Object</code>。<code>Task</code>
+ 可以发送 <code>String</code> 消息或者甚至自定义的消息类型，这完全取决于您自己。</p>
+			<p>在 Kilim 中，所有实体都通过方法签名捆绑在一起，如果您需要同时执行几项操作，可以在一个方法中指定该行为，扩大该方法的签名以抛出
+ <code>Pausable</code>。因此，在 Kilim 中创建并发类就像在 Java 中实现 <code>Runnable</code>
+ 或扩展 <code>Thread</code> 一样简单。只是使用 <code>Runnable</code> 或 <code>Thread</code>
+ 的附加实体（比如关键字 <code>synchronized</code>）更少了。</p>
+			<p>最后，Kilim 的魔力是由一个称为 weaver 的后期进程来实现的，该进程转换类的字节码。包含 <code>Pausable</code>
+				<code>throws</code> 字句的方法在运行时由一个调度程序处理，该调度程序包含在 Kilim 
+库中。该调度程序处理有限数量的内核线程。可以利用此工具来处理更多的轻量型线程，这可以最大限度地提高上下文切换和启动的速度。每个线程的堆栈都是自动
+管理的。</p>
+			<p>在本质上，Kilim 使创建并发进程变得轻松而简单：只需从 Kilim 的 <code>Task</code> 类型进行扩展并实现 <code>execute</code>
+ 方法。编译新创建的支持并发性的类之后，对其运行 Kilim 的 weaver，您会实现显著的性能提升！</p>
+			<p>Kilim 最初是一种外来语言，但它带来了巨大的回报。角色模型（以及后来的 
+Kilim）使编写依赖于类似对象的异步操作对象变得更加简单和安全。您<em>可以</em> 使用 Java 
+的基本线程模型进行同样的操作（比如扩展 <code>Thread</code>），但这更具挑战性，因为它会将您带回锁和同步的世界中。简而言之，将
+您的并发编程模型转换为角色使多线程应用程序更容易编码。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N10124"><span class="atitle">Kilim 实战</span></a></p>
+			<p>在 Kilim 的角色模型中，消息通过 <code>Mailbox</code> 在进程之间传送。在许多情况下，您可以将 <code>Mailbox</code>
+ 看作队列。进程可以将一些项加入邮箱中，也可以从邮箱获取一些项，而且它们既可以采用阻塞方式，也可以采用非阻塞方式来这样做（阻塞对象是底层 
+Kilim 实现的轻量型进程，而不是内核线程）。</p>
+			<p>作为在 Kilim 中利用邮箱的一个示例，我编写了两个角色（<code>Calculator</code> 和 <code>DeferredDivision</code>），
+它们从 Kilim 的 <code>Task</code> 类型扩展而来。这些类将以一种并发方式协同工作。<code>DeferredDivision</code>
+ 对象将创建一个被除数和一个除数，但它不会尝试将这两个数相除。我们知道除法运算很耗资源，所以 <code>DeferredDivision</code>
+ 对象将要求 <code>Calculator</code> 类型来处理该任务。</p>
+			<p>这两个角色通过一个共享 <code>Mailbox</code> 实例通信，该实例接受一个 <code>Calculation</code>
+ 类型。这种消息类型非常简单 —— 已提供了被除数和除数，<code>Calculator</code> 随后将执行计算并设定相应的答案。<code>Calculator</code>
+ 然后将这个 <code>Calculation</code> 实例放回共享 <code>Mailbox</code> 中。 </p>
+			<p><a name="N1016B"><span class="smalltitle">Calculation</span></a></p>
+			<p>清单 1 给出了这个简单的 <code>Calculation</code> 类型。您会注意到这个类型不需要任何特殊的 Kilim 
+代码。实际上，它只是一个再普通不过的 Java bean。</p>
+			<br><a name="listing1"><b>清单 1. 一个 Calculation 类型的消息</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.math.BigDecimal;
+
+public class Calculation {
+ private BigDecimal dividend;
+ private BigDecimal divisor;
+ private BigDecimal answer;
+
+ public Calculation(BigDecimal dividend, BigDecimal divisor) {
+  super();
+  this.dividend = dividend;
+  this.divisor = divisor;
+ }
+
+ public BigDecimal getDividend() {
+  return dividend;
+ }
+
+ public BigDecimal getDivisor() {
+  return divisor;
+ }
+
+ public void setAnswer(BigDecimal ans){
+  this.answer = ans;
+ }
+
+ public BigDecimal getAnswer(){
+  return answer;
+ }
+
+ public String printAnswer() {
+  return "The answer of " + dividend + " divided by " + divisor +
+    " is " + answer;	
+ }
+}
+</pre></td></tr></tbody></table><br>
+			<p><a name="N10182"><span class="smalltitle">DeferredDivision</span></a></p>
+			<p>
+				<code>DeferredDivision</code> 类中使用了特定于 Kilim 
+的类。该类执行多项操作，但总体来讲它的工作非常简单：使用随机数（类型为 <code>BigDecimal</code>）创建 <code>Calculation</code>
+ 的实例，将它们发送到 <code>Calculator</code> 角色。而且，该类还会检查共享的 <code>MailBox</code>，
+以查看其中是否有任何 <code>Calculation</code>。如果检索到的一个 <code>Calculation</code> 
+实例有一个答案，<code>DeferredDivision</code> 将打印它。</p>
+			<br><a name="listing2"><b>清单 2. DeferredDivision 创建随机除数和被除数</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.Date;
+import java.util.Random;
+
+import kilim.Mailbox;
+import kilim.Pausable;
+import kilim.Task;
+
+public class DeferredDivision extends Task {
+
+ private Mailbox&lt;Calculation&gt; mailbox;
+
+ public DeferredDivision(Mailbox&lt;Calculation&gt; mailbox) {
+  super();
+  this.mailbox = mailbox;
+ }
+
+ @Override
+ public void execute() throws Pausable, Exception {
+  Random numberGenerator = new Random(new Date().getTime());
+  MathContext context = new MathContext(8);
+  while (true) {
+   System.out.println("I need to know the answer of something");
+   mailbox.putnb(new Calculation(
+     new BigDecimal(numberGenerator.nextDouble(), context), 
+     new BigDecimal(numberGenerator.nextDouble(), context)));
+   Task.sleep(1000);
+   Calculation answer = mailbox.getnb(); // no block
+   if (answer != null &amp;&amp; answer.getAnswer() != null) {
+    System.out.println("Answer is: " + answer.printAnswer());
+   }
+  }
+ }
+}
+</pre></td></tr></tbody></table><br>
+			<p>从清单 2 可以看到，<code>DeferredDivision</code> 类扩展了 Kilim 的 <code>Task</code>
+ 类型，后者实际上模仿了角色模型。注意，该类还改写了 <code>Task</code> 的 <code>execute</code> 
+方法，后者默认情况下抛出 <code>Pausable</code>。因此，<code>execute</code> 的操作将在 Kilim 
+的调度程序控制下进行。也就是说，Kilim 将确保 <code>execute</code> 以一种安全的方式并行地运行。</p>
+			<p>在 <code>execute</code> 方法内部，<code>DeferredDivision</code> 创建 <code>Calculation</code>
+ 的实例并将它们放在 <code>Mailbox</code> 中。它使用 <code>putnb</code> 
+方法以一种非阻塞方式完成此任务。</p>
+			<p>填充 <code>mailbox</code> 后，<code>DeferredDivision</code> 进入休眠状态 —— 
+注意，与处于休眠状态的内核线程不同，它是由 Kilim 托管的轻量型线程。当角色唤醒之后，像前面提到的一样，它在 <code>mailbox</code>
+ 中查找任何 <code>Calculation</code>。此调用也是非阻塞的，这意味着 <code>getnb</code> 可以返回 <code>null</code>。
+如果 <code>DeferredDivision</code> 找到一个 <code>Calculation</code> 实例，并且该实例的
+ <code>getAnswer</code> 方法有一个值（也就是说，不是一个已由 <code>Calculator</code> 
+类型处理过的 <code>Calculation</code> 实例），它将该值打印到控制台。</p>
+			<p><a name="N1021A"><span class="smalltitle">Calculator</span></a></p>
+			<p>
+				<code>Mailbox</code> 的另一端是 <code>Calculator</code>。与清单 2 中定义的 <code>DeferredDivision</code>
+ 角色类似，<code>Calculator</code> 也扩展了 Kilim 的 <code>Task</code> 并实现了 <code>execute</code>
+ 方法。一定要注意两个角色都共享<em>同一个 <code>Mailbox</code> 实例</em>。它们不能与不同的 <code>Mailbox</code>
+ 通信，它们需要共享一个实例。相应地，两个角色都通过它们的构造函数接受一个有类型 <code>Mailbox</code>。</p>
+			<br><a name="listing3"><b>清单 3. 最终的实际运算角色：Calculator</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import java.math.RoundingMode;
+
+import kilim.Mailbox;
+import kilim.Pausable;
+import kilim.Task;
+
+public class Calculator extends Task{
+
+ private Mailbox&lt;Calculation&gt; mailbox;
+
+ public Calculator(Mailbox&lt;Calculation&gt; mailbox) {
+  super();
+  this.mailbox = mailbox;
+ }
+
+ @Override
+ public void execute() throws Pausable, Exception {
+  while (true) {			
+   Calculation calc = mailbox.get(); // blocks
+   if (calc.getAnswer() == null) {
+    calc.setAnswer(calc.getDividend().divide(calc.getDivisor(), 8, 
+      RoundingMode.HALF_UP));				
+    System.out.println("Calculator determined answer");
+    mailbox.putnb(calc);
+   }
+   Task.sleep(1000);
+  }
+ }
+}
+</pre></td></tr></tbody></table><br>
+			<p>
+				<code>Calculator</code> 的 <code>execute</code> 方法与 <code>DeferredDivision</code>
+ 的相应方法一样，不断循环查找共享 <code>Mailbox</code> 中的项。区别在于 <code>Calculator</code> 
+调用 <code>get</code> 方法，这是一种阻塞调用。相应地，当一条 <code>Calculation</code> “消息” 
+显示时，它执行请求的除法运算。最后，<code>Calculator</code> 将修改的 <code>Calculation</code> 
+放回到 <code>Mailbox</code> 中（采用非阻塞方式），然后进入休眠状态。两个角色中的休眠调用都仅用于简化控制台的读取。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N1027F"><span class="atitle">Kilim 的 weaver</span></a></p>
+			<p>在前面，我提到了 Kilim 通过其 <em>weaver</em> 执行字节码操作。这是一个简单的后处理过程，您在编译了类<em>之
+后</em> 运行它。weaver 然后将一些特殊代码添加到包含 <code>Pausable</code> 标记的各种类和方法中。 </p>
+			<p>调用 weaver 非常简单。举例而言，在清单 4 中，我使用 Ant 调用 Weaver。我需要做的只是告诉 Weaver 
+我需要的类在哪里，以及在哪里放置生成的字节码。在这个例子中，我让 Weaver 更改 <code>target/classes</code> 
+字典中的类，并将生成的字节码写回到该字典。</p>
+			<br><a name="listing4"><b>清单 4. Ant 调用 Kilim 的 weaver</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+&lt;target name="weave" depends="compile" description="handles Kilim byte code weaving"&gt;
+ &lt;java classname="kilim.tools.Weaver" fork="yes"&gt;
+  &lt;classpath refid="classpath" /&gt;
+  &lt;arg value="-d" /&gt;
+  &lt;arg value="./target/classes" /&gt;
+  &lt;arg line="./target/classes" /&gt;
+ &lt;/java&gt;
+&lt;/target&gt;
+</pre></td></tr></tbody></table><br>
+			<p>更改代码之后，我就可以在运行时随意利用 Kilim 了，只要我在类路径中包含了它的 .jar 文件。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N102A6"><span class="atitle">在运行时使用 Kilim</span></a></p>
+			<p>将这两个角色应用到实际中就像在 Java 代码中应用两个普通的 <code>Thread</code> 一样。您使用同一个共享 <code>sharedMailbox</code>
+ 实例创建并扩展两个角色实例，然后调用 <code>start</code> 方法来实际设置它们。</p>
+			<br><a name="listing5"><b>清单 5. 一个简单的程序</b></a><br><table border="0" 
+cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import kilim.Mailbox;
+import kilim.Task;
+
+public class CalculationCooperation {
+ public static void main(String[] args) {
+  Mailbox&lt;Calculation&gt; sharedMailbox = new Mailbox&lt;Calculation&gt;();
+
+  Task deferred = new DeferredDivision(sharedMailbox);
+  Task calculator = new Calculator(sharedMailbox);
+
+  deffered.start();
+  calculator.start();
+
+ }
+}
+</pre></td></tr></tbody></table><br>
+			<p>运行这两个角色会得到如清单 6 所示的输出。如果运行此代码，您的输出可能有所不同，但活动的逻辑顺序将保持不变。在清单 6 中，<code>DeferredDivision</code>
+ 请求计算，<code>Calculator</code> 使用一个答案作为响应。</p>
+			<br><a name="listing6"><b>清单 6. 您的输出将有所不同 —— 各个角色不是一成不变的</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+[java] I need to know the answer of something
+[java] Calculator determined answer
+[java] Answer is: The answer of 0.36477377 divided by 0.96829189 is 0.37671881
+[java] I need to know the answer of something
+[java] Calculator determined answer
+[java] Answer is: The answer of 0.40326269 divided by 0.38055487 is 1.05967029
+[java] I need to know the answer of something
+[java] Calculator determined answer
+[java] Answer is: The answer of 0.16258913 divided by 0.91854403 is 0.17700744
+[java] I need to know the answer of something
+[java] Calculator determined answer
+[java] Answer is: The answer of 0.77380722 divided by 0.49075363 is 1.57677330
+</pre></td></tr></tbody></table><br>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N102DA"><span class="atitle">结束语</span></a></p>
+			<p>角色模型支持采用一种更安全的机制来在进程（或角色）之间进行消息传递，极大地方便了并发编程。此模型的实现因语言和框架的不同而不同。我建
+议参考 Erlang 的角色，其次是 Scala 的角色。两种实现都很简洁，都具有各自的语法。</p>
+			<p>如果您想要利用 “plain Jane” Java 角色，那么您最好的选择可能是 Kilim 或一种类似框架（参见 <a 
+href="#resources">参考资料</a>）。世上没有免费的午餐，但基于角色的框架确实使并发编程以及利用多核进程变得更加简单。</p>
+		<!-- CMA ID: 490285 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file:  dw-article-6.0-beta.xsl -->
+<br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><b>学习</b></p><ul><li>“<a
+ href="http://www.drdobbs.com/web-development/184405990">A Fundamental 
+Turn Toward
+    Concurrency in Software</a>”（Herb Sutter，Dr. Dobb's Journal，2005 年 3
+ 月）：Herb Sutter 最初介绍新的并发编程方法的文章。<br><br></li><li>“<a 
+href="http://sujitpal.blogspot.com/2009/01/more-java-actor-frameworks-compared.html">More
+ Java Actor Frameworks Compared</a>”（Salmon Run，2009 年 1 月）：Blogger 
+Sujit Pal 比较基于 Java 与基于 Scala 的角色框架 Kilim、Jetlang、ActorFoundry 和 Actors 
+Guild。<br><br></li><li>“<a 
+href="http://www.javaworld.com/javaworld/jw-02-2009/jw-02-actor-concurrency1.html">Understanding
+ actor concurrency, Part 1: Actors in Erlang</a>”（Alex 
+Miller，JavaWorld，2009 年 2 月）：进一步探索 Erlang 和 Scala 实现的角色模型。<br><br></li><li>“<a
+ href="http://www.ibm.com/developerworks/java/library/j-cb04186.html" 
+onmouseover="linkQueryAppend(this)">Crossing borders:
+    Concurrent programming with Erlang</a>”（Bruce 
+Tate，developerWorks，2006 年 4 月）：找到使 Erlang 在并发编程、分布式系统和软实时系统领域流行的背后因素。<br><br></li><li>“<a
+ href="http://www.ibm.com/developerworks/cn/java/j-scala02049.html">面向 
+Java 开发人员的 Scala 指南：深入了解 Scala 并发性</a>”（Ted Neward，developerWorks，2009 年
+ 2 月）：Ted Neward 深入剖析 Scala 语言和环境提供的各种并发性特征和库。<br><br></li><li>
+				<a href="http://www.malhar.net/sriram/kilim/">进一步了解 Kilim</a>：Kilim 
+创建者 Sriram Srinivasan 维护此页面，其中包括 Kilim 的简介，以及白皮书、教程和视频演示的链接。<br><br></li><li>浏
+览
+<a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技
+术书店</a>，获取关于这些或其他技术主题的图书。<br><br></li><li>
+				<a href="http://www.ibm.com/developerworks/cn/java/">developerWorks 
+Java 技术专区</a>：找到数百篇关于 Java 编程各个方面的文章。<br><br></li></ul><p><b>获得产品和技术</b></p><ul><li>
+				<a href="http://gpars.codehaus.org/">GPars - Groovy 并行系统</a>：开始使用 
+Groovy 基于角色的框架在 Java 平台上进行并发编程。<br><br></li><li>
+				<a href="http://www.malhar.net/sriram/kilim/">下载 Kilim</a>：一种 Java 
+消息传递框架，提供了超轻量级的线程，推动了线程之间迅速、安全、无需复制的消息传递的实现。<br><br></li></ul><p><b>讨论</b></p><ul><li>
+				<a 
+href="http://developer.amazonwebservices.com/connect/forumindex.jspa">Amazon
+ Web 服务讨论论坛</a>：加入 EC2 讨论论坛。<br><br></li><li>加入 <a 
+href="http://www.ibm.com/developerworks/mydeveloperworks" 
+onmouseover="linkQueryAppend(this)">My developerWorks 社区</a>。<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div 
+class="ibm-container ibm-portrait-module ibm-alternate-two"><div 
+class="ibm-container-body"><img src="j-javadev2-7_files/p-aglover.jpg" 
+class="dw-author-img" alt="Andrew Glover" height="80" width="64"><p><a 
+name="author1"> </a>Andrew Glover 
+是一名开发人员、作家、演讲家和企业家，他对行为驱动开发、持续集成和敏捷软件开发有巨大的热情。可以通过他的 <a 
+href="http://www.thediscoblog.com/">博客</a> 关注他。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">建议</a></span></p>
+  <div id="dw-icomments-container" class="ibm-no-print">
+    <div class="ibm-alternate-rule"><hr></div>
+    <div class="ibm-alternate-rule"><hr></div>
+    <!-- Comment_Script -->
+    
+    <a id="comments" 
+href="http://www.ibm.com/developerworks/cn/java/comments"></a>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signIn = '登录';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.cmt = '评论：';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <b>{1}</b>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+// ]]>
+    </script>
+    <script language="JavaScript" src="j-javadev2-7_files/insertcomment.js" type="text/javascript">//</script>
+    <div id="threadShow"><div id="cmtTog" style=""><p><span id="numCmts">0</span>&nbsp;
+条评论 <span class="dw-bar">|</span> <a 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-javadev2-7.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk" 
+class="dw-icomment-link">添加评论</a><a class="dw-icomment-report" 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834">举
+报不良信息</a></p><div class="ibm-alternate-rule"><hr></div><div 
+style="display: none;" id="commentForm"><div class="ibm-container"><h2>添
+加评论</h2><div class="ibm-container-body"><p>标有星号（<span 
+class="ibm-required">*</span>）的是必填项目。</p><span id="infoCmt"></span><div 
+class="ibm-rule"><hr></div><form method="post" action="" 
+class="ibm-column-form" enctype="multipart/form-data" focus="name" 
+name="form"><p><label for="newCmt">评论：<span class="ibm-required">*</span></label><br><textarea
+ name="newCmt" id="newCmt" cols="120" rows="4"></textarea></p><div 
+class="ibm-alternate-rule"><hr></div><p class="ibm-buttons-row"><input 
+value="发布" name="postCmt" class="ibm-btn-arrow-sec" id="postCmt" 
+type="button"><span class="ibm-sep">&nbsp;</span><input value="清除评论" 
+name="clearCmt" class="ibm-btn-cancel-sec" id="clearCmt" type="button"><span
+ class="ibm-sep">&nbsp;</span><input value="取消" name="cancelCmt" 
+class="ibm-btn-cancel-sec" id="cancelCmt" type="button"></p></form></div></div></div><div
+ id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table
+ class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>快
+来添加第一条评论</p></td></tr></tbody></table></div></div></div><div id="paging"><p><a
+ style="display: none;" id="lastCmts" class="dw-icomment-link">显示最新的 5 
+条评论</a><span style="display: none;" id="cmtDivider"> <span 
+class="dw-bar">|</span> </span><a style="display: none;" id="nextCmts" 
+class="dw-icomment-link">显示后 5 条评论</a><span style="display: none;" 
+id="cmtDivider2"> <span class="dw-bar">|</span> </span><a 
+style="display: none;" id="viewAllCmts" class="dw-icomment-link">显示所有评论</a></p></div><p><a
+ 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-javadev2-7.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk2" 
+href="#icomments">添加评论</a></p><div class="ibm-alternate-rule"><hr></div><div
+ class="ibm-alternate-rule"><hr></div></div></div>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+    </script>
+  </div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" 
+href="#ibm-pcon">回页首</a></p>
+  <p><a href="http://www.ibm.com/developerworks/cn/ibm/trademarks/">商标</a>
+ &nbsp;|&nbsp; <a 
+href="http://www.ibm.com/developerworks/cn/mydw_terms/">My 
+developerWorks 使用条款与条件</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div
+ class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Java 
+technology</div><div class="metavalue">ArticleID=490285</div><div 
+class="metavalue">ArticleTitle=Java 开发 2.0: Kilim 简介</div><div 
+class="metavalue">publish-date=05172010</div><div class="metavalue">author1-email=ajglover@gmail.com</div><div
+ class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace('<', '%3C')+'</div>');</script><div
+ class="metavalue">url=http://www.ibm.com/developerworks/cn/java/j-javadev2-7.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img
+ alt="" src="j-javadev2-7_files/c.gif" height="1" width="1"><ul 
+class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N10074">多
+核挑战</a></li><li><a class="ibm-feature-link" href="#N100A0">角色模型</a></li><li><a
+ class="ibm-feature-link" href="#N100B9">Kilim 中的角色</a></li><li><a 
+class="ibm-feature-link" href="#N10124">Kilim 实战</a></li><li><a 
+class="ibm-feature-link" href="#N1027F">Kilim 的 weaver</a></li><li><a 
+class="ibm-feature-link" href="#N102A6">在运行时使用 Kilim</a></li><li><a 
+class="ibm-feature-link" href="#N102DA">结束语</a></li><li><a 
+class="ibm-feature-link" href="#resources">参考资料 </a></li><li><a 
+class="ibm-feature-link" href="#author">关于作者</a></li><li><a 
+class="ibm-feature-link" href="#icomments">建议</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img
+ alt="Help" src="j-javadev2-7_files/help_icon.gif" align="top" 
+height="16" width="16"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state 
+ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 
+中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong>
+ 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标
+签&lt; /strong&gt; 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</strong></p></div>
+<div class="ibm-access"><strong>使用搜索文本框在 My developerWorks 
+中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java 
+technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java 
+technology，Linux，WebSphere）。</strong></div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form 
+action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" 
+method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong><strong>搜索所有标签</strong></strong></label>
+<strong><input name="lang" value="zh" type="hidden">
+<input id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input
+ src="j-javadev2-7_files/short-btn.gif" class="ibm-btn-view" alt="submit
+ search" title="提交搜索" value="Search" type="image"></strong></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a
+ id="a-my" href="javascript:;">我的文章标签</a><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><strong><a 
+id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的
+文章标签</strong></strong></p><strong><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></div>
+<div id="dw-tag-cloud"></div><strong>  
+</strong></div><strong>   
+</strong></div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+<strong> <!-- END_IBM-PCON -->
+</strong></div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li><a href="http://www.ibm.com/ibm/syndication/cn/zh/">IBM RSS 可定制阅读服务</a></li><li><a
+ href="http://www.ibm.com/employment/cn/">求才启事</a></li><li 
+class="ibm-first"><strong><a href="http://www.ibm.com/ibm/cn/zh/">关于IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></strong></li>
+<li><strong><a href="http://www.ibm.com/contact/cn/zh/">联系IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/legal/cn/zh/">使用条款</a></strong></li>
+</ul><div id="ibm-social-tools"><ul><li><a rel="print" href="#" 
+title="打印本页面" class="ibm-share-print"></a></li><li><a rel="email" 
+href="#" title="用电子邮件发送本页面" class="ibm-share-email"></a></li></ul></div>
+</div><div id="ibm-overlay-top"></div>
+<!-- FOOTER_END -->
+
+<strong> <!-- END_IBM-TOP -->
+</strong></div>
+<strong> 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="j-javadev2-7_files/jquery_002.js"></script>
+<script type="text/javascript" language="JavaScript" src="j-javadev2-7_files/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="j-javadev2-7_files/jquery_003.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end --><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=1&ibmAdoptPhase=648&ibmRole=710";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+</strong><div id="ibm-metrics">
+<script src="j-javadev2-7_files/stats.js" type="text/javascript">//</script>
+</div>
+
+<div style="position: absolute; z-index: 95; display: none;" 
+id="cluetip-waitimage"></div><div style="z-index: 96; display: none; 
+position: absolute;" id="cluetip"><div style="z-index: 95; opacity: 0.1;
+ top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 
+0);"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; 
+position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: 
+absolute; background-color: rgb(0, 0, 0);"></div><div style="z-index: 
+92; opacity: 0.1; top: 4px; left: 4px; position: absolute; 
+background-color: rgb(0, 0, 0);"></div><div style="z-index: 91; opacity:
+ 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 
+0, 0);"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 
+6px; position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="position: relative; z-index: 97;" id="cluetip-outer"><h3 
+id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div 
+id="cluetip-extra"></div><div style="z-index: 97;" id="cluetip-arrows" 
+class="cluetip-arrows"></div></div><div style="position: absolute; 
+display: none; z-index: 9999;" id="livemargins_control"><img 
+src="j-javadev2-7_files/monitor-background-horizontal.png" 
+style="position: absolute; left: -77px; top: -5px;" height="5" 
+width="77">	<img 
+src="j-javadev2-7_files/monitor-background-vertical.png" 
+style="position: absolute; left: 0pt; top: -5px;">	<img 
+id="monitor-play-button" 
+src="j-javadev2-7_files/monitor-play-button.png" 
+onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5" 
+style="position: absolute; left: 1px; top: 0pt; opacity: 0.5; cursor: 
+pointer;"></div></body></html>

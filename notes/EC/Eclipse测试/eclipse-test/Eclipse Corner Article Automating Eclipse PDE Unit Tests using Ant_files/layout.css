@@ -1,0 +1,27 @@
+* {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+HTML {
+	HEIGHT: 100%; OVERFLOW: inherit
+}
+BODY {
+	WIDTH: 100%; HEIGHT: 100%
+}
+#novaWrapper {
+	MARGIN: 0px auto; MIN-HEIGHT: 100%; WIDTH: 980px
+}
+* HTML #wrapper {
+	HEIGHT: 100%
+}
+#clearHeader {
+	TEXT-ALIGN: left; HEIGHT: 92px
+}
+#clearFooter {
+	HEIGHT: 34px; CLEAR: both
+}
+#footer {
+	MARGIN: -40px auto; WIDTH: 980px; HEIGHT: 47px
+}
+#novaContent {
+	BORDER-LEFT: #d9d9d9 1px solid; MIN-HEIGHT: 100%; BORDER-RIGHT: #d9d9d9 1px solid
+}

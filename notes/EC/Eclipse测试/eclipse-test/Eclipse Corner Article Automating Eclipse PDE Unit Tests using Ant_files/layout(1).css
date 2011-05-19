@@ -1,0 +1,36 @@
+.article {
+	MARGIN-LEFT: 10px; MARGIN-RIGHT: 10px
+}
+.article P {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10pt
+}
+TABLE {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10pt
+}
+TD {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10pt
+}
+TH {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10pt
+}
+.article PRE {
+	FONT-FAMILY: "Courier New", Courier, mono; FONT-SIZE: 10pt
+}
+.article H2 {
+	LINE-HEIGHT: 14px; FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 18pt; FONT-WEIGHT: bold
+}
+.article CODE {
+	FONT-FAMILY: "Courier New", Courier, mono; FONT-SIZE: 10pt
+}
+.article SUP {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10px
+}
+.article H3 {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 14pt; FONT-WEIGHT: bold
+}
+.article LI {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 10pt
+}
+.article H1 {
+	FONT-FAMILY: arial, helvetica, geneva; FONT-SIZE: 28px; FONT-WEIGHT: bold
+}

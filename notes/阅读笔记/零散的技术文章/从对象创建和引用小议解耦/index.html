@@ -1,0 +1,1211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+
+
+  
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>从对象创建和引用小议解耦</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 
+&quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 
+nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen 
+true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l
+ gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" 
+content="解耦是软件设计领域中一个永恒不变的话题，在软件设计过程中，为了最大程度降低各个应用组件之间的耦合性，以提高其可维护性和可复用
+性，出现了诸多设计原则和解决方案。例如面向接口编程，开 - 
+闭原则，依赖倒转原则等，另外更出现一系列设计模式。同时，由于如何实现解耦涉及面相当广，大至组件的划分和关联，小至对象的创建和引用，往往使软件开发
+人员感到迷惑。本文将从对象创建和引用的角度出发，介绍常见的一些解决方案，并比较之间的差别，期望读者能从一个侧面加深对解耦概念的理解。">
+<meta name="Description" 
+content="解耦是软件设计领域中一个永恒不变的话题，在软件设计过程中，为了最大程度降低各个应用组件之间的耦合性，以提高其可维护性和可复用
+性，出现了诸多设计原则和解决方案。例如面向接口编程，开 - 
+闭原则，依赖倒转原则等，另外更出现一系列设计模式。同时，由于如何实现解耦涉及面相当广，大至组件的划分和关联，小至对象的创建和引用，往往使软件开发
+人员感到迷惑。本文将从对象创建和引用的角度出发，介绍常见的一些解决方案，并比较之间的差别，期望读者能从一个侧面加深对解耦概念的理解。">
+<meta name="Keywords" content="Java, 解耦, 对象创建, 引用, 设计模式, tttjca">
+<meta name="DC.Date" scheme="iso8601" content="2010-07-15">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" 
+content="SOFDCJVACN">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM 
+Corporation&nbsp;2010">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2010-07-15">
+<meta name="title" content="从对象创建和引用小议解耦">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="index_files/all.css" media="all" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-uas.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-fonts.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/handheld.css" media="handheld" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/print.css" media="print" rel="stylesheet" 
+title="www" type="text/css">
+<!-- dW-specific CSS -->
+<link href="index_files/dw-screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/dw-local-site.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/jquery.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+
+<script src="index_files/ibmcommon.js" type="text/javascript">//</script><link
+ title="IBM Search" 
+href="http://www.ibm.com/search/opensearch/description.xml" 
+type="application/opensearchdescription+xml" rel="search">
+<script src="index_files/dynamicnav.js" type="text/javascript">//</script>
+<!-- Pull-down script --> 
+<script type="text/javascript" src="index_files/dropdown.js">//</script>
+<!-- dW functional JS -->
+<script language="JavaScript" src="index_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+
+// ]]>
+</script>
+
+
+<script language="JavaScript" src="index_files/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="index_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script charset="UTF-8" src="index_files/flash-detect.js" type="text/javascript" id="flashdetect"></script><script charset="UTF-8" src="index_files/cnzh-utf8.js" type="text/javascript" id="mhMenu"></script><script charset="UTF-8" src="index_files/Controller_002" type="text/javascript" id="dynavEA"></script><script charset="UTF-8" src="index_files/Controller" type="text/javascript" id="wiBundle"></script></head><body
+ id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#main">跳转到主要内容</a></div><div 
+id="ibm-masthead"><div id="ibm-logo"><a href="http://www.ibm.com/cn/zh/"><img
+ src="index_files/ibm-logo.gif" alt="IBM®" height="50" width="110"></a></div><ul
+ id="ibm-geo"><li class="ibm-first" id="ibm-country">中国</li><li 
+id="ibm-change-country">[ <a 
+href="http://www.ibm.com/developerworks/cn/country/">选择</a> ]</li></ul><form
+ id="ibm-search-form" 
+action="//www.ibm.com/developerworks/search/searchResults.jsp" 
+method="get" name="form1"><input name="searchType" value="1" 
+type="hidden"><input name="searchSite" value="dWChina" type="hidden"><input
+ name="pageLang" value="zh" type="hidden"><input name="langEncoding" 
+value="UTF8" type="hidden"><p><span id="ibm-search-scope"><label 
+for="sn"><img src="index_files/c_002.gif" alt="Search in:" height="1" 
+width="1"></label><select class="input-local" name="searchScope" id="sn"
+ size="1"><option value="dW" selected="selected">dW 全部内容</option><option
+ value="dW">--------------</option><option value="aixunix">&nbsp;&nbsp;AIX
+ and UNIX</option><option value="dmdd">&nbsp;&nbsp;Info Mgmt</option><option
+ value="lotusdd">&nbsp;&nbsp;Lotus</option><option value="rdd">&nbsp;&nbsp;Rational</option><option
+ value="wsdd">&nbsp;&nbsp;WebSphere</option><option value="dW">--------------</option><option
+ value="javaZ">&nbsp;&nbsp;Java technology</option><option 
+value="linuxZ">&nbsp;&nbsp;Linux</option><option value="opensrcZ">&nbsp;&nbsp;Open
+ source</option><option value="webservZ">&nbsp;&nbsp;SOA &amp; Web 
+services</option><option value="webarchZ">&nbsp;&nbsp;Web dev</option><option
+ value="xmlZ">&nbsp;&nbsp;XML</option><option value="dW">--------------</option><option
+ value="all">IBM 全部内容</option></select></span><label for="q"><img 
+alt="搜索:" src="index_files/c_002.gif" height="1" width="1"></label><input
+ name="query" maxlength="100" id="q" type="text"><input id="ibm-search" 
+class="ibm-btn-search" name="Search" value="搜索" type="submit"></p></form><div
+ id="ibm-site-name"><!-- IBM site name container --></div><div 
+id="ibm-universal-nav"><ul><li class="ibm-first" id="ibm-unav-home"><a 
+href="http://www.ibm.com/cn/zh/">首页</a></li><li style="z-index: 8;" 
+class=" ibm-is-active" id="ibm-unav-solutions"><a class=" 
+ibm-unav-has-child" href="http://www.ibm.com/solutions/cn/zh/">解决方案</a><div
+ style="z-index: 9; display: none;" id="gi-2d0250d0" 
+class="ibm-unav-menu"><span style="display: none; height: 284px;" 
+id="gi-2d0250d0-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li 
+class=" ibm-place-holder"><a id="gi-4fdcd30d-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按行业分类</a><div id="gi-4fdcd30d" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-4fdcd30d-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/">金融业</a></li><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/banking.shtml">银行
+业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/insurance.shtml">保
+险业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/retail/index.shtml?ca=masterhead&amp;me=cndotcom">零
+售业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/manufacture/index.shtml?ca=masterhead&amp;me=cndotcom">制
+造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/">流通业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_commu.shtml">电
+子行业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/telecom/solution/">电信业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/smb/industries/media/index.shtml?ca=masterhead&amp;me=cndotcom">媒
+体与娱乐业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/transport.shtml">交
+通运输业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_aero.shtml">航
+空航天造船业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_auto.shtml">汽
+车制造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_petro.shtml">石
+油石化业</a></li><li><a href="http://www.ibm.com/cn/public/offertogov/h/">政府
+与公众事业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/education/solution/">教育</a></li><li><a
+ href="http://www.ibm.com/cn/public/healthcare/solutions/">医疗与生命科学</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-9c212e90-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按业务需求分类</a><div id="gi-9c212e90" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-9c212e90-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/smb/cn/business/infrastructure/index.shtml?ca=masterhead&amp;me=cndotcom">IT
+ 基础架构解决方案</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/bi/index.shtml?ca=masterhead&amp;me=cndotcom">商
+务智能（BI）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/scm/index.shtml?ca=masterhead&amp;me=cndotcom">供
+应链管理（SCM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/erp/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资源规划（ERP）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/crm/index.shtml?ca=masterhead&amp;me=cndotcom">客
+户关系管理（CRM）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/plm/index.shtml?ca=masterhead&amp;me=cndotcom">产
+品生命周期管理（PLM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/oa/index.shtml?ca=masterhead&amp;me=cndotcom">办
+公自动化(OA)</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/eam/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资产管理(EAM)</a></li><li><a 
+href="http://www.ibm.com/software/cn/db2/content-management/industry-solutions/">内
+容管理</a></li><li><a 
+href="http://www.ibm.com/cn/software/solution/info_conformity.html">信息集成</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-e946287d-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按顶级业务合作伙伴分类</a><div id="gi-e946287d" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-e946287d-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/services/hotsale/cisco/index.shtml">IBM 和 
+Cisco</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/oracle/index.shtml">IBM
+ 与 Oracle</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/sap/index.shtml">IBM 与
+ SAP</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/">业务咨询</a></li><li><a 
+href="http://www.ibm.com/systems/cn/dihub/index.shtml">IBM 动态架构</a></li><li><a
+ href="http://www.ibm.com/software/cn/smartwork/">IBM智慧运作</a></li><li><a
+ href="http://www.ibm.com/software/cn/nihub/">IBM新锐洞察</a></li><li><a 
+href="http://www.ibm.com/software/cn/spsm/">IBM智慧产品与服务</a></li><li><a 
+href="http://www.ibm.com/software/cn/soa/launch/index.html">面向服务架构 (SOA)</a></li><li><a
+ href="http://www.ibm.com/cn/financing/index.shtml">融资租赁</a></li><li><a 
+href="http://www.ibm.com/smb/cn/business/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的解决方案</a></li><li><a 
+href="http://www.ibm.com/software/cn/solution/">软件行业解决方案</a></li><li><a 
+href="http://www.ibm.com/city/cn/index.shtml?re=masthead">IBM 区域解决方案</a></li><li><a
+ href="http://www.ibm.com/cn/services/bcs/">更多业务解决方案</a></li></ul></div></li><li
+ id="ibm-unav-services"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/technologyservices/cn/zh/">服务</a><div 
+id="gi-10bc6cdd" class="ibm-unav-menu"><span id="gi-10bc6cdd-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-c8e9887c-trigger" class=" ibm-unav-menu-has-child" href="#">按服务项目
+分类</a><div id="gi-c8e9887c" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-c8e9887c-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www-31.ibm.com/cn/services/managedservices/">弹性运维服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/bcrs/c1000411">业
+务连续与灾难恢复服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/imc/c1025977">企
+业终端用户服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/gn/c1000412">网络
+服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025997">IT
+ 策略与基础架构服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000418">维
+护与技术支持服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025998">中
+间件服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/gts/outsourcing.html">外包服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/so/c1000405">企
+业 IT 安全服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025999">服
+务器服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1026000">数
+据中心及智能化集成服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000416">数
+据与存储服务</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-88d376eb-trigger" class=" ibm-unav-menu-has-child" href="#">按业务类型
+分类</a><div id="gi-88d376eb" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-88d376eb-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024566">竞
+争策略</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024555">营
+运/委外</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024567">顾
+客服务及忠诚度</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024553">通
+路策略实施</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024556">IT
+ 最适化</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024568">全
+新的工作环境</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024557">灵
+活可靠的基础建设</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024554">安
+全和防御</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024569">价
+值链效益</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-67072b24-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-67072b24" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-67072b24-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024588">跨
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024537">金融
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024548">银行
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024546">保险
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024547">零售
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024540">消费
+品</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024545">批发
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024550">电子
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024543">电信
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024538">媒体
+与娱乐</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024541">旅游
+和运输业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024542">汽车
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024552">石油
+石化行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024549">政府
+部门</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024644">能源
+与公用事业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024544">教育
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024536">医疗
+保健</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024539">生命
+科学</a></li></ul></div></li><li><a href="http://www.ibm.com/training/cn/">培
+训服务</a></li><li><a href="http://www.ibm.com/cn/software/service/">软件服务</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/igs/?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss">更多服务</a></li></ul></div></li>
+<li id="ibm-unav-products"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/products/cn/zh/">产品</a><div id="gi-913e5bdb" 
+class="ibm-unav-menu"><span id="gi-913e5bdb-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/shop/special.shtml">特惠产品和方案</a></li><li 
+class=" ibm-place-holder"><a id="gi-d60fb35f-trigger" class=" 
+ibm-unav-menu-has-child" href="#">软件</a><div id="gi-d60fb35f" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-d60fb35f-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/cn/software/">所
+有软件</a></li><li><a href="http://www.ibm.com/software/products/cn/zh">产品目
+录</a></li><li><a href="http://www.ibm.com/cn/software/db2/">Information 
+Management 信息管理软件</a></li><li><a 
+href="http://www.ibm.com/cn/software/lotus/">Lotus 协作办公软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/rational/">Rational 开发软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/tivoli/">Tivoli 服务管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/websphere/">WebSphere 应用系统和整合软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/zseries/">System z 服务器软件</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-5a97ff24-trigger" class=" 
+ibm-unav-menu-has-child" href="#">Systems 与服务器</a><div id="gi-5a97ff24" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-5a97ff24-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/systems/cn/">所
+有 IBM Systems 和服务器</a></li><li><a 
+href="http://www.ibm.com/systems/cn/power/index.shtml">Power Systems</a></li><li><a
+ href="http://www.ibm.com/cn/systems/i/index.shtml">System i （i系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/p/">System p （p系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/x/">System x （x系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/z/">System z （z系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/bladecenter/">BladeCenter 刀片服务器</a></li><li><a
+ href="http://www.ibm.com/cn/openpower">OpenPower 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/xseries/l1350.shtml">群集服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/unix/">UNIX 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/linux/index.shtml">Linux 服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/power/index.shtml">POWER 处理器的服务器</a></li><li><a
+ href="http://www.ibm.com/cn/servers/jump_intel.shtml">基于英特尔架构的服务器</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-54278123-trigger" class=" 
+ibm-unav-menu-has-child" href="#">存储产品</a><div id="gi-54278123" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-54278123-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/storage/cn/">所
+有存储产品</a></li><li><a href="http://www.ibm.com/storage/cn/disk/">磁盘存储系统</a></li><li><a
+ href="http://www.ibm.com/storage/cn/tape/">磁带存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/san/">存储区域网络</a></li><li><a 
+href="http://www.ibm.com/storage/cn/nas/">网络连接存储</a></li><li><a 
+href="http://www.ibm.com/storage/cn/software/">存储软件</a></li><li><a 
+href="http://www.ibm.com/storage/cn/product/index.shtml">存储产品排序（A - Z）</a></li></ul></div></li><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/offerfamily/igs/c1025846">网
+络安全</a></li><li><a href="http://www.ibm.com/cn/products/pos/">零售终端</a></li><li><a
+ 
+href="http://www.infoprintsolutionscompany.com/internet/wwsites.nsf/vwWebPublished/mainT1_cn">打
+印机 (InfoPrint)</a></li><li><a 
+href="http://www.ibm.com/cn/financing/icpe/">IBM 官方认证再制造设备</a></li><li><a
+ href="http://www.ibm.com/cn/servers/eserver/xseries/options.shtml">选件</a></li><li><a
+ href="http://www.ibm.com/cn/promotion/esg/xseries/">中低端产品特惠商城</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/hardware/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的特惠产品</a></li></ul></div></li>
+<li id="ibm-unav-support"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/support/cn/zh/">支持与下载</a><div id="gi-ecd0d91e" 
+class="ibm-unav-menu"><span id="gi-ecd0d91e-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-fd5073b9-trigger" class=" ibm-unav-menu-has-child" href="#">下载</a><div
+ id="gi-fd5073b9" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-fd5073b9-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/download/download.shtml">驱动程序和软件下载</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/support/troubleshooting/cn/">故障诊断与排除</a></li><li><a
+ href="http://www.ibm.com/support/advsrch.wss?rs=0&amp;loc=zh_CN">搜索</a></li><li
+ class=" ibm-place-holder"><a id="gi-f75dd687-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按产品查看</a><div id="gi-f75dd687" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-f75dd687-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/support/productsupport/sw_support.shtml">软件产
+品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/eserver.shtml">服务器</a></li><li><a
+ 
+href="http://www.ibm.com/cn/support/productsupport/storage_support.shtml">存
+储产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/print_support.shtml">打
+印机 (InfoPrint)</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/mysupport/">个性化支持</a></li><li><a 
+href="http://www.ibm.com/support/publications/cn/index.html">产品资料中心</a></li><li
+ class=" ibm-place-holder"><a id="gi-4ae9ccd5-trigger" class=" 
+ibm-unav-menu-has-child" href="#">电子化工具</a><div id="gi-4ae9ccd5" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-4ae9ccd5-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/electronic/uprtransition.wss?category=2&amp;locale=zh_CN">提
+交服务请求</a></li><li><a 
+href="https://www.ibm.com/support/electronic/portal/%21ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLt4y3dAXJgFku-pHIIgbxjnABX4_83FT9IKBEpDlQxCVQPyonNT0xuVI_WN9bP0C_IDc0otzb0REAowWZNg%21%21/delta/base64xml/L2dJQSEvUUt3QS80SVVFLzZfOV85RQ%21%21?category=4&amp;locale=zh_CN">专
+项服务</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/viewdoc/knowledgebase">技术知识库</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn">在线客户支持</a></li><li><a 
+href="http://www.ibm.com/support/warranties/cn/">保修、许可和维护</a></li></ul></div></li>
+<li id="ibm-unav-myibm"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/account/cn/zh/">个性化服务</a><div id="gi-6f1c2fbb" 
+class="ibm-unav-menu"><span id="gi-6f1c2fbb-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/account/myaccounts/cn/zh/">我的账户</a></li><li 
+class=" ibm-myinterest"><a id="gi-fbfd2ebe-trigger" 
+href="http://www.ibm.com/account/myibm/myinterestView.do?cc=cn&amp;lc=zh">我
+的收藏夹</a><div id="gi-fbfd2ebe" class="ibm-unav-menu ibm-myinterest"><span
+ id="gi-fbfd2ebe-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul></ul></div></li><li><a
+ href="http://www.ibm.com/account/myibm/profile.do?cc=cn&amp;lc=zh">我的概要
+信息</a></li><li class=" ibm-place-holder"><a id="gi-e33c45bd-trigger" 
+class=" ibm-unav-menu-has-child" href="#">客户支持</a><div id="gi-e33c45bd" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-e33c45bd-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/operations/cn/zh/contracts">合同</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/orderdelivery">订单与发货</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/inventory">库存与维护</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/invoicespayments">发票与
+付款</a></li><li><a href="http://www.ibm.com/support/operations/cn">更多客户支持</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/account/cn/zh/">了解更多</a></li></ul></div></li>
+</ul>
+</div>
+
+</div>
+
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li 
+class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks
+ 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/java/">Java
+ technology</a></li><li><a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp">文
+档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>从对象创建和引用小议解耦</h1><p>
+</p></div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" 
+href="#author1">徐 海弘</a>, 软件工程师, IBM</div><div style="display: none;" 
+id="authortip1" class="dwauthor-onload-state ibm-no-print">徐海弘，IBM CDL 
+软件工程师，目前从事 WAS CE 以及 Apache Geronimo 的开发工作。</div>
+<p></p>
+  <p><b>简介：</b>&nbsp;解耦是软件设计领域中一个永恒不变的话题，在软件设计过程中，为了最大程度降低各个应用组件之间的耦合性，以
+提高其可维护性和可复用性，出现了诸多设计原则和解决方案。例如面向接口编程，开 - 
+闭原则，依赖倒转原则等，另外更出现一系列设计模式。同时，由于如何实现解耦涉及面相当广，大至组件的划分和关联，小至对象的创建和引用，往往使软件开发
+人员感到迷惑。本文将从对象创建和引用的角度出发，介绍常见的一些解决方案，并比较之间的差别，期望读者能从一个侧面加深对解耦概念的理解。</p>
+
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div 
+id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a
+ class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return
+ false;" href="#">标记本文！</a></div><div id="interestShow" 
+class="ibm-no-print"></div>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>发布日期：</b>&nbsp;2010 年 7 月 15 日
+  
+<br><b>级别：</b>&nbsp;中级
+    
+
+<br><b>访问情况</b>&nbsp;450 次浏览
+<br><b>建议:</b>&nbsp;<span id="nCmts">3&nbsp;(<a href="#icomments">查看或添加评
+论</a>)</span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" value="4" type="hidden"></p><div 
+id="art-rating-widget"><a href="javascript:void(0);"><img alt="1 star" 
+title="点击评分 1 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="2 stars" 
+title="点击评分 2 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="3 stars" 
+title="点击评分 3 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="4 stars" 
+title="点击评分 4 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="5 stars" 
+title="点击评分 5 星" src="index_files/star-off.gif" height="20" width="20"></a><span
+ id="rateTxt">  平均分 （共 14 个评分 ）</span></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ //  widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="major1"><span class="atitle">应用场景</span></a></p>
+			<p>为方便后续介绍，本文假设一个计算器的应用。初始设计由以下几部分组成：</p>
+			<ul>
+				<li>计算器界面类 <code>CalculatorUI</code>该类接受用户输入的表达式，执行一些输入校验工作，并将合法的表达式
+传递到具体的分析器，最终将计算结果返回给用户。</li>
+				<li>语法分析器接口，<code>ExpressionEvaluator</code>及其实现类 <code>ExpressionEvaluatorImpl</code>，
+其承担实际的计算工作。</li>
+			</ul>
+			<p>在该应用场景中，<code>CalculatorUI</code>类需要持有指向 <code>ExpressionEvaluator</code>实
+现的引用，以便在运行时委派其实际的计算工作。文章后续将围绕如何持有和初始化 <code>ExpressionEvaluator</code>实现
+展开介绍，并依次提出多种解决方案。</p>
+			<br><a name="listing1"><b>清单 1. 计算器实现方式一 (new 操作符 )</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+public class CalculatorUI { 
+
+    private ExpressionEvaluator expressionEvaluator; 
+
+    public CalculatorUI() { 
+        expressionEvaluator = new ExpressionEvaluatorImpl(); 
+    } 
+
+    public String evaluate(String expression) { 
+        if (expression == null || expression.isEmpty()) { 
+            throw new IllegalArgumentException("[" + expression + "]
+                is not a valid expression"); 
+        } 
+        return expressionEvaluator.evaluate(expression); 
+    } 
+ }     
+     </pre></td></tr></tbody></table><br>
+			<p><a href="#listing1">清单 1</a> 展示了一种非常典型的实现方式，即直接在 <code>CalculatorUI</code>
+ 中使用 new 操作符创建 <code>ExpressionEvaluator</code> 的实例。该种方式虽然简单明了，但是将 <code>ExpressionEvaluator</code>
+ 的实现类 <code>ExpressionEvaluatorImpl</code> 被硬编码在 <code>CalculatorUI</code>
+ 的代码中，两者的耦合程度相当高。设想该计算器应用程序在后续使用时，如果希望更改成其他 <code>ExpressionEvaluator</code>
+ 的实现，则必须修改 <code>CalculatorUI</code> 的代码并重新编译。</p>
+			<br><a name="listing2"><b>清单 2. 计算器实现方式二 ( 工厂模式 )</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+public class ExpressionEvaluatorFactory { 
+
+    public static ExpressionEvaluator createExpressionEvaluator() { 
+        return new ExpressionEvaluatorImpl(); 
+    } 
+ } 
+
+ public class CalculatorUI { 
+
+    private ExpressionEvaluator expressionEvaluator; 
+
+    public CalculatorUI() { 
+        expressionEvaluator = ExpressionEvaluatorFactory.createExpressionEvaluator(); 
+    } 
+    
+    ...... 
+ }    
+     </pre></td></tr></tbody></table><br>
+			<p>针对 <a href="#listing1">清单 1</a> 中所示实现方式的缺点，在 <a href="#listing2">清
+单 2</a> 中引入常见的静态工厂设计模式。引入工厂类 <code>ExpressionEvaluatorFactory</code> 后，<code>CaculatorUI</code>将
+不需要自行创建和初始化 <code>ExpressionEvaluator</code> 
+的实现，而是将相关工作委派给工厂类。相对于第一种实现方式，<code>CalculatorUI</code> 脱离了与 <code>ExpressionEvaluatorImpl</code>
+ 之间的直接耦合，对其而言，它只需要调用 <code>ExpressionEvaluatorFactory</code>的 <code>createExpressionEvaluator</code>方
+法即可。使用方式二的计算器应用程序如果需要更换 <code>ExpressionEvaluator</code>实现，无需修改 <code>CalculatorUI</code>的
+代码，只要改动 <code>ExpressionEvaluatorFactory</code> 
+工厂类的代码。正如通常所说的，客户端代码不需要修改了，而且当应用程序多处使用 <code>ExpressionEvaluatorFactory</code>
+ 时，其优势更加明显。</p>
+			<p>通过 <a href="#listing2">清单 2</a> 所示的第二种实现方式，<a href="#listing1">清单 1</a>
+ 实现方式的缺点得到解决，但是值得注意的是，耦合并没有消除，而是转移到 <code>ExpressionEvaluatorFactory</code>
+ 工厂类中。当需要换成其他 <code>ExpressionEvaluator</code> 的实现时，仍然需要修改并重新编译 <code>ExpressionEvaluatorFactory</code>
+ 类，当然优势自然是客户端代码无需修改了。在此我们引入第三种实现方式。</p>
+			<br><a name="listing3"><b>清单 3. 计算器实现方式三 (Service Look-up)</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+public class ExpressionEvaluatorFactory { 
+
+    public static final String EXPRESSION_EVALUATOR_PROPERTY_NAME="ExpressionEvaluator";
+
+    private static final String DEFAULT_EXPRESSION_EVALUATOR_IMPL 
+        = "ExpressionEvaluatorImpl"; 
+
+    public static ExpressionEvaluator createExpressionEvaluator() { 
+        String implClassName = loadFromSystemProperty(); 
+        if (implClassName == null) { 
+            implClassName = loadFromJREPropertyFile(); 
+            if (implClassName == null) { 
+                implClassName = loadFromServiceEntryURL(); 
+                if (implClassName == null) { 
+                    implClassName = DEFAULT_EXPRESSION_EVALUATOR_IMPL; 
+                } 
+            } 
+        } 
+        Class cls = loadClass(implClassName); 
+        try { 
+            return (ExpressionEvaluator) cls.newInstance(); 
+        } catch (Exception e) { 
+            throw new ExpressionEvaluatorException("Fail to create instance of ["
+                + implClassName + "]", e); 
+        } 
+    } 
+
+    private static Class loadClass(String implClassName) { 
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        try { 
+            if (cl != null) { 
+                return cl.loadClass(implClassName); 
+            } else { 
+                return Class.forName(implClassName); 
+            } 
+        } catch (Exception e) { 
+            throw new ExpressionEvaluatorException("Fail to load class [" 
+                + implClassName + "]", e); 
+        } 
+    } 
+    
+    ...... 
+}
+     </pre></td></tr></tbody></table><br>
+			<p>在 <a href="#listing3">清单 3</a> 中，对工厂类 <code>ExpressionEvaluatorFactory</code>
+ 做了修改，在创建 <code>ExpressionEvaluator</code> 实例时，采取了常见的 Service Look-up 
+方式。即依次通过如下方式搜索实现类：</p>
+			<ul>
+				<li>读取系统属性，用户可以在应用启动时通过 -D 选项进行设置。</li>
+				<li>读取 JRE 目录中的某个属性文件，以获取实现类类名。</li>
+				<li>通过类载入器检索记录实现类类名的文件，常见的检索格式为 <code>META=INF/services/ExpressionEvaluator</code>.</li>
+				<li>如通过以上途经均未找到合适的实现类，则使用默认的实现类 <code>ExpressionEvaluatorImpl</code>。</li>
+			</ul>
+			<p>事实上，在 Java EE 平台中，很多组件均使用此方式检索服务端接口的实现类，例如 <code>javax.xml.bind.JAXBContext</code>，<code>javax.el.ExpressionFactory</code>，<code>javax.xml.soap.MessageFactory</code>等。
+由此，不但避免了工厂类与实现类之间的紧耦合，而且提供多种策略在运行时获取实现类。可以预见，使用第三种方式实现的计算器应用，可以非常方便的更换 <code>ExpressionEvaluator</code>的
+实现类而无需修改和编译 <code>ExpressionEvaluatorFactory</code>的代码，例如在应用启动时设置对应系统属性值
+为实现类类名等。</p>
+			<p>继续观察包括 <a href="#listing3">清单 3</a>在内的以上实现方式，可以发现，无论是直接使用 <code>new</code>操
+作符创建，还是使用 <code>ExpressionEvaluatorFactory</code>工厂类创建，均是由 <code>CalculatorUI</code>负
+责 <code>ExpressionEvaluator</code>实现实例的创建。事实上，完全可以将相关逻辑从其中剥离出去，毕竟对于 <code>CalculatorUI</code>而
+言，它并不关心如何创建或者由谁去创建实例对象，其更关注的是如何使用 <code>ExpressionEvaluator</code>的功能。常见
+的解决方案之一是定义一个全局的注册表，服务的提供者和使用者分别在其中发布和获取相关服务。</p>
+			<br><a name="listing4"><b>清单 4. 计算器实现方式四 ( 注册表组件 )</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+public class CalculatorUI { 
+
+    private ExpressionEvaluator expressionEvaluator;
+
+    public CalculatorUI() { 
+        expressionEvaluator = (ExpressionEvaluator) 
+            GlobalRegistry.getService("SimpleExpressionEvaluator");
+    } 
+
+    public String evaluate(String expression) { 
+        if (expression == null || expression.isEmpty()) { 
+            throw new IllegalArgumentException("[" + expression
+                + "] is not a valid expression"); 
+        } 
+        return expressionEvaluator.evaluate(expression);
+    }
+
+}
+     </pre></td></tr></tbody></table><br>
+			<p>在 <a href="#listing4">清单 4</a> 中，<code>CalculatorUI</code> 
+不再关注通过何种方式创建 <code>ExpressionEvaluator</code> 
+实现实例，相对于前者前通过工厂模式创建实例，现在则从全局注册表中获取。通过引入 <code>GlobalRegistry</code> 之后，<code>CalculatorUI</code>
+ 和 <code>ExpressionEvaluator</code> 实现类之间达到了更大程度上的解耦，两者完全通过注册表实现了相互关联。在 
+Java 相关的诸多技术中，常常可以看到此实现方式的身影。例如 JavaEE 的目录服务也是类似的实现方式，联想到在应用程序中，我们通过标准的 
+JNDI 接口去访问后台的目录服务，从而获取 EJB，Web Service 等等的引用。同样，在 OSGI 中，各个 Bundle 通过 <code>BundleContext</code>注
+册和获取相关服务，其目的之一也是降低 <code>Bundle</code> 之间的耦合性。</p>
+			
+			<p>继续观察上述实现方式，无论是通过工厂模式，抑或是通过注册表组件，始终在 <code>CalculatorUI</code> 
+中包含如何获取 <code>ExpressionEvaluator</code>实现实例的逻辑，那么有无方法彻底将其从客户端代码中移除呢？答案之
+一便是对象注入技术。当前常见的实现策略是通过构造函数或者 JavaBean 的标准 <code>setXXX</code> 
+方法进行对象实例的注入。两种方式各有优缺点，一般认为使用后者会更具备灵活性。这里，将借助于 Spring 
+这个优秀的开源项目，展示第五种解决方案。</p>
+			<br><a name="listing5"><b>清单 5. 计算器实现方式五 ( 对象注入 )</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+public class CalculatorUI { 
+
+    private ExpressionEvaluator expressionEvaluator; 
+
+    public CalculatorUI() { 
+    } 
+    
+    public void setExpressionEvaluator(ExpressionEvaluator expressionEvaluator){
+        this.expressionEvaluator = expressionEvaluator; 
+    } 
+    ...... 
+ } 
+
+<strong>Spring Configuration Fragment A (Use ExpressionEvaluatorImpl directly)</strong>
+
+&lt;beans&gt; 
+
+  &lt;bean id="calculatorUI" class="CalculatorUI"&gt; 
+    &lt;property name="expressionEvaluator"&gt; 
+        &lt;ref bean="expressionEvaluator"/&gt; 
+    &lt;/property&gt; 
+  &lt;/bean&gt; 
+
+  &lt;bean id="expressionEvaluator" class="ExpressionEvaluatorImpl"/&gt; 
+ 
+ &lt;/beans&gt; 
+
+ <strong>Spring Configuration Fragment B (Use ExpressionEvaluatorFactory)</strong>
+
+ &lt;beans&gt; 
+
+  &lt;bean id="calculatorUI" class="CalculatorUI"&gt; 
+    &lt;property name="expressionEvaluator"&gt; 
+        &lt;ref bean="expressionEvaluator"/&gt; 
+    &lt;/property&gt; 
+  &lt;/bean&gt; 
+
+  &lt;bean id="expressionEvaluator" class="ExpressionEvaluatorFactory" 
+    factory-method="createExpressionEvaluator"/&gt; 
+ 
+&lt;/beans&gt;
+     </pre></td></tr></tbody></table><br>
+			<p>在 <a href="#listing5">清单 5</a> 中，基于前一种解决方式做了如下修改：</p>
+			<ul>
+				<li>去除了原先在 <code>CalculatorUI</code> 构造函数中关于从 <code>GlobalRegistry</code>
+ 中获取 <code>ExpressionEvaluator</code> 实现实例的初始化代码，而为其添加了 <code>setExpressionEvaluator</code>
+ 方法以实现对 <code>ExpressionEvaluator</code> 的设置。</li>
+				<li>使用 Spring 的配置文件实现运行时的注入，<code>&lt;ref&gt;</code> 标签用于关联 <code>ExpressionEvaluator</code>
+ 实例和 <code>CalculatorUI</code>实例，即运行时注入的实例对象。示例中的两种配置文件分别是直接使用 <code>ExpressionEvaluatorImpl</code>
+ 和使用 <code>ExpressionEvaluatorFactory</code>，实际应用中可依据需要和项目约定使用任一种方式。</li>
+			</ul>
+			<p>在第五种解决方式中，依托于 Spring 项目，<code>CalculatorUI</code> 和 <code>ExpressionEvaluator</code>
+ 得到了进一步的解耦。通过在 XML 配置中引用的设置，Spring 容器会在运行时将期望的 <code>ExpressionEvaluator</code>
+ 实现的实例注入到 <code>CalculatorUI</code> 中去。至此，<code>CalculatorUI</code> 
+甚至不需关心如何获取 <code>ExpressionEvaluator</code> 
+实例对象。后续使用过程中，如果需要更换新的实现，需要的是修改 Spring 的 XML 配置文件，可以很方便地更新相关实现。</p>
+			<p>另外，熟悉 Spring 的读者知道其独特的 AutoWire 的功能，简而言之，Spring 容器会按照一定的规则自动寻找适合的 
+Bean 实例对象进行注入操作，常见的规则包括通过名称，类型等匹配。适当的使用该功能，会使应用程序的耦合性更低，相对而言也更加灵活。</p>
+			<p>在刚发布的 Java EE 6 平台包含的众多组件中，JSR-299 : Contexts and Dependency 
+Injection for the JavaEE platform/JSR-330 ： Dependency Injection for 
+Java 是最受瞩目的技术之一 。究其原因，其提供的依赖注入特性功不可没。在进一步介绍 JSR-330 
+注入技术之前，首先看一下应用程序代码的变化。</p>
+			<br><a name="listing6"><b>清单 6. 计算器实现方式六 (WebBeans)</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+import javax.inject.Inject; 
+public class CalculatorUI { 
+
+    @Inject 
+    private ExpressionEvaluator expressionEvaluator; 
+
+    public CalculatorUI() { 
+    } 
+
+    public String evaluate(String expression) { 
+        if (expression == null || expression.isEmpty()) { 
+            throw new IllegalArgumentException("[" + expression + 
+                "] is not a valid expression"); 
+        } 
+        return expressionEvaluator.evaluate(expression); 
+    } 
+}
+     </pre></td></tr></tbody></table><br>
+			<p>如 <a href="#listing6">清单 6</a> 所展示，<code>CalculatorUI</code> 
+类中出现了一个 <code>Inject</code> 标识，在 JSR-299 
+中使用其标识注入点，即容器会在运行时对其执行注入操作。该标识可以标注在类成员变量，构造函数以及普通函数上。那么 Web Beans 
+容器是如何知道将哪个实例注入？其是通过如下两个标准检索对应的实现：</p>
+			<ul>
+				<li>实现类必需具备注入参数所要求的匹配类型，以本例而言，实现类必需实现 <code>ExpressionEvaluator</code>
+ 接口。事实上针对不同类型的 Web Beans 之间规则略有差别，详细情况请参照 JSR-299 规范。</li>
+				<li>实现类具备所有注入点所要求的 <code>Qualifier</code>。在 JSR-299 
+规范中，允许用户自定义匹配标识，容器在检索实现类时会校验注入点参数和实现类是否具有相同 <code>Qualifer</code>。在本例中，并
+未显示定义具体的 <code>Qualifier</code>，则默认为 Default 类型，因为我们的计算器应用只包含一个 <code>ExpressionEvaluator</code>
+ 接口的实现。如果有多个，则需要自定义 <code>Qualifier</code> 以确保唯一匹配。如 <a href="#listing7">清
+单 7</a> 所示：</li>
+			</ul>
+			<br><a name="listing7"><b>清单 7. 自定义 Qualifer</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="50%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+<strong>SimpleExpressionEvaluator.java</strong>
+@Qualifier 
+@Target( { ElementType.TYPE, ElementType.METHOD, 
+    ElementType.PARAMETER, ElementType.FIELD }) 
+@Retention(RetentionPolicy.RUNTIME) 
+public @interface SimpleExpressionEvaluator { 
+} 
+
+<strong>CalculatorUI.java</strong>
+import javax.inject.Inject; 
+public class CalculatorUI { 
+
+    @Inject 
+    <strong>@SimpleExpressionEvaluator</strong>
+    private ExpressionEvaluator expressionEvaluator; 
+
+    public CalculatorUI() { 
+    } 
+
+    public String evaluate(String expression) { 
+        if (expression == null || expression.isEmpty()) { 
+            throw new IllegalArgumentException("[" + expression + 
+                "] is not a valid expression"); 
+        } 
+        return expressionEvaluator.evaluate(expression); 
+    } 
+} 
+
+<strong>ExpressionEvaluatorImpl.java</strong>
+<strong>@SimpleExpressionEvaluator</strong>
+public class ExpressionEvaluatorImpl implements ExpressionEvaluator { 
+
+    public String evaluate(String expression) { 
+        ......        
+    } 
+}
+     </pre></td></tr></tbody></table><br>
+			<p>与基于前面基于 Spring 的实现方式相比，两者均是使用对象注入技术，只是如何定义 Bean 对象之间的关联不一样，前者是使用 
+XML 配置文件，而后者则是通过标识。当然，Web Beans 的优势之一是类型安全。在使用 Spring 的 XML 配置时，不同 Bean 
+对象之间的注入是通过其 Id 实现的。例如在 <a href="#listing5">清单 5</a>所示的配置文件中，&lt;ref&gt; 
+元素用于指定目标注入实例对象。而从上述 WebBeans 的检索规则中可以确保注入操作的类型安全性，同时在部署过程中即可执行相关检测。</p>
+			<p><a name="major2"><span class="atitle">总结</span></a></p>
+			<p>本文中，我们以实现一个计算器应用为例，从对象的创建和引用的角度，列举了多种实现方式来诠释如何实现对象之间的解耦。应该说，上述的六种方
+式各有优缺点，没有哪种是最好的，实际使用时，可以根据实际场景的不同，而采取不同的解决方案。</p>
+			<ul>
+				<li>在简单的场景中，如果实现类本身就是一个内部类，或者从开发预期看，没有必要更换实现，抑或即使会有更换的需求，但是所涉及的范围可控，
+那么就可以直接使用 new 操作符创建对应的实现实例。</li>
+				<li>同样，如果评估之后，确有可能在后期更换实现，并该实例在应用程序中多处会被使用到，便可以考虑使用工厂模式或者服务定位的方式，以降低
+后期因为更改实现而对程序产生影响的范围。</li>
+				<li>如果应用本身即时基于 Spring 框架开发，或者是以 Bundle 的形式运行与 OSGI 环境中，又或者是运行于 
+WebBeans 容器之中，最后的几种方式便是当仁不让的选择。</li>
+			</ul>
+			<p>事实上，解耦是个相对的概念，并不存在完全程度的解耦。从上述各种解决方案可以看出，其目的都是转移了耦合点，从直接使用 new 
+操作符创建到将其移至工厂类中，进一步移至配置文件和系统属性，最终到 Java 
+类的标识。通过耦合点的转移，使得原先的对象之间耦合性得到了降低。而之所以可以去转移，原因是当发生实现更换时，新的耦合点更方便修改，并且影响范围更
+小。</p>
+			<p>那么，究竟什么时候，我们可以大声宣称对象之间实现解耦了呢？通常而言，当发生实现更换时，达到如下之一的要求即可：</p>
+			<ul>
+				<li>不需要重现编译代码，而是通过修改配置文件或者系统属性即可达到目标。</li>
+				<li>客户端的代码不需要修改并重新编译，例如只需要修改或者更新库文件即可。</li>
+			</ul>
+		<!-- CMA ID: 499787 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file:  dw-article-6.0-beta.xsl -->
+<br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><b>学习</b></p><ul><li>在
+ <a href="http://www.ibm.com/developerworks/cn/architecture/">developerWorks
+ 中国网站 Architecture 专区</a> 中学习更多体系结构方面的知识。<br><br></li><li><a 
+href="http://jcp.org/en/jsr/detail?id=299">JSR 299</a>: Contexts and 
+Dependency Injection for the Java platform。<br><br></li><li><a 
+href="http://jcp.org/en/jsr/detail?id=330">JSR 330</a>: Dependency 
+Injection for Java 1.0。<br><br></li><li><a 
+href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技术
+书店</a>：浏览关于这些和其他技术主题的图书。<br><br></li><li><a 
+href="http://www.ibm.com/developerworks/cn/java/">developerWorks Java 
+技术专区</a>：数百篇关于 Java 编程各个方面的文章。<br><br></li></ul><p><b>讨论</b></p><ul><li>加
+入 <a href="http://www.ibm.com/developerworks/mydeveloperworks" 
+onmouseover="linkQueryAppend(this)">developerWorks 社区</a>。<br><br></li><li>查
+看 <a href="http://www.ibm.com/developerworks/blogs/" 
+onmouseover="linkQueryAppend(this)">developerWorks 博客</a> 的最新信息。<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div 
+class="ibm-container ibm-portrait-module ibm-alternate-two"><div 
+class="ibm-container-body"><p><a name="author1"> </a>徐海弘，IBM CDL 
+软件工程师，目前从事 WAS CE 以及 Apache Geronimo 的开发工作。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">建议</a></span></p>
+  <div id="dw-icomments-container" class="ibm-no-print">
+    <div class="ibm-alternate-rule"><hr></div>
+    <div class="ibm-alternate-rule"><hr></div>
+    <!-- Comment_Script -->
+    
+    <a id="comments" 
+href="http://www.ibm.com/developerworks/cn/java/j-lo-decoupling/comments"></a>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signIn = '登录';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.cmt = '评论：';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <b>{1}</b>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+// ]]>
+    </script>
+    <script language="JavaScript" src="index_files/insertcomment.js" type="text/javascript">//</script>
+    <div id="threadShow"><div id="cmtTog" style=""><p><span id="numCmts">3</span>&nbsp;
+条评论 <span class="dw-bar">|</span> <a 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-lo-decoupling%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk" 
+class="dw-icomment-link">添加评论</a><a class="dw-icomment-report" 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834">举
+报不良信息</a></p><div class="ibm-alternate-rule"><hr></div><div 
+style="display: none;" id="commentForm"><div class="ibm-container"><h2>添
+加评论</h2><div class="ibm-container-body"><p>标有星号（<span 
+class="ibm-required">*</span>）的是必填项目。</p><span id="infoCmt"></span><div 
+class="ibm-rule"><hr></div><form method="post" action="" 
+class="ibm-column-form" enctype="multipart/form-data" focus="name" 
+name="form"><p><label for="newCmt">评论：<span class="ibm-required">*</span></label><br><textarea
+ name="newCmt" id="newCmt" cols="120" rows="4"></textarea></p><div 
+class="ibm-alternate-rule"><hr></div><p class="ibm-buttons-row"><input 
+value="发布" name="postCmt" class="ibm-btn-arrow-sec" id="postCmt" 
+type="button"><span class="ibm-sep">&nbsp;</span><input value="清除评论" 
+name="clearCmt" class="ibm-btn-cancel-sec" id="clearCmt" type="button"><span
+ class="ibm-sep">&nbsp;</span><input value="取消" name="cancelCmt" 
+class="ibm-btn-cancel-sec" id="cancelCmt" type="button"></p></form></div></div></div><div
+ id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table
+ class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>很
+详尽，对比也很充分</p></td></tr><tr><td><p class="ibm-item-note-alternate">由 <b><a
+ 
+href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=310481">Kloen</a></b>
+  于 11 08 2010 </p></td></tr></tbody></table></div></div><div 
+class="comment"><div class="dw-icomment-container"><table 
+class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>赞
+一个。</p></td></tr><tr><td><p class="ibm-item-note-alternate">由 <b><a 
+href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=307845">one_tacyuuhon</a></b>
+  于 27 07 2010 </p></td></tr></tbody></table></div></div><div 
+class="comment"><div class="dw-icomment-container"><table 
+class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>不
+错,把几种解耦的方式都列出来了.可以说从原始一步步走过来. 
+其实解耦的力度和实际的业务有很大的关系.显示开发中经常遇到套用模式加大工作量的问题,如何把握度是一个值得学习和考虑的问题.<br>
+谢谢分享!</p></td></tr><tr><td><p class="ibm-item-note-alternate">由 <b><a 
+href="http://www.ibm.com/developerworks/forums/profile.jspa?userID=307097">luyuwww</a></b>
+  于 21 07 2010 </p></td></tr></tbody></table></div></div></div><div 
+id="paging"><p><a style="display: none;" id="lastCmts" 
+class="dw-icomment-link">显示最新的 5 条评论</a><span style="display: none;" 
+id="cmtDivider"> <span class="dw-bar">|</span> </span><a style="display:
+ none;" id="nextCmts" class="dw-icomment-link">显示后 5 条评论</a><span 
+style="display: none;" id="cmtDivider2"> <span class="dw-bar">|</span> </span><a
+ style="display: none;" id="viewAllCmts" class="dw-icomment-link">显示所有评论</a></p></div><p><a
+ 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-lo-decoupling%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk2" 
+href="#icomments">添加评论</a></p><div class="ibm-alternate-rule"><hr></div><div
+ class="ibm-alternate-rule"><hr></div></div></div>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+    </script>
+  </div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" 
+href="#ibm-pcon">回页首</a></p>
+  <p><a href="http://www.ibm.com/developerworks/cn/ibm/trademarks/">商标</a>
+ &nbsp;|&nbsp; <a 
+href="http://www.ibm.com/developerworks/cn/mydw_terms/">My 
+developerWorks 使用条款与条件</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div
+ class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Java 
+technology</div><div class="metavalue">ArticleID=499787</div><div 
+class="metavalue">ArticleTitle=从对象创建和引用小议解耦</div><div class="metavalue">publish-date=07152010</div><div
+ class="metavalue">author1-email=xhhsld@gmail.com</div><div 
+class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace('<', '%3C')+'</div>');</script><div
+ class="metavalue">url=http://www.ibm.com/developerworks/cn/java/j-lo-decoupling/index.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img
+ alt="" src="index_files/c.gif" height="1" width="1"><ul 
+class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#major1">应
+用场景</a></li><li><a class="ibm-feature-link" href="#major2">总结</a></li><li><a
+ class="ibm-feature-link" href="#resources">参考资料 </a></li><li><a 
+class="ibm-feature-link" href="#author">关于作者</a></li><li><a 
+class="ibm-feature-link" href="#icomments">建议</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img
+ alt="Help" src="index_files/help_icon.gif" align="top" height="16" 
+width="16"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state 
+ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 
+中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong>
+ 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标
+签&lt; /strong&gt; 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</strong></p></div>
+<div class="ibm-access"><strong>使用搜索文本框在 My developerWorks 
+中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java 
+technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java 
+technology，Linux，WebSphere）。</strong></div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form 
+action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" 
+method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong><strong>搜索所有标签</strong></strong></label>
+<strong><input name="lang" value="zh" type="hidden">
+<input id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input
+ src="index_files/short-btn.gif" class="ibm-btn-view" alt="submit 
+search" title="提交搜索" value="Search" type="image"></strong></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a
+ id="a-my" href="javascript:;">我的文章标签</a><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><strong><a 
+id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的
+文章标签</strong></strong></p><strong><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></div>
+<div id="dw-tag-cloud"></div><strong>  
+</strong></div><strong>   
+</strong></div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+<strong> <!-- END_IBM-PCON -->
+</strong></div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><strong><a href="http://www.ibm.com/ibm/cn/zh/">关于
+IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></strong></li>
+<li><strong><a href="http://www.ibm.com/contact/cn/zh/">联系IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/legal/cn/zh/">使用条款</a></strong></li>
+<li><a href="http://www.ibm.com/ibm/syndication/cn/zh/">IBM RSS 可定制阅读服务</a></li><li><a
+ href="http://www.ibm.com/employment/cn/">求才启事</a></li></ul>
+<div id="ibm-social-tools"><ul><li><a rel="print" href="#" title="打印本页面"
+ class="ibm-share-print"></a></li><li><a rel="email" href="#" 
+title="用电子邮件发送本页面" class="ibm-share-email"></a></li></ul></div></div>
+<!-- FOOTER_END -->
+
+<strong> <!-- END_IBM-TOP -->
+</strong><div id="ibm-overlay-top"></div></div>
+<strong> 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_002.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_003.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end --><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=3&ibmAdoptPhase=651&ibmRole=36";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+</strong><div id="ibm-metrics">
+<script src="index_files/stats.js" type="text/javascript">//</script>
+</div>
+
+<div style="position: absolute; z-index: 95; display: none;" 
+id="cluetip-waitimage"></div><div style="z-index: 96; display: none; 
+position: absolute;" id="cluetip"><div style="z-index: 95; opacity: 0.1;
+ top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 
+0);"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; 
+position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: 
+absolute; background-color: rgb(0, 0, 0);"></div><div style="z-index: 
+92; opacity: 0.1; top: 4px; left: 4px; position: absolute; 
+background-color: rgb(0, 0, 0);"></div><div style="z-index: 91; opacity:
+ 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 
+0, 0);"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 
+6px; position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="position: relative; z-index: 97;" id="cluetip-outer"><h3 
+id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div 
+id="cluetip-extra"></div><div style="z-index: 97;" id="cluetip-arrows" 
+class="cluetip-arrows"></div></div><div style="position: absolute; 
+display: none; z-index: 9999;" id="livemargins_control"><img 
+src="index_files/monitor-background-horizontal.png" style="position: 
+absolute; left: -77px; top: -5px;" height="5" width="77">	<img 
+src="index_files/monitor-background-vertical.png" style="position: 
+absolute; left: 0pt; top: -5px;">	<img id="monitor-play-button" 
+src="index_files/monitor-play-button.png" 
+onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5" 
+style="position: absolute; left: 1px; top: 0pt; opacity: 0.5; cursor: 
+pointer;"></div></body></html>

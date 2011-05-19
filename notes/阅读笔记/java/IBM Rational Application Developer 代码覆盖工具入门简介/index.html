@@ -1,0 +1,1374 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+
+
+  
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>IBM Rational Application Developer 代码覆盖工具入门简介</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 
+&quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 
+nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen 
+true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l
+ gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" 
+content="代码覆盖率是软件测试过程中使用到的一个重要的指标，因为它提供了一个关于程序测试用例覆盖程度的深入分析。本文向您展示了怎样使用 
+IBM Rational Application Developer 中提供的代码覆盖工具，来为 Java 
+程序生成测试的覆盖率结果，并提供了关于怎样分析结果以改进测试的信息。">
+<meta name="Description" 
+content="代码覆盖率是软件测试过程中使用到的一个重要的指标，因为它提供了一个关于程序测试用例覆盖程度的深入分析。本文向您展示了怎样使用 
+IBM Rational Application Developer 中提供的代码覆盖工具，来为 Java 
+程序生成测试的覆盖率结果，并提供了关于怎样分析结果以改进测试的信息。">
+<meta name="Keywords" content="Paul Klicnick, IBM Rational Application 
+Developer, code coverage, testing, Java, dddrca, tttjca">
+<meta name="DC.Date" scheme="iso8601" content="2010-06-12">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="BA.007D">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" 
+content="SOFDCRATCN">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM 
+Corporation&nbsp;2010">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2010-06-12">
+<meta name="title" content="IBM Rational Application Developer 
+代码覆盖工具入门简介">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="index_files/all.css" media="all" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-uas.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-fonts.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/handheld.css" media="handheld" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/print.css" media="print" rel="stylesheet" 
+title="www" type="text/css">
+<!-- dW-specific CSS -->
+<link href="index_files/dw-screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/dw-local-site.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/jquery.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+
+<script src="index_files/ibmcommon.js" type="text/javascript">//</script><link
+ title="IBM Search" 
+href="http://www.ibm.com/search/opensearch/description.xml" 
+type="application/opensearchdescription+xml" rel="search">
+<script src="index_files/dynamicnav.js" type="text/javascript">//</script>
+<!-- Pull-down script --> 
+<script type="text/javascript" src="index_files/dropdown.js">//</script>
+<!-- dW functional JS -->
+<script language="JavaScript" src="index_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+
+// ]]>
+</script>
+
+
+<script language="JavaScript" src="index_files/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="index_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script charset="UTF-8" src="index_files/flash-detect.js" type="text/javascript" id="flashdetect"></script><script charset="UTF-8" src="index_files/cnzh-utf8.js" type="text/javascript" id="mhMenu"></script><script charset="UTF-8" src="index_files/Controller" type="text/javascript" id="dynavEA"></script><script charset="UTF-8" src="index_files/Controller_002" type="text/javascript" id="wiBundle"></script></head><body
+ id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#main">跳转到主要内容</a></div><div 
+id="ibm-masthead"><div id="ibm-logo"><a href="http://www.ibm.com/cn/zh/"><img
+ src="index_files/ibm-logo.gif" alt="IBM®" height="50" width="110"></a></div><ul
+ id="ibm-geo"><li class="ibm-first" id="ibm-country">中国</li><li 
+id="ibm-change-country">[ <a 
+href="http://www.ibm.com/developerworks/cn/country/">选择</a> ]</li></ul><form
+ id="ibm-search-form" 
+action="//www.ibm.com/developerworks/search/searchResults.jsp" 
+method="get" name="form1"><input name="searchType" value="1" 
+type="hidden"><input name="searchSite" value="dWChina" type="hidden"><input
+ name="pageLang" value="zh" type="hidden"><input name="langEncoding" 
+value="UTF8" type="hidden"><p><span id="ibm-search-scope"><label 
+for="sn"><img src="index_files/c_002.gif" alt="Search in:" height="1" 
+width="1"></label><select class="input-local" name="searchScope" id="sn"
+ size="1"><option value="dW" selected="selected">dW 全部内容</option><option
+ value="dW">--------------</option><option value="aixunix">&nbsp;&nbsp;AIX
+ and UNIX</option><option value="dmdd">&nbsp;&nbsp;Info Mgmt</option><option
+ value="lotusdd">&nbsp;&nbsp;Lotus</option><option value="rdd">&nbsp;&nbsp;Rational</option><option
+ value="wsdd">&nbsp;&nbsp;WebSphere</option><option value="dW">--------------</option><option
+ value="javaZ">&nbsp;&nbsp;Java technology</option><option 
+value="linuxZ">&nbsp;&nbsp;Linux</option><option value="opensrcZ">&nbsp;&nbsp;Open
+ source</option><option value="webservZ">&nbsp;&nbsp;SOA &amp; Web 
+services</option><option value="webarchZ">&nbsp;&nbsp;Web dev</option><option
+ value="xmlZ">&nbsp;&nbsp;XML</option><option value="dW">--------------</option><option
+ value="all">IBM 全部内容</option></select></span><label for="q"><img 
+alt="搜索:" src="index_files/c_002.gif" height="1" width="1"></label><input
+ name="query" maxlength="100" id="q" type="text"><input id="ibm-search" 
+class="ibm-btn-search" name="Search" value="搜索" type="submit"></p></form><div
+ id="ibm-site-name"><!-- IBM site name container --></div><div 
+id="ibm-universal-nav"><ul><li class="ibm-first" id="ibm-unav-home"><a 
+href="http://www.ibm.com/cn/zh/">首页</a></li><li id="ibm-unav-solutions"><a
+ class=" ibm-unav-has-child" href="http://www.ibm.com/solutions/cn/zh/">解
+决方案</a><div id="gi-deed756" class="ibm-unav-menu"><span 
+id="gi-deed756-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li 
+class=" ibm-place-holder"><a id="gi-9d927b11-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按行业分类</a><div id="gi-9d927b11" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-9d927b11-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/">金融业</a></li><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/banking.shtml">银行
+业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/insurance.shtml">保
+险业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/retail/index.shtml?ca=masterhead&amp;me=cndotcom">零
+售业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/manufacture/index.shtml?ca=masterhead&amp;me=cndotcom">制
+造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/">流通业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_commu.shtml">电
+子行业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/telecom/solution/">电信业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/smb/industries/media/index.shtml?ca=masterhead&amp;me=cndotcom">媒
+体与娱乐业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/transport.shtml">交
+通运输业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_aero.shtml">航
+空航天造船业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_auto.shtml">汽
+车制造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_petro.shtml">石
+油石化业</a></li><li><a href="http://www.ibm.com/cn/public/offertogov/h/">政府
+与公众事业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/education/solution/">教育</a></li><li><a
+ href="http://www.ibm.com/cn/public/healthcare/solutions/">医疗与生命科学</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-c7a6f518-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按业务需求分类</a><div id="gi-c7a6f518" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-c7a6f518-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/smb/cn/business/infrastructure/index.shtml?ca=masterhead&amp;me=cndotcom">IT
+ 基础架构解决方案</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/bi/index.shtml?ca=masterhead&amp;me=cndotcom">商
+务智能（BI）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/scm/index.shtml?ca=masterhead&amp;me=cndotcom">供
+应链管理（SCM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/erp/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资源规划（ERP）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/crm/index.shtml?ca=masterhead&amp;me=cndotcom">客
+户关系管理（CRM）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/plm/index.shtml?ca=masterhead&amp;me=cndotcom">产
+品生命周期管理（PLM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/oa/index.shtml?ca=masterhead&amp;me=cndotcom">办
+公自动化(OA)</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/eam/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资产管理(EAM)</a></li><li><a 
+href="http://www.ibm.com/software/cn/db2/content-management/industry-solutions/">内
+容管理</a></li><li><a 
+href="http://www.ibm.com/cn/software/solution/info_conformity.html">信息集成</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-8df69014-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按顶级业务合作伙伴分类</a><div id="gi-8df69014" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-8df69014-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/services/hotsale/cisco/index.shtml">IBM 和 
+Cisco</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/oracle/index.shtml">IBM
+ 与 Oracle</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/sap/index.shtml">IBM 与
+ SAP</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/">业务咨询</a></li><li><a 
+href="http://www.ibm.com/systems/cn/dihub/index.shtml">IBM 动态架构</a></li><li><a
+ href="http://www.ibm.com/software/cn/smartwork/">IBM智慧运作</a></li><li><a
+ href="http://www.ibm.com/software/cn/nihub/">IBM新锐洞察</a></li><li><a 
+href="http://www.ibm.com/software/cn/spsm/">IBM智慧产品与服务</a></li><li><a 
+href="http://www.ibm.com/software/cn/soa/launch/index.html">面向服务架构 (SOA)</a></li><li><a
+ href="http://www.ibm.com/cn/financing/index.shtml">融资租赁</a></li><li><a 
+href="http://www.ibm.com/smb/cn/business/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的解决方案</a></li><li><a 
+href="http://www.ibm.com/software/cn/solution/">软件行业解决方案</a></li><li><a 
+href="http://www.ibm.com/city/cn/index.shtml?re=masthead">IBM 区域解决方案</a></li><li><a
+ href="http://www.ibm.com/cn/services/bcs/">更多业务解决方案</a></li></ul></div></li><li
+ id="ibm-unav-services"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/technologyservices/cn/zh/">服务</a><div 
+id="gi-e82a664e" class="ibm-unav-menu"><span id="gi-e82a664e-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-5f286d7a-trigger" class=" ibm-unav-menu-has-child" href="#">按服务项目
+分类</a><div id="gi-5f286d7a" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-5f286d7a-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www-31.ibm.com/cn/services/managedservices/">弹性运维服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/bcrs/c1000411">业
+务连续与灾难恢复服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/imc/c1025977">企
+业终端用户服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/gn/c1000412">网络
+服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025997">IT
+ 策略与基础架构服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000418">维
+护与技术支持服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025998">中
+间件服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/gts/outsourcing.html">外包服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/so/c1000405">企
+业 IT 安全服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025999">服
+务器服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1026000">数
+据中心及智能化集成服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000416">数
+据与存储服务</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-59072d3-trigger" class=" ibm-unav-menu-has-child" href="#">按业务类型分
+类</a><div id="gi-59072d3" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-59072d3-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024566">竞
+争策略</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024555">营
+运/委外</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024567">顾
+客服务及忠诚度</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024553">通
+路策略实施</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024556">IT
+ 最适化</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024568">全
+新的工作环境</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024557">灵
+活可靠的基础建设</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024554">安
+全和防御</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024569">价
+值链效益</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-8b27c9bd-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-8b27c9bd" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-8b27c9bd-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024588">跨
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024537">金融
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024548">银行
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024546">保险
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024547">零售
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024540">消费
+品</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024545">批发
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024550">电子
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024543">电信
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024538">媒体
+与娱乐</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024541">旅游
+和运输业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024542">汽车
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024552">石油
+石化行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024549">政府
+部门</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024644">能源
+与公用事业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024544">教育
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024536">医疗
+保健</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024539">生命
+科学</a></li></ul></div></li><li><a href="http://www.ibm.com/training/cn/">培
+训服务</a></li><li><a href="http://www.ibm.com/cn/software/service/">软件服务</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/igs/?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss">更多服务</a></li></ul></div></li>
+<li id="ibm-unav-products"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/products/cn/zh/">产品</a><div id="gi-35eeedc9" 
+class="ibm-unav-menu"><span id="gi-35eeedc9-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/shop/special.shtml">特惠产品和方案</a></li><li 
+class=" ibm-place-holder"><a id="gi-c37f6388-trigger" class=" 
+ibm-unav-menu-has-child" href="#">软件</a><div id="gi-c37f6388" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-c37f6388-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/cn/software/">所
+有软件</a></li><li><a href="http://www.ibm.com/software/products/cn/zh">产品目
+录</a></li><li><a href="http://www.ibm.com/cn/software/db2/">Information 
+Management 信息管理软件</a></li><li><a 
+href="http://www.ibm.com/cn/software/lotus/">Lotus 协作办公软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/rational/">Rational 开发软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/tivoli/">Tivoli 服务管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/websphere/">WebSphere 应用系统和整合软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/zseries/">System z 服务器软件</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-7724ca2f-trigger" class=" 
+ibm-unav-menu-has-child" href="#">Systems 与服务器</a><div id="gi-7724ca2f" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-7724ca2f-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/systems/cn/">所
+有 IBM Systems 和服务器</a></li><li><a 
+href="http://www.ibm.com/systems/cn/power/index.shtml">Power Systems</a></li><li><a
+ href="http://www.ibm.com/cn/systems/i/index.shtml">System i （i系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/p/">System p （p系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/x/">System x （x系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/z/">System z （z系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/bladecenter/">BladeCenter 刀片服务器</a></li><li><a
+ href="http://www.ibm.com/cn/openpower">OpenPower 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/xseries/l1350.shtml">群集服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/unix/">UNIX 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/linux/index.shtml">Linux 服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/power/index.shtml">POWER 处理器的服务器</a></li><li><a
+ href="http://www.ibm.com/cn/servers/jump_intel.shtml">基于英特尔架构的服务器</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-20b56f4a-trigger" class=" 
+ibm-unav-menu-has-child" href="#">存储产品</a><div id="gi-20b56f4a" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-20b56f4a-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/storage/cn/">所
+有存储产品</a></li><li><a href="http://www.ibm.com/storage/cn/disk/">磁盘存储系统</a></li><li><a
+ href="http://www.ibm.com/storage/cn/tape/">磁带存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/san/">存储区域网络</a></li><li><a 
+href="http://www.ibm.com/storage/cn/nas/">网络连接存储</a></li><li><a 
+href="http://www.ibm.com/storage/cn/software/">存储软件</a></li><li><a 
+href="http://www.ibm.com/storage/cn/product/index.shtml">存储产品排序（A - Z）</a></li></ul></div></li><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/offerfamily/igs/c1025846">网
+络安全</a></li><li><a href="http://www.ibm.com/cn/products/pos/">零售终端</a></li><li><a
+ 
+href="http://www.infoprintsolutionscompany.com/internet/wwsites.nsf/vwWebPublished/mainT1_cn">打
+印机 (InfoPrint)</a></li><li><a 
+href="http://www.ibm.com/cn/financing/icpe/">IBM 官方认证再制造设备</a></li><li><a
+ href="http://www.ibm.com/cn/servers/eserver/xseries/options.shtml">选件</a></li><li><a
+ href="http://www.ibm.com/cn/promotion/esg/xseries/">中低端产品特惠商城</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/hardware/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的特惠产品</a></li></ul></div></li>
+<li id="ibm-unav-support"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/support/cn/zh/">支持与下载</a><div id="gi-27cbd8ff" 
+class="ibm-unav-menu"><span id="gi-27cbd8ff-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-9a53a0b9-trigger" class=" ibm-unav-menu-has-child" href="#">下载</a><div
+ id="gi-9a53a0b9" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-9a53a0b9-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/download/download.shtml">驱动程序和软件下载</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/support/troubleshooting/cn/">故障诊断与排除</a></li><li><a
+ href="http://www.ibm.com/support/advsrch.wss?rs=0&amp;loc=zh_CN">搜索</a></li><li
+ class=" ibm-place-holder"><a id="gi-aa54e06f-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按产品查看</a><div id="gi-aa54e06f" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-aa54e06f-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/support/productsupport/sw_support.shtml">软件产
+品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/eserver.shtml">服务器</a></li><li><a
+ 
+href="http://www.ibm.com/cn/support/productsupport/storage_support.shtml">存
+储产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/print_support.shtml">打
+印机 (InfoPrint)</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/mysupport/">个性化支持</a></li><li><a 
+href="http://www.ibm.com/support/publications/cn/index.html">产品资料中心</a></li><li
+ class=" ibm-place-holder"><a id="gi-a9df1de2-trigger" class=" 
+ibm-unav-menu-has-child" href="#">电子化工具</a><div id="gi-a9df1de2" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-a9df1de2-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/electronic/uprtransition.wss?category=2&amp;locale=zh_CN">提
+交服务请求</a></li><li><a 
+href="https://www.ibm.com/support/electronic/portal/%21ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLt4y3dAXJgFku-pHIIgbxjnABX4_83FT9IKBEpDlQxCVQPyonNT0xuVI_WN9bP0C_IDc0otzb0REAowWZNg%21%21/delta/base64xml/L2dJQSEvUUt3QS80SVVFLzZfOV85RQ%21%21?category=4&amp;locale=zh_CN">专
+项服务</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/viewdoc/knowledgebase">技术知识库</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn">在线客户支持</a></li><li><a 
+href="http://www.ibm.com/support/warranties/cn/">保修、许可和维护</a></li></ul></div></li>
+<li style="z-index: 8;" class=" ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active ibm-is-active" id="ibm-unav-myibm"><a 
+class=" ibm-unav-has-child" href="http://www.ibm.com/account/cn/zh/">个性化
+服务</a><div style="z-index: 9; display: none;" id="gi-fbd08422" 
+class="ibm-unav-menu"><span style="display: none; height: 113px;" 
+id="gi-fbd08422-ehb" class="ibm-unav-menu-ehb ibm-is-active"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/account/myaccounts/cn/zh/">我的账户</a></li><li 
+class=" ibm-myinterest"><a id="gi-57c9f86f-trigger" 
+href="http://www.ibm.com/account/myibm/myinterestView.do?cc=cn&amp;lc=zh">我
+的收藏夹</a><div style="display: none;" id="gi-57c9f86f" 
+class="ibm-unav-menu ibm-myinterest"><span style="display: none;" 
+id="gi-57c9f86f-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul></ul></div></li><li><a
+ href="http://www.ibm.com/account/myibm/profile.do?cc=cn&amp;lc=zh">我的概要
+信息</a></li><li class=" ibm-place-holder"><a id="gi-f91aaf61-trigger" 
+class=" ibm-unav-menu-has-child" href="#">客户支持</a><div id="gi-f91aaf61" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-f91aaf61-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/operations/cn/zh/contracts">合同</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/orderdelivery">订单与发货</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/inventory">库存与维护</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/invoicespayments">发票与
+付款</a></li><li><a href="http://www.ibm.com/support/operations/cn">更多客户支持</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/account/cn/zh/">了解更多</a></li></ul></div></li>
+</ul>
+</div>
+
+</div>
+
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li 
+class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks
+ 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/rational/">Rational</a></li><li><a
+ 
+href="http://www.ibm.com/developerworks/cn/views/rational/libraryview.jsp">文
+档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>IBM Rational Application Developer 代码覆盖工具入门简介</h1><p><em>为您的 Java 
+程序生成代码覆盖统计数据</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a class="dwauthor" rel="#authortip1" 
+href="#author1">Paul Klicnik</a>, 软件开发人员, EMC</div><div style="display: 
+none;" id="authortip1" class="dwauthor-onload-state ibm-no-print"><div 
+class="position"><img src="index_files/p-pklicnik.jpg" alt="Paul 
+Klicnik" height="80" width="64"></div>Paul Klicnik 是位于安大略省马克姆的 IBM 
+多伦多实验室的一名软件开发人员。他自从 2008 年以来从事代码覆盖工作，从 2006 年从事性能和测试工具领域的工作。Paul 从事过多个 
+IBM 核心产品的工作，包括 IBM Rational Performance Tester 和 IBM Rational 
+Application Developer，还有 Eclipse 测试和性能工具项目（TPTP）项目。</div>
+<p></p>
+  <p><b>简介：</b>&nbsp;代码覆盖率工具是软件测试过程中使用到的一个重要的工具，因为它提供了一个关于程序被测试用例覆盖程度的观
+点。本文向您展示了怎样使用  IBM® Rational® Application Developer 中提供的代码覆盖工具，来为 Java™ 
+程序生成测试的覆盖率结果，并提供了关于怎样分析结果以改进测试的信息。</p>
+
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div 
+id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a
+ class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return
+ false;" href="#">标记本文！</a></div><div id="interestShow" 
+class="ibm-no-print"></div>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>发布日期：</b>&nbsp;2010 年 6 月 12 日
+  
+<br><b>级别：</b>&nbsp;中级
+  <br class="ibm-ind-link"><b>其他语言版本：</b>&nbsp;<a 
+onmouseover="linkQueryAppend(this)" 
+href="http://www.ibm.com/developerworks/rational/library/10/introtocodecoveragetoolinrationalapplicationdeveloper/">英
+文</a>  
+
+<br><b>访问情况</b>&nbsp;485 次浏览
+<br><b>建议:</b>&nbsp;<span id="nCmts">0&nbsp;(<a href="#icomments">添加评论</a>)</span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" value="5" type="hidden"></p><div 
+id="art-rating-widget"><a href="javascript:void(0);"><img alt="1 star" 
+title="点击评分 1 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="2 stars" 
+title="点击评分 2 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="3 stars" 
+title="点击评分 3 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="4 stars" 
+title="点击评分 4 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="5 stars" 
+title="点击评分 5 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><span id="rateTxt">  平均分 （共 1 个评分 ）</span></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ //  widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p><a name="whatis"><span class="atitle">什么是 Rational Code Coverage 特性？</span></a></p>
+			<p>代码覆盖率是软件测试的一个重要方面，对于一个构件的总体系统测试来说可能是一个基本的参数。覆盖工具背后的动机向您（作为开发员或者测试
+员）提供了关于代码的一系列观点，这些代码在一系列的测试之中会得到检查。该信息会非常的有用，因为您可以使用它来设计新的测试用例以获得足够的覆盖范
+围。</p>
+			<p>IBM® Rational® Code Coverage 特性是一个与 IBM® Rational® Application 
+Developer 相集成的工具。您可以使用它来生成并分析关于 Java 
+程序的覆盖率统计数据。工具会为测试下的程序生成声明覆盖率统计数据（这就是说，执行程序中行的数量与百分比）。</p>
+			<p>Rational Code Coverage 特性现在只能获得 Rational Application Developer 7.5
+ 版本及其后续版本。本文假设您使用的是 Rational Application Developer 7.5.4 版本。对代码覆盖率而配置 
+IBM® WebSphere® Application Server 的部分假设您使用的是 7.0 
+版本，但是提供的指南的一些调整仍然适用于上述版本。
+</p>
+			<p><a name="instr"><span class="atitle">指南</span></a></p>
+			<p>为了适当地分析 Rational Code Coverage 特性中的覆盖率统计数据，理解场景背后所用到的技术是非常重要的。</p>
+			<p>Eclipse Test 与 Performance Tools Project（TPTP）中提供的 Rational Code 
+Coverage 特性所使用的工具引擎。Probekit 用于控制一个类的比特代码，并引入覆盖率数据收集引擎的通用访问。图 1 
+提供了关于这个过程的一个高层次的概述：</p>
+			
+				<br><a name="fig1"><b>图 1. Rational Code Coverage 执行环境的概述</b></a><br>
+				<img alt="输入，输出与回馈  " src="index_files/image001.gif" height="325" 
+width="263">
+			<br>
+			<p><a name="blocks"><span class="smalltitle">基本快与可执行的单元</span></a></p>
+			<p>Probekit 是一种在 Eclipse 平台上的框架，并可以操作所谓 <em>可执行单元</em> 
+的比特代码。可执行单元的定义与 <em>基本块</em> 的传统定义有轻微的不同，但是当您在分析结果时，您就需要去关注这点差异了。</p>
+			<p>根据定义，一个所谓的基本块就是一系列的指南，这些指南不能再进行分支或者分散。这里的关键思想在于，当第一个指南运行的时候，该块中随后所
+有指南都一定会得到执行而且不会得到中断。接下来的是一个基本块，它可以认为是一个单个组或者一系列的指南。通常来说，基本块的结尾是 
+                <code>branch</code>， <code>call</code>,
+                <code>throw</code> 或者 <code>return</code>
+                声明。</p>
+			<p>一个可执行的单元由每一个基本快开始，而与每行源代码相对应的指南与前面版本中的指南有所不同。可执行的单元与基本块的不同点，在于决定一个
+可执行单元末尾的因素。例如，  <code>divide</code> 指南并没有认为是一个可执行单元的结尾，尽管有例外情况的存在。</p>
+			<p>Probekit 是 Rational Code Coverage 
+特性所使用的，以将通用代码引入到每一个可执行的单元之中。结果来说，您可以定制 Rational Code Coverage 
+特性以向组成性（换句话说，就是块覆盖率）可执行单元层次报告统计数据。为了知道这些工具是怎样更改类了，您可以参考接下来的代码清单 1 与代码清单 
+2。代码清单 1 提供了未处理类的分解输出（从 javap 工具来），同时代码清单 2 为处理过的类提供了分解输出。注意代码清单 2 中  <em>italics</em>
+ 的行就是作为处理步骤一部分导入的代码部分。
+</p>
+			<br><a name="listing1"><b>清单 1. 未处理的类文件</b></a><br><table border="0" 
+cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+Compiled from "Part.java"
+public class com.ibm.storeapp.models.Part extends java.lang.Object{
+public com.ibm.storeapp.models.Part(int);
+  Code:
+   0:   aload_0
+   1:   invokespecial   #15; //Method java/lang/Object."&lt;init&gt;":()V
+   4:   iload_1
+   5:   bipush  10
+   7:   if_icmple       18
+   10:  aload_0
+   11:  iload_1
+   12:  invokespecial   #18; //Method setDiscountedPrice:(I)V
+   15:  goto    23
+   18:  aload_0
+   19:  iload_1
+   20:  putfield        #21; //Field price:I
+   23:  return
+   
+   public int getPrice();
+  Code:
+   0:   aload_0
+   1:   getfield        #21; //Field price:I
+   4:   ireturn
+
+}
+</pre></td></tr></tbody></table><br>
+			
+			<br><a name="listing2"><b>清单 2. 每一个可执行单元处理的类文件</b></a><br><table 
+border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+Compiled from "Part.java"
+public class com.ibm.storeapp.models.Part extends java.lang.Object{
+public com.ibm.storeapp.models.Part(int);
+ Code:
+ <em> 0: ldc #49; //String com/ibm/storeapp/models/Part 2: iconst_0 3: iconst_0 4: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 7:   aload_0
+ 8:   invokespecial   #15; //Method java/lang/Object."&lt;init&gt;":()V
+ <em>11: ldc #49; //String com/ibm/storeapp/models/Part 13: iconst_0 14: iconst_1 15: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 18:  iload_1
+ 19:  bipush  10
+ 21:  if_icmple       46
+ <em>24: ldc #49; //String com/ibm/storeapp/models/Part 26: iconst_0 27: iconst_2 28: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 31:  aload_0
+ 32:  iload_1
+ 33:  invokespecial   #18; //Method setDiscountedPrice:(I)V
+ <em>36: ldc #49; //String com/ibm/storeapp/models/Part 38: iconst_0 39: iconst_3 40: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 43:  goto    58
+ <em>46: ldc #49; //String com/ibm/storeapp/models/Part 48: iconst_0 49: iconst_4 50: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 53:  aload_0
+ 54:  iload_1
+ 55:  putfield        #21; //Field price:I
+ <em>58: ldc #49; //String com/ibm/storeapp/models/Part 60: iconst_0 61: iconst_5 62: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 65:  return
+
+ public int getPrice();
+ Code:
+ <em>0: ldc #49; //String com/ibm/storeapp/models/Part 2: iconst_2 3: iconst_0 4: 
+    invokestatic #48; //Method llc_probe$Probe_0._executableUnit:(Ljava/lang/String;II)V</em>
+ 7:   aload_0
+ 8:   getfield        #21; //Field price:I
+ 11:  ireturn
+	<em> static {}; Code: 0: ldc #49; //String com/ibm/storeapp/models/Part 2: ldc #55; 
+    //String Part.java 4: ldc #57; //String &lt;init&gt;(I)V+setDiscountedPrice(I)V
+    +getPrice()I 6: ldc #59; //String #10+11032,301,3 8: invokestatic #54; 
+    //Method llc_probe$Probe_0._staticInitializer: 
+    (Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V 11: return</em>
+
+}
+				</pre></td></tr></tbody></table><br>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="genstats"><span class="atitle">在 Rational Application Developer 
+中生成覆盖率统计数据</span></a></p>
+			<p>Rational Code Coverage 特性的一个主要的优势在于，您可以通过切换到项目 Properties 的 <strong>Code
+ Coverage</strong> 窗格，来将其在 Rational Application Developer 中的 Java 
+项目上激活，如图 2 所示。</p>
+			
+				<br><a name="fig2"><b>图 2. 项目 Properties 中的代码覆盖窗格</b></a><br>
+				<img alt="设置可接受的覆盖率层次百分比 " src="index_files/image002.jpg" 
+height="316" width="400">
+			<br>
+			<p>选择图 2 中的 <strong>Enable code coverage</strong> 
+复选框以激活项目的代码覆盖率，并评价覆盖下项目的类。您还可以使用该窗格来定制可接受的覆盖率层次。接下来描述了组合的支持层次：</p>
+			<ul>
+				<li>
+					<strong>类型覆盖率</strong>：一个类中覆盖的类型百分比 
+</li>
+				<li>
+					<strong>方法覆盖率</strong>：一个类中覆盖的方法百分比 
+</li>
+				<li>
+					<strong>行覆盖率</strong>：类文件中覆盖的行百分比 
+</li>
+				<li>
+					<strong>块覆盖率</strong>：一个类文件中覆盖的块的百分比。注意一个块会参考一个可执行的单元（如 
+                        <a href="#blocks">以前</a>描述的那样 ）</li>
+			</ul>
+			<p>您还可以指定通用的筛选规则，而且它们可以用于控制在项目中评价哪些内容。默认条件下，项目中的所有类都会得到评价，但是您可以创建通用的筛
+选规则来排除目标包或者指定类型，如果您需要限制结果的话。</p>
+			<p><a name="N1015C"><span class="smalltitle">Package Explorer</span></a></p>
+			<p>在您激活一个项目中的代码覆盖率以后，覆盖率统计数据就会在下一次程序启动的时候生成。注意不是所有类型启动配置都会自动生成统计数据。表 1
+ 显示了 Rational Application Developer 内支持的启动类型。</p>
+			<br><a name="table1"><b>表 1. 支持的启动配置</b></a><br>
+			<table class="ibm-data-table" summary="Table of supported launch 
+configurations" border="0" cellpadding="0" cellspacing="0"><tbody><tr><th
+ scope="col">
+						<strong>启动类型</strong>
+					</th></tr><tr><td>Java Applet</td></tr><tr><td>OSGi 框架</td></tr><tr><td>JUnit</td></tr><tr><td>JUnit
+ 插件测试</td></tr><tr><td>Java 程序</td></tr><tr><td>Eclipse 程序</td></tr><tr><td>标
+准 Widget Toolkit （SWT）程序</td></tr></tbody></table>
+			<br>
+			<p>在 
+                <a href="#download">下载</a> 
+部分中提供了一个范例程序，本文至始至终都会使用该范例。该程序是一个不同交通工具（汽车、货车、摩托车等等）的简单再现。图 3 
+中是一个概括了该程序结构的 UML 图。</p>
+			
+				<br><a name="fig3"><b>图 3. 范例程序的 UML 图</b></a><br>
+				<img alt="工具的类型与组成  " src="index_files/image003.gif" height="232" 
+width="462">
+			<br>
+			<p>在项目中有两种定义好的 JUnit 测试：<code>TestCar.java</code> 与 <code>TestCarImproved.java</code>。
+正如其名字所暗含的一样，这些测试的目标是  <code>Car.java</code> 类。而在 Rational Application 
+Developer 的 Java 视角中，您可以右击 <code>TestCar.java</code> 并选择 <strong>Run As 
+&gt; JUnit test</strong> 来启动 <code> TestCar.java</code> 测试。JUnit 
+测试的结果会正常显示在 JUnit 视图中。覆盖率数据的结果会集成到 Rational Application Developer UI 
+中，而且您可以切换回 Package Explorer 来分析它们。图 4 显示了 <code>TestCar.java</code> 
+测试的一个范例结果。</p>
+			
+				<br><a name="fig4"><b>图 4. Package Explorer 中显示的 TestCar.java 的覆盖率数据</b></a><br>
+				<img alt=" Explorer 中显示在元素附近的覆盖率百分比" src="index_files/image004.jpg" 
+height="264" width="240">
+			<br>
+			<p>默认条件下，UI 只与行覆盖率信息一起注释；但是，您可以在工作台偏好中更改它们，并且可以选择为包、类型以及块而包含覆盖率。每一个 
+Java 项目的百分比是最后一次执行代码覆盖率的中断。您可以在  Package Explorer 中深入研究各种 Java 
+工件（例如，类、类型与方法）以得到较低组合层次上的覆盖率统计数据。</p>
+			<p>结果得到的结果的颜色情况取决于成功率：默认条件下，红色意味着没有达到可接受的覆盖率层次，而绿色则意味着得到了适当的覆盖率范围。一般来
+说，测试的目的在于达到类可接受覆盖率层次的结果。</p>
+			<p>基于如图 4 所示的结果，第一个测试是不充分的：<code>Car</code> 类（以及抽象父类 <code>AbstractFourWheelVehicle</code>
+ 和 <code>Vehicle</code>）并不能达到适当的覆盖率层次。幸运的是，您有第二次尝试的机会：<code>TestCarImproved.java</code>。
+您可以再一次将测试作为一次正常的 JUnit 执行，而结果将会在 Package Explorer 中进行自动更新（图 5）。</p>
+			
+				<br><a name="fig5"><b>图 5. Package
+                    Explorer 中显示的 TestCarImproved.java 的代码覆盖率数据</b></a><br>
+				<img alt="更多的构件有可接受的覆盖率并且是绿色的 " src="index_files/image005.jpg" 
+height="266" width="240">
+			<br>
+			<p><a name="N10215"><span class="smalltitle">Java 编辑器</span></a></p>
+			<p>行覆盖率结果也是显示的，并在 Java 
+编辑器中有所标记，而您可以使用它来得到一个更加明确的指示，也就是每一类中涉及到了哪一行。在生成覆盖率数据之后，您就可以使用 Java 
+编辑器来在项目中打开任意的类了，编辑器中左边的标尺栏显示了关于覆盖率的信息。图 6 显示了  <code>Vehicle.java</code>
+ 的结果：</p>
+			
+				<br><a name="fig6"><b>图 6. Java 编辑器中显示的覆盖率结果</b></a><br>
+				<img alt="左边的绿色标记显示了涉及到的行  " src="index_files/image006.jpg" 
+height="243" width="350">
+			<br>
+			<p>颜色编辑与在 Package Explorer 中所显示的是一样的。也就是，默认条件下，绿色的行是覆盖的而红色的则不是覆盖的。在 
+Java 
+编辑器中查看结果有一个微弱的优势，那就是它还指示了部分覆盖的行。当在源代码中有不止一个的可执行单元时就会产生部分覆盖的行，但是它们中只有一个可以
+被执行。例如，查看图 6 中  
+                <code>setTargetSpeed(int speed)</code>
+               方法中第一行的代码 ：第一个可执行的单元是 
+                <code>if</code> 声明，而第二个可执行的单元则是 
+                 <code>return</code> 声明。默认条件下，一个部分的行会被标上黄色。
+</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="genreport"><span class="atitle">生成报告</span></a></p>
+			<p>您可以将代码覆盖率结果数据汇编到报告之中并在 Rational Application Developer 
+中查看它们，或者将它们保存到文件系统中以便未来的分析。您可以生成两种不同类型的报告：Workbench 报告（基于 Eclipse）与 HTML
+ 报告。为了生成一份报告，您可以选择 <strong>Run &gt; Code Coverage &gt; Generate Report</strong>。
+图 7 显示了报告生成对话框。
+</p>
+			
+				<br><a name="fig7"><b>图 7. 报告生成对话框  
+</b></a><br>
+				<img alt=" 从 Name 与 Date 表中选择启动配置 " src="index_files/image007.jpg" 
+height="392" width="336">
+			<br>
+			<p>您可以在 Rational Application Developer 中使用对话框中的 <strong>Quick View</strong>
+ 选项来创建并查看一个报告，或者使用  <strong>Save Report</strong> 选项将其保存到文件系统中去。</p>
+			<p><a name="workbenchreport"><span class="smalltitle">工作台报告</span></a></p>
+			<p>工作台报告（也叫做基于 Eclipse 的报告）为项目提供了所有覆盖率统计数据的稳固视图，并包含了执行时项目中所有类的覆盖率数据。图
+ 8 显示了一个基于 Eclipse 流传的报告。</p>
+			
+				<br><a name="fig8"><b>图 8. 一个基于 Eclipse 报告的覆盖率结果 
+</b></a><br>
+				<img alt="显示元素，覆盖率，以及覆盖的和总体的行  " src="index_files/image008.jpg" 
+height="267" width="442">
+			<br>
+			<p>工作台报告与 Rational Application Developer 
+相集成具有额外的优势，因为您可以使用它们作为一个快速的工具，以提供了关于部分代码的视角，这些代码需要改进的测试覆盖率数据。如图 8 
+所示，工作台报告中的统计数据包含了所有层次组成的覆盖率信息：从一个包到一种方法。右击任意的 Java 工件会显示出一个带有两种操作的弹出菜单： <strong>
+ 在 Package Explorer 中显示</strong> 与 <strong>在 Java 编辑器中将其打开</strong>。对于识别
+和研究带有低覆盖率的代码区域来说，它们是非常有用的工具，因为通过将它们在适当的浏览器或者编辑器中打开，从而强调了代码的选择区域。</p>
+			<p><a name="htmlreport"><span class="smalltitle">HTML 报告</span></a></p>
+			<p>HTML 报告显示了基于 Eclipse 报告所提供的相同类型的信息，但是呈现的格式却是 HTML 
+的。这些报告能够发挥一定程度的作用，因为它们为在独立于 Rational Application Developer 
+之外去分析覆盖率数据提供了一种有效的方法，您可以与团队的其他成员一起分享，或者将其发布到一个网站上以方便查看。
+</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="standalone"><span class="atitle">在工作台的外部生成统计数据</span></a></p>
+			<p>Rational Code Coverage 工具的一个主要特性是其在 Rational Application Developer
+ 外部生成统计数据的能力。它提供了额外的灵活性，并使得您可以定制环境以利用系统中的 Rational Code Coverage 
+特性。例如，一个自然的合并过程就是创建一个构建环境并使用 JUnit 测试来生成统计数据。</p>
+			<p>通过执行以下的三个步骤：评价，执行以及生成报告，您可以将 Rational Code Coverage 特性集成到您的环境之中。</p>
+			<p><a name="N10299"><span class="smalltitle">第 1 步.
+                评价</span></a></p>
+			<p>您可以使用两种不同的方法来评价您的程序。第一个就是使用 
+                <code>&lt;RAD_HOME&gt;/plugins/com.ibm.rational.llc.engine_&lt;date&gt;/scripts</code>
+               目录中提供的 <code>instrument.bat/sh</code> 
+脚本。本文并没有关注这个脚本，但是您可以参考 Rational Application Developer 
+文献以得到更多的信息，如果需要的话。第二个方法是使用 Rational Code Coverage 特性提供的评价 Ant 任务。代码清单 3 
+显示了评价任务配置的范例用法，以得到本文中的范例程序。
+</p>
+			<br><a name="listing3"><b>清单 3. 本文范例程序的评价 Ant 任务的范例用法</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">				
+&lt;target name="instrument"&gt;
+  &lt;taskdef name="instrument" 
+    classname="com.ibm.rational.llc.engine.instrumentation.anttask.InstrumentationTask" 
+    classpath="{path to com.ibm.rational.llc.engine plugin}"/&gt; 
+  &lt;instrument saveBackups="true" 
+    baseLineFile="project.baseline" 
+    buildPath="VehicleProject" 
+    outputDir="VehicleProjectInstr"/&gt; 
+&lt;/target&gt;
+				</pre></td></tr></tbody></table><br>
+			<p>对预期参数的快速预览，已经列在后续的表 2 中。</p>
+			<br><a name="table2"><b>表 2. 指南任务的输入参数</b></a><br>
+			<table class="ibm-data-table" summary="Input parameters for 
+instrumentation utilities" border="0" cellpadding="0" cellspacing="0"><tbody><tr><th
+ scope="col">
+						<strong>参数</strong>
+					</th><th scope="col">
+						<strong>描述</strong>
+					</th></tr><tr><td>
+						<code>buildPath</code>
+					</td><td>对文件系统上项目的路径</td></tr><tr class="alt-row"><td>
+						<code>outputDir</code>
+					</td><td>（可选的）评价项目的输出目录。如果没有指定，
+                        <code>buildPath</code> 中的类将会进行评价。</td></tr><tr 
+class="alt-row"><td>
+						<code>baseLineFile</code>
+					</td><td>（可选的）基线项目索引文件的输出位置。查看接下来的段落以得到关于该文件更多的信息。</td></tr><tr 
+class="alt-row"><td>
+						<code>saveBackups</code>
+					</td><td>（可选的）如果在评价之前先备份原始的类文件，那么您可以设置为 <code>true</code>。</td></tr></tbody></table>
+			<br>
+			<p>评价的两种方法都会输出一个基线文件。所谓的基线文件是一个特定于 Rational Code Coverage 
+特性的概念。基线文件包含了项目中所有类的一个索引，并维护了关于每一个类的额外元数据。该文件在报告阶段（接下来的第 3 
+步）使用以决定程序中的哪一个类 <em>不被</em> 覆盖。该步是需要的，因为 Rational Code Coverage 
+数据收集引擎只是在 Java™ Virtual 
+Machine（JVM）载入类时才会标记一个类，所以没有执行的类的列表在没有元数据存在的条件下就不能进行决定了。如果基线文件没有在报告时出现，那
+么没有载入的类将不会出现在报告中。</p>
+			<p><a name="N1031F"><span class="smalltitle">第 2 步. 执行</span></a></p>
+			<p>为了执行评价好的类，您必须在启动时对 Java 环境做适当的配置。执行过程中所需的两个特定的参数解释如下：</p>
+			<ul>
+				<li>
+					<code>-Dcoverage.out.file=&lt;absolute path to output file&gt;</code>：
+该 JUM 论断指定的文件就是覆盖率统计数据的输出位置</li>
+				<li>向 classpath 添加 <code> &lt;Rational Application Developer 
+HOME&gt;/plugins/com.ibm.rational.llc.engine_&lt;date&gt;/RLC.jar</code>：
+因为代码已经进行了评价并得到了 Rational Code Coverage 数据搜索引擎的回馈，RLC.jar 文件需要在运行时位于  
+classpath 处。</li>
+			</ul>
+			<p>JUnit Ant 任务提供了这些参数。代码清单 4 提供了范例用法。
+</p>
+			<br><a name="listing4"><b>清单 4. 怎样指定 Ant 启动中 Rational Code Coverage 
+特性论断的范例</b></a><br><table border="0" cellpadding="0" cellspacing="0" 
+width="100%"><tbody><tr><td class="code-outline"><pre class="displaycode">				
+&lt;target name="run"&gt;
+ &lt;junit showoutput="true" fork="yes"&gt;
+  &lt;jvmarg value="-Dcoverage.out.file={absolute path to the output file}"/&gt;
+  &lt;classpath&gt;
+   &lt;pathelement location="{absolute path to the 
+    &lt;Rational Application Developer HOME&gt;/plugins/com.ibm.rational.llc.engine_&lt;date&gt;
+        /RLC.jar file}"/&gt;
+   &lt;pathelement location="{path to the project classes}"/&gt;
+   &lt;pathelement path="{absolute path to the junit.jar}" /&gt;
+  &lt;/classpath&gt;
+  &lt;test name="com.ibm.vehicles.tests.TestCar" outfile="TestCar" /&gt;
+ &lt;/junit&gt;
+&lt;/target&gt;
+				</pre></td></tr></tbody></table><br>
+			<p><a name="N10346"><span class="smalltitle">第 3 步. 生成报告</span></a></p>
+			<p>您可以使用 Rational Code Coverage 特性所提供的另外一项 Ant 任务来生成报告。该项任务使用 BIRT 
+Eclipse.org 项目所提供的报告功能，并因此需要您去下载 BIRT V2.3.2 Reporting Engine 
+独立版。该操作可以通过访问 http://www.eclipse.org/birt/download，选择 V2.3.2 版本并下载  <strong>Report
+ Engine</strong> 版本来完成。注意该 Ant 任务只能产生 HTML 报告。</p>
+			<p>清单 5 提供了报告 Ant 任务的范例用法。注意，作为输入，它需要在第 2 步中所生成的覆盖率数据以及在第 1 
+步中（可选）所生成的基线文件。
+</p>
+			<br><a name="listing5"><b>清单 5. 本文中范例程序报告生成 Ant 任务的范例</b></a><br><table
+ border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td 
+class="code-outline"><pre class="displaycode">							
+&lt;target name="generate-report"&gt;
+ &lt;path id="lib.path"&gt;
+  &lt;pathelement location="{absolute path to the 
+    &lt;Rational Application Developer HOME&gt;/plugins/
+        com.ibm.rational.llc.common_&lt;date&gt;.jar plugin}"/&gt;
+  &lt;pathelement location="{absolute path to the 
+    &lt;Rational Application Developer HOME&gt;/plugins/
+        com.ibm.rational.llc.report_&lt;date&gt; plugin}"/&gt;
+  &lt;pathelement location="{absolute path to the 
+    &lt;Rational Application Developer HOME&gt;/plugins/
+        org.eclipse.equinox.common_&lt;date&gt;.jar plugin}"/&gt;
+  &lt;fileset dir="{absolute path to the BIRT ReportEngine directory}\lib" includes="*.jar"/&gt;
+ &lt;/path&gt;
+
+ &lt;taskdef name="code-coverage-report" 
+   classname="com.ibm.rational.llc.report.birt.adapters.ant.ReportGenerationTask" 
+   classpathref="lib.path"/&gt;
+
+ &lt;code-coverage-report 
+   outputDir="{absolute path to the report output directory}" 
+   coverageDataFile="{absolute path to the coveragedata file generated in step 1}" 
+   baseLineFiles="{absolute path to the baseline file generated in step 1}"/&gt;
+&lt;/target&gt;
+			</pre></td></tr></tbody></table><br>
+			<p>在图 9 中显示有一个范例 HTML 报告。使用 Ant 任务生成 HTML 报告会提供一种方法，用户可以通过这种方法来查看独立于 
+Rational Application Developer 之外 Ant 环境中生成的统计数据。</p>
+			
+				<br><a name="fig9"><b>图 9. HTML 报告中的覆盖率结果</b></a><br>
+				<img alt="左边是 Navigation 部分，右边是结果 " src="index_files/image009.jpg" 
+height="322" width="430">
+			<br>
+			<p><a name="N10371"><span class="smalltitle">尝试一下！</span></a></p>
+			<p>本文的 <a href="#download">下载</a> 部分为 Ant 
+环境提供了范例脚本以及构建文件，该环境可以用于指导、执行并生成关于范例程序的报告。如果您对测试该环境感兴趣，那么您可以参考一下  
+Standalone.zip 文件中的 README 文件。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="server"><span class="atitle"> 在 WebSphere Application Server 
+上生成统计数据</span></a></p>
+			<p>使用 WebSphere Application Server 
+来生成代码覆盖率统计数据在这里是支持的，但是不幸的是，这个版本中并不支持来自 Rational Application Developer 
+内部的自动化配置。但是，版本中提供的 Rational Code Coverage 特性足够灵活以集成到服务器环境中去，包括 WebSphere
+ Application Server。为了对代码覆盖率而配置您的 WebSphere Application Server 
+，您需要按照以下步骤进行操作：</p>
+			<ol>
+				<li>启动服务器</li>
+				<li>登录到 Administrative Console</li>
+				<li>在左边的窗格中，展开 <strong>Servers</strong>
+				</li>
+				<li>展开 <strong>Server Types</strong>
+				</li>
+				<li>点击 <strong>WebSphere 程序服务器</strong>
+				</li>
+				<li>选择适当的程序服务器</li>
+				<li>展开右部窗格选项区域内 <strong>Server Infrastructure</strong> 部分中 <strong>Java
+ and Process Management</strong> 项</li>
+				<li>点击 <strong>Process definition</strong>
+				</li>
+				<li>点击 <strong>Additional Properties</strong> 部分中的 <strong>Java 
+Virtual Machine</strong></li>
+				<li>在 <strong>Boot Classpath</strong> 部分中，添加 RLC.jar 文件。如上面介绍的那样，该 
+.jar 文件位于 Rational Code Coverage 数据收集引擎中，并位于 <code>&lt;Rational 
+Application Developer 
+HOME&gt;/plugins/com.ibm.rational.llc.engine_&lt;date&gt;/RLC.jar</code>
+				</li>
+				<li>在 <code>Generic JVM arguments</code> 中，添加 <code>-Dcoverage.out.file={output
+ file}</code> JVM 论断。如上面所述的那样，该论断指定了应该将输出的统计数据保存在什么地方。</li>
+				<li>保存服务器配置并重启服务器。</li>
+			</ol>
+			<p>图 10 显示了在作出以上所做的变更之后 Administrative Console 
+的屏幕截图。注意在每一个服务器实例的后面必须有一个指南，这些服务器实例会执行一个代码覆盖率程序。</p>
+			
+				<br><a name="fig10"><b>图 10. WebSphere Application Server 对 Rational
+ Code Coverage 特性的配置</b></a><br>
+				<img alt="属性包括了 classpath 以及堆积的规模 " src="index_files/image010.jpg" 
+height="411" width="364">
+			<br>
+			<p>在服务器对代码覆盖率进行配置之后，您就可以手动对服务器进行代码覆盖率的配置了（从 Administration Console 
+上进行），或者使用 Rational Application Developer 中的集成支持功能。注意覆盖率的结果不会自动导入到 
+Rational Application Developer 中以进行分析，这样您需要执行接下来的步骤来将统计数据导回到工作区中：</p>
+			<ol>
+				<li> 在 Rational Application Developer 中的 Java 视角中，右击 Package 
+Explorer 并选择 <strong>Import</strong>
+				</li>
+				<li>展开 <strong>Code Coverage</strong>
+				</li>
+				<li>选择 <strong>Code Coverage Data File</strong> 并点击 <strong>Next</strong>
+				</li>
+				<li>选择 <strong>Data is located on the file system</strong> 选项并点击 <strong>Next</strong>
+				</li>
+				<li>在 <strong>Coverage Data file</strong> 区域中，选择服务器所提供的文件系统上的覆盖率数据</li>
+				<li>在 <strong>Into folder</strong> 区域中，选择工作区中的一个目录以保存导入的文件。</li>
+				<li>在 <strong>Associate with Project</strong> 
+区域中选择适当的项目。您应该将统计数据与工作区中的项目联系起来，工作区中包含的源代码用于在服务器上生成统计数据。</li>
+				<li>点击 <strong>Finish</strong>
+				</li>
+			</ol>
+			<p>当覆盖率数据文件位于工作区中时，您可以在 UI 中显示统计数据并生成报告。您可以右击覆盖率文件并选择 <strong>Code 
+Coverage &gt; Show code coverage indicators</strong> 或者 <strong>Generate
+ Report</strong> 来完成该操作。该功能可以使您更加受益，因为它提供了对分析 Rational Application 
+Developer 中结果所用所有工具的访问途径。</p>
+		<!-- CMA ID: 495659 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file:  dw-article-6.0-beta.xsl -->
+<br><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><span
+ class="atitle"><a name="download">下载</a></span></p><table 
+class="ibm-data-table" border="0" cellpadding="0" cellspacing="0" 
+width="100%"><tbody><tr><th scope="col">描述</th><th scope="col">名字</th><th
+ scope="col">大小</th><th scope="col">下载方法</th></tr><tr><td class="tb-row"
+ scope="row">本文的示例应用程序</td><td nowrap="nowrap">SampleApplication_CCRAD.zip</td><td
+ nowrap="nowrap">26 KB</td><td nowrap="nowrap"><a class="fbox" 
+href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=495659&amp;filename=SampleApplication_CCRAD.zip&amp;method=http&amp;locale=zh_CN">HTTP</a></td></tr><tr><td
+ class="tb-row" scope="row">示例独立执行环境</td><td nowrap="nowrap">Standalone_CCRAD.zip</td><td
+ nowrap="nowrap">28 KB</td><td nowrap="nowrap"><a class="fbox" 
+href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=495659&amp;filename=Standalone_CCRAD.zip&amp;method=http&amp;locale=zh_CN">HTTP</a></td></tr></tbody></table><p><a
+ href="http://www.ibm.com/developerworks/cn/whichmethod.html" 
+class="ibm-forward-link">关于下载方法的信息</a></p><br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><b>学习</b></p><ul><li>
+				<a 
+href="http://www.eclipse.org/tptp/platform/documents/probekit/probekit.html">使
+用 Probekit 的介绍文章</a>。
+<br><br></li><li>
+				<a 
+href="http://help.eclipse.org/ganymede/index.jsp?topic=/org.eclipse.hyades.probekit.doc.user/topics/c_pk_intro.htm">Probekit
+ 产品文档。</a> 包括所提供数据类型的附加文档。<br><br></li><li>
+				<a href="http://www.eclipse.org/tptp/">Eclipse Test 和 Performance 
+Tools Project</a> Web 页面。<br><br></li><li>
+				<a href="http://en.wikipedia.org/wiki/Basic_block">Basic block</a> 
+详细描述。<br><br></li><li><a 
+href="http://en.wikipedia.org/wiki/Code_coverage">代码覆盖</a> 技术概览。<br><br></li><li>
+ 检查 IBM® developerWorks® 上的 <a 
+href="http://www.ibm.com/developerworks/cn/rational/products/rad/">Rational
+ Application Developer for WebSphere Software 产品专题</a> 
+页面，可以连接到产品文档、文章、教程、课程、下载，以及其它有用的区域。<br><br></li><li> 查看 <a 
+href="http://publib.boulder.ibm.com/infocenter/radhelp/v7r5/index.jsp">IBM
+ Rational Application Developer 信息中心</a> 的技术指南。<br><br></li><li> 在 <a 
+href="http://www.ibm.com/software/info/developer/index.html">IBM 
+Rational 软件交付平台</a> 
+中了解其它应用程序，包括适用于并行开发和地域分布式团队的协作工具，以及用于架构管理、资产管理、变更和发布管理，集成需求管理、过程和组合管理，和质
+量管理。您可以在 <a 
+href="http://www.ibm.com/software/rational/support/documentation/">IBM 
+Rational 在线文档中心</a> 查找产品手册、安装指南以及其它文档。<br><br></li><li> 访问 <a 
+href="http://www.ibm.com/developerworks/cn/rational/">developerWorks 上的 
+Rational 软件区域</a>，了解有关 Rational 软件交付平台产品的技术资源和最佳实践。<br><br></li><li>查找 <a
+ href="http://www.ibm.com/training/us/catalog/rational" 
+onmouseover="linkQueryAppend(this)">Rational 基于计算机、基于 Web，以及在线指导课程</a>。训
+练您的技能，并学习更多有关 Rational 工具的课程，包括入门级和高级课程。在此目录上的课程可进行购买，包括基于计算机的和基于 Web 
+的培训。此外，一些“入门”课程是免费的。<br><br></li><li> 订阅 <a 
+href="http://www.ibm.com/developerworks/cn/newsletter/subscription/noscript.html">IBM
+ developerWorks 时事通讯</a>，获得有关最佳的 developerWorks 
+教程、文章、下载、社区活动、网络广播和事件的每周更新。<br><br></li></ul><p><b>获得产品和技术</b></p><ul><li>下
+载 <a 
+href="http://www.ibm.com/developerworks/cn/downloads/r/rad/learn.html">Rational
+ Application Developer 免费试用版</a>。<br><br></li><li> 下载 <a 
+href="http://www.ibm.com/developerworks/cn/rational/downloads/">IBM 
+Rational 软件的试用版本</a>。<br><br></li><li> 下载这些 <a 
+href="http://www.ibm.com/developerworks/cn/downloads/">IBM 产品评估版本</a>，并着
+手使用来自于 DB2®、Lotus®、Tivoli®，以及 WebSphere® 的应用程序开发工具和中间件产品。<br><br></li></ul><p><b>讨
+论</b></p><ul><li> 查看 developerWorks 上的 <a 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=430" 
+onmouseover="linkQueryAppend(this)">Rational 开发工具讨论区</a> 和 <a 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=378" 
+onmouseover="linkQueryAppend(this)">JavaServer Faces 讨论区</a>。<br><br></li><li>
+ 查看 <a href="http://www.ibm.com/developerworks/blogs/" 
+onmouseover="linkQueryAppend(this)">developerWorks 博客</a>，并加入 <a 
+href="http://www.ibm.com/developerworks/community" 
+onmouseover="linkQueryAppend(this)">developerWorks 社区</a>。<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div 
+class="ibm-container ibm-portrait-module ibm-alternate-two"><div 
+class="ibm-container-body"><img src="index_files/p-pklicnik.jpg" 
+class="dw-author-img" alt="Paul Klicnik" height="80" width="64"><p><a 
+name="author1"> </a>Paul Klicnik 是位于安大略省马克姆的 IBM 多伦多实验室的一名软件开发人员。他自从 
+2008 年以来从事代码覆盖工作，从 2006 年从事性能和测试工具领域的工作。Paul 从事过多个 IBM 核心产品的工作，包括 IBM 
+Rational Performance Tester 和 IBM Rational Application Developer，还有 
+Eclipse 测试和性能工具项目（TPTP）项目。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">建议</a></span></p>
+  <div id="dw-icomments-container" class="ibm-no-print">
+    <div class="ibm-alternate-rule"><hr></div>
+    <div class="ibm-alternate-rule"><hr></div>
+    <!-- Comment_Script -->
+    
+    <a id="comments" 
+href="http://www.ibm.com/developerworks/cn/rational/10/introtocodecoveragetoolinrationalapplicationdeveloper/comments"></a>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signIn = '登录';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.cmt = '评论：';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <b>{1}</b>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+// ]]>
+    </script>
+    <script language="JavaScript" src="index_files/insertcomment.js" type="text/javascript">//</script>
+    <div id="threadShow"><div id="cmtTog" style=""><p><span id="numCmts">0</span>&nbsp;
+条评论 <span class="dw-bar">|</span> <a 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Frational%2F10%2Fintrotocodecoveragetoolinrationalapplicationdeveloper%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk" 
+class="dw-icomment-link">添加评论</a><a class="dw-icomment-report" 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834">举
+报不良信息</a></p><div class="ibm-alternate-rule"><hr></div><div 
+style="display: none;" id="commentForm"><div class="ibm-container"><h2>添
+加评论</h2><div class="ibm-container-body"><p>标有星号（<span 
+class="ibm-required">*</span>）的是必填项目。</p><span id="infoCmt"></span><div 
+class="ibm-rule"><hr></div><form method="post" action="" 
+class="ibm-column-form" enctype="multipart/form-data" focus="name" 
+name="form"><p><label for="newCmt">评论：<span class="ibm-required">*</span></label><br><textarea
+ name="newCmt" id="newCmt" cols="120" rows="4"></textarea></p><div 
+class="ibm-alternate-rule"><hr></div><p class="ibm-buttons-row"><input 
+value="发布" name="postCmt" class="ibm-btn-arrow-sec" id="postCmt" 
+type="button"><span class="ibm-sep">&nbsp;</span><input value="清除评论" 
+name="clearCmt" class="ibm-btn-cancel-sec" id="clearCmt" type="button"><span
+ class="ibm-sep">&nbsp;</span><input value="取消" name="cancelCmt" 
+class="ibm-btn-cancel-sec" id="cancelCmt" type="button"></p></form></div></div></div><div
+ id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table
+ class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>快
+来添加第一条评论</p></td></tr></tbody></table></div></div></div><div id="paging"><p><a
+ style="display: none;" id="lastCmts" class="dw-icomment-link">显示最新的 5 
+条评论</a><span style="display: none;" id="cmtDivider"> <span 
+class="dw-bar">|</span> </span><a style="display: none;" id="nextCmts" 
+class="dw-icomment-link">显示后 5 条评论</a><span style="display: none;" 
+id="cmtDivider2"> <span class="dw-bar">|</span> </span><a 
+style="display: none;" id="viewAllCmts" class="dw-icomment-link">显示所有评论</a></p></div><p><a
+ 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Frational%2F10%2Fintrotocodecoveragetoolinrationalapplicationdeveloper%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk2" 
+href="#icomments">添加评论</a></p><div class="ibm-alternate-rule"><hr></div><div
+ class="ibm-alternate-rule"><hr></div></div></div>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+    </script>
+  </div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" 
+href="#ibm-pcon">回页首</a></p>
+  <p><a href="http://www.ibm.com/developerworks/cn/ibm/trademarks/">商标</a>
+ &nbsp;|&nbsp; <a 
+href="http://www.ibm.com/developerworks/cn/mydw_terms/">My 
+developerWorks 使用条款与条件</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div
+ class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Rational,
+ Java technology</div><div class="metavalue">ArticleID=495659</div><div 
+class="metavalue">ArticleTitle=IBM Rational Application Developer 
+代码覆盖工具入门简介</div><div class="metavalue">publish-date=06122010</div><div 
+class="metavalue">author1-email=pklicnik@ca.ibm.com</div><div 
+class="metavalue">author1-email-cc=</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace('<', '%3C')+'</div>');</script><div
+ class="metavalue">url=http://www.ibm.com/developerworks/cn/rational/10/introtocodecoveragetoolinrationalapplicationdeveloper/index.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img
+ alt="" src="index_files/c.gif" height="1" width="1"><ul 
+class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#whatis">什
+么是 Rational Code Coverage 特性？</a></li><li><a class="ibm-feature-link" 
+href="#instr">指南</a></li><li><a class="ibm-feature-link" 
+href="#genstats">在 Rational Application Developer 中生成覆盖率统计数据</a></li><li><a
+ class="ibm-feature-link" href="#genreport">生成报告</a></li><li><a 
+class="ibm-feature-link" href="#standalone">在工作台的外部生成统计数据</a></li><li><a
+ class="ibm-feature-link" href="#server"> 在 WebSphere Application Server
+ 上生成统计数据</a></li><li><a class="ibm-feature-link" href="#download">下载</a></li><li><a
+ class="ibm-feature-link" href="#resources">参考资料 </a></li><li><a 
+class="ibm-feature-link" href="#author">关于作者</a></li><li><a 
+class="ibm-feature-link" href="#icomments">建议</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img
+ alt="Help" src="index_files/help_icon.gif" align="top" height="16" 
+width="16"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state 
+ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 
+中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong>
+ 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标
+签&lt; /strong&gt; 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</strong></p></div>
+<div class="ibm-access"><strong>使用搜索文本框在 My developerWorks 
+中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java 
+technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java 
+technology，Linux，WebSphere）。</strong></div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form 
+action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" 
+method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong><strong>搜索所有标签</strong></strong></label>
+<strong><input name="lang" value="zh" type="hidden">
+<input id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input
+ src="index_files/short-btn.gif" class="ibm-btn-view" alt="submit 
+search" title="提交搜索" value="Search" type="image"></strong></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a
+ id="a-my" href="javascript:;">我的文章标签</a><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><strong><a 
+id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的
+文章标签</strong></strong></p><strong><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></div>
+<div id="dw-tag-cloud"></div><strong>  
+</strong></div><strong>   
+</strong></div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+<strong> <!-- END_IBM-PCON -->
+</strong></div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><strong><a href="http://www.ibm.com/ibm/cn/zh/">关于
+IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></strong></li>
+<li><strong><a href="http://www.ibm.com/contact/cn/zh/">联系IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/legal/cn/zh/">使用条款</a></strong></li>
+<li><a href="http://www.ibm.com/ibm/syndication/cn/zh/">IBM RSS 可定制阅读服务</a></li><li><a
+ href="http://www.ibm.com/employment/cn/">求才启事</a></li></ul>
+<div id="ibm-social-tools"><ul><li><a rel="print" href="#" title="打印本页面"
+ class="ibm-share-print"></a></li><li><a rel="email" href="#" 
+title="用电子邮件发送本页面" class="ibm-share-email"></a></li></ul></div></div>
+<!-- FOOTER_END -->
+
+<strong> <!-- END_IBM-TOP -->
+</strong><div id="ibm-overlay-top"></div></div>
+<strong> 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_002.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_003.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end --><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=3&ibmAdoptPhase=651&ibmRole=36";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+</strong><div id="ibm-metrics">
+<script src="index_files/stats.js" type="text/javascript">//</script>
+</div>
+
+<div style="position: absolute; z-index: 95; display: none;" 
+id="cluetip-waitimage"></div><div style="z-index: 96; display: none; 
+position: absolute;" id="cluetip"><div style="z-index: 95; opacity: 0.1;
+ top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 
+0);"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; 
+position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: 
+absolute; background-color: rgb(0, 0, 0);"></div><div style="z-index: 
+92; opacity: 0.1; top: 4px; left: 4px; position: absolute; 
+background-color: rgb(0, 0, 0);"></div><div style="z-index: 91; opacity:
+ 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 
+0, 0);"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 
+6px; position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="position: relative; z-index: 97;" id="cluetip-outer"><h3 
+id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div 
+id="cluetip-extra"></div><div style="z-index: 97;" id="cluetip-arrows" 
+class="cluetip-arrows"></div></div><div style="position: absolute; 
+display: none; z-index: 9999;" id="livemargins_control"><img 
+src="index_files/monitor-background-horizontal.png" style="position: 
+absolute; left: -77px; top: -5px;" height="5" width="77">	<img 
+src="index_files/monitor-background-vertical.png" style="position: 
+absolute; left: 0pt; top: -5px;">	<img id="monitor-play-button" 
+src="index_files/monitor-play-button.png" 
+onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5" 
+style="position: absolute; left: 1px; top: 0pt; opacity: 0.5; cursor: 
+pointer;"></div></body></html>

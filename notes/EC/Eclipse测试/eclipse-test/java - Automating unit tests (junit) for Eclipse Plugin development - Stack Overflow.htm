@@ -1,0 +1,1040 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0100)http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development -->
+<HTML><HEAD><TITLE>java - Automating unit tests (junit) for Eclipse Plugin development - Stack Overflow</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type><LINK 
+rel="shortcut icon" 
+href="http://sstatic.net/stackoverflow/img/favicon.ico"><LINK 
+rel=apple-touch-icon 
+href="http://sstatic.net/stackoverflow/img/apple-touch-icon.png"><LINK 
+title="Stack Overflow" rel=search type=application/opensearchdescription+xml 
+href="/opensearch.xml">
+<SCRIPT type=text/javascript 
+src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/jquery.min.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/stub.js"></SCRIPT>
+<LINK rel=stylesheet type=text/css 
+href="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/all.css"><LINK 
+rel=canonical 
+href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development"><LINK 
+title="Feed for question 'Automating unit tests (junit) for Eclipse Plugin development'" 
+rel=alternate type=application/atom+xml href="/feeds/question/255370">
+<SCRIPT type=text/javascript>
+        
+        StackExchange.ready(function () {
+
+            StackExchange.question.init({showAnswerHelp:true,questionId:255370});
+
+            styleCode();
+        });
+    </SCRIPT>
+
+<SCRIPT type=text/javascript>
+        StackExchange.init({"stackAuthUrl":"http://stackauth.com","serverTime":1305780684,"site":{"name":"Stack Overflow","description":"Q&A for professional and enthusiast programmers"},"user":{"isAnonymous":true,"fkey":"8895a378595b0028d21bdcc8a6fccc2a","inboxUnviewedCount":-1}});
+        StackExchange.using.setCacheBreakers({"js/prettify-full.js":"dcf6d862901d","js/moderator.js":"051e1cf82089","js/full-anon.js":"1bd74c53ea17","js/full.js":"92693e38f8e6","js/wmd.js":"180bf9115d40"});
+    </SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7601.17537"></HEAD>
+<BODY class=question-page><NOSCRIPT>
+<DIV id=noscript-padding></DIV></NOSCRIPT>
+<DIV id=notify-container></DIV>
+<DIV id=overlay-header></DIV>
+<DIV id=custom-header></DIV>
+<DIV class=container>
+<DIV id=header>
+<DIV id=portalLink><A class=genu 
+onclick="StackExchange.ready(function(){genuwine.click();});return false;" 
+href="http://stackexchange.com/">Stack Exchange</A> </DIV>
+<DIV id=topbar>
+<DIV id=hlinks><SPAN id=hlinks-user></SPAN><SPAN id=hlinks-nav><A 
+href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f255370%2fautomating-unit-tests-junit-for-eclipse-plugin-development">log 
+in</A> <SPAN class=lsep>|</SPAN> <A 
+href="http://careers.stackoverflow.com/">careers</A> <SPAN class=lsep>|</SPAN> 
+</SPAN><SPAN id=hlinks-custom><A href="http://chat.stackoverflow.com/">chat</A> 
+<SPAN class=lsep>|</SPAN> <A href="http://meta.stackoverflow.com/">meta</A> 
+<SPAN class=lsep>|</SPAN> <A href="http://stackoverflow.com/about">about</A> 
+<SPAN class=lsep>|</SPAN> <A href="http://stackoverflow.com/faq">faq</A> 
+</SPAN></DIV>
+<DIV id=hsearch>
+<FORM id=search method=get action=/search>
+<DIV><INPUT class=textbox onfocus="if (this.value=='search') this.value = ''" 
+tabIndex=1 value=search maxLength=140 size=28 type=text name=q> 
+</DIV></FORM></DIV></DIV><BR class=cbt>
+<DIV id=hlogo><A href="http://stackoverflow.com/">Stack Overflow</A> </DIV>
+<DIV id=hmenus>
+<DIV class="nav mainnavs">
+<UL>
+  <LI class=youarehere><A id=nav-questions 
+  href="http://stackoverflow.com/questions">Questions</A></LI>
+  <LI><A id=nav-tags href="http://stackoverflow.com/tags">Tags</A></LI>
+  <LI><A id=nav-users href="http://stackoverflow.com/users">Users</A></LI>
+  <LI><A id=nav-badges href="http://stackoverflow.com/badges">Badges</A></LI>
+  <LI><A id=nav-unanswered 
+  href="http://stackoverflow.com/unanswered">Unanswered</A></LI></UL></DIV>
+<DIV class="nav askquestion">
+<UL>
+  <LI><A id=nav-askquestion href="http://stackoverflow.com/questions/ask">Ask 
+  Question</A> </LI></UL></DIV></DIV></DIV>
+<DIV id=content>
+<DIV id=question-header>
+<H1><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development">Automating 
+unit tests (junit) for Eclipse Plugin development</A></H1></DIV>
+<DIV id=mainbar>
+<DIV id=question>
+<DIV id=adzerk1 class=everyonelovesstackoverflow></DIV>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=255370 type=hidden> <A class=vote-up-off 
+      title="This question shows research effort; it is useful and clear (click again to undo)">up 
+      vote</A> <SPAN class=vote-count-post>6</SPAN> <A class=vote-down-off 
+      title="This question does not show any research effort; it is unclear or not useful (click again to undo)">down 
+      vote</A> <A class=star-off 
+      title="This is a favorite question (click again to undo)" 
+      href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development#">favorite</A> 
+
+      <DIV class=favoritecount><B>7</B></DIV></DIV></TD>
+    <TD class=postcell>
+      <DIV>
+      <DIV class=post-text>
+      <P>I am developing Eclipse plugins, and I need to be able to automate the 
+      building and execution of the test suite for each plugin. (Using 
+Junit)</P>
+      <P>Test are working within Eclipse, and I can break the plugins into the 
+      actual plugin and a fragment plugin for unit testing as described <A 
+      href="http://dev.eclipse.org/viewcvs/index.cgi/org.eclipse.test/testframework.html?view=co" 
+      rel=nofollow>here</A>, <A 
+      href="http://rcpquickstart.com/2007/08/06/running-automated-tests-with-pde-build/" 
+      rel=nofollow>here</A> and in a couple places <A 
+      href="http://eclipsenuggets.blogspot.com/2007/09/6-great-links-for-eclipse-build.html" 
+      rel=nofollow>here</A>.</P>
+      <P>However, each of the approaches above results in the same issue: The 
+      java ant task/commandline command that issues the build or should trigger 
+      the test, generates no observable side effects, and returns the value 
+      "13". I've tried everything I can find, and I've learned a fair bit about 
+      how Eclipse starts up (eg: since v3.3 you can no longer use startup.jar -- 
+      it doesn't exist -- but you should use <A 
+      href="http://blog.ciscavate.org/2008/11/treat-your-mailing-lists-like-reference-documents-please.html" 
+      rel=nofollow>org.eclipse.equinox.launcher</A>). Unfortunately, while that 
+      is apparently necessary information, it is far from sufficient.</P>
+      <P>I am working with Eclipse 3.4, Junit 4.3.1 (the org.junit4 bundle, but 
+      I would much rather use JUnit 4.4. See <A 
+      href="http://stackoverflow.com/questions/251791">here</A>.)</P>
+      <P>So, my question is: How exactly do you automate the build and testing 
+      of Eclipse plugins? </P>
+      <P><EM>Edit:</EM> To clarify, I <EM>want</EM> to use something like ant + 
+      cruise control, but I can't even get the unit tests to run <EM>at all</EM> 
+      outside of Eclipse. I say "something like" because there are other 
+      technologies that accomplish the same thing, and I am not so picky as to 
+      discard a solution that works just because it's using say, Maven or 
+      Buckminster, if those technologies make this substantially easier.</P>
+      <P><EM>Edit2:</EM> The 'Java Result 13' mentioned above seems to be caused 
+      by the inability to find the coretestrunner. From the log:</P><PRE><CODE>java.lang.RuntimeException: Application "org.eclipse.test.coretestapplication" could not be found in the registry. The applications available are: org.eclipse.equinox.app.error, com.rcpquickstart.helloworld.application.
+    at org.eclipse.equinox.internal.app.EclipseAppContainer.startDefaultApp(EclipseAppContainer.java:242)
+    at org.eclipse.equinox.internal.app.MainApplicationLauncher.run(MainApplicationLauncher.java:29)
+    at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:110)
+    at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:79)
+    at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:382)
+    at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:179)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)
+    at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:549)
+    at org.eclipse.equinox.launcher.Main.basicRun(Main.java:504)
+    at org.eclipse.equinox.launcher.Main.run(Main.java:1236)
+    at org.eclipse.equinox.launcher.Main.main(Main.java:1212)
+    at org.eclipse.core.launcher.Main.main(Main.java:30)
+
+!ENTRY org.eclipse.osgi 2 0 2008-11-04 21:02:10.514
+!MESSAGE The following is a complete list of bundles which are not resolved, see the prior log entry for the root cause if it exists:
+!SUBENTRY 1 org.eclipse.osgi 2 0 2008-11-04 21:02:10.515
+!MESSAGE Bundle update@plugins/org.eclipse.test_3.2.0/ [34] was not resolved.
+!SUBENTRY 2 org.eclipse.test 2 0 2008-11-04 21:02:10
+            </PRE></DIV>
+      <DIV class=post-taglist><A class=post-tag 
+      title="show questions tagged 'java'" 
+      href="http://stackoverflow.com/questions/tagged/java" rel=tag>java</A> <A 
+      class=post-tag title="show questions tagged 'testing'" 
+      href="http://stackoverflow.com/questions/tagged/testing" 
+      rel=tag>testing</A> <A class=post-tag 
+      title="show questions tagged 'junit'" 
+      href="http://stackoverflow.com/questions/tagged/junit" rel=tag>junit</A> 
+      <A class=post-tag title="show questions tagged 'eclipse-pde'" 
+      href="http://stackoverflow.com/questions/tagged/eclipse-pde" 
+      rel=tag>eclipse-pde</A> <A class=post-tag 
+      title="show questions tagged 'eclipse-3.4'" 
+      href="http://stackoverflow.com/questions/tagged/eclipse-3.4" 
+      rel=tag>eclipse-3.4</A> </DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-255370 
+            title="short permalink to this question" 
+            href="http://stackoverflow.com/q/255370">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/255370/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-255370 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>edited <A 
+            title="show all edits to this post" 
+            href="http://stackoverflow.com/posts/255370/revisions"><SPAN 
+            class=relativetime title="2008-11-04 21:03:18Z">Nov 4 '08 at 
+            21:03</SPAN></A></DIV>
+            <DIV class=user-gravatar32></DIV>
+            <DIV class=user-details><BR></DIV></DIV></TD>
+          <TD class="post-signature owner">
+            <DIV class=user-info>
+            <DIV class=user-action-time>asked <SPAN class=relativetime 
+            title="2008-11-01 01:20:41Z">Nov 1 '08 at 1:20</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/3446/rcreswick"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/5793aa45c4f829961a523094047502ad.png" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/3446/rcreswick">rcreswick</A><BR><SPAN 
+            class=reputation-score title="reputation score">2,789</SPAN><SPAN 
+            title="2 gold badges"><SPAN class=badge1></SPAN><SPAN 
+            class=badgecount>2</SPAN></SPAN><SPAN title="15 silver badges"><SPAN 
+            class=badge2></SPAN><SPAN class=badgecount>15</SPAN></SPAN><SPAN 
+            title="38 bronze badges"><SPAN class=badge3></SPAN><SPAN 
+            class=badgecount>38</SPAN></SPAN></DIV></DIV><BR class=cbt>
+            <DIV class="accept-rate cool" 
+            title="this user has accepted an answer for 20 of 28 eligible questions">71% 
+            accept rate</DIV></TD></TR></TBODY></TABLE></DIV></CODE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-255370 class=comments>
+      <TABLE>
+        <TBODY>
+        <TR id=comment-119341 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>I don't have edit permissions for your 
+            post, but there is a typo in your title.</SPAN> –&nbsp;<A 
+            class=comment-user title="1169 reputation" 
+            href="http://stackoverflow.com/users/27687/kurt-w-leucht">Kurt W. 
+            Leucht</A> <SPAN class=comment-date><SPAN 
+            title="2008-11-04 17:02:54Z">Nov 4 '08 at 
+          17:02</SPAN></SPAN></DIV></TD></TR>
+        <TR id=comment-1793078 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>Did you ever figure out a practical 
+            way to achieve your goals ?</SPAN> –&nbsp;<A class=comment-user 
+            title="3730 reputation" 
+            href="http://stackoverflow.com/users/56524/mp">mP</A> <SPAN 
+            class=comment-date><SPAN title="2009-12-12 00:32:39Z">Dec 12 '09 at 
+            0:32</SPAN></SPAN></DIV></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV id=answers><A name=tab-top></A>
+<DIV id=answers-header>
+<DIV class="subheader answers-subheader">
+<H2>6 Answers</H2>
+<DIV id=tabs><A title="Answers with the latest activity first" 
+href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development?tab=active#tab-top">active</A> 
+<A title="Answers in the order they were provided" 
+href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development?tab=oldest#tab-top">oldest</A> 
+<A class=youarehere title="Answers with the highest score first" 
+href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development?tab=votes#tab-top">votes</A> 
+</DIV></DIV></DIV><A name=288064></A>
+<DIV id=answer-288064 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=288064 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>2</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>I have just got JUnit testing working as part of the headless build for 
+      our RCP application. </P>
+      <P>I found this article - <A 
+      href="http://www.eclipse.org/articles/article.php?file=Article-PDEJUnitAntAutomation/index.html" 
+      rel=nofollow>Automating Eclipse PDE Unit Tests using Ant</A> incredibly 
+      helpful. It provides code and approach to get you started. However, a 
+      number of things that I discovered:</P>
+      <H2>About the article's code</H2>
+      <UL>
+        <LI>there was only one bundle under tests (we have separated out our 
+        build process from the code, using <A 
+        href="http://wiki.eclipse.org/Buckminster_Project" 
+        rel=nofollow>Buckminster</A>)</LI>
+        <LI>there was only one test class. </LI>
+        <LI>these were both effectively hardcoded into the build script</LI></UL>
+      <H2>About Eclipse PDE</H2>
+      <UL>
+        <LI>the <CODE>uitestapplication</CODE> requires another 
+        <CODE>testApplication</CODE>. Using <CODE>coretestapplication</CODE> 
+        does not. </LI>
+        <LI>as these applications are both in bundles that have dependencies on 
+        SWT. This is a deal killer in most circumstances, though not if your 
+        build machine is a Windows box. I would love to see these split into 
+        non-UI bundles.</LI></UL>
+      <P>I found that the code provided was a good starting point, but had a 
+      number of the above assumptions implicit in their implementation.</P>
+      <P>Having discovered these assumptions, doing the work was relatively 
+      straight forward.</P>
+      <H2>Our new and shiny setup</H2>
+      <UL>
+        <LI>buckminster builds the bundles. </LI>
+        <LI>target copies the bundles from the target platform, the 
+        org.eclipse.pde.runtime and org.eclipse.jdt.junit into a 
+        "tester-eclipse-install". This should take care of your <CODE>Java 
+        Result 13</CODE> problem.</LI>
+        <LI>find the test fragments from looking at the workspace</LI>
+        <LI>find the fragment host from looking at the manifest</LI>
+        <LI>find the test classes from looking at the project in the 
+        workspace.</LI>
+        <LI>register a <CODE>PDETestListener</CODE> modified to handle multiple 
+        test classes</LI>
+        <LI>invoke the tester-eclipse-install with the multiple test 
+        classes.</LI></UL>
+      <P>I also read <A 
+      href="http://www.eclipse.org/articles/Article-PDE-Automation/automation.html" 
+      rel=nofollow>Build and Test Automation for plug-ins and features</A> but 
+      we are not using PDE-Build directly. </P></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-288064 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/288064#288064">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/288064/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-288064 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2008-11-13 20:00:28Z">Nov 13 '08 at 20:00</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/4737/jamesh"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/b5d4c92bc489efaee1f46fdf9fc4b052.jpeg" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/4737/jamesh">jamesh</A><BR><SPAN 
+            class=reputation-score title="reputation score">5,474</SPAN><SPAN 
+            title="10 silver badges"><SPAN class=badge2></SPAN><SPAN 
+            class=badgecount>10</SPAN></SPAN><SPAN 
+            title="42 bronze badges"><SPAN class=badge3></SPAN><SPAN 
+            class=badgecount>42</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-288064 class="comments dno">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD></TD>
+          <TD></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV id=adzerk3 class=everyonelovesstackoverflow></DIV><A name=255620></A>
+<DIV id=answer-255620 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=255620 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>0</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>We're using the PDE build scripts (see <A 
+      href="http://stackoverflow.com/questions/133234/building-eclipse-plugins-and-features-on-the-command-line">this 
+      question</A>), and we export ant build files for our unit-test plugins. 
+      These ant build scripts are then invoked from the PDE build scripts 
+      (customTargets.xml) using the "ant" ant-task. Unfortunately, this only 
+      works with JUnit3. There's supposed to be a JUnit4-adapter for JUnit3 so 
+      you can run JUnit4 tests from a JUnit3 test-runner.</P>
+      <P>We'll probably move to something like Maven; the PDE build scripts 
+      aren't really cut out for what we need to do with them.</P></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-255620 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/255620#255620">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/255620/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-255620 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2008-11-01 07:29:12Z">Nov 1 '08 at 7:29</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/13051/jespere"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/05f4118d01fe03a82a43d8ab7ae17034.jpeg" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/13051/jespere">JesperE</A><BR><SPAN 
+            class=reputation-score 
+            title="reputation score 18011">18k</SPAN><SPAN 
+            title="26 silver badges"><SPAN class=badge2></SPAN><SPAN 
+            class=badgecount>26</SPAN></SPAN><SPAN 
+            title="64 bronze badges"><SPAN class=badge3></SPAN><SPAN 
+            class=badgecount>64</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-255620 class="comments dno">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD></TD>
+          <TD></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV><A 
+name=258547></A>
+<DIV id=answer-258547 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=258547 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>0</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>Here is a Tool which I can recommand if someone is interrested by TDD : 
+      <A href="http://www.junit.org/node/343" rel=nofollow>Infinitest</A></P>
+      <P>Short description extracted from the Infinitest site:</P>
+      <BLOCKQUOTE>
+        <P>What is Infinitest?</P>
+        <P>Infinitest is a continuous test runner designed to facilitate Test 
+        Driven Development. Infinitest helps you learn TDD by providing feedback 
+        as you work, and helps you master TDD by reducing your feedback cycle 
+        from minutes to mere seconds.</P>
+        <P>Whenever you change a class, Infinitest runs your tests for you. It's 
+        smart about what tests to run, and only runs the ones you need. If any 
+        errors occur, it reports them clearly and concisely. This gives you 
+        instant feedback about the semantic correctness of your code, just as 
+        modern IDE's give you instant feedback about syntax 
+      errors.</P></BLOCKQUOTE></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-258547 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/258547#258547">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/258547/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-258547 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>edited <A 
+            title="show all edits to this post" 
+            href="http://stackoverflow.com/posts/258547/revisions"><SPAN 
+            class=relativetime title="2008-11-04 07:51:30Z">Nov 4 '08 at 
+            7:51</SPAN></A></DIV>
+            <DIV class=user-gravatar32></DIV>
+            <DIV class=user-details><BR></DIV></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2008-11-03 12:56:54Z">Nov 3 '08 at 12:56</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/33630/fred"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/8bc97483ca813ef929e477ace6497c78.png" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/33630/fred">Fred</A><BR><SPAN 
+            class=reputation-score title="reputation score">686</SPAN><SPAN 
+            title="2 silver badges"><SPAN class=badge2></SPAN><SPAN 
+            class=badgecount>2</SPAN></SPAN><SPAN title="6 bronze badges"><SPAN 
+            class=badge3></SPAN><SPAN 
+            class=badgecount>6</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-258547 class=comments>
+      <TABLE>
+        <TBODY>
+        <TR id=comment-117287 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>I don't see how this has any bearing 
+            on my question -- could you please elaborate? </SPAN>–&nbsp;<A 
+            class="comment-user owner" title="2789 reputation" 
+            href="http://stackoverflow.com/users/3446/rcreswick">rcreswick</A> 
+            <SPAN class=comment-date><SPAN title="2008-11-03 16:48:01Z">Nov 3 
+            '08 at 16:48</SPAN></SPAN></DIV></TD></TR>
+        <TR id=comment-118509 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>This tool is a continuous JUnit test 
+            runner. Infinitest automates junit execution. That's why i 
+            recommended it to you.</SPAN> –&nbsp;<A class=comment-user 
+            title="686 reputation" 
+            href="http://stackoverflow.com/users/33630/fred">Fred</A> <SPAN 
+            class=comment-date><SPAN title="2008-11-04 07:45:47Z">Nov 4 '08 at 
+            7:45</SPAN></SPAN></DIV></TD></TR>
+        <TR id=comment-119291 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>ah.. I'll take a more in-depth look if 
+            the current thing I'm trying doesn't pan out.</SPAN> –&nbsp;<A 
+            class="comment-user owner" title="2789 reputation" 
+            href="http://stackoverflow.com/users/3446/rcreswick">rcreswick</A> 
+            <SPAN class=comment-date><SPAN title="2008-11-04 16:46:26Z">Nov 4 
+            '08 at 
+  16:46</SPAN></SPAN></DIV></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV><A 
+name=963808></A>
+<DIV id=answer-963808 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=963808 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>0</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>Looking at your exception, it says that the coretestapplication is 
+      missing. The ant target could be found at 
+      plugins/org.eclipse.test_3.1.0/library.xml:10</P>
+      <P>This is actually a dependency issue. Eclipse needs to have all the 
+      plugins in order to build.</P>
+      <P>To configure it correctly, there're 2 files to look at. </P>
+      <OL>
+        <LI>The product file</LI>
+        <LI>The feature.xml</LI></OL>
+      <P><STRONG>Product</STRONG></P>
+      <P>Make sure you the product file contains all the plugins you need. </P>
+      <P>After that, add the org.eclipse.rcp and org.eclipse.test features</P>
+      <P>... plugins are above ...</P><PRE><CODE>&lt;features&gt;
+      &lt;feature id="mock_feature" version="1.0.0"/&gt;
+      &lt;feature id="mock_feature_test" version="1.0.0"/&gt;
+      &lt;feature id="org.eclipse.rcp" version="3.2.0.v20060609m-SVDNgVrNoh-MeGG"/&gt;
+      &lt;feature id="org.eclipse.test" version="3.2.0.v20060220------0842282442"/&gt;
+ &lt;/features&gt;
+</CODE></PRE>
+      <P>You need org.eclipse.test to run the tests, and org.eclipse.rcp to 
+      launch eclipse in order to run the tests.</P>
+      <P>Don't forget to set useFeatures to 'true'</P><PRE><CODE>&lt;product name="mock" id="com.example.mock" application="com.example.mock.application" useFeatures="true"&gt;
+</CODE></PRE>
+      <P><STRONG>feature.xml</STRONG></P>
+      <P>Assuming you have a feature for testing, you must add 2 additional 
+      plugins.</P>
+      <P>... other plugins above ...</P><PRE><CODE>&lt;plugin
+         id="org.apache.ant"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/&gt;
+
+   &lt;plugin
+         id="org.eclipse.core.runtime.compatibility"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/&gt;
+</CODE></PRE>
+      <P>THe tests need org.apache.ant to run the tests and 
+      org.eclipse.core.runtime.compatibility to launch.</P>
+      <P><STRONG>Another gotcha</STRONG></P>
+      <P>Ensure that in your target eclipse(the copy of eclipse that you use to 
+      build against), there's only 1 copy of each plugin. For example if 
+      there're 2 versions of com.ibm.icu plugins in the plugin folder, eclipse 
+      would use the newer one. As the pde build plugin is configured to use a 
+      specific version, eclipse would complain that it cannot find the 
+      particular plugin even when it is there.</P>
+      <P><STRONG>Some thoughts</STRONG></P>
+      <P>The whole process of building eclipse could be a lot better. In fact I 
+      got the process mostly by trial and error. The documentation is outdated 
+      and sparse. The error messages doesn't help. It only leaves you feeling 
+      helpless and frustrated. Let's hope this post helps a fellow programmer 
+      save some time!</P></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-963808 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/963808#963808">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/963808/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-963808 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2009-06-08 07:41:27Z">Jun 8 '09 at 7:41</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/11927/liangzan"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/a8aefabd2b63b1c0d273df51a0b251dd.png" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/11927/liangzan">liangzan</A><BR><SPAN 
+            class=reputation-score title="reputation score">419</SPAN><SPAN 
+            title="1 gold badge"><SPAN class=badge1></SPAN><SPAN 
+            class=badgecount>1</SPAN></SPAN><SPAN title="3 silver badges"><SPAN 
+            class=badge2></SPAN><SPAN class=badgecount>3</SPAN></SPAN><SPAN 
+            title="11 bronze badges"><SPAN class=badge3></SPAN><SPAN 
+            class=badgecount>11</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-963808 class="comments dno">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD></TD>
+          <TD></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV><A 
+name=1373682></A>
+<DIV id=answer-1373682 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=1373682 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>0</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>As an alternative to Ant, I've had good experience in using the brand 
+      new Maven+Tycho with Hudson. Tycho provides complete support for Osgi and 
+      Eclipse development in Maven. It's currently under heavy development, but 
+      most of the features I've needed worked. It needs only very little 
+      configuration from your side, because it can parse MANIFEST.MF files.</P>
+      <P>If you have some experience with Maven it's not very hard to start 
+      working with it. Hudson is a bit more problematic because of missing Maven 
+      3 support. (the development version of Maven 3 is used by Tycho)</P>
+      <P>Links for start:</P>
+      <UL>
+        <LI><A 
+        href="https://docs.codehaus.org/display/M2ECLIPSE/Tycho+user+docs" 
+        rel=nofollow>uncomplete user docs</A></LI></UL></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-1373682 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/1373682#1373682">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/1373682/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-1373682 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2009-09-03 14:20:44Z">Sep 3 '09 at 14:20</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/167915/imeron"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/d07d2d71ed5d21c25d8afb3d94e0d891.jpeg" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/167915/imeron">Imeron</A><BR><SPAN 
+            class=reputation-score title="reputation score">78</SPAN><SPAN 
+            title="5 bronze badges"><SPAN class=badge3></SPAN><SPAN 
+            class=badgecount>5</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-1373682 class="comments dno">
+      <TABLE>
+        <TBODY>
+        <TR>
+          <TD></TD>
+          <TD></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV><A 
+name=263073></A>
+<DIV id=answer-263073 class=answer>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class=votecell>
+      <DIV class=vote><INPUT value=263073 type=hidden> <A class=vote-up-off 
+      title="This answer is useful (click again to undo)">up vote</A> <SPAN 
+      class=vote-count-post>-1</SPAN> <A class=vote-down-off 
+      title="This answer is not useful (click again to undo)">down vote</A> 
+      </DIV></TD>
+    <TD>
+      <DIV class=post-text>
+      <P>Use <A href="http://ant.apache.org/" rel=nofollow>Ant</A> and <A 
+      href="http://cruisecontrol.sourceforge.net/" 
+      rel=nofollow>CruiseControl</A> - you call the unit tests in the <A 
+      href="http://ant.apache.org/" rel=nofollow>Ant</A> script as well as the 
+      rest of your build logic and can run them with each build iteration - then 
+      <A href="http://cruisecontrol.sourceforge.net/" 
+      rel=nofollow>CruiseControl</A> can automate your build calls and run these 
+      tests each time.</P></DIV>
+      <TABLE class=fw>
+        <TBODY>
+        <TR>
+          <TD class=vt>
+            <DIV class=post-menu><A id=link-post-263073 
+            title="permalink to this answer" 
+            href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development/263073#263073">link</A><SPAN 
+            class=lsep>|</SPAN><A title="edit this post" 
+            href="http://stackoverflow.com/posts/263073/edit">edit</A><SPAN 
+            class=lsep>|</SPAN><A id=flag-post-263073 
+            title="flag this post for serious problems or moderator attention">flag</A></DIV></TD>
+          <TD class=post-signature align=right>
+            <DIV class=user-info>
+            <DIV class=user-action-time>answered <SPAN class=relativetime 
+            title="2008-11-04 19:28:25Z">Nov 4 '08 at 19:28</SPAN></DIV>
+            <DIV class=user-gravatar32><A 
+            href="http://stackoverflow.com/users/29650/silverbugg"><IMG alt="" 
+            src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/e8d4e73f28d1f3b5d85a188cc26bc649.png" 
+            width=32 height=32></A></DIV>
+            <DIV class=user-details><A 
+            href="http://stackoverflow.com/users/29650/silverbugg">silverbugg</A><BR><SPAN 
+            class=reputation-score title="reputation score">163</SPAN><SPAN 
+            title="1 silver badge"><SPAN class=badge2></SPAN><SPAN 
+            class=badgecount>1</SPAN></SPAN><SPAN title="6 bronze badges"><SPAN 
+            class=badge3></SPAN><SPAN 
+            class=badgecount>6</SPAN></SPAN></DIV></DIV></TD></TR></TBODY></TABLE></TD></TR>
+  <TR>
+    <TD class=votecell></TD>
+    <TD>
+      <DIV id=comments-263073 class=comments>
+      <TABLE>
+        <TBODY>
+        <TR id=comment-119877 class=comment>
+          <TD></TD>
+          <TD class=comment-text>
+            <DIV><SPAN class=comment-copy>I've tried to clarify -- using Ant 
+            necessitates that I can run the unit tests outside of Eclipse, which 
+            I have been unable to do so far, as the question states.</SPAN> 
+            –&nbsp;<A class="comment-user owner" title="2789 reputation" 
+            href="http://stackoverflow.com/users/3446/rcreswick">rcreswick</A> 
+            <SPAN class=comment-date><SPAN title="2008-11-04 20:57:40Z">Nov 4 
+            '08 at 
+  20:57</SPAN></SPAN></DIV></TD></TR></TBODY></TABLE></DIV></TD></TR></TBODY></TABLE></DIV><A 
+name=new-answer></A>
+<FORM id=post-form method=post action=/questions/255370/answer/submit>
+<H2 class=space>Your Answer</H2>
+<SCRIPT type=text/javascript>
+    StackExchange.ready(function() {
+     
+        initTagRenderer("".split(" "), "".split(" "));
+
+        
+            prepareEditor({
+                
+                heartbeatType: 'answer',
+                bindNavPrevention: true,
+                onDemand: true
+                ,autoShowMarkdownHelp:true
+            });
+        
+    });  
+</SCRIPT>
+
+<DIV id=post-editor>
+<DIV id=wmd-container>
+<DIV id=wmd-button-bar></DIV><TEXTAREA id=wmd-input tabIndex=101 rows=15 cols=92 name=post-text></TEXTAREA> 
+</DIV>
+<DIV style="MARGIN-TOP: 8px; HEIGHT: 24px" class=fl></DIV>
+<DIV style="MARGIN-TOP: 8px; DISPLAY: none; HEIGHT: 24px" id=draft-saved 
+class="community-option fl">draft saved</DIV>
+<DIV id=wmd-preview></DIV>
+<DIV id=edit-block><INPUT id=fkey value=8895a378595b0028d21bdcc8a6fccc2a 
+type=hidden name=fkey> <INPUT id=author type=text name=author> </DIV></DIV>
+<DIV class=form-item>
+<TABLE>
+  <TBODY>
+  <TR>
+    <TD class="vm open-id-login"><A style="MARGIN-LEFT: 30px; FONT-SIZE: 200%" 
+      id=login-link 
+      href="http://stackoverflow.com/users/login?returnurl=%2fquestions%2f255370%2fautomating-unit-tests-junit-for-eclipse-plugin-development">log 
+      in</A>
+      <SCRIPT type=text/javascript>
+                StackExchange.ready(function () {
+                    StackExchange.helpers.onClickDraftSave('#login-link');
+                });
+            </SCRIPT>
+       </TD>
+    <TD class=orcell>
+      <DIV class=orword>or</DIV>
+      <DIV class=orline></DIV></TD>
+    <TD class=vm>
+      <DIV><LABEL for=display-name>Name</LABEL> <INPUT id=display-name 
+      tabIndex=105 maxLength=30 size=30 type=text name=display-name> </DIV>
+      <DIV><LABEL for=m-address>Email</LABEL> <INPUT id=m-address tabIndex=106 
+      maxLength=100 size=40 type=text name=m-address> <SPAN 
+      class=edit-field-overlay>required, but never shown</SPAN> </DIV>
+      <DIV><LABEL for=home-page>Home Page</LABEL> <INPUT id=home-page 
+      tabIndex=107 maxLength=200 size=40 type=text name=home-page> 
+  </DIV></TD></TR></TBODY></TABLE></DIV>
+<DIV class="form-submit cbt"><INPUT id=submit-button tabIndex=110 value="Post Your Answer" type=submit></DIV></FORM>
+<H2 class=bottom-notice>Not the answer you're looking for? Browse other 
+questions tagged <A class=post-tag title="show questions tagged 'java'" 
+href="http://stackoverflow.com/questions/tagged/java" rel=tag>java</A> <A 
+class=post-tag title="show questions tagged 'testing'" 
+href="http://stackoverflow.com/questions/tagged/testing" rel=tag>testing</A> <A 
+class=post-tag title="show questions tagged 'junit'" 
+href="http://stackoverflow.com/questions/tagged/junit" rel=tag>junit</A> <A 
+class=post-tag title="show questions tagged 'eclipse-pde'" 
+href="http://stackoverflow.com/questions/tagged/eclipse-pde" 
+rel=tag>eclipse-pde</A> <A class=post-tag 
+title="show questions tagged 'eclipse-3.4'" 
+href="http://stackoverflow.com/questions/tagged/eclipse-3.4" 
+rel=tag>eclipse-3.4</A> or <A href="http://stackoverflow.com/questions/ask">ask 
+your own question</A>. </H2></DIV></DIV>
+<DIV id=sidebar>
+<DIV style="DISPLAY: none" class="module newuser newuser-greeting">
+<H4>Hello World!</H4>
+<DIV>
+<P>This is a collaboratively edited question and answer site for <B>professional 
+and enthusiast programmers</B>. It's 100% free, no registration required.</P>
+<P class=ar><A href="http://stackoverflow.com/about">about 
+»</A>&nbsp;&nbsp;&nbsp;<A href="http://stackoverflow.com/faq">faq 
+»</A></P></DIV></DIV>
+<DIV class=module>
+<P class=label-key>tagged</P>
+<DIV class=tagged><A class=post-tag title="show questions tagged 'java'" 
+href="http://stackoverflow.com/questions/tagged/java" 
+rel=tag>java</A>&nbsp;<SPAN class=item-multiplier>×&nbsp;123879</SPAN><BR><A 
+class=post-tag title="show questions tagged 'testing'" 
+href="http://stackoverflow.com/questions/tagged/testing" 
+rel=tag>testing</A>&nbsp;<SPAN class=item-multiplier>×&nbsp;4929</SPAN><BR><A 
+class=post-tag title="show questions tagged 'junit'" 
+href="http://stackoverflow.com/questions/tagged/junit" 
+rel=tag>junit</A>&nbsp;<SPAN class=item-multiplier>×&nbsp;1587</SPAN><BR><A 
+class=post-tag title="show questions tagged 'eclipse-pde'" 
+href="http://stackoverflow.com/questions/tagged/eclipse-pde" 
+rel=tag>eclipse-pde</A>&nbsp;<SPAN class=item-multiplier>×&nbsp;96</SPAN><BR><A 
+class=post-tag title="show questions tagged 'eclipse-3.4'" 
+href="http://stackoverflow.com/questions/tagged/eclipse-3.4" 
+rel=tag>eclipse-3.4</A>&nbsp;<SPAN 
+class=item-multiplier>×&nbsp;77</SPAN><BR></DIV>
+<TABLE id=qinfo>
+  <TBODY>
+  <TR>
+    <TD>
+      <P class=label-key>asked</P></TD>
+    <TD style="PADDING-LEFT: 10px">
+      <P class=label-key title="2008-11-01 01:20:41Z"><B>2 years 
+  ago</B></P></TD></TR>
+  <TR>
+    <TD>
+      <P class=label-key>viewed</P></TD>
+    <TD style="PADDING-LEFT: 10px">
+      <P class=label-key><B>10,564 times</B></P></TD></TR>
+  <TR>
+    <TD>
+      <P class=label-key>active</P></TD>
+    <TD style="PADDING-LEFT: 10px">
+      <P class=label-key><B><A class=lastactivity-link 
+      title="2009-09-03 14:20:44Z" 
+      href="http://stackoverflow.com/questions/255370/automating-unit-tests-junit-for-eclipse-plugin-development?lastactivity">1 
+      year ago</A></B></P></TD></TR></TBODY></TABLE></DIV>
+<SCRIPT type=text/javascript>
+            var z = document.createElement("script"); z.type = "text/javascript"; z.async = true; z.src = "http://engine2.adzerk.net/z/8277/adzerk1_2_4_43,adzerk2_2_17_45,adzerk3_2_4_44?keywords=java,testing,junit,eclipse-pde,eclipse-3.4"; var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(z, s);
+        </SCRIPT>
+
+<DIV id=adzerk2 class=everyonelovesstackoverflow></DIV>
+<DIV>
+<SCRIPT type=text/javascript>
+            (function(){var q="http://careers.stackoverflow.com/Ad/js",g=location.search=="?golarge",a,d=100,c=location.hash.indexOf("#ninjas")>-1,f="Pretty",h="#adzerk2",b="#adzerk1",i="#herebeninjas";(function(){var b="min-height:220px;margin:15px 0",c=$("<div>").addClass("hireme").attr("style",b),a=$("<div>").html(c);document.write(a.html())})();$(function(){setTimeout(r,2e3);a=setTimeout(e,d)});var e=function(){clearTimeout(a);if(m()&&!k()){a=setTimeout(e,d);return}c=c||n();c&&$(b).css("height",$(b).outerHeight()).attr("id","stop-adzerk");if(l()&&!j()){a=setTimeout(e,d);return}g=g||o();f=g?"Large":f;p()},r=function(){clearTimeout(a);var b=$("div.hireme, "+i);b.each(function(){var a=$(this),d=a.html().replace(/\s+/g,"").length==0;if(d){var c=a,b=a.parents(".everyonelovesstackoverflow").first();if(b.length>0)c=b;c.remove()}})},l=function(){return $(h).length>0},j=function(){var a=$(h);return a.length==0?false:a.html().replace(/\s+/g,"").length>0},o=function(){return $("#careersadsdoublehigh").length>0},m=function(){return $(b).length>0},k=function(){var a=$(b);return a.length==0?false:a.html().replace(/\s+/g,"").length>0},n=function(){return $(i).length>0},p=function(){$.ajax({url:s(),dataType:"script",cache:true})},s=function(){return q+"?style="+f+"&gobanner="+c.toString()}})();
+        </SCRIPT>
+</DIV>
+<DIV class=module>
+<H4 id=h-linked>Linked</H4>
+<DIV class=linked>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/133234/building-eclipse-plugins-and-features-on-the-command-line">Building 
+Eclipse plugins and features on the command line</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/421025/eclipse-plug-in-development-with-tdd">Eclipse 
+Plug-in Development with TDD</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/5818503/test-framework-for-eclipse-rcp-application">Test 
+Framework for Eclipse RCP Application</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/5862397/complete-example-for-eclipse-rcp-3-6-2-p2-junit-tests">Complete 
+example for Eclipse RCP 3.6.2/P2/Junit tests</A> </DIV></DIV></DIV>
+<DIV class=module>
+<H4 id=h-related>Related</H4>
+<DIV class=related>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/38907/developing-on-eclipse-3-4-running-on-eclipse-3-3">Developing 
+on Eclipse 3.4, running on Eclipse 3.3</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/119832/how-to-default-the-working-directory-for-junit-launch-configurations-in-eclipse">How 
+to default the working directory for JUnit launch configurations in Eclipse?</A> 
+</DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/120889/unrooted-tests">Unrooted 
+Tests</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/241131/how-do-i-attach-source-code-locations-to-plugins-in-my-eclipse-rcp-target-platfor">How 
+do I attach source code locations to plugins in my Eclipse RCP target 
+platform?</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/251791/running-eclipse-junit-plugin-tests-with-junit-4-4-or-newer-why-arent-tests-de">Running 
+Eclipse Junit Plugin tests with Junit 4.4 or newer — why aren't tests 
+detected?</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/413214/is-it-possible-to-run-junit-tests-from-multiple-packages-in-eclipse">Is 
+it possible to run JUnit tests from multiple packages in Eclipse?</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/512778/ordering-unit-tests-in-eclipses-junit-view">Ordering 
+unit tests in Eclipse's JUnit view</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/521692/the-xml-code-runs-properly-but-junit-fails-with-noclassdeffound">The 
+XML code runs properly, but junit fails with NoClassDefFound</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/676330/read-eclipse-installation-path-using-eclipse-api">Read 
+eclipse installation path using eclipse API</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/696887/getting-an-errormessage-a-handler-conflict-occurred-this-may-disable-some-comma">Getting 
+an error(MESSAGE A handler conflict occurred. This may disable some commands) 
+when launching eclipse</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/825899/eclipse-pde-popup-extensions-for-cdt">Eclipse 
+PDE Popup Extensions for CDT</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/945279/write-eclipse-junit-plugin-test">write 
+eclipse junit plugin test</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/1494921/running-eclipse-plug-in-tests-in-non-ui-thread">Running 
+Eclipse Plug-in tests in non-ui thread</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/1550299/eclipse-how-to-run-plugin-test-as-part-of-local-build">Eclipse: 
+how to run plugin test as part of local build</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2029900/eclipse-3-4-jsp-validation-question">Eclipse 
+3.4 JSP validation question</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2107193/npe-in-eclipse-but-working-in-netbeans">NPE 
+in Eclipse but working in Netbeans</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2132014/generating-unit-tests-automatically">Generating 
+Unit Tests Automatically</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2669414/choose-order-to-execute-junit-tests">Choose 
+order to execute JUnit tests</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2818268/does-the-junit-framework-have-tests">Does 
+the JUnit framework have tests ?</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/2834478/tests-for-junit-how">Tests for 
+JUnit. How ?</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/4335372/run-junit-tests-through-web-page">Run 
+JUnit Tests through web page</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/4845595/junit-and-clojure-unit-testing">JUnit 
+and Clojure unit testing</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/5324819/using-junit-and-testng-together">Using 
+JUnit and TestNG together</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/5686878/junit-examples-to-teach">JUNit 
+examples to teach</A> </DIV>
+<DIV class=spacer><A class=question-hyperlink 
+href="http://stackoverflow.com/questions/5694794/junit-in-netbeans">JUnit in 
+NetBeans</A> </DIV></DIV></DIV></DIV>
+<DIV id=feed-link>
+<DIV id=feed-link-text><A title="feed of this question and its answers" 
+href="http://stackoverflow.com/feeds/question/255370"><SPAN 
+class=feed-icon></SPAN>question feed</A></DIV></DIV>
+<SCRIPT type=text/javascript src=""></SCRIPT>
+<NOSCRIPT>
+<DIV><IMG class=dno alt="" src=""></DIV></NOSCRIPT>
+<DIV style="DISPLAY: none" id=prettify-lang>lang-java</DIV></DIV></DIV>
+<DIV id=footer>
+<DIV class=footerwrap>
+<DIV id=footer-menu><A href="http://stackoverflow.com/about">about</A> | <A 
+href="http://stackoverflow.com/faq">faq</A> | <SPAN class=new-blog-post 
+title="7 hours ago">new</SPAN> <A href="http://blog.stackoverflow.com/">blog</A> 
+| <A href="http://chat.stackoverflow.com/">chat</A> | <A 
+href="http://data.stackexchange.com/">data</A> | <A 
+href="http://blog.stackoverflow.com/category/podcasts/">podcast</A> | <A 
+href="http://stackexchange.com/legal">legal</A> | <A 
+href="http://engine.adzerk.net/redirect/0/2776/2751/0/4de3c60f719c4dfcb1a57531c7050090/0">advertising 
+info</A> | <B><A href="mailto:team@stackoverflow.com">contact us</A></B> | <B><A 
+href="http://meta.stackoverflow.com/">feedback always welcome</A></B> 
+<DIV id=footer-sites><SPAN 
+style="COLOR: #fe7a15; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://stackoverflow.com/">stackoverflow.com</A>&nbsp; <SPAN 
+style="COLOR: #fe7a15; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://stackapps.com/">api/apps</A>&nbsp; <SPAN 
+style="COLOR: #fe7a15; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://careers.stackoverflow.com/">careers</A>&nbsp; <SPAN 
+style="COLOR: #e8272c; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://serverfault.com/">serverfault.com</A>&nbsp; <SPAN 
+style="COLOR: #00afef; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://superuser.com/">superuser.com</A>&nbsp; <SPAN 
+style="COLOR: #969696; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://meta.stackoverflow.com/">meta</A>&nbsp; <SPAN 
+style="COLOR: #46937d; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://area51.stackexchange.com/">area&nbsp;51</A>&nbsp; <SPAN 
+style="COLOR: #c0d0dc; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://webapps.stackexchange.com/">webapps</A>&nbsp; <SPAN 
+style="COLOR: #000000; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://gaming.stackexchange.com/">gaming</A>&nbsp; <SPAN 
+style="COLOR: #dd4814; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://askubuntu.com/">ubuntu</A>&nbsp; <SPAN 
+style="COLOR: #9ce4fe; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://webmasters.stackexchange.com/">webmasters</A>&nbsp; <SPAN 
+style="COLOR: #cf4d3f; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://cooking.stackexchange.com/">cooking</A>&nbsp; <SPAN 
+style="COLOR: #f4f28d; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://gamedev.stackexchange.com/">game development</A>&nbsp; <SPAN 
+style="COLOR: #0f3559; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://math.stackexchange.com/">math</A>&nbsp; <SPAN 
+style="COLOR: #f2f2f2; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://photo.stackexchange.com/">photography</A>&nbsp; <SPAN 
+style="COLOR: #037187; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://stats.stackexchange.com/">stats</A>&nbsp; <SPAN 
+style="COLOR: #f1e7cc; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://tex.stackexchange.com/">tex</A>&nbsp; <SPAN 
+style="COLOR: #e1cdae; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://english.stackexchange.com/">english</A>&nbsp; <SPAN 
+style="COLOR: #a2d9f6; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://cstheory.stackexchange.com/">theoretical cs</A>&nbsp; <SPAN 
+style="COLOR: #1b3e6c; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://programmers.stackexchange.com/">programmers</A>&nbsp; <SPAN 
+style="COLOR: #293a5d; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://unix.stackexchange.com/">unix</A>&nbsp; <SPAN 
+style="COLOR: #bec0cb; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://apple.stackexchange.com/">apple</A>&nbsp; <SPAN 
+style="COLOR: #939185; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://wordpress.stackexchange.com/">wordpress</A>&nbsp; <SPAN 
+style="COLOR: #b5cda4; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://physics.stackexchange.com/">physics</A>&nbsp; <SPAN 
+style="COLOR: #4176ab; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://diy.stackexchange.com/">home&nbsp;improvement</A>&nbsp; <SPAN 
+style="COLOR: #d1d8d7; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://gis.stackexchange.com/">gis</A>&nbsp; <SPAN 
+style="COLOR: #e5e2d3; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://electronics.stackexchange.com/">electronics</A>&nbsp; <SPAN 
+style="COLOR: #a4c639; FONT-SIZE: 140%">■</SPAN>&nbsp;<A 
+href="http://android.stackexchange.com/">android</A>&nbsp; </DIV></DIV>
+<DIV id=footer-flair><A class=peer1 
+href="http://www.peer1.com/stackoverflow"></A><A class=cc-wiki-link 
+href="http://creativecommons.org/licenses/by-sa/3.0/"></A>
+<DIV id=svnrev>rev 2011.5.19.1</DIV></DIV>
+<DIV id=copyright>site design / logo © 2011 stack exchange inc; user 
+contributions licensed under <A 
+href="http://creativecommons.org/licenses/by-sa/3.0/" rel=license>cc-wiki</A> 
+with <A href="http://blog.stackoverflow.com/2009/06/attribution-required/" 
+rel=license>attribution required</A> </DIV></DIV></DIV><NOSCRIPT>
+<DIV id=noscript-warning>Stack Overflow works best with JavaScript enabled<IMG 
+class=dno alt="" src=""></DIV></NOSCRIPT>
+<SCRIPT type=text/javascript>var _gaq=_gaq||[];_gaq.push(['_setAccount','UA-5620270-1']);_gaq.push(['_trackPageview']);(function(){var ga=document.createElement('script');ga.type='text/javascript';ga.async=true;ga.src='http://www.google-analytics.com/ga.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(ga,s);})();_qoptions={qacct:"p-c1rF4kxgLUzNc"};</SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="java%20-%20Automating%20unit%20tests%20(junit)%20for%20Eclipse%20Plugin%20development%20-%20Stack%20Overflow_files/quant.js"></SCRIPT>
+</BODY></HTML>

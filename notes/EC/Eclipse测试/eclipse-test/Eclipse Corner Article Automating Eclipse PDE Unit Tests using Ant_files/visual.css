@@ -1,0 +1,291 @@
+A {
+	COLOR: #7036be; FONT-SIZE: inherit; FONT-WEIGHT: bold; TEXT-DECORATION: none
+}
+A:hover {
+	TEXT-DECORATION: underline
+}
+BODY {
+	TEXT-ALIGN: center; FONT-FAMILY: Arial, sans-serif; BACKGROUND: url(/eclipse.org-common/themes/Nova/images/bg.png) #efefef repeat-x
+}
+DIV {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+SPAN {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+P {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+BLOCKQUOTE {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+PRE {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+CODE {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+EM {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+SUB {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+SUP {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+DL {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+DT {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+DD {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+OL {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+UL {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+LI {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+FIELDSET {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+FORM {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+LEGEND {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TABLE {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+CAPTION {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TBODY {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TFOOT {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+THEAD {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TR {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TH {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+TD {
+	LINE-HEIGHT: 16px; FONT-SIZE: 12px
+}
+EM {
+	FONT-STYLE: italic
+}
+H1 {
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 20px; FONT-SIZE: 20px; FONT-WEIGHT: bold
+}
+H1 A {
+	FONT-WEIGHT: bold
+}
+H2 A {
+	FONT-WEIGHT: bold
+}
+H3 A {
+	FONT-WEIGHT: bold
+}
+H2 {
+	BORDER-BOTTOM: #d4d4dd 1px solid; LINE-HEIGHT: 18px; MARGIN-BOTTOM: 5px; FONT-SIZE: 18px; FONT-WEIGHT: bold; PADDING-TOP: 10px
+}
+H3 {
+	BORDER-BOTTOM: #d4d4dd 1px dotted; LINE-HEIGHT: 18px; MARGIN-BOTTOM: 5px; COLOR: #222; FONT-SIZE: 18px; FONT-WEIGHT: bold; PADDING-TOP: 10px
+}
+H4 {
+	LINE-HEIGHT: 15px; MARGIN-BOTTOM: 5px; COLOR: #222; FONT-SIZE: 15px; FONT-WEIGHT: bold; PADDING-TOP: 5px
+}
+HTML {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+OL > LI {
+	LIST-STYLE-TYPE: decimal; LIST-STYLE-IMAGE: none !important
+}
+P {
+	MARGIN-BOTTOM: 20px
+}
+TABLE {
+	MARGIN-BOTTOM: 20px
+}
+STRONG {
+	FONT-WEIGHT: bold
+}
+TD {
+	PADDING-BOTTOM: 3px; PADDING-LEFT: 3px; PADDING-RIGHT: 3px; PADDING-TOP: 3px
+}
+SUB {
+	FONT-SIZE: 80%; VERTICAL-ALIGN: sub
+}
+SUP {
+	FONT-SIZE: 80%; VERTICAL-ALIGN: super
+}
+#novaContent {
+	BACKGROUND: #fff
+}
+#novaContent LI {
+	LIST-STYLE-POSITION: outside; PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; MARGIN-LEFT: 10px; LIST-STYLE-IMAGE: url(/eclipse.org-common/themes/Nova/images/bullet.gif); PADDING-TOP: 5px
+}
+.faux#novaContent {
+	PADDING-BOTTOM: 20px; BACKGROUND: url(/eclipse.org-common/themes/Nova/images/faux.jpg) #fff repeat-y; PADDING-TOP: 20px
+}
+#clearFooter {
+	BACKGROUND: #e0e5e9
+}
+#clearHeader {
+	BACKGROUND: none transparent scroll repeat 0% 0%; CLEAR: both
+}
+#content {
+	BACKGROUND: #e0e5e9
+}
+#fullcolumn {
+	WIDTH: 978px; PADDING-TOP: 20px
+}
+#fullcolumn #midcolumn {
+	WIDTH: 640px; MARGIN-LEFT: 20px
+}
+#fullcolumn #rightcolumn {
+	WIDTH: 280px
+}
+#leftcol {
+	WIDTH: 185px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; CLEAR: both; MARGIN-RIGHT: 20px
+}
+#leftnav {
+	MARGIN-LEFT: 10px; MARGIN-RIGHT: 20px
+}
+#leftnav LI {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-LEFT: 30px; LIST-STYLE-IMAGE: url(/eclipse.org-common/themes/Nova/images/leftNav.gif); PADDING-TOP: 0px
+}
+#leftnav LI A {
+	LINE-HEIGHT: 12px; FONT-SIZE: 12px
+}
+#leftnav LI.about {
+	PADDING-BOTTOM: 10px; MARGIN-LEFT: 0px; LIST-STYLE-IMAGE: none
+}
+#leftnav LI.about A {
+	COLOR: #333333; FONT-SIZE: 12px
+}
+#leftnav LI.separator {
+	PADDING-BOTTOM: 5px; MARGIN-TOP: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-LEFT: 0px; BORDER-TOP: #d4d4dd 1px dotted; LIST-STYLE-IMAGE: none; PADDING-TOP: 5px
+}
+#leftnav LI.separator A {
+	COLOR: #333333; FONT-SIZE: 12px
+}
+#midcolumn {
+	WIDTH: 495px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left; MARGIN-RIGHT: 20px
+}
+#midcolumn UL {
+	PADDING-BOTTOM: 10px; MARGIN-LEFT: 20px
+}
+#midcolumn OL {
+	PADDING-BOTTOM: 10px; MARGIN-LEFT: 20px
+}
+.sideitem UL {
+	MARGIN-LEFT: 10px
+}
+.sideitem OL {
+	MARGIN-LEFT: 10px
+}
+#rightcolumn {
+	WIDTH: 240px; PADDING-RIGHT: 15px; BACKGROUND: none transparent scroll repeat 0% 0%; FLOAT: left
+}
+#widecontainer {
+	BACKGROUND: #fff
+}
+.clearer {
+	VISIBILITY: hidden; CLEAR: both
+}
+.details {
+	LINE-HEIGHT: 13px; MARGIN: 5px 0px
+}
+.details UL {
+	MARGIN-LEFT: 15px
+}
+.details UL LI {
+	FONT-SIZE: 11px
+}
+.homeitem3col {
+	MARGIN-BOTTOM: 10px; FONT-SIZE: 12px
+}
+.homeitem {
+	MARGIN-BOTTOM: 10px; FONT-SIZE: 12px
+}
+.noImage LI {
+	LIST-STYLE-IMAGE: none !important
+}
+.more {
+	MARGIN-TOP: 3px; WIDTH: 100%; HEIGHT: 20px
+}
+.moreButton {
+	TEXT-ALIGN: right; BACKGROUND: url(/eclipse.org-common/themes/Nova/images/moreButton.png) #fff no-repeat; FLOAT: right; FONT-SIZE: 10px; PADDING-TOP: 7px
+}
+.moreButton A {
+	TEXT-ALIGN: center; LINE-HEIGHT: 10px; WIDTH: 100px; DISPLAY: block; HEIGHT: 26px; COLOR: #595b54; FONT-SIZE: 10px; pointer: cursor
+}
+.newsPosts {
+	MARGIN-TOP: 5px
+}
+.newsPosts .date {
+	PADDING-RIGHT: 20px; COLOR: #666; FONT-SIZE: 11px; VERTICAL-ALIGN: top
+}
+.newsPosts A.link {
+	COLOR: #753cbc; FONT-SIZE: 14px
+}
+.newsPosts DIV.details {
+	COLOR: #515151; FONT-SIZE: 11px
+}
+.newsPosts TR TD {
+	BORDER-BOTTOM: #e9e9ee 1px dotted; MARGIN-BOTTOM: 10px; PADDING-TOP: 5px
+}
+.noBG {
+	BACKGROUND: none transparent scroll repeat 0% 0%
+}
+.none {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.posted {
+	COLOR: #888; FONT-SIZE: 8px
+}
+.rss {
+	WIDTH: 16px; FLOAT: right
+}
+.sideitem {
+	BORDER-BOTTOM: #d4d4dd 1px dotted; PADDING-BOTTOM: 5px; MARGIN-BOTTOM: 10px; CLEAR: both
+}
+.sideitem .modal {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: url(/eclipse.org-common/themes/Nova/images/thinModalBg.png) #fff repeat-x; PADDING-TOP: 5px
+}
+.sideitem H6 {
+	BORDER-BOTTOM: #fff 2px solid; PADDING-BOTTOM: 8px; BACKGROUND-COLOR: #e8e7dd; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; MARGIN-BOTTOM: 0px; FONT-SIZE: 14px; FONT-WEIGHT: bold; PADDING-TOP: 8px; -moz-border-radius-topleft: 3px; -moz-border-radius-topright: 3px
+}
+.sideitem LI {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; PADDING-TOP: 0px
+}
+.sideitem UL {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-SIZE: 12px; PADDING-TOP: 5px
+}
+.sideitem OL {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-SIZE: 12px; PADDING-TOP: 5px
+}
+.sideitem FORM {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-SIZE: 12px; PADDING-TOP: 5px
+}
+.sideitem P {
+	PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; FONT-SIZE: 12px; PADDING-TOP: 5px
+}
+SMALL {
+	FONT-SIZE: 10px
+}

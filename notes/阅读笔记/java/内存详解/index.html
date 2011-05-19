@@ -1,0 +1,1772 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="zh-CN" xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN"><head>
+
+
+  
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>内存详解</title>
+<meta http-equiv="PICS-Label" content="(PICS-1.1 
+&quot;http://www.icra.org/ratingsv02.html&quot; l gen true r (cz 1 lz 1 
+nz 1 oz 1 vz 1) &quot;http://www.rsac.org/ratingsv01.html&quot; l gen 
+true r (n 0 s 0 v 0 l 0) &quot;http://www.classify.org/safesurf/&quot; l
+ gen true r (SS~~000 1))">
+<link rel="schema.DC" href="http://purl.org/DC/elements/1.0/">
+<link rel="SHORTCUT ICON" href="http://www.ibm.com/favicon.ico">
+  <meta name="Owner" content="dw@cn.ibm.com">
+  <meta name="DC.Language" scheme="rfc1766" content="zh-CN">
+  <meta name="IBM.Country" content="CN">
+<meta name="Security" content="Public">
+<meta name="IBM.SpecialPurpose" content="SP001">
+<meta name="IBM.PageAttributes" content="sid=1003">
+<meta name="Source" content="v16 Template Generator">
+<meta name="Robots" content="index,follow">
+<meta name="Abstract" content="Java 堆耗尽并不是造成 java.lang.OutOfMemoryError 
+的惟一原因。如果本机内存耗尽，则会发生普通调试技巧无法解决的 OutOfMemoryError。本文解释什么是本机内存，Java 
+运行时如何使用它，它被耗尽时会出现什么情况，以及如何在 Windows 和 Linux 上调试本机 OutOfMemoryError。针对 
+AIX 系统的相同主题将在另一篇类似的文章中介绍。">
+<meta name="Description" content="Java 堆耗尽并不是造成 
+java.lang.OutOfMemoryError 的惟一原因。如果本机内存耗尽，则会发生普通调试技巧无法解决的 
+OutOfMemoryError。本文解释什么是本机内存，Java 运行时如何使用它，它被耗尽时会出现什么情况，以及如何在 Windows 和 
+Linux 上调试本机 OutOfMemoryError。针对 AIX 系统的相同主题将在另一篇类似的文章中介绍。">
+<meta name="Keywords" content="memory, native memory, UMDH, LeakDiag, 
+PerfMon, IBM Developer Kit for Java, java heap, Windows, Linux, dmalloc,
+ ccmalloc, valgrind, memcheck, njamd, Andrew Hall, 内存, 本机内存, java 堆, 
+tttjca, tttlca">
+<meta name="DC.Date" scheme="iso8601" content="2009-05-11">
+<meta name="DC.Type" scheme="IBM_ContentClassTaxonomy" content="CT316">
+<meta name="DC.Subject" scheme="IBM_SubjectTaxonomy" content="TT300">
+<meta scheme="IBM_WTMCategory" name="IBM.WTMCategory" 
+content="SOFDCJVACN">
+<meta name="DC.Rights" content="© Copyright&nbsp;IBM 
+Corporation&nbsp;2009">
+<meta name="IBM.Effective" scheme="W3CDTF" content="2009-05-11">
+<meta name="title" content="内存详解">
+
+<!-- HEADER_SCRIPTS_AND_CSS_INCLUDE -->
+<link href="index_files/all.css" media="all" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-uas.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/screen-fonts.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/handheld.css" media="handheld" rel="stylesheet" 
+title="www" type="text/css">
+<link href="index_files/print.css" media="print" rel="stylesheet" 
+title="www" type="text/css">
+<!-- dW-specific CSS -->
+<link href="index_files/dw-screen.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/dw-local-site.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+<link href="index_files/jquery.css" media="screen,projection" 
+rel="stylesheet" title="www" type="text/css">
+
+<script src="index_files/ibmcommon.js" type="text/javascript">//</script><link
+ title="IBM Search" 
+href="http://www.ibm.com/search/opensearch/description.xml" 
+type="application/opensearchdescription+xml" rel="search">
+<script src="index_files/dynamicnav.js" type="text/javascript">//</script>
+<!-- Pull-down script --> 
+<script type="text/javascript" src="index_files/dropdown.js">//</script>
+<!-- dW functional JS -->
+<script language="JavaScript" src="index_files/urltactic.js" type="text/javascript"></script>
+<!-- Rating_START -->
+
+<script language="JavaScript" type="text/javascript">
+  // <![CDATA[
+
+ dwr = {};
+  dwr.clickhere = '点击评分';
+  dwr.stars = '星';
+  dwr.star = '星'; 
+  dwr.avgRatingOf = '平均分';
+  dwr.youRated = '您的评分是';
+  dwr.avgRating = '平均分';
+  dwr.basedOnVote = '共 {1} 个评分'; // {1} to be substitue by code
+  dwr.basedOnVotes = '共 {1} 个评分';
+  dwr.leftParen = '（'; 
+  dwr.rightParen = ' ）'; 
+  dwr.space = ' '; 
+  dwr.yourRating = '您的评分';
+
+// ]]>
+</script>
+
+
+<script language="JavaScript" src="index_files/artrating.js" type="text/javascript"></script>
+<style type="text/css">
+.metavalue {
+  display: none;
+}
+</style>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<script language="javascript" src="index_files/ajax1.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/search_counter-maverick.js" type="text/javascript"></script>
+<script language="javascript" src="index_files/request_referer_capture-maverick.js" type="text/javascript"></script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ setDefaultQuery('dwchina');
+ //-->
+</script>
+<script language="JavaScript" type="text/javascript">
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</script>
+  <!-- Include file support -->
+  <script language="JavaScript" type="text/javascript">
+    (function($) {
+    jQuery.extend({
+    getInc: function(u,d){
+    if(u==null)return;
+    jQuery.ajax({
+    type: "GET",
+    url: u,
+    dataType: "text",
+    success: function(t) {
+    jQuery(d).html(t);
+    ibmCommon.initShowHide(jQuery(d).children()[0]);	
+    },
+    async: true
+    });
+    }
+    });
+    })(jQuery);
+  </script>
+<script charset="UTF-8" src="index_files/flash-detect.js" type="text/javascript" id="flashdetect"></script><script charset="UTF-8" src="index_files/cnzh-utf8.js" type="text/javascript" id="mhMenu"></script><script charset="UTF-8" src="index_files/Controller" type="text/javascript" id="dynavEA"></script><script charset="UTF-8" src="index_files/Controller_002" type="text/javascript" id="wiBundle"></script></head><body
+ id="ibm-com">
+<div id="ibm-top" class="ibm-landing-page">
+
+<!-- MASTHEAD_BEGIN -->
+<div class="ibm-access"><a href="#main">跳转到主要内容</a></div><div 
+id="ibm-masthead"><div id="ibm-logo"><a href="http://www.ibm.com/cn/zh/"><img
+ src="index_files/ibm-logo.gif" alt="IBM®" height="50" width="110"></a></div><ul
+ id="ibm-geo"><li class="ibm-first" id="ibm-country">中国</li><li 
+id="ibm-change-country">[ <a 
+href="http://www.ibm.com/developerworks/cn/country/">选择</a> ]</li></ul><form
+ id="ibm-search-form" 
+action="//www.ibm.com/developerworks/search/searchResults.jsp" 
+method="get" name="form1"><input name="searchType" value="1" 
+type="hidden"><input name="searchSite" value="dWChina" type="hidden"><input
+ name="pageLang" value="zh" type="hidden"><input name="langEncoding" 
+value="UTF8" type="hidden"><p><span id="ibm-search-scope"><label 
+for="sn"><img src="index_files/c_002.gif" alt="Search in:" height="1" 
+width="1"></label><select class="input-local" name="searchScope" id="sn"
+ size="1"><option value="dW" selected="selected">dW 全部内容</option><option
+ value="dW">--------------</option><option value="aixunix">&nbsp;&nbsp;AIX
+ and UNIX</option><option value="dmdd">&nbsp;&nbsp;Info Mgmt</option><option
+ value="lotusdd">&nbsp;&nbsp;Lotus</option><option value="rdd">&nbsp;&nbsp;Rational</option><option
+ value="wsdd">&nbsp;&nbsp;WebSphere</option><option value="dW">--------------</option><option
+ value="javaZ">&nbsp;&nbsp;Java technology</option><option 
+value="linuxZ">&nbsp;&nbsp;Linux</option><option value="opensrcZ">&nbsp;&nbsp;Open
+ source</option><option value="webservZ">&nbsp;&nbsp;SOA &amp; Web 
+services</option><option value="webarchZ">&nbsp;&nbsp;Web dev</option><option
+ value="xmlZ">&nbsp;&nbsp;XML</option><option value="dW">--------------</option><option
+ value="all">IBM 全部内容</option></select></span><label for="q"><img 
+alt="搜索:" src="index_files/c_002.gif" height="1" width="1"></label><input
+ name="query" maxlength="100" id="q" type="text"><input id="ibm-search" 
+class="ibm-btn-search" name="Search" value="搜索" type="submit"></p></form><div
+ id="ibm-site-name"><!-- IBM site name container --></div><div 
+id="ibm-universal-nav"><ul><li class="ibm-first" id="ibm-unav-home"><a 
+href="http://www.ibm.com/cn/zh/">首页</a></li><li style="z-index: 8;" 
+class=" ibm-is-active ibm-is-active ibm-is-active" 
+id="ibm-unav-solutions"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/solutions/cn/zh/">解决方案</a><div style="z-index: 
+9; display: none;" id="gi-ce88a31d" class="ibm-unav-menu"><span 
+style="display: none; height: 284px;" id="gi-ce88a31d-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li class=" ibm-place-holder"><a 
+id="gi-92d6a098-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-92d6a098" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-92d6a098-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/">金融业</a></li><li><a
+ href="http://www.ibm.com/cn/industry/finance/solution/banking.shtml">银行
+业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/finance/solution/insurance.shtml">保
+险业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/retail/index.shtml?ca=masterhead&amp;me=cndotcom">零
+售业</a></li><li><a 
+href="http://www.ibm.com/smb/cn/industries/manufacture/index.shtml?ca=masterhead&amp;me=cndotcom">制
+造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/">流通业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_commu.shtml">电
+子行业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/telecom/solution/">电信业</a></li><li><a
+ 
+href="http://www.ibm.com/cn/smb/industries/media/index.shtml?ca=masterhead&amp;me=cndotcom">媒
+体与娱乐业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/distribution/solution/transport.shtml">交
+通运输业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_aero.shtml">航
+空航天造船业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_auto.shtml">汽
+车制造业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/industrial/solution/solu_petro.shtml">石
+油石化业</a></li><li><a href="http://www.ibm.com/cn/public/offertogov/h/">政府
+与公众事业</a></li><li><a 
+href="http://www.ibm.com/cn/industry/education/solution/">教育</a></li><li><a
+ href="http://www.ibm.com/cn/public/healthcare/solutions/">医疗与生命科学</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-d2c370f9-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按业务需求分类</a><div id="gi-d2c370f9" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-d2c370f9-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/smb/cn/business/infrastructure/index.shtml?ca=masterhead&amp;me=cndotcom">IT
+ 基础架构解决方案</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/bi/index.shtml?ca=masterhead&amp;me=cndotcom">商
+务智能（BI）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/scm/index.shtml?ca=masterhead&amp;me=cndotcom">供
+应链管理（SCM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/erp/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资源规划（ERP）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/crm/index.shtml?ca=masterhead&amp;me=cndotcom">客
+户关系管理（CRM）</a></li><li><a 
+href="http://www.ibm.com/cn/smb/solutions/plm/index.shtml?ca=masterhead&amp;me=cndotcom">产
+品生命周期管理（PLM）</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/oa/index.shtml?ca=masterhead&amp;me=cndotcom">办
+公自动化(OA)</a></li><li><a 
+href="http://www.ibm.com/cn/express/business/eam/index.shtml?ca=masterhead&amp;me=cndotcom">企
+业资产管理(EAM)</a></li><li><a 
+href="http://www.ibm.com/software/cn/db2/content-management/industry-solutions/">内
+容管理</a></li><li><a 
+href="http://www.ibm.com/cn/software/solution/info_conformity.html">信息集成</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a id="gi-92994a98-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按顶级业务合作伙伴分类</a><div id="gi-92994a98" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-92994a98-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/services/hotsale/cisco/index.shtml">IBM 和 
+Cisco</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/oracle/index.shtml">IBM
+ 与 Oracle</a></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/alliance/sap/index.shtml">IBM 与
+ SAP</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/services/bcs/">业务咨询</a></li><li><a 
+href="http://www.ibm.com/systems/cn/dihub/index.shtml">IBM 动态架构</a></li><li><a
+ href="http://www.ibm.com/software/cn/smartwork/">IBM智慧运作</a></li><li><a
+ href="http://www.ibm.com/software/cn/nihub/">IBM新锐洞察</a></li><li><a 
+href="http://www.ibm.com/software/cn/spsm/">IBM智慧产品与服务</a></li><li><a 
+href="http://www.ibm.com/software/cn/soa/launch/index.html">面向服务架构 (SOA)</a></li><li><a
+ href="http://www.ibm.com/cn/financing/index.shtml">融资租赁</a></li><li><a 
+href="http://www.ibm.com/smb/cn/business/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的解决方案</a></li><li><a 
+href="http://www.ibm.com/software/cn/solution/">软件行业解决方案</a></li><li><a 
+href="http://www.ibm.com/city/cn/index.shtml?re=masthead">IBM 区域解决方案</a></li><li><a
+ href="http://www.ibm.com/cn/services/bcs/">更多业务解决方案</a></li></ul></div></li><li
+ style="z-index: 8;" class=" ibm-is-active" id="ibm-unav-services"><a 
+class=" ibm-unav-has-child" 
+href="http://www.ibm.com/technologyservices/cn/zh/">服务</a><div 
+style="z-index: 9; display: none;" id="gi-b375255a" 
+class="ibm-unav-menu"><span style="display: none; height: 151px;" 
+id="gi-b375255a-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li 
+class=" ibm-place-holder"><a id="gi-32d7c1b3-trigger" class=" 
+ibm-unav-menu-has-child" href="#">按服务项目分类</a><div id="gi-32d7c1b3" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-32d7c1b3-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www-31.ibm.com/cn/services/managedservices/">弹性运维服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/bcrs/c1000411">业
+务连续与灾难恢复服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/imc/c1025977">企
+业终端用户服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/gn/c1000412">网络
+服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025997">IT
+ 策略与基础架构服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000418">维
+护与技术支持服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025998">中
+间件服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/gts/outsourcing.html">外包服务</a></li><li><a
+ href="http://www.ibm.com/services/cn/index.wss/itservice/so/c1000405">企
+业 IT 安全服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1025999">服
+务器服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/igs/c1026000">数
+据中心及智能化集成服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/itservice/its/c1000416">数
+据与存储服务</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-cc735dc1-trigger" class=" ibm-unav-menu-has-child" href="#">按业务类型
+分类</a><div id="gi-cc735dc1" class="ibm-unav-menu ibm-place-holder"><span
+ id="gi-cc735dc1-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024566">竞
+争策略</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024555">营
+运/委外</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024567">顾
+客服务及忠诚度</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024553">通
+路策略实施</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024556">IT
+ 最适化</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024568">全
+新的工作环境</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024557">灵
+活可靠的基础建设</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024554">安
+全和防御</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/businesstopic/igs/a1024569">价
+值链效益</a></li></ul></div></li><li class=" ibm-place-holder"><a 
+id="gi-ca9a3e09-trigger" class=" ibm-unav-menu-has-child" href="#">按行业分类</a><div
+ id="gi-ca9a3e09" class="ibm-unav-menu ibm-place-holder"><span 
+id="gi-ca9a3e09-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024588">跨
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024537">金融
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024548">银行
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024546">保险
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024547">零售
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024540">消费
+品</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024545">批发
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024550">电子
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024543">电信
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024538">媒体
+与娱乐</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024541">旅游
+和运输业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024542">汽车
+行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024552">石油
+石化行业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024549">政府
+部门</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024644">能源
+与公用事业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024544">教育
+业</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024536">医疗
+保健</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss/industry/igs/a1024539">生命
+科学</a></li></ul></div></li><li><a href="http://www.ibm.com/training/cn/">培
+训服务</a></li><li><a href="http://www.ibm.com/cn/software/service/">软件服务</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/igs/?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的服务</a></li><li><a 
+href="http://www.ibm.com/services/cn/index.wss">更多服务</a></li></ul></div></li>
+<li style="z-index: 8;" class=" ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active ibm-is-active ibm-is-active" 
+id="ibm-unav-products"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/products/cn/zh/">产品</a><div style="z-index: 9; 
+display: none;" id="gi-7ea21070" class="ibm-unav-menu"><span 
+style="display: none; height: 227px;" id="gi-7ea21070-ehb" 
+class="ibm-unav-menu-ehb ibm-is-active"><img src="index_files/c.gif" 
+alt=""></span><a class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/cn/shop/special.shtml">特惠产品和方案</a></li><li 
+class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-203d0946-trigger" class=" ibm-unav-menu-has-child " href="#">软件</a><div
+ style="z-index: 9; top: -1px; display: none;" id="gi-203d0946" 
+class="ibm-unav-menu ibm-place-holder"><span style="display: none; 
+height: 183px;" id="gi-203d0946-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/software/">所有软件</a></li><li><a 
+href="http://www.ibm.com/software/products/cn/zh">产品目录</a></li><li><a 
+href="http://www.ibm.com/cn/software/db2/">Information Management 信息管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/lotus/">Lotus 协作办公软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/rational/">Rational 开发软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/tivoli/">Tivoli 服务管理软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/websphere/">WebSphere 应用系统和整合软件</a></li><li><a
+ href="http://www.ibm.com/cn/software/zseries/">System z 服务器软件</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-dec31d9d-trigger" class=" ibm-unav-menu-has-child " href="#">Systems
+ 与服务器</a><div style="z-index: 9; top: -1px; display: none;" 
+id="gi-dec31d9d" class="ibm-unav-menu ibm-place-holder"><span 
+style="display: none; height: 265px;" id="gi-dec31d9d-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a href="http://www.ibm.com/systems/cn/">所
+有 IBM Systems 和服务器</a></li><li><a 
+href="http://www.ibm.com/systems/cn/power/index.shtml">Power Systems</a></li><li><a
+ href="http://www.ibm.com/cn/systems/i/index.shtml">System i （i系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/p/">System p （p系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/x/">System x （x系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/z/">System z （z系列）服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/bladecenter/">BladeCenter 刀片服务器</a></li><li><a
+ href="http://www.ibm.com/cn/openpower">OpenPower 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/xseries/l1350.shtml">群集服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/unix/">UNIX 服务器</a></li><li><a 
+href="http://www.ibm.com/cn/servers/eserver/linux/index.shtml">Linux 服务器</a></li><li><a
+ href="http://www.ibm.com/cn/systems/power/index.shtml">POWER 处理器的服务器</a></li><li><a
+ href="http://www.ibm.com/cn/servers/jump_intel.shtml">基于英特尔架构的服务器</a></li></ul></div></li><li
+ class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-fc82fd6-trigger" class=" ibm-unav-menu-has-child " href="#">存储产品</a><div
+ style="z-index: 9; top: -1px; display: none;" id="gi-fc82fd6" 
+class="ibm-unav-menu ibm-place-holder"><span style="display: none; 
+height: 151px;" id="gi-fc82fd6-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/storage/cn/">所有存储产品</a></li><li><a 
+href="http://www.ibm.com/storage/cn/disk/">磁盘存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/tape/">磁带存储系统</a></li><li><a 
+href="http://www.ibm.com/storage/cn/san/">存储区域网络</a></li><li><a 
+href="http://www.ibm.com/storage/cn/nas/">网络连接存储</a></li><li><a 
+href="http://www.ibm.com/storage/cn/software/">存储软件</a></li><li><a 
+href="http://www.ibm.com/storage/cn/product/index.shtml">存储产品排序（A - Z）</a></li></ul></div></li><li><a
+ 
+href="http://www.ibm.com/services/cn/index.wss/offerfamily/igs/c1025846">网
+络安全</a></li><li><a href="http://www.ibm.com/cn/products/pos/">零售终端</a></li><li><a
+ 
+href="http://www.infoprintsolutionscompany.com/internet/wwsites.nsf/vwWebPublished/mainT1_cn">打
+印机 (InfoPrint)</a></li><li><a 
+href="http://www.ibm.com/cn/financing/icpe/">IBM 官方认证再制造设备</a></li><li><a
+ href="http://www.ibm.com/cn/servers/eserver/xseries/options.shtml">选件</a></li><li><a
+ href="http://www.ibm.com/cn/promotion/esg/xseries/">中低端产品特惠商城</a></li><li><a
+ 
+href="http://www.ibm.com/cn/express/products/hardware/index.shtml?ca=masterhead&amp;me=cndotcom">面
+向中型企业及机构的特惠产品</a></li></ul></div></li>
+<li style="z-index: 8;" class=" ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active ibm-is-active ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active ibm-is-active ibm-is-active ibm-is-active 
+ibm-is-active ibm-is-active" id="ibm-unav-support"><a class=" 
+ibm-unav-has-child" href="http://www.ibm.com/support/cn/zh/">支持与下载</a><div
+ style="z-index: 9; display: none;" id="gi-bfe47185" 
+class="ibm-unav-menu"><span style="display: none; height: 208px;" 
+id="gi-bfe47185-ehb" class="ibm-unav-menu-ehb ibm-is-active"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li 
+class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-eed3a2a9-trigger" class=" ibm-unav-menu-has-child " href="#">下载</a><div
+ style="z-index: 9; top: -1px; display: none;" id="gi-eed3a2a9" 
+class="ibm-unav-menu ibm-place-holder"><span style="display: none; 
+height: 37px;" id="gi-eed3a2a9-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/download/download.shtml">驱动程序和软件下载</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/support/troubleshooting/cn/">故障诊断与排除</a></li><li><a
+ href="http://www.ibm.com/support/advsrch.wss?rs=0&amp;loc=zh_CN">搜索</a></li><li
+ class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-b0c042b2-trigger" class=" ibm-unav-menu-has-child " href="#">按产品查
+看</a><div style="z-index: 9; top: -1px; display: none;" id="gi-b0c042b2"
+ class="ibm-unav-menu ibm-place-holder"><span style="display: none; 
+height: 94px;" id="gi-b0c042b2-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ href="http://www.ibm.com/cn/support/productsupport/sw_support.shtml">软件
+产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/eserver.shtml">服务器</a></li><li><a
+ 
+href="http://www.ibm.com/cn/support/productsupport/storage_support.shtml">存
+储产品</a></li><li><a 
+href="http://www.ibm.com/cn/support/productsupport/print_support.shtml">打
+印机 (InfoPrint)</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/mysupport/">个性化支持</a></li><li><a 
+href="http://www.ibm.com/support/publications/cn/index.html">产品资料中心</a></li><li
+ class=" ibm-place-holder"><a style="z-index: 8;" 
+id="gi-83077c99-trigger" class=" ibm-unav-menu-has-child " href="#">电子化工
+具</a><div style="z-index: 9; top: -1px; display: none;" id="gi-83077c99"
+ class="ibm-unav-menu ibm-place-holder"><span style="display: none; 
+height: 56px;" id="gi-83077c99-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul><li><a
+ 
+href="http://www.ibm.com/support/electronic/uprtransition.wss?category=2&amp;locale=zh_CN">提
+交服务请求</a></li><li><a 
+href="https://www.ibm.com/support/electronic/portal/%21ut/p/kcxml/04_Sj9SPykssy0xPLMnMz0vM0Y_QjzKLt4y3dAXJgFku-pHIIgbxjnABX4_83FT9IKBEpDlQxCVQPyonNT0xuVI_WN9bP0C_IDc0otzb0REAowWZNg%21%21/delta/base64xml/L2dJQSEvUUt3QS80SVVFLzZfOV85RQ%21%21?category=4&amp;locale=zh_CN">专
+项服务</a></li></ul></div></li><li><a 
+href="http://www.ibm.com/cn/support/viewdoc/knowledgebase">技术知识库</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn">在线客户支持</a></li><li><a 
+href="http://www.ibm.com/support/warranties/cn/">保修、许可和维护</a></li></ul></div></li>
+<li style="z-index: 8;" class=" ibm-is-active ibm-is-active" 
+id="ibm-unav-myibm"><a class=" ibm-unav-has-child" 
+href="http://www.ibm.com/account/cn/zh/">个性化服务</a><div style="z-index: 
+9; display: none;" id="gi-6c884782" class="ibm-unav-menu"><span 
+style="display: none; height: 113px;" id="gi-6c884782-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/account/myaccounts/cn/zh/">我的账户</a></li><li 
+class=" ibm-myinterest"><a id="gi-750f5de3-trigger" 
+href="http://www.ibm.com/account/myibm/myinterestView.do?cc=cn&amp;lc=zh">我
+的收藏夹</a><div id="gi-750f5de3" class="ibm-unav-menu ibm-myinterest"><span
+ id="gi-750f5de3-ehb" class="ibm-unav-menu-ehb"><img 
+src="index_files/c.gif" alt=""></span><a class="ibm-access"></a><ul></ul></div></li><li><a
+ href="http://www.ibm.com/account/myibm/profile.do?cc=cn&amp;lc=zh">我的概要
+信息</a></li><li class=" ibm-place-holder"><a id="gi-8dcdf7fd-trigger" 
+class=" ibm-unav-menu-has-child" href="#">客户支持</a><div id="gi-8dcdf7fd" 
+class="ibm-unav-menu ibm-place-holder"><span id="gi-8dcdf7fd-ehb" 
+class="ibm-unav-menu-ehb"><img src="index_files/c.gif" alt=""></span><a 
+class="ibm-access"></a><ul><li><a 
+href="http://www.ibm.com/support/operations/cn/zh/contracts">合同</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/orderdelivery">订单与发货</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/inventory">库存与维护</a></li><li><a
+ href="http://www.ibm.com/support/operations/cn/zh/invoicespayments">发票与
+付款</a></li><li><a href="http://www.ibm.com/support/operations/cn">更多客户支持</a></li></ul></div></li><li><a
+ href="http://www.ibm.com/account/cn/zh/">了解更多</a></li></ul></div></li>
+</ul>
+</div>
+
+</div>
+
+<!-- MASTHEAD_END -->
+
+<div id="ibm-pcon">
+
+<!-- CONTENT_BEGIN -->
+<div id="ibm-content">
+
+<!-- Navigation_Trail_BEGIN -->
+<!-- &nbsp; -->
+      <div id="ibm-content-head"><ul id="ibm-navigation-trail"><li 
+class="ibm-first"><a href="http://www.ibm.com/developerworks/cn/">developerWorks
+ 中国</a></li><li><a href="http://www.ibm.com/developerworks/cn/java/">Java
+ technology</a></li><li><a 
+href="http://www.ibm.com/developerworks/cn/views/java/libraryview.jsp">文
+档库</a></li></ul></div>
+<!-- Navigation_Trail_END -->
+
+<!-- dW_Summary Area_START -->
+<div id="dw-summary-article">
+
+<div class="dw-content-head">
+<h1>内存详解</h1><p><em>理解 JVM 如何使用 Windows 和 Linux 上的本机内存</em></p>
+</div>
+
+<div class="ibm-container-body ibm-two-column">
+
+<div class="ibm-column ibm-first">
+<div class="author"><a title="" class="dwauthor" rel="#authortip1" 
+href="#author1">Andrew Hall</a>, 软件工程师, IBM</div><div style="display: 
+none;" id="authortip1" class="dwauthor-onload-state ibm-no-print">Andrew
+ Hall 于 2004 年加入 IBM Java Technology Centre，他在 Java System Test 
+小组工作了两年。然后在 Java 服务团队工作了 18 个月，其间，他在多个平台上调试了数十个本机内存问题。他目前是 Java 
+Reliability, Availability and Serviceability 团队的成员。在业余生活中，他喜欢阅读、摄影和玩魔术。</div>
+<p></p>
+  <p><b>简介：</b>&nbsp;Java™ 堆耗尽并不是造成 <code>java.lang.OutOfMemoryError</code>
+ 的惟一原因。如果<em>本机内存</em> 耗尽，则会发生普通调试技巧无法解决的 <code>OutOfMemoryError</code>。
+本文将讨论本机内存的概念，Java 运行时如何使用它，它被耗尽时会出现什么情况，以及如何在 Windows® 和 Linux® 上调试本机 <code>OutOfMemoryError</code>。
+针对 AIX® 系统的相同主题将在 <a 
+href="http://www.ibm.com/developerworks/cn/java/j-nativememory-aix">另一篇同
+类文章</a> 中介绍。</p>
+
+  <!-- <p class="ibm-no-print"><div id="dw-tag-this" class="ibm-no-print"></div><div id="interestShow" class="ibm-no-print"></div></p> -->
+<div id="dw-tag-content" class="ibm-no-print"></div><div 
+id="dw-moretags-access" class="ibm-access"></div>
+<p class="ibm-no-print"></p><div id="dw-tag-this" class="ibm-no-print"><a
+ class="ibm-external-link" onclick="jQuery.launchTagThisWindow(); return
+ false;" href="#">标记本文！</a></div><div id="interestShow" 
+class="ibm-no-print"></div>
+</div>
+
+<div class="ibm-column ibm-second">
+
+<p class="leading"><b>发布日期：</b>&nbsp;2009 年 5 月 11 日
+  
+<br><b>级别：</b>&nbsp;中级
+  <br class="ibm-ind-link"><b>其他语言版本：</b>&nbsp;<a 
+onmouseover="linkQueryAppend(this)" 
+href="http://www.ibm.com/developerworks/java/library/j-nativememory-linux/">英
+文</a>  
+
+<br><b>访问情况</b>&nbsp;795 次浏览
+<br><b>建议:</b>&nbsp;<span id="nCmts">0&nbsp;(<a href="#icomments">添加评论</a>)</span>
+<!-- Rating_Area_Begin -->
+<!-- Ensure that div id is based on input id and ends with -widget -->	
+<input id="art-rating" name="ratinga" value="5" type="hidden"></p><div 
+id="art-rating-widget"><a href="javascript:void(0);"><img alt="1 star" 
+title="点击评分 1 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="2 stars" 
+title="点击评分 2 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="3 stars" 
+title="点击评分 3 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="4 stars" 
+title="点击评分 4 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><a href="javascript:void(0);"><img alt="5 stars" 
+title="点击评分 5 星" src="index_files/avg-star-on.gif" height="20" 
+width="20"></a><span id="rateTxt">  平均分 （共 1 个评分 ）</span></div>
+<script language="JavaScript" type="text/javascript">
+// <![CDATA[
+ //  widget div id and article id as args
+   window.artRating.init('art-rating-widget');
+// ]]>
+</script>
+<!-- Rating_Area_End -->
+
+</div>
+
+</div>
+</div>
+<!-- dW_Summary_Area_END -->
+
+<!-- CONTENT_BODY -->
+<div id="ibm-content-body">
+
+<!-- MAIN_COLUMN_BEGIN -->
+<div id="ibm-content-main">
+
+<!-- Related_Searches_Area_And_Overlays_Begin -->
+
+<!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<div class="ibm-container">
+
+<!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<p>Java 堆（每个 Java 对象在其中分配）是您在编写 Java 应用程序时使用最频繁的内存区域。JVM 
+设计用于将我们与主机的特性隔离，所以将内存当作堆来考虑再正常不过了。您一定遇到过 Java 堆 <code>OutOfMemoryError </code>，
+它可能是由于对象泄漏造成的，也可能是因为堆的大小不足以存储所有数据，您也可能了解这些场景的一些调试技巧。但是随着您的 Java 
+应用程序处理越来越多的数据和越来越多的并发负载，您可能就会遇到无法使用常规技巧进行修复的 <code>OutOfMemoryError</code>。
+在一些场景中，即使 java 堆未满，也会抛出错误。当这类场景发生时，您需要理解 Java 运行时环境（Java Runtime 
+Environment，JRE）内部到底发生了什么。</p>
+			<p>Java 应用程序在 Java 运行时的虚拟化环境中运行，但是运行时本身是使用 C 
+之类的语言编写的本机程序，它也会耗用本机资源，包括<em>本机内存</em>。本机内存是可用于运行时进程的内存，它与 Java 应用程序使用的 
+java 堆内存不同。每种虚拟化资源（包括 Java 堆和 Java 
+线程）都必须存储在本机内存中，虚拟机在运行时使用的数据也是如此。这意味着主机的硬件和操作系统施加在本机内存上的限制会影响到 Java 
+应用程序的性能。</p>
+			<p>本系列文章共分两篇，讨论不同平台上的相应话题。本文是其中一篇。在这两篇文章中，您将了解什么是本机内存，Java 
+运行时如何使用它，本机内存耗尽之后会发生什么情况，以及如何调试本机 <code>OutOfMemoryError</code>。本文介绍 
+Windows 和 Linux 平台上的这一主题，不会介绍任何特定的运行时实现。另一篇 <a 
+href="http://www.ibm.com/developerworks/cn/java/j-nativememory-aix">类似的文
+章</a> 介绍 AIX 上的这一主题，着重介绍 IBM® Developer Kit for Java。（另一篇文章中关于 IBM 
+实现的信息也适合于除 AIX 之外的平台，因此如果您在 Linux 上使用 IBM Developer Kit for Java，或使用 IBM
+ 32-bit Runtime Environment for Windows，您会发现这篇文章也有用处）。</p>
+			<p><a name="N10099"><span class="atitle">本机内存简介</span></a></p>
+			<p>我将首先解释一下操作系统和底层硬件给本机内存带来的限制。如果您熟悉使用 C 等语言管理动态内存，那么您可以直接跳到 <a 
+href="#how">下一节</a>。</p>
+			<p><a name="N100A6"><span class="smalltitle">硬件限制</span></a></p>
+			<p>本机进程遇到的许多限制都是由硬件造成的，而与操作系统没有关系。每台计算机都有一个处理器和一些随机存取存储器（RAM），后者也称为物理
+内存。处理器将数据流解释为要执行的指令，它拥有一个或多个处理单元，用于执行整数和浮点运算以及更高级的计算。处理器具有许多<em>寄存器</em>
+ —— 常快速的内存元素，用作被执行的计算的工作存储，寄存器大小决定了一次计算可使用的最大数值。</p>
+			<p>处理器通过内存总线连接到物理内存。物理地址（处理器用于索引物理 RAM 的地址）的大小限制了可以寻址的内存。例如，一个 16 
+位物理地址可以寻址 0x0000 到 0xFFFF 的内存地址，这个地址范围包括 2^16 = 65536 
+个惟一的内存位置。如果每个地址引用一个存储字节，那么一个 16 位物理地址将允许处理器寻址 64KB 内存。</p>
+			<p>处理器被描述为特定数量的数据位。这通常指的是寄存器大小，但是也存在例外，比如 32 位 390 
+指的是物理地址大小。对于桌面和服务器平台，这个数字为 31、32 或 64；对于嵌入式设备和微处理器，这个数字可能小至 
+4。物理地址大小可以与寄存器带宽一样大，也可以比它大或小。如果在适当的操作系统上运行，大部分 64 位处理器可以运行 32 位程序。</p>
+			<p>表 1 列出了一些流行的 Linux 和 Windows 架构，以及它们的寄存器和物理地址大小：</p>
+			<br><a name="table1"><b>表 1. 一些流行处理器架构的寄存器和物理地址大小</b></a><br>
+			<table class="ibm-data-table" summary="Register and memory bus widths
+ for some popular processor architectures" border="0" cellpadding="0" 
+cellspacing="0" width="100%"><tbody><tr><th scope="col">架构</th><th 
+scope="col">寄存器带宽（位）</th><th scope="col">物理地址大小（位）</th></tr><tr><th 
+class="tb-row" scope="row">（现代）Intel® x86</th><td>32</td><td>32<br>36，具有
+物理地址扩展（Pentium Pro 和更高型号）</td></tr><tr><th class="tb-row" scope="row">x86
+ 64</th><td>64</td><td>目前为 48 位（以后将会增大）</td></tr><tr><th class="tb-row" 
+scope="row">PPC64</th><td>64</td><td>在 POWER 5 上为 50 位</td></tr><tr><th 
+class="tb-row" scope="row">390 31 位</th><td>32</td><td>31</td></tr><tr><th
+ class="tb-row" scope="row">390 64 位</th><td>64</td><td>64</td></tr></tbody></table>
+			<br>
+			<p><a name="N10125"><span class="smalltitle">操作系统和虚拟内存</span></a></p>
+			<p>如果您编写无需操作系统，直接在处理器上运行的应用程序，您可以使用处理器可以寻址的所有内存（假设连接到了足够的物理 
+RAM）。但是要使用多任务和硬件抽象等特性，几乎所有人都会使用某种类型的操作系统来运行他们的程序。</p>
+			<p>在 Windows 和 Linux 
+等多任务操作系统中，有多个程序在使用系统资源。需要为每个程序分配物理内存区域来在其中运行。可以设计这样一个操作系统：每个程序直接使用物理内存，并
+且可以可靠地仅使用分配给它的内存。一些嵌入式操作系统以这种方式工作，但是这在包含多个未经过集中测试的应用程序的环境中是不切实际的，因为任何程序都
+可能破坏其他程序或者操作系统本身的内存。</p>
+			<p>
+				<em>虚拟内存</em> 允许多个进程共享物理内存，而且不会破坏彼此的数据。在具有虚拟内存的操作系统（比如 Windows、Linux
+ 和许多其他操作系统）中，每个程序都拥有自己的虚拟地址空间 —— 
+一个逻辑地址区域，其大小由该系统上的地址大小规定（所以，桌面和服务器平台的虚拟地址空间为 31、32 或 64 
+位）。进程的虚拟地址空间中的区域可被映射到物理内存、文件或任何其他可寻址存储。当数据未使用时，操作系统可以在物理内存与一个交换区域
+（Windows 上的<em>页面文件</em> 或者 Linux 上的<em>交换分区</em>）之间移动它，以实现对物理内存的最佳利用率。当
+一个程序尝试使用虚拟地址访问内存时，操作系统连同片上硬件会将该虚拟地址映射到物理位置，这个位置可以是物理 
+RAM、一个文件或页面文件/交换分区。如果一个内存区域被移动到交换空间，那么它将在被使用之前加载回物理内存中。图 1 
+展示了虚拟内存如何将进程地址空间区域映射到共享资源：</p>
+			
+				<br><a name="fig1"><b>图 1. 虚拟内存将进程地址空间映射到物理资源</b></a><br>
+				<img alt="虚拟内存映射" src="index_files/virtual_memory.gif" height="580" 
+width="445">
+			<br>
+			<p>程序的每个实例以<em>进程</em> 的形式运行。在 Linux 和 Windows 
+上，进程是一个由受操作系统控制的资源（比如文件和套接字信息）、一个典型的虚拟地址空间（在某些架构上不止一个）和至少一个执行线程构成的集合。</p>
+			<p>虚拟地址空间大小可能比处理器的物理地址大小更小。32 位 Intel x86 最初拥有的 32 位物理地址仅允许处理器寻址 4GB 
+存储空间。后来，添加了一种称为物理地址扩展（Physical Address Extension，PAE）的特性，将物理地址大小扩大到了 36 
+位，允许安装或寻址至多 64GB RAM。PAE 允许操作系统将 32 位的 4GB 
+虚拟地址空间映射到一个较大的物理地址范围，但是它不允许每个进程拥有 64GB 虚拟地址空间。这意味着如果您将大于 4GB 的内存放入 32 位 
+Intel 服务器中，您将无法将所有内存直接映射到一个单一进程中。</p>
+			<p>地址窗口扩展（Address Windowing Extension）特性允许 Windows 进程将其 32 
+位地址空间的一部分作为滑动窗口映射到较大的内存区域中。Linux 使用类似的技术将内存区域映射到虚拟地址空间中。这意味着尽管您无法直接引用大于 
+4GB 的内存，但您仍然可以使用较大的内存区域。</p>
+			<p><a name="N10158"><span class="smalltitle">内核空间和用户空间</span></a></p>
+			<p>尽管每个进程都有其自己的地址空间，但程序通常无法使用所有这些空间。地址空间被划分为<em>用户空间</em> 和<em>内核空间</em>。
+内核是主要的操作系统程序，包含用于连接计算机硬件、调度程序以及提供联网和虚拟内存等服务的逻辑。</p>
+			<p>作为计算机启动序列的一部分，操作系统内核运行并初始化硬件。一旦内核配置了硬件及其自己的内部状态，第一个用户空间进程就会启动。如果用户
+程序需要来自操作系统的服务，它可以执行一种称为<em>系统调用</em> 
+的操作与内核程序交互，内核程序然后执行该请求。系统调用通常是读取和写入文件、联网和启动新进程等操作所必需的。</p>
+			<p>当执行系统调用时，内核需要访问其自己的内存和调用进程的内存。因为正在执行当前线程的处理器被配置为使用地址空间映射来为当前进程映射虚拟
+地址，所以大部分操作系统将每个进程地址空间的一部分映射到一个通用的内核内存区域。被映射来供内核使用的地址空间部分称为内核空间，其余部分称为用户空
+间，可供用户应用程序使用。</p>
+			<p>内核空间和用户空间之间的平衡关系因操作系统的不同而不同，甚至在运行于不同硬件架构之上的同一操作系统的各个实例间也有所不同。这种平衡通
+常是可配置的，可进行调整来为用户应用程序或内核提供更多空间。缩减内核区域可能导致一些问题，比如能够同时登录的用户数量限制或能够运行的进程数量限
+制。更小的用户空间意味着应用程序编程人员只能使用更少的内存空间。</p>
+			<p>默认情况下，32 位 Windows 拥有 2GB 用户空间和 2GB 内核空间。在一些 Windows 版本上，通过向启动配置添加
+ <code>/3GB</code> 开关并使用 <code>/LARGEADDRESSAWARE</code> 
+开关重新链接应用程序，可以将这种平衡调整为 3GB 用户空间和 1GB 内核空间。在 32 位 Linux 上，默认设置为 3GB 用户空间和 
+1GB 内核空间。一些 Linux 分发版提供了一个 <em>hugemem</em> 内核，支持 4GB 
+用户空间。为了实现这种配置，将进行系统调用时使用的地址空间分配给内核。通过这种方式增加用户空间会减慢系统调用，因为每次进行系统调用时，操作系统必
+须在地址空间之间复制数据并重置进程地址-空间映射。图 2 展示了 32 位 Windows 的地址-空间布局：</p>
+			
+				<br><a name="fig2"><b>图 2. 32 位 Windows 的地址-空间布局</b></a><br>
+				<img alt="Windows 32 位地址空间" 
+src="index_files/windows_address_space.gif" height="410" width="433">
+			<br>
+			<p>图 3 显示了 32 位 Linux 的地址-空间配置：</p>
+			
+				<br><a name="fig3"><b>图 3. 32 位 Linux 的地址-空间布局</b></a><br>
+				<img alt="Linux 32 位地址空间" src="index_files/linux_address_space.gif" 
+height="408" width="570">
+			<br>
+			<p>31 位 Linux 390 上还使用了一个独立的内核地址空间，其中较小的 2GB 
+地址空间使对单个地址空间进行划分不太合理，但是，390 架构可以同时使用多个地址空间，而且不会降低性能。</p>
+			<p>进程空间必须包含程序需要的所有内容，包括程序本身和它使用的共享库（在 Windows 上为 DDL，在 Linux 上为 .so 
+文件）。共享库不仅会占据空间，使程序无法在其中存储数据，它们还会使地址空间碎片化，减少可作为连续内存块分配的内存。这对于在拥有 3GB 
+用户空间的  Windows x86 上运行的程序尤为明显。DLL 在构建时设置了首选的加载地址：当加载 DLL 
+时，它被映射到处于特定位置的地址空间，除非该位置已经被占用，在这种情况下，它会加载到别处。Windows NT 最初设计时设置了 2GB 
+可用用户空间，这对于要构建来加载接近 2GB 区域的系统库很有用 —— 使大部分用户区域都可供应用程序自由使用。当用户区域扩展到 3GB 
+时，系统共享库仍然加载接近 2GB 数据（约为用户空间的一半）。尽管总体用户空间为 3GB，但是不可能分配 3GB 
+大的内存块，因为共享库无法加载这么大的内存。</p>
+			<p>在 Windows 中使用 <code>/3GB</code> 
+开关，可以将内核空间减少一半，也就是最初设计的大小。在一些情形下，可能耗尽 1GB 内核空间，使 I/O 
+变得缓慢，且无法正常创建新的用户会话。尽管 <code>/3GB</code> 
+开关可能对一些应用程序非常有用，但任何使用它的环境在部署之前都应该进行彻底的负载测试。参见 <a href="#resources">参考资料</a>，
+获取关于 <code>/3GB</code> 开关及其优缺点的更多信息的链接。</p>
+			<p>本机内存泄漏或过度使用本机内存将导致不同的问题，具体取决于您是耗尽了地址空间还是用完了物理内存。耗尽地址空间通常只会发生在 32 
+位进程上，因为最大 4GB 的内存很容易分配完。64 位进程具有数百或数千 GB 
+的用户空间，即使您特意消耗空间也很难耗尽这么大的空间。如果您确实耗尽了 Java 进程的地址空间，那么 Java 
+运行时可能会出现一些陌生现象，本文稍后将详细讨论。当在进程地址空间比物理内存大的系统上运行时，内存泄漏或过度使用本机内存会迫使操作系统交换后备存
+储器来用作本机进程的虚拟地址空间。访问经过交换的内存地址比读取驻留（在物理内存中）的地址慢得多，因为操作系统必须从硬盘驱动器拉取数据。可能会分配
+大量内存来用完所有物理内存和所有交换内存（页面空间），在 Linux 上，这将触发内核内存不足（OOM）结束程序，强制结束最消耗内存的进程。在 
+Windows 上，与地址空间被占满时一样，内存分配将会失败。</p>
+			<p>同时，如果尝试使用比物理内存大的虚拟内存，显然在进程由于消耗内存太大而被结束之前就会遇到问题。系统将变得异常缓慢，因为它会将大部分时
+间用于在内存与交换空间之间来回复制数据。当发生这种情况时，计算机和独立应用程序的性能将变得非常糟糕，从而使用户意识到出现了问题。当 JVM 的 
+Java 堆被交换出来时，垃圾收集器的性能会变得非常差，应用程序可能被挂起。如果一台机器上同时使用了多个 Java 
+运行时，那么物理内存必须足够分配给所有 Java 堆。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="how"><span class="atitle">Java 运行时如何使用本机内存</span></a></p>
+			<p>Java 
+运行时是一个操作系统进程，它会受到我在上一节中列出的硬件和操作系统局限性的限制。运行时环境提供的功能受一些未知的用户代码驱动，这使得无法预测在每
+种情形中运行时环境将需要何种资源。Java 应用程序在托管 Java 环境中执行的每个操作都会潜在地影响提供该环境的运行时的需求。本节描述 
+Java 应用程序为什么和如何使用本机内存。</p>
+			<p><a name="N101CA"><span class="smalltitle">Java 堆和垃圾收集</span></a></p>
+			<p>Java 堆是分配了对象的内存区域。大多数 Java SE 实现都拥有一个逻辑堆，但是一些专家级 Java 
+运行时拥有多个堆，比如实现 Java 实时规范（Real Time Specification for 
+Java，RTSJ）的运行时。一个物理堆可被划分为多个逻辑扇区，具体取决于用于管理堆内存的垃圾收集（GC）算法。这些扇区通常实现为连续的本机内存
+块，这些内存块受 Java 内存管理器（包含垃圾收集器）控制。</p>
+			<p>堆的大小可以在 Java 命令行使用 <code>-Xmx</code> 和 <code>-Xms</code> 选项来控制（<code>mx</code>
+ 表示堆的最大大小，<code>ms</code> 表示初始大小）。尽管逻辑堆（经常被使用的内存区域）可以根据堆上的对象数量和在 GC 
+上花费的时间而增大和缩小，但使用的本机内存大小保持不变，而且由 <code>-Xmx</code> 值（最大堆大小）指定。大部分 GC 
+算法依赖于被分配为连续的内存块的堆，因此不能在堆需要扩大时分配更多本机内存。所有堆内存必须预先保留。</p>
+			<p>保留本机内存与分配本机内存不同。当本机内存被保留时，无法使用物理内存或其他存储器作为备用内存。尽管保留地址空间块不会耗尽物理资源，但
+会阻止内存被用于其他用途。由保留从未使用的内存导致的泄漏与泄漏分配的内存一样严重。</p>
+			<p>当使用的堆区域缩小时，一些垃圾收集器会回收堆的一部分（释放堆的后备存储空间），从而减少使用的物理内存。</p>
+			<p>对于维护 Java 
+堆的内存管理系统，需要更多本机内存来维护它的状态。当进行垃圾收集时，必须分配数据结构来跟踪空闲存储空间和记录进度。这些数据结构的确切大小和性质因
+实现的不同而不同，但许多数据结构都与堆大小成正比。</p>
+			<p><a name="N101F3"><span class="smalltitle">即时 (JIT) 编译器</span></a></p>
+			<p>JIT 编译器在运行时编译 Java 字节码来优化本机可执行代码。这极大地提高了 Java 运行时的速度，并且支持 Java 
+应用程序以与本机代码相当的速度运行。</p>
+			<p>字节码编译使用本机内存（使用方式与 <code>gcc</code> 等静态编译器使用内存来运行一样），但 JIT 
+编译器的输入（字节码）和输出（可执行代码）必须也存储在本机内存中。包含多个经过 JIT 编译的方法的 Java 
+应用程序会使用比小型应用程序更多的本机内存。</p>
+			<p><a name="N10203"><span class="smalltitle">类和类加载器</span></a></p>
+			<p>Java 应用程序由一些类组成，这些类定义对象结构和方法逻辑。Java 应用程序也使用 Java 运行时类库（比如 <code>java.lang.String</code>）
+中的类，也可以使用第三方库。这些类需要存储在内存中以备使用。</p>
+			<p>存储类的方式取决于具体实现。Sun JDK 使用永久生成（permanent generation，PermGen）堆区域。Java
+ 5 的 IBM 实现会为每个类加载器分配本机内存块，并将类数据存储在其中。现代 Java 
+运行时拥有类共享等技术，这些技术可能需要将共享内存区域映射到地址空间。要理解这些分配机制如何影响您 Java 
+运行时的本机内存占用，您需要查阅该实现的技术文档。然而，一些普遍的事实会影响所有实现。</p>
+			<p>从最基本的层面来看，使用更多的类将需要使用更多内存。（这可能意味着您的本机内存使用量会增加，或者您必须明确地重新设置 PermGen
+ 或共享类缓存等区域的大小，以装入所有类）。记住，不仅您的应用程序需要加载到内存中，框架、应用服务器、第三方库以及包含类的 Java 
+运行时也会按需加载并占用空间。</p>
+			<p>Java 
+运行时可以卸载类来回收空间，但是只有在非常严酷的条件下才会这样做。不能卸载单个类，而是卸载类加载器，随其加载的所有类都会被卸载。只有在以下情况下
+才能卸载类加载器：</p>
+			<ul>
+				<li>Java 堆不包含对表示该类加载器的 <code>java.lang.ClassLoader</code> 对象的引用。</li>
+				<li>Java 堆不包含对表示类加载器加载的类的任何 <code>java.lang.Class</code> 对象的引用。</li>
+				<li>在 Java 堆上，该类加载器加载的任何类的所有对象都不再存活（被引用）。</li>
+			</ul>
+			<p>需要注意的是，Java 运行时为所有 Java 应用程序创建的 3 个默认类加载器（<em> bootstrap</em>、<em>extension</em>
+ 和 <em>application </em>）都不可能满足这些条件，因此，任何系统类（比如 <code>java.lang.String</code>）
+或通过应用程序类加载器加载的任何应用程序类都不能在运行时释放。</p>
+			<p>即使类加载器适合进行收集，运行时也只会将收集类加载器作为 GC 周期的一部分。一些实现只会在某些 GC 周期中卸载类加载器。</p>
+			<p>也可能在运行时生成类，而不用释放它。许多 JEE 应用程序使用 JavaServer Pages (JSP) 技术来生成 Web 
+页面。使用 JSP 会为执行的每个 .jsp 页面生成一个类，并且这些类会在加载它们的类加载器的整个生存期中一直存在 —— 这个生存期通常是 
+Web 应用程序的生存期。</p>
+			<p>另一种生成类的常见方法是使用 Java 反射。反射的工作方式因 Java 实现的不同而不同，但 Sun 和 IBM 
+实现都使用了这种方法，我马上就会讲到。</p>
+			<p>当使用 <code>java.lang.reflect</code> API 时，Java 运行时必须将一个反射对象（比如 <code>java.lang.reflect.Field</code>）
+的方法连接到被反射到的对象或类。这可以通过使用 Java 本机接口（Java Native 
+Interface，JNI）访问器来完成，这种方法需要的设置很少，但是速度缓慢。也可以在运行时为您想要反射到的每种对象类型动态构建一个类。后一种
+方法在设置上更慢，但运行速度更快，非常适合于经常反射到一个特定类的应用程序。</p>
+			<p>Java 运行时在最初几次反射到一个类时使用 JNI 方法，但当使用了若干次 JNI 
+方法之后，访问器会膨胀为字节码访问器，这涉及到构建类并通过新的类加载器进行加载。执行多次反射可能导致创建了许多访问器类和类加载器。保持对反射对象
+的引用会导致这些类一直存活，并继续占用空间。因为创建字节码访问器非常缓慢，所以 Java 
+运行时可以缓存这些访问器以备以后使用。一些应用程序和框架还会缓存反射对象，这进一步增加了它们的本机内存占用。</p>
+			<p><a name="N10254"><span class="smalltitle">JNI</span></a></p>
+			<p>JNI 支持本机代码（使用 C 和 C++ 等本机编译语言编写的应用程序）调用 Java 方法，反之亦然。Java 
+运行时本身极大地依赖于 JNI 代码来实现类库功能，比如文件和网络 I/O。JNI 应用程序可能通过 3 种方式增加 Java 
+运行时的本机内存占用：</p>
+			<ul>
+				<li>JNI 
+应用程序的本机代码被编译到共享库中，或编译为加载到进程地址空间中的可执行文件。大型本机应用程序可能仅仅加载就会占用大量进程地址空间。<br>
+					<br>
+				</li>
+				<li>本机代码必须与 Java 运行时共享地址空间。任何本机代码分配或本机代码执行的内存映射都会耗用 Java 运行时的内存。<br>
+					<br>
+				</li>
+				<li>某些 JNI 函数可能在它们的常规操作中使用本机内存。<code>Get<em>Type</em>ArrayElements</code>
+ 和 <code>Get<em>Type</em>ArrayRegion</code> 函数可以将 Java 
+堆数据复制到本机内存缓冲区中，以供本机代码使用。是否复制数据依赖于运行时实现。（IBM Developer Kit for Java 5.0 
+和更高版本会进行本机复制）。通过这种方式访问大量 Java 堆数据可能会使用大量本机堆。</li>
+			</ul>
+			<p><a name="N1027F"><span class="smalltitle">NIO</span></a></p>
+			<p>Java 1.4 中添加的新 I/O (NIO) 类引入了一种基于通道和缓冲区来执行 I/O 的新方式。就像 Java 
+堆上的内存支持 I/O 缓冲区一样，NIO 添加了对<em>直接</em>
+				<code> ByteBuffer</code> 的支持（使用 <code>java.nio.ByteBuffer.allocateDirect()</code>
+ 方法进行分配），<code> ByteBuffer</code> 受本机内存而不是 Java 堆支持。直接 <code>ByteBuffer</code>
+ 可以直接传递到本机操作系统库函数，以执行 I/O — 这使这些函数在一些场景中要快得多，因为它们可以避免在 Java 堆与本机堆之间复制数据。</p>
+			<p>对于在何处存储直接 <code>ByteBuffer</code> 数据，很容易产生混淆。应用程序仍然在 Java 
+堆上使用一个对象来编排 I/O 操作，但持有该数据的缓冲区将保存在本机内存中，Java 堆对象仅包含对本机堆缓冲区的引用。非直接 <code>ByteBuffer</code>
+ 将其数据保存在 Java 堆上的 <code>byte[]</code> 数组中。图 4 展示了直接与非直接 <code>ByteBuffer</code>
+ 对象之间的区别：</p>
+			
+				<br><a name="fig4"><b>图 4. 直接与非直接 <code>java.nio.ByteBuffer</code> 
+的内存拓扑结构</b></a><br>
+				<img alt="ByteBuffer 内存安排" src="index_files/bytebuffers.gif" 
+height="482" width="376">
+			<br>
+			<p>直接 <code>ByteBuffer</code> 对象会自动清理本机缓冲区，但这个过程只能作为 Java 堆 GC 
+的一部分来执行，因此它们不会自动响应施加在本机堆上的压力。GC 仅在 Java 堆被填满，以至于无法为堆分配请求提供服务时发生，或者在 Java
+ 应用程序中显式请求它发生（不建议采用这种方式，因为这可能导致性能问题）。</p>
+			<p>发生垃圾收集的情形可能是，本机堆被填满，并且一个或多个直接 <code>ByteBuffers</code> 
+适合于垃圾收集（并且可以被释放来腾出本机堆的空间），但 Java 堆几乎总是空的，所以不会发生垃圾收集。</p>
+			<p><a name="N102D1"><span class="smalltitle">线程</span></a></p>
+			<p>应用程序中的每个线程都需要内存来存储器<em>堆栈</em>（用于在调用函数时持有局部变量并维护状态的内存区域）。每个 Java 
+线程都需要堆栈空间来运行。根据实现的不同，Java 线程可以分为本机线程和 Java 
+堆栈。除了堆栈空间，每个线程还需要为线程本地存储（thread-local storage）和内部数据结构提供一些本机内存。</p>
+			<p>堆栈大小因 Java 实现和架构的不同而不同。一些实现支持为 Java 线程指定堆栈大小，其范围通常在 256KB 到 756KB 
+之间。</p>
+			<p>尽管每个线程使用的内存量非常小，但对于拥有数百个线程的应用程序来说，线程堆栈的总内存使用量可能非常大。如果运行的应用程序的线程数量比
+可用于处理它们的处理器数量多，效率通常很低，并且可能导致糟糕的性能和更高的内存占用。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N102E3"><span class="atitle">本机内存耗尽会发生什么？</span></a></p>
+			<p>Java 运行时善于以不同的方式来处理 Java 堆的耗尽与本机堆的耗尽，但这两种情形具有类似的症状。当 Java 
+堆耗尽时，Java 应用程序很难正常运行，因为 Java 应用程序必须通过分配对象来完成工作。只要 Java 堆被填满，就会出现糟糕的 GC 
+性能并抛出表示 Java 堆被填满的 <code>OutOfMemoryError</code>。</p>
+			<p>相反，一旦 Java 
+运行时开始运行并且应用程序处于稳定状态，它可以在本机堆完全耗尽之后继续正常运行。不一定会发生奇怪的行为，因为需要分配本机内存的操作比需要分配 
+Java 堆的操作少得多。尽管需要本机内存的操作因 JVM 实现不同而异，但也有一些操作很常见：启动线程、加载类以及执行某种类型的网络和文件 
+I/O。</p>
+			<p>本机内存不足行为与 Java 堆内存不足行为也不太一样，因为无法对本机堆分配进行单点控制。尽管所有 Java 堆分配都在 Java 
+内存管理系统控制之下，但任何本机代码（无论其位于 JVM、Java 
+类库还是应用程序代码中）都可能执行本机内存分配，而且会失败。尝试进行分配的代码然后会处理这种情况，无论设计人员的意图是什么：它可能通过 JNI 
+接口抛出一个 <code>OutOfMemoryError</code>，在屏幕上输出一条消息，发生无提示失败并在稍后再试一次，或者执行其他操
+作。</p>
+			<p>缺乏可预测行为意味着无法确定本机内存是否耗尽。相反，您需要使用来自操作系统和 Java 运行时的数据执行诊断。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N102FD"><span class="atitle">本机内存耗尽示例</span></a></p>
+			<p>为了帮助您了解本机内存耗尽如何影响您正使用的 Java 实现，本文的示例代码（参见 <a href="#download">下载</a>）
+中包含了一些 Java 程序，用于以不同方式触发本机堆耗尽。这些示例使用通过 C 
+语言编写的本机库来消耗所有本机地址空间，然后尝试执行一些使用本机内存的操作。提供的示例已经过编译，编译它们的指令包含在示例包的顶级目录下的 
+README.html 文件中。</p>
+			<p>
+				<code>com.ibm.jtc.demos.NativeMemoryGlutton</code> 类提供了
+    <code>gobbleMemory()</code> 方法，它在一个循环中调用 <code>malloc</code>，直到几乎所有本
+机内存都已耗尽。完成任务之后，它通过以下方式输出分配给标准错误的字节数：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Allocated 1953546736 bytes of native memory before running out
+</pre></td></tr></tbody></table><br>
+			<p>针对在 32 位 Windows 上运行的 Sun 和 IBM Java 
+运行时的每次演示，其输出都已被捕获。提供的二进制文件已在以下操作系统上进行了测试：</p>
+			<ul>
+				<li>Linux x86</li>
+				<li>Linux PPC 32</li>
+				<li>Linux 390 31</li>
+				<li>Windows x86</li>
+			</ul>
+			<p>使用以下 Sun Java 运行时版本捕获输出：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">java version "1.5.0_11"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_11-b03)
+Java HotSpot(TM) Client VM (build 1.5.0_11-b03, mixed mode)
+</pre></td></tr></tbody></table><br>
+			<p>使用的 IBM Java 运行时版本为：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">java version "1.5.0"
+Java(TM) 2 Runtime Environment, Standard Edition (build pwi32devifx-20071025 (SR
+6b))
+IBM J9 VM (build 2.3, J2RE 1.5.0 IBM J9 2.3 Windows XP x86-32 j9vmwi3223-2007100
+7 (JIT enabled)
+J9VM - 20071004_14218_lHdSMR
+JIT  - 20070820_1846ifx1_r8
+GC   - 200708_10)
+JCL  - 20071025
+</pre></td></tr></tbody></table><br>
+			<p><a name="N1033D"><span class="smalltitle">在耗尽本机内存时尝试启动线程</span></a></p>
+			<p>
+				<code>com.ibm.jtc.demos.StartingAThreadUnderNativeStarvation</code> 
+类尝试在耗尽进程地址空间时启动一个线程。这是发现 Java 进程已耗尽内存的一种常用方式，因为许多应用程序都会在其整个生存期启动线程。</p>
+			<p>当在 IBM Java 运行时上运行时，<code>StartingAThreadUnderNativeStarvation</code>
+ 演示的输出如下：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Allocated 1019394912 bytes of native memory before running out
+JVMDUMP006I Processing Dump Event "systhrow", detail 
+"java/lang/OutOfMemoryError" - Please Wait.
+JVMDUMP007I JVM Requesting Snap Dump using 'C:\Snap0001.20080323.182114.5172.trc'
+JVMDUMP010I Snap Dump written to C:\Snap0001.20080323.182114.5172.trc
+JVMDUMP007I JVM Requesting Heap Dump using 'C:\heapdump.20080323.182114.5172.phd'
+JVMDUMP010I Heap Dump written to C:\heapdump.20080323.182114.5172.phd
+JVMDUMP007I JVM Requesting Java Dump using 'C:\javacore.20080323.182114.5172.txt'
+JVMDUMP010I Java Dump written to C:\javacore.20080323.182114.5172.txt
+JVMDUMP013I Processed Dump Event "systhrow", detail "java/lang/OutOfMemoryError".
+java.lang.OutOfMemoryError: ZIP006:OutOfMemoryError, ENOMEM error in ZipFile.open
+   at java.util.zip.ZipFile.open(Native Method)
+   at java.util.zip.ZipFile.&lt;init&gt;(ZipFile.java:238)
+   at java.util.jar.JarFile.&lt;init&gt;(JarFile.java:169)
+   at java.util.jar.JarFile.&lt;init&gt;(JarFile.java:107)
+   at com.ibm.oti.vm.AbstractClassLoader.fillCache(AbstractClassLoader.java:69)
+   at com.ibm.oti.vm.AbstractClassLoader.getResourceAsStream(AbstractClassLoader.java:113)
+   at java.util.ResourceBundle$1.run(ResourceBundle.java:1101)
+   at java.security.AccessController.doPrivileged(AccessController.java:197)
+   at java.util.ResourceBundle.loadBundle(ResourceBundle.java:1097)
+   at java.util.ResourceBundle.findBundle(ResourceBundle.java:942)
+   at java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:779)
+   at java.util.ResourceBundle.getBundle(ResourceBundle.java:716)
+   at com.ibm.oti.vm.MsgHelp.setLocale(MsgHelp.java:103)
+   at com.ibm.oti.util.Msg$1.run(Msg.java:44)
+   at java.security.AccessController.doPrivileged(AccessController.java:197)
+   at com.ibm.oti.util.Msg.&lt;clinit&gt;(Msg.java:41)
+   at java.lang.J9VMInternals.initializeImpl(Native Method)
+   at java.lang.J9VMInternals.initialize(J9VMInternals.java:194)
+   at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:764)
+   at java.lang.ThreadGroup.uncaughtException(ThreadGroup.java:758)
+   at java.lang.Thread.uncaughtException(Thread.java:1315)
+K0319java.lang.OutOfMemoryError: Failed to fork OS thread
+   at java.lang.Thread.startImpl(Native Method)
+   at java.lang.Thread.start(Thread.java:979)
+   at com.ibm.jtc.demos.StartingAThreadUnderNativeStarvation.main(
+StartingAThreadUnderNativeStarvation.java:22)
+</pre></td></tr></tbody></table><br>
+			<p>调用 <code>java.lang.Thread.start()</code> 
+来尝试为一个新的操作系统线程分配内存。此尝试会失败并抛出 <code>OutOfMemoryError</code>。<code>JVMDUMP</code>
+ 行通知用户 Java 运行时已经生成了标准的 <code>OutOfMemoryError</code> 调试数据。</p>
+			<p>尝试处理第一个 <code>OutOfMemoryError</code> 会导致第二个错误 —— <code>:OutOfMemoryError,
+ ENOMEM error in ZipFile.open</code>。当本机进程内存耗尽时通常会抛出多个 <code>OutOfMemoryError</code>。<code>Failed
+ to fork OS thread</code> 可能是在耗尽本机内存时最常见的消息。</p>
+			<p>本文提供的示例会触发一个 <code>OutOfMemoryError</code> 
+集群，这比您在自己的应用程序中看到的情况要严重得多。这一定程度上是因为几乎所有本机内存都已被使用，与实际的应用程序不同，使用的内存不会在以后被释
+放。在实际应用程序中，当抛出 <code>OutOfMemoryError</code> 
+时，线程会关闭，并且可能会释放一部分本机内存，以让运行时处理错误。测试案例的这个细微特性还意味着，类库的许多部分（比如安全系统）未被初始化，而且
+它们的初始化受尝试处理内存耗尽情形的运行时驱动。在实际应用程序中，您可能会看到显示了很多错误，但您不太可能在一个位置看到所有这些错误。</p>
+			<p>在 Sun Java 运行时上执行相同的测试案例时，会生成以下控制台输出：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Allocated 1953546736 bytes of native memory before running out
+Exception in thread "main" java.lang.OutOfMemoryError: unable to create new native thread
+   at java.lang.Thread.start0(Native Method)
+   at java.lang.Thread.start(Thread.java:574)
+   at com.ibm.jtc.demos.StartingAThreadUnderNativeStarvation.main(
+StartingAThreadUnderNativeStarvation.java:22)
+</pre></td></tr></tbody></table><br>
+			<p>尽管堆栈轨迹和错误消息稍有不同，但其行为在本质上是一样的：本机分配失败并抛出 <code>java.lang.OutOfMemoryError</code>。
+此场景中抛出的 <code>OutOfMemoryError</code> 与由于 Java 堆耗尽而抛出的错误的惟一区别在于消息。</p>
+			<p><a name="N10398"><span class="smalltitle">尝试在本机内存耗尽时分配直接 <code>ByteBuffer</code>
+			</span></a></p>
+			<p>
+				<code>com.ibm.jtc.demos.DirectByteBufferUnderNativeStarvation</code>
+    类尝试在地址空间耗尽时分配一个直接（也就是受本机支持的）<code>java.nio.ByteBuffer</code> 对象。当在 
+IBM Java 运行时上运行时，它生成以下输出：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Allocated 1019481472 bytes of native memory before running out
+JVMDUMP006I Processing Dump Event "uncaught", detail
+"java/lang/OutOfMemoryError" - Please Wait.
+JVMDUMP007I JVM Requesting Snap Dump using 'C:\Snap0001.20080324.100721.4232.trc'
+JVMDUMP010I Snap Dump written to C:\Snap0001.20080324.100721.4232.trc
+JVMDUMP007I JVM Requesting Heap Dump using 'C:\heapdump.20080324.100721.4232.phd'
+JVMDUMP010I Heap Dump written to C:\heapdump.20080324.100721.4232.phd
+JVMDUMP007I JVM Requesting Java Dump using 'C:\javacore.20080324.100721.4232.txt'
+JVMDUMP010I Java Dump written to C:\javacore.20080324.100721.4232.txt
+JVMDUMP013I Processed Dump Event "uncaught", detail "java/lang/OutOfMemoryError".
+Exception in thread "main" java.lang.OutOfMemoryError: 
+Unable to allocate 1048576 bytes of direct memory after 5 retries
+   at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:167)
+   at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:303)
+   at com.ibm.jtc.demos.DirectByteBufferUnderNativeStarvation.main(
+   DirectByteBufferUnderNativeStarvation.java:29)
+Caused by: java.lang.OutOfMemoryError
+   at sun.misc.Unsafe.allocateMemory(Native Method)
+   at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:154)
+   ... 2 more
+</pre></td></tr></tbody></table><br>
+			<p>在此场景中，抛出了 <code>OutOfMemoryError</code>，它会触发默认的错误文档。<code>OutOfMemoryError</code>
+ 到达主线程堆栈的顶部，并在 <code>stderr</code> 上输出。</p>
+			<p>当在 Sun Java 运行时上运行时，此测试案例生成以下控制台输出：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Allocated 1953546760 bytes of native memory before running out
+Exception in thread "main" java.lang.OutOfMemoryError
+   at sun.misc.Unsafe.allocateMemory(Native Method)
+   at java.nio.DirectByteBuffer.&lt;init&gt;(DirectByteBuffer.java:99)
+   at java.nio.ByteBuffer.allocateDirect(ByteBuffer.java:288)
+   at com.ibm.jtc.demos.DirectByteBufferUnderNativeStarvation.main(
+DirectByteBufferUnderNativeStarvation.java:29)
+</pre></td></tr></tbody></table><br>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N103C7"><span class="atitle">调试方法和技术</span></a></p>
+			<div class="ibm-container ibm-alt-header dw-container-sidebar"><h2>查阅
+供应商文档</h2><div class="ibm-container-body">
+				
+				<p>本文提供的指南是一般的调试原则，可用于理解本机内存耗尽场景。您的运行时供应商可能提供了自己的调试说明，供应商期望您按照这些说明与其
+支持团队联系。如果您要与运行时供应商（包括 IBM）合作解决问题，请始终检查其调试和诊断文档，查看在提交问题报告时应该执行哪些步骤。</p>
+			</div></div>
+			<p>当出现 <code>java.lang.OutOfMemoryError</code> 
+或看到有关内存不足的错误消息时，要做的第一件事是确定哪种类型的内存被耗尽。最简单的方式是首先检查 Java 堆是否被填满。如果 Java 
+堆未导致 <code>OutOfMemory</code> 条件，那么您应该分析本机堆使用情况。</p>
+			<p><a name="N103E5"><span class="smalltitle">检查 Java 堆</span></a></p>
+			<p>检查堆使用情况的方法因 Java 实现不同而异。在 Java 5 和 6 的 IBM 实现上，当抛出 <code>OutOfMemoryError</code>
+ 时会生成一个 javacore 文件来告诉您。javacore 文件通常在 Java 进程的工作目录中生成，以 javacore.<em>日期</em>.<em>时
+间</em>.<em>pid</em>.txt 的形式命名。如果您在文本编辑器中打开该文件，可以看到以下信息：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">0SECTION       MEMINFO subcomponent dump routine
+NULL           =================================
+1STHEAPFREE    Bytes of Heap Space Free: 416760 
+1STHEAPALLOC   Bytes of Heap Space Allocated: 1344800
+</pre></td></tr></tbody></table><br>
+			<p>这部分信息显示在生成 javacore 时有多少空闲的 Java 堆。注意，显示的值为十六进制格式。如果因为分配条件不满足而抛出了 <code>OutOfMemoryError</code>
+ 异常，则 GC 轨迹部分会显示如下信息：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">1STGCHTYPE     GC History  
+3STHSTTYPE     09:59:01:632262775 GMT j9mm.80 -   J9AllocateObject() returning NULL!
+32 bytes requested for object of class 00147F80 
+</pre></td></tr></tbody></table><br>
+			<p>
+				<code>J9AllocateObject() returning NULL!</code> 意味着 Java 
+堆分配例程未成功完成，并且将抛出 <code>OutOfMemoryError</code>。</p>
+			<p>也可能由于垃圾收集器运行太频繁（意味着堆被填满了并且 Java 应用程序的运行速度将很慢或停止运行）而抛出 <code>OutOfMemoryError</code>。
+在这种情况下，您可能想要 Heap Space Free 值非常小，GC 轨迹将显示以下消息之一：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">1STGCHTYPE     GC History  
+3STHSTTYPE     09:59:01:632262775 GMT j9mm.83 -     Forcing J9AllocateObject()
+to fail due to excessive GC
+</pre></td></tr></tbody></table><br>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">1STGCHTYPE     GC History  
+3STHSTTYPE     09:59:01:632262775 GMT j9mm.84 -     Forcing 
+J9AllocateIndexableObject() to fail due to excessive GC
+</pre></td></tr></tbody></table><br>
+			<p>当 Sun 实现耗尽 Java 堆内存时，它使用异常消息来显示它耗尽的是 Java 堆：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+</pre></td></tr></tbody></table><br>
+			<p>IBM 和 Sun 实现都拥有一个详细的 GC 选项，用于在每个 GC 周期生成显示堆填充情况的跟踪数据。此信息可使用工具（比如 
+IBM Monitoring and Diagnostic Tools for Java - Garbage Collection and 
+Memory Visualizer (GCMV)）来分析，以显示 Java 堆是否在增长（参见 <a href="#resources">参考资
+料</a>）。</p>
+			<p><a name="N10432"><span class="smalltitle">测量本机堆使用情况</span></a></p>
+			<p>如果您确定内存耗尽情况不是由 Java 堆耗尽引起的，那么下一步就是分析您的本机内存使用情况。</p>
+			<p>Windows 提供的 PerfMon 工具可用于监控和记录许多操作系统和进程指标，包括本机内存使用（参见 <a 
+href="#resources">参考资料</a>）。它允许实时跟踪<em>计数器</em>，或将其存储在日志文件中以供离线查看。使用 
+Private Bytes 计数器显示总体地址空间使用情况。如果显示值接近于用户空间的限制（前面已经讨论过，介于 2 到 3GB 
+之间），您应该会看到本机内存耗尽情况。</p>
+			<p>Linux 没有类似于 PerfMon 的工具，但是它提供了几个替代工具。命令行工具（比如 <code>ps</code>、<code>top</code>
+ 和 <code>pmap</code>）能够显示应用程序的本机内存占用情况。尽管获取进程内存使用情况的实时快照非常有用，但通过记录内存随时间的
+使用情况，您能够更好地理解本机内存是如何被使用的。为此，能够采取的一种方式是使用 GCMV。</p>
+			<p>GCMV 最初编写用于分析冗长的 GC 日志，允许用户在调优垃圾收集器时查看 Java 堆使用情况和 GC 性能的变化。GCMV 
+后来进行了扩展，支持分析其他数据源，包括 Linux 和 AIX 本机内存数据。GCMV 是作为 IBM Support Assistant 
+(ISA) 的插件发布的。</p>
+			<p>要使用 GCMV 分析 Linux 本机内存配置文件，您首先必须使用脚本收集本机内存数据。GCMV 的 Linux 
+本机内存分析器通过根据时间戳隔行扫描的方式，读取 Linux <code>ps</code> 命令的输出。GCMV 
+提供了一个脚本来帮助以正确形式记录收集数据。要找到该脚本：</p>
+			<ol>
+				<li>下载并安装 <a href="http://www.ibm.com/software/support/isa/">ISA</a>
+ Version 4（或更高版本），然后安装 GCMV 工具插件。</li>
+				<li>启动 ISA。</li>
+				<li>从菜单栏单击 <strong>Help &gt;&gt; Help Contents</strong>，打开 ISA 帮助菜单。</li>
+				<li>在左侧窗格的 <strong>Tool:IBM
+    Monitoring and Diagnostic Tools for Java - Garbage Collection and 
+Memory Visualizer
+    &gt;&gt; Using the Garbage Collection and Memory Visualizer &gt;&gt;
+ Supported Data
+    Types &gt;&gt; Native memory &gt;&gt; Linux native memory</strong> 
+下找到 Linux 本机内存说明。</li>
+			</ol>
+			<p>图 5 显示了该脚本在 ISA 帮助文件中的位置。如果您的帮助文件中没有 GCMV Tool 条目，很可能是因为您没有安装 GCMV
+ 插件。</p>
+			
+				<br><a name="fig5"><b>图 5. Linux 本机内存数据捕获脚本在 ISA 帮助对话框中的位置</b></a><br>
+				<img alt="IBM Support Assistant 帮助文件" 
+src="index_files/gcmv_help_file.jpg" height="732" width="571">
+			<br>
+			<p>GCMV 帮助文件中提供的脚本使用的 <code>ps</code> 命令仅适用于最新的 <code>ps</code> 
+版本。在一些旧的 Linux 分发版中，帮助文件中的命令将会生成错误信息。要查看您的 Linux 分发版上的行为，可以尝试运行 <code>ps
+ -o pid,vsz=VSZ,rss=RSS</code>。如果您的 <code>ps</code> 
+版本支持新的命令行参数语法，那么得到的输出将类似于：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">  PID    VSZ   RSS
+ 5826   3772  1960
+ 5675   2492   760
+</pre></td></tr></tbody></table><br>
+			<p>如果您的 <code>ps</code> 版本不支持新语法，得到的输出将类似于：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">  PID VSZ,rss=RSS
+ 5826        3772
+ 5674        2488
+</pre></td></tr></tbody></table><br>
+			<p>如果您在一个较老的 <code>ps</code> 版本上运行，可以修改本机内存脚本，将  
+    </p><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">ps -p $PID -o pid,vsz=VSZ,rss=RSS</pre></td></tr></tbody></table><br><p>
+ 行替换为 </p><table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">ps -p $PID -o pid,vsz,rss</pre></td></tr></tbody></table><br>
+			<p>将帮助面板中的脚本复制到一个文件中（在本例中名为 memscript.sh），找到您想要监控的 Java 进程的进程 ID 
+(PID)（本例中为 1234）并运行：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">./memscript.sh 1234 &gt; ps.out
+</pre></td></tr></tbody></table><br>
+			<p>这会把本机内存日志写入到 ps.out 中。要分析内存使用情况：</p>
+			<ol>
+				<li>在 ISA 中，从 <strong>Launch Activity</strong> 下拉菜单选择 <strong>Analyze
+ Problem</strong>。</li>
+				<li>选择接近 <strong>Analyze Problem</strong> 面板顶部的 <strong>Tools</strong>
+ 标签。</li>
+				<li>选择 <strong>IBM Monitoring and Diagnostic Tools for Java - 
+Garbage Collection and Memory Visualizer</strong>.</li>
+				<li>单击接近工具面板底部的 <strong>Launch</strong> 按钮。</li>
+				<li>单击 Browse 按钮并找到日志文件。单击 <strong>OK</strong> 启动 GCMV。</li>
+			</ol>
+			<p>一旦您拥有了本机内存随时间的使用情况的配置文件，您需要确定是存在本机内存泄漏，还是在尝试在可用空间中做太多事情。即使对于运行良好的 
+Java 应用程序，其本机内存占用也不是从启动开始就一成不变的。一些 Java 运行时系统（尤其是 JIT 
+编译器和类加载器）会不断初始化，这会消耗本机内存。初始化增加的内存将高居不下，但是如果初始本机内存占用接近于地址空间的限制，那么仅这个前期阶段就
+足以导致本机内存耗尽。图 6 给出了一个 Java 压力测试示例中的 GCMV 本机内存使用情况，其中突出显示了前期阶段。</p>
+			
+				<br><a name="fig6"><b>图 6. GCMV 的 Linux 本机内存使用示例，其中显示了前期阶段</b></a><br>
+				<img alt="GCMV 本机内存使用" src="index_files/GCMV_native_memory_plot.jpg"
+ height="541" width="572">
+			<br>
+			<p>本机内存占用也可能应工作负载不同而异。如果您的应用程序创建了较多进程来处理传入的工作负载，或者根据应用于系统的负载量按比例分配本机存
+储（比如直接 <code>ByteBuffer</code>），则可能由于负载过高而耗尽本机内存。</p>
+			<p>由于 JVM 
+前期阶段的本机内存增长而耗尽本机内存，以及内存使用随负载增加而增加，这些都是尝试在可用空间中做太多事情的例子。在这些场景中，您的选择是：</p>
+			<ul>
+				<li>
+					<strong>减少本机内存使用。</strong>缩小 Java 堆大小是一个好的开端。<br>
+					<br>
+				</li>
+				<li>
+					<strong>限制本机内存使用。</strong>如果您的本机内存随负载增加而增加，可以采取某种方式限制负载或为负载分配的资源。<br>
+					<br>
+				</li>
+				<li>
+					<strong>增加可用地址空间。</strong>这可以通过以下方式实现：调优您的操作系统（例如，在 Windows 上使用 <code>/3GB</code>
+ 开关增加用户空间，或者在 Linux 上使用庞大的内核空间），更换平台（Linux 通常拥有比 Windows 更多的用户空间），或者 <a 
+href="#removing">转移到 64 位操作系统</a>。</li>
+			</ul>
+			<p>一种实际的本机内存泄漏表现为本机堆的持续增长，这些内存不会在移除负载或运行垃圾收集器时减少。内存泄漏程度因负载不同而不同，但泄漏的总
+内存不会下降。泄漏的内存不可能被引用，因此它可以被交换出去，并保持被交换出去的状态。</p>
+			<p>当遇到内存泄漏时，您的选择很有限。您可以增加用户空间（这样就会有更多的空间供泄漏），但这仅能延缓最终的内存耗尽。如果您拥有足够的物理
+内存和地址空间，并且会在进程地址空间耗尽之前重启应用程序，那么可以允许地址空间继续泄漏。</p>
+			<p><a name="N10536"><span class="smalltitle">是什么在使用本机内存？</span></a></p>
+			<p>一旦确定本机内存被耗尽，下一个逻辑问题是：是什么在使用这些内存？这个问题很难回答，因为在默认情况下，Windows 和 Linux 
+不会存储关于分配给特定内存块的代码路径的信息。</p>
+			<p>当尝试理解本机内存都到哪里去了时，您的第一步是粗略估算一下，根据您的 Java 设置，将会使用多少本机内存。如果没有对 JVM 
+工作机制的深入知识，很难得出精确的值，但您可以根据以下指南粗略估算一下：</p>
+			<ul>
+				<li>Java 堆占用的内存至少为 <code>-Xmx</code> 值。<br>
+					<br>
+				</li>
+				<li>每个 Java 线程需要堆栈空间。堆栈空间因实现不同而异，但是如果使用默认设置，每个线程至多会占用 756KB 本机内存。<br>
+					<br>
+				</li>
+				<li>直接 <code>ByteBuffer</code> 至少会占用提供给 <code>allocate()</code> 
+例程的内存值。</li>
+			</ul>
+			<p>如果总数比您的最大用户空间少得多，那么您很可能不安全。Java 
+运行时中的许多其他组件可能会分配大量内存，进而引起问题。但是，如果您的初步估算值与最大用户空间很接近，则可能存在本机内存问题。如果您怀疑存在本机
+内存泄漏，或者想要准确了解内存都到哪里去了，使用一些工具将有所帮助。</p>
+			<p>Microsoft 提供了 UMDH（用户模式转储堆）和 LeakDiag 工具来在 Windows 上调试本机内存增长（参见 <a
+ href="#resources">参考资料</a>）。这两个工具的机制相同：记录特定内存区域被分配给了哪个代码路径，并提供一种方式来定位所分
+配的内存不会在以后被释放的代码部分。我建议您查阅文章 “Umdhtools.exe：如何使用 Umdh.exe 发现 Windows 
+上的内存泄漏”，获取 UMDH 的使用说明（参见 <a href="#resources">参考资料</a>）。在本文中，我将主要讨论 UMDH
+ 在分析存在泄漏的 JNI 应用程序时的输出。</p>
+			<p>本文的 <a href="#download">示例包</a> 包含一个名为 <code>LeakyJNIApp</code> 的 
+Java 应用程序，它循环调用一个 JNI 方法来泄漏本机内存。UMDH 
+命令获取当前的本机堆的快照，以及分配每个内存区域的代码路径的本机堆栈轨迹快照。通过获取两个快照，并使用 UMDH 
+来分析差异，您会得到两个快照之间的堆增长报告。</p>
+			<p>对于 <code>LeakyJNIApp</code>，差异文件包含以下信息：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">// _NT_SYMBOL_PATH set by default to C:\WINDOWS\symbols
+//
+// Each log entry has the following syntax:
+//
+// + BYTES_DELTA (NEW_BYTES - OLD_BYTES) NEW_COUNT allocs BackTrace TRACEID
+// + COUNT_DELTA (NEW_COUNT - OLD_COUNT) BackTrace TRACEID allocations
+//     ... stack trace ...
+//
+// where:
+//
+//     BYTES_DELTA - increase in bytes between before and after log
+//     NEW_BYTES - bytes in after log
+//     OLD_BYTES - bytes in before log
+//     COUNT_DELTA - increase in allocations between before and after log
+//     NEW_COUNT - number of allocations in after log
+//     OLD_COUNT - number of allocations in before log
+//     TRACEID - decimal index of the stack trace in the trace database
+//         (can be used to search for allocation instances in the original
+//         UMDH logs).
+//
+
++  412192 ( 1031943 - 619751)    963 allocs     BackTrace00468
+
+Total increase == 412192
+</pre></td></tr></tbody></table><br>
+			<p>重要的一行是 <code>+  412192 ( 1031943 - 619751)    963 allocs     
+BackTrace00468</code>。它显示一个 backtrace 进行了 963 次分配，而且分配的内存都没有释放 — 总共使用了 
+412192 字节内存。通过查看一个快照文件，您可以将 <code>BackTrace00468</code> 
+与有意义的代码路径关联起来。在第一个快照文件中搜索 <code>BackTrace00468</code>，可以找到如下信息：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">000000AD bytes in 0x1 allocations (@ 0x00000031 + 0x0000001F) by: BackTrace00468
+        ntdll!RtlpNtMakeTemporaryKey+000074D0
+        ntdll!RtlInitializeSListHead+00010D08
+        ntdll!wcsncat+00000224
+        leakyjniapp!Java_com_ibm_jtc_demos_LeakyJNIApp_nativeMethod+000000D6
+</pre></td></tr></tbody></table><br>
+			<p>这显示内存泄漏来自 <code>Java_com_ibm_jtc_demos_LeakyJNIApp_nativeMethod</code>
+ 函数中的 leakyjniapp.dll 模块。</p>
+			<p>在编写本文时，Linux 没有类似于 UMDH 或 LeakDiag 的工具。但在 Linux 
+上仍然可以采用许多方式来调试本机内存泄漏。Linux 上提供的许多内存调试器可分为以下类别：</p>
+			<ul>
+				<li>
+					<strong>预处理器级别。</strong>这些工具需要将一个头文件编译到被测试的源代码中。可以使用这些工具之一重新编译您自己的 
+JNI 库，以跟踪您代码中的本机内存泄漏。除非您拥有 Java 运行时本身的源代码，否则这种方法无法在 JVM 
+中发现内存泄漏（甚至很难在随后将这类工具编译到 JVM 等大型项目中，并且编译非常耗时）。Dmalloc 就是这类工具的一个例子（参见 <a 
+href="#resources">参考资料</a>）。<br>
+					<br>
+				</li>
+				<li>
+					<strong>链接程序级别。</strong>这些工具将被测试的二进制文件链接到一个调试库。再一次，尽管这对个别 JNI 
+库是可行的，但不推荐将其用于整个 Java 运行时，因为运行时供应商不太可能支持您运行修改的二进制文件。Ccmalloc 
+是这类工具的一个例子（参见 <a href="#resources">参考资料</a>）。<br>
+					<br>
+				</li>
+				<li>
+					<strong>运行时链接程序级别。</strong>这些工具使用 <code>LD_PRELOAD</code> 
+环境变量预先加载一个库，这个库将标准内存例程替换为指定的版本。这些工具不需要重新编译或重新链接源代码，但其中许多工具与 Java 
+运行时不太兼容。Java 
+运行时是一个复杂的系统，可以以非常规的方式使用内存和线程，这通常会干扰或破坏这类工具。您可以试验一下，看看是否有一些工具适用于您的场景。
+NJAMD 是这类工具的一个例子（参见 <a href="#resources">参考资料</a>）。<br>
+					<br>
+				</li>
+				<li>
+					<strong>基于模拟程序。</strong>Valgrind <code>memcheck</code> 
+工具是这类内存调试器的惟一例子（参见 <a href="#resources">参考资料</a>）。它模拟底层处理器，与 Java 运行时模拟 
+JVM 的方式类似。可以在 Valgrind 下运行 Java 应用程序，但是会有严重的性能影响（速度会减慢 10 到 30 
+倍），这意味着难以通过这种方式运行大型、复杂的 Java 应用程序。Valgrind 目前可在 Linux x86、AMD64、PPC 32 和
+ PPC 64 上使用。如果您使用 Valgrind，请在使用它之前尝试使用最小的测试案例来将减轻性能问题（如果可能，最好移除整个 Java 
+运行时）。</li>
+			</ul>
+			<p>对于能够容忍这种性能开销的简单场景，Valgrind <code>memcheck</code> 
+是最简单且用户友好的免费工具。它能够为泄漏内存的代码路径提供完整的堆栈轨迹，提供方式与 Windows 上的 UMDH 相同。</p>
+			<p>
+				<code>LeakyJNIApp</code> 非常简单，能够在 Valgrind 下运行。当模拟的程序结束时，Valgrind <code>memcheck</code>
+ 工具能够输出泄漏的内存的汇总信息。默认情况下，<code>LeakyJNIApp</code> 
+程序会一直运行，要使其在固定时期之后关闭，可以将运行时间（以秒为单位）作为惟一的命令行参数进行传递。</p>
+			<p>一些 Java 
+运行时以非常规的方式使用线程堆栈和处理器寄存器，这可能使一些调试工具产生混淆，这些工具要求本机程序遵从寄存器使用和堆栈结构的标准约定。当使用 
+Valgrind 调试存在内存泄漏的 JNI 应用程序时，您可以发现许多与内存使用相关的警告，并且一些线程堆栈看起来很奇怪，这是由 Java 
+运行时在内部构造其数据的方式所导致的，不用担心。</p>
+			<p>要使用 Valgrind <code>memcheck</code> 工具跟踪 <code>LeakyJNIApp</code>，
+（在一行上）使用以下命令：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">valgrind --trace-children=yes --leak-check=full 
+java -Djava.library.path=. com.ibm.jtc.demos.LeakyJNIApp 10
+</pre></td></tr></tbody></table><br>
+			<p>
+				<code>--trace-children=yes</code> 选项使 Valgrind 跟踪由 Java 
+启动器启动的任何进程。一些 Java 启动器版本会重新执行其本身（它们从头重新启动其本身，再次设置环境变量来改变行为）。如果您未指定 <code>--trace-children</code>，
+您将不能跟踪实际的 Java 运行时。</p>
+			<p>
+				<code>--leak-check=full</code> 
+选项请求在代码运行结束时输出对泄漏的代码区域的完整堆栈轨迹，而不只是汇总内存的状态。</p>
+			<p>当该命令运行时，Valgrind 
+输出许多警告和错误（在此环境中，其中大部分都是无意义的），最后按泄漏的内存量升序输出存在泄漏的调用堆栈。在 Linux x86 上，针对 <code>LeakyJNIApp</code>
+ 的 Valgrind 输出的汇总部分结尾如下：</p>
+			<table border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td
+ class="code-outline"><pre class="displaycode">==20494== 8,192 bytes in 8 blocks are possibly lost in loss record 36 of 45
+==20494==    at 0x4024AB8: malloc (vg_replace_malloc.c:207)
+==20494==    by 0x460E49D: Java_com_ibm_jtc_demos_LeakyJNIApp_nativeMethod
+(in /home/andhall/LeakyJNIApp/libleakyjniapp.so)
+==20494==    by 0x535CF56: ???
+==20494==    by 0x46423CB: gpProtectedRunCallInMethod 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x46441CF: signalProtectAndRunGlue 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x467E0D1: j9sig_protect 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9prt23.so)
+==20494==    by 0x46425FD: gpProtectAndRun 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x4642A33: gpCheckCallin 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x464184C: callStaticVoidMethod
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x80499D3: main 
+(in /usr/local/ibm-java2-i386-50/jre/bin/java)
+==20494== 
+==20494== 
+==20494== 65,536 (63,488 direct, 2,048 indirect) bytes in 62 blocks are definitely 
+lost in loss record 42 of 45
+==20494==    at 0x4024AB8: malloc (vg_replace_malloc.c:207)
+==20494==    by 0x460E49D: Java_com_ibm_jtc_demos_LeakyJNIApp_nativeMethod 
+(in /home/andhall/LeakyJNIApp/libleakyjniapp.so)
+==20494==    by 0x535CF56: ???
+==20494==    by 0x46423CB: gpProtectedRunCallInMethod 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x46441CF: signalProtectAndRunGlue 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x467E0D1: j9sig_protect 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9prt23.so)
+==20494==    by 0x46425FD: gpProtectAndRun 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x4642A33: gpCheckCallin 
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x464184C: callStaticVoidMethod
+(in /usr/local/ibm-java2-i386-50/jre/bin/libj9vm23.so)
+==20494==    by 0x80499D3: main 
+(in /usr/local/ibm-java2-i386-50/jre/bin/java)
+==20494== 
+==20494== LEAK SUMMARY:
+==20494==    definitely lost: 63,957 bytes in 69 blocks.
+==20494==    indirectly lost: 2,168 bytes in 12 blocks.
+==20494==      possibly lost: 8,600 bytes in 11 blocks.
+==20494==    still reachable: 5,156,340 bytes in 980 blocks.
+==20494==         suppressed: 0 bytes in 0 blocks.
+==20494== Reachable blocks (those to which a pointer was found) are not shown.
+==20494== To see them, rerun with: --leak-check=full --show-reachable=yes
+</pre></td></tr></tbody></table><br>
+			<p>堆栈的第二行显示内存是由 <code>com.ibm.jtc.demos.LeakyJNIApp.nativeMethod()</code>
+ 方法泄漏的。</p>
+			<p>也可以使用一些专用调试应用程序来调试本机内存泄漏。随着时间的推移，会有更多工具（包括开源和专用的）被开发出来，这对于研究当前技术的发
+展现状很有帮助。</p>
+			<p>就目前而言，使用免费工具调试 Linux 上的本机内存泄漏比在 Windows 上完成相同的事情更具挑战性。UMDH 支持<em>就
+地</em> 调试 Windows 上本机内存泄漏，在 Linux 
+上，您可能需要进行一些传统的调试，而不是依赖工具来解决问题。下面是一些建议的调试步骤：</p>
+			<ul>
+				<li>
+					<strong>提取测试案例。</strong>生成一个独立环境，您需要能够在该环境中再现本机内存泄漏。这将使调试更加简单。<br>
+					<br>
+				</li>
+				<li>
+					<strong>尽可能缩小测试案例。</strong>尝试禁用函数来确定是哪些代码路径导致了本机内存泄漏。如果您拥有自己的 JNI 
+库，可以尝试一次禁用一个来确定是哪个库导致了内存泄漏。<br>
+					<br>
+				</li>
+				<li>
+					<strong>缩小 Java 堆大小。</strong>Java 堆可能是进程的虚拟地址空间的最大使用者。通过减小 Java 
+堆，可以将更多空间提供给本机内存的其他使用者。<br>
+					<br>
+				</li>
+				<li>
+					<strong>关联本机进程大小。</strong>一旦您获得了本机内存随时间的使用情况，可以将其与应用程序工作负载和 GC 
+数据比较。如果泄漏程度与负载级别成正比，则意味着泄漏是由每个事务或操作路径上的某个实体引起的。如果当进行垃圾收集时，本机进程大小显著减小，这意味
+着您没遇到内存泄漏，您拥有的是具有本机支持的对象组合（比如直接 <code>ByteBuffer</code>）。通过缩小 Java 
+堆大小（从而迫使垃圾收集更频繁地发生），或者在一个对象缓存中管理对象（而不是依赖于垃圾收集器来清理对象），您可以减少本机支持对象持有的内存量。</li>
+			</ul>
+			<p>如果您确定内存泄漏或增长来自于 Java 运行时本身，您可能需要联系运行时供应商来进一步调试。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="removing"><span class="atitle">消除限制：更改为 64 位</span></a></p>
+			<p>使用 32 位 Java 运行时很容易遇到本机内存耗尽的情况，因为地址空间相对较小。32 位操作系统提供的 2 到 4GB 
+用户空间通常小于系统附带的物理内存量，而且现代的数据密集型应用程序很容易耗尽可用空间。</p>
+			<p>如果 32 位地址空间不够您的应用程序使用，您可以通过移动到 64 位 Java 运行时来获得更多用户空间。如果您运行的是 64 
+位操作系统，那么 64 位 Java 运行时将能够满足海量 Java 堆的需求，还会减少与地址空间相关的问题。表 2 列出了 64 
+位操作系统上目前可用的用户空间。</p>
+			<br><a name="table2"><b>表 2. 64 位操作系统上的用户空间大小</b></a><br>
+			<table class="ibm-data-table" summary="User Space Sizes on 64 bit 
+OSs" border="0" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><th
+ scope="col">操作系统</th><th scope="col">默认用户空间大小</th></tr><tr><th 
+class="tb-row" scope="row">Windows x86-64</th><td>8192GB</td></tr><tr><th
+ class="tb-row" scope="row">Windows Itanium</th><td>7152GB</td></tr><tr><th
+ class="tb-row" scope="row">Linux x86-64</th><td>500GB</td></tr><tr><th 
+class="tb-row" scope="row">Linux PPC64</th><td>1648GB</td></tr><tr><th 
+class="tb-row" scope="row">Linux 390 64</th><td>4EB</td></tr></tbody></table>
+			<p>然而，移动到 64 位并不是所有本机内存问题的通用解决方案，您仍然需要足够的物理内存来持有所有数据。如果物理内存不够 Java 
+运行时使用，运行时性能将变得非常糟，因为操作系统不得不在内存与交换空间之间来回复制 Java 运行时数据。出于相同原因，移动到 64 
+位也不是内存泄漏永恒的解决方案，您只是提供了更多空间来供泄漏，这只会延缓您不得不重启应用程序的时间。</p>
+			<p>无法在 64 位运行时中使用 32 位本机代码。任何本机代码（JNI 库、JVM Tool Interface 
+[JVMTI]、JVM Profiling Interface [JVMPI] 以及 JVM Debug Interface [JVMDI] 
+代理）都必须编译为 64 位。64 位运行时的性能也可能比相同硬件上对应的 32 位运行时更慢。64 位运行时使用 64 
+位指针（本机地址引用），因此，64 位运行时上的 Java 对象会占用比 32 
+位运行时上包含相同数据的对象更多的空间。更大的对象意味着要使用更大的堆来持有相同的数据量，同时保持类似的 GC 
+性能，这使操作系统和硬件缓存效率更低。令人惊讶的是，更大的 Java 堆并不一定意味着更长的 GC 
+暂停时间，因为堆上的活动数据量可能不会增加，并且一些 GC 算法在使用更大的堆时效率更高。</p>
+			<p>一些现代 Java 运行时包含减轻 64 位 “对象膨胀” 和改善性能的技术。这些功能在 64 位运行时上使用更短的引用。这在 
+IBM 实现中称为<em>压缩引用</em>，而在 Sun 实现中称为<em>压缩 oop</em>。</p>
+			<p>对 Java 运行时性能的比较研究不属于本文讨论范围，但是如果您正在考虑移动到 64 
+位，尽早测试应用程序以理解其执行原理会很有帮助。由于更改地址大小会影响到 Java 堆，所以您将需要在新架构上重新调优您的 GC 
+设置，而不是仅仅移植现有设置。</p>
+			<div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><a
+ name="N106D6"><span class="atitle">结束语</span></a></p>
+			<p>在设计和运行大型 Java 
+应用程序时，理解本机内存至关重要，但是这一点通常被忽略，因为它与复杂的硬件和操作系统细节密切相关，Java 
+运行时的目的正是帮助我们规避这些细节。JRE 是一个本机进程，它必须在由这些纷繁复杂的细节定义的环境中工作。要从 Java 
+应用程序中获得最佳的性能，您必须理解应用程序如何影响 Java 运行时的本机内存使用。</p>
+			<p>耗尽本机内存与耗尽 Java 堆很相似，但它需要不同的工具集来调试和解决。修复本机内存问题的关键在于理解运行您的 Java 
+应用程序的硬件和操作系统施加的限制，并将其与操作系统工具知识结合起来，监控本机内存使用。通过这种方法，您将能够解决 Java 
+应用程序产生的一些非常棘手的问题。</p>
+		<!-- CMA ID: 388310 --> <!-- Site ID: 10 --> <!-- XSLT stylesheet used to transform this file:  dw-article-6.0-beta.xsl -->
+<br><div class="ibm-alternate-rule"><hr></div><p class="ibm-ind-link 
+ibm-back-to-top"><a href="#ibm-pcon" class="ibm-anchor-up-link">回页首</a></p><p><span
+ class="atitle"><a name="download">下载</a></span></p><table 
+class="ibm-data-table" border="0" cellpadding="0" cellspacing="0" 
+width="100%"><tbody><tr><th scope="col">描述</th><th scope="col">名字</th><th
+ scope="col">大小</th><th scope="col">下载方法</th></tr><tr><td class="tb-row"
+ scope="row">本机内存示例代码</td><td nowrap="nowrap">j-nativememory-linux.zip</td><td
+ nowrap="nowrap">115KB</td><td nowrap="nowrap"><a class="fbox" 
+href="http://www.ibm.com/developerworks/apps/download/index.jsp?contentid=388310&amp;filename=j-nativememory-linux.zip&amp;method=http&amp;locale=zh_CN">HTTP</a></td></tr></tbody></table><p><a
+ href="http://www.ibm.com/developerworks/cn/whichmethod.html" 
+class="ibm-forward-link">关于下载方法的信息</a></p><br>
+<p><a name="resources"><span class="atitle">参考资料 </span></a></p><p><b>学习</b></p><ul><li>
+“<a href="http://www.ibm.com/developerworks/cn/java/j-ibmtools2/">IBM 的 
+Java 诊断，第 2 部分: 使用 Extensible Verbose Toolkit 进行垃圾收集</a>”（Holly 
+Cummins，developerWorks，2007 年 10 月）：了解如何下载和安装 GCMV，以及使用它分析冗长的垃圾收集数据。
+<br><br></li><li>
+“<a href="http://www.ibm.com/developerWorks/cn/java/j-memusage/">不要忘记内存</a>”
+（Emma Shepherd 等，developerWorks，2004 年 11 月）：了解如何使用 PerfMon 及其他工具监控 Java
+ 应用程序的 Windows 内存使用情况。
+<br><br></li><li>
+“<a href="http://blogs.jetbrains.com/yole/archives/000034.html">使用 
+LeakDiag 分析内存使用</a>”（Dmitry Jemerov 的网络博客，2005 年 2 月）：LinkDiag 
+拦截进程中的内存分配函数，记录每次分配的调用栈，并根据调用栈记录分配日志。
+<br><br></li><li>
+“<a href="http://support.microsoft.com/kb/268343">Umdhtools.exe：如何使用 
+Umdh.exe 发现 Windows 上的内存泄漏</a>”（Microsoft Help and Support，2007 年 4 
+月）：UMDH 是另一个 Microsoft 工具，其工作原理与 LeakDiag 类似。
+<br><br></li><li>
+“<a 
+href="http://public.dhe.ibm.com/software/dw/jdk/diagnosis/dw3gbswitch3.pdf">Windows
+ Java 地址空间</a>”（Phil Vickers 和 Amar Devegowda，IBM Java Technology 
+Centre，2005 年 12 月）：了解如何最大化 32 位 Windows 系统上的 IBM Java 内存地址空间。
+<br><br></li><li>
+“<a 
+href="http://www.ibm.com/developerworks/cn/websphere/techjournal/0705_supauth/0705_supauth.html">权
+威支持: IBM Guided Activity Assistant 介绍</a>”（Dave Draeger 
+等，developerWorks，2007 年 5 月）：IBM Guided Activity Assistant 
+提供了帮助您调试常见问题（包括 Java 内存耗尽）的工作流程。
+<br><br></li><li>
+“<a 
+href="http://blogs.msdn.com/oldnewthing/archive/2004/08/06/209840.aspx">
+ /3GB 开关的内核地址空间结果</a>”（Raymond Chen，The Old New Thing，2004 年 8 月）：简单讨论使用
+ <code>/3GB</code> 开关调整 Windows 内核空间的一些争议。
+<br><br></li><li>
+				<a 
+href="http://blogs.msdn.com/oldnewthing/archive/2004/08/22/218527.aspx">最
+新的 /3GB 文章汇总</a>（Raymond Chen，The Old New Thing，2004 年 8 月）：一些与 Windows <code>/3GB</code>
+ 开关相关的文章和博客链接。
+<br><br></li><li>
+				<a 
+href="http://publib.boulder.ibm.com/infocenter/javasdk/tools/index.jsp?topic=/com.ibm.java.doc.igaa/_1vg00011e17d8ea-1163a087e6c-7ffe_1001.html">Java
+ 调试指南</a>：IBM SDK for Java 将指导您解决常见 Java 编程问题。
+<br><br></li><li>
+浏览
+<a href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">技
+术书店</a>，获取关于这些和其他技术主题的图书。
+<br><br></li><li>
+				<a href="http://www.ibm.com/developerworks/cn/java/">developerWorks 
+Java 技术专区</a>：查找数百篇关于 Java 编程各方面的文章。
+<br><br></li></ul><p><b>获得产品和技术</b></p><ul><li>
+				<a href="http://valgrind.org/">Valgrind</a>：下载 Valgrind 
+Instrumentation Framework，其中包括内存错误检测器。
+<br><br></li><li>
+				<a href="http://sourceforge.net/projects/dmalloc/">Dmalloc</a>：下载 
+Debug Malloc 库。
+<br><br></li><li>
+				<a href="http://cs.ecs.baylor.edu/%7Edonahoo/tools/ccmalloc/">ccmalloc</a>：
+下载 ccmalloc 内存调试器库。
+<br><br></li><li>
+				<a href="http://fscked.org/proj/njamd.shtml">NJAMD</a>：下载 
+NJAMD（它不仅仅是另一个 Malloc 调试器）内存调试器库。
+<br><br></li><li>
+				<a href="http://www.ibm.com/developerworks/java/jdk/tools/" 
+onmouseover="linkQueryAppend(this)">IBM Monitoring and Diagnostic Tools 
+for Java</a>：访问 IBM Java 工具页面。
+<br><br></li><li>
+				<a href="http://www.ibm.com/software/support/isa/">IBM Support 
+Assistant (ISA)</a>：这个免费支持框架包含 Garbage Collection and Memory Visualizer 和
+ IBM Guided Activity Assistant 等工具，可用于调试本机内存耗尽情况。 
+<br><br></li></ul><p><b>讨论</b></p><ul><li>
+参与 <a href="http://www.ibm.com/developerworks/blogs/" 
+onmouseover="linkQueryAppend(this)">developerWorks blogs</a> 并加入 <a 
+href="http://www.ibm.com/developerworks/community/" 
+onmouseover="linkQueryAppend(this)">developerWorks 社区</a>。
+<br><br></li></ul>
+<p><a name="author"><span class="atitle">关于作者</span></a></p><div 
+class="ibm-container ibm-portrait-module ibm-alternate-two"><div 
+class="ibm-container-body"><p><a name="author1"> </a>Andrew Hall 于 2004 
+年加入 IBM Java Technology Centre，他在 Java System Test 小组工作了两年。然后在 Java 
+服务团队工作了 18 个月，其间，他在多个平台上调试了数十个本机内存问题。他目前是 Java Reliability, Availability
+ and Serviceability 团队的成员。在业余生活中，他喜欢阅读、摄影和玩魔术。</p></div></div>
+<!-- MAIN_COLUMN_CONTENT_END -->
+
+  <!-- INLINE_COMMENTS_START -->
+  <p class="ibm-no-print"><span class="atitle"><a name="icomments">建议</a></span></p>
+  <div id="dw-icomments-container" class="ibm-no-print">
+    <div class="ibm-alternate-rule"><hr></div>
+    <div class="ibm-alternate-rule"><hr></div>
+    <!-- Comment_Script -->
+    
+    <a id="comments" 
+href="http://www.ibm.com/developerworks/cn/java/j-nativememory-linux/comments"></a>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+dwc = {};
+dwc.cmts = '条评论';
+dwc.signIn = '登录';
+dwc.addCmts = '添加评论';
+dwc.addCmt = '添加评论';
+dwc.viewOrAddCmts = '查看或添加评论';
+dwc.reportInapprCont = '举报不良信息';
+dwc.reportInapprContLink = 'http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834';
+dwc.postingCmt = '正在发布评论……';
+dwc.noCmt = '快来添加第一条评论';
+dwc.netwkErr = '在检索评论时出错，请稍后刷新。';
+dwc.addACmt = '添加评论';
+dwc.instructCmt = '标有星号（<span class="ibm-required">*</span>）的是必填项目。';
+dwc.cmt = '评论：';
+dwc.btnPost = '发布';
+dwc.btnPostAnon = '匿名发布';
+dwc.btnClrCmt = '清除评论';
+dwc.btnCancel = '取消';
+dwc.showRecent = '显示最新的 {1} 条评论'; // {1} is the count to be substituted
+dwc.showNext = '显示后 {1} 条评论'; // {1} is the count to be substituted
+dwc.showAllCmts = '显示所有评论';
+dwc.enterCmt = '请输入评论内容。';
+dwc.loginErr = '暂时无法验证您的登录状态，请稍后再试。';
+dwc.postErr = '暂时无法发布您的评论，请稍后再试。';
+dwc.postBy = '由 <b>{1}</b>  于 {2} '; // {1} is the author to be substituted; {2} is the date
+dwc.siteId = 10;
+dwc.lang = 'zh_CN';
+// ]]>
+    </script>
+    <script language="JavaScript" src="index_files/insertcomment.js" type="text/javascript">//</script>
+    <div id="threadShow"><div id="cmtTog" style=""><p><span id="numCmts">0</span>&nbsp;
+条评论 <span class="dw-bar">|</span> <a 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-nativememory-linux%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk" 
+class="dw-icomment-link">添加评论</a><a class="dw-icomment-report" 
+href="http://www.ibm.com/developerworks/forums/forum.jspa?forumID=1834">举
+报不良信息</a></p><div class="ibm-alternate-rule"><hr></div><div 
+style="display: none;" id="commentForm"><div class="ibm-container"><h2>添
+加评论</h2><div class="ibm-container-body"><p>标有星号（<span 
+class="ibm-required">*</span>）的是必填项目。</p><span id="infoCmt"></span><div 
+class="ibm-rule"><hr></div><form method="post" action="" 
+class="ibm-column-form" enctype="multipart/form-data" focus="name" 
+name="form"><p><label for="newCmt">评论：<span class="ibm-required">*</span></label><br><textarea
+ name="newCmt" id="newCmt" cols="120" rows="4"></textarea></p><div 
+class="ibm-alternate-rule"><hr></div><p class="ibm-buttons-row"><input 
+value="发布" name="postCmt" class="ibm-btn-arrow-sec" id="postCmt" 
+type="button"><span class="ibm-sep">&nbsp;</span><input value="清除评论" 
+name="clearCmt" class="ibm-btn-cancel-sec" id="clearCmt" type="button"><span
+ class="ibm-sep">&nbsp;</span><input value="取消" name="cancelCmt" 
+class="ibm-btn-cancel-sec" id="cancelCmt" type="button"></p></form></div></div></div><div
+ id="cmtSect"><div class="comment"><div class="dw-icomment-container"><table
+ class="dw-icomment-body" cellpadding="0" cellspacing="0" width="100%"><tbody><tr><td><p>快
+来添加第一条评论</p></td></tr></tbody></table></div></div></div><div id="paging"><p><a
+ style="display: none;" id="lastCmts" class="dw-icomment-link">显示最新的 5 
+条评论</a><span style="display: none;" id="cmtDivider"> <span 
+class="dw-bar">|</span> </span><a style="display: none;" id="nextCmts" 
+class="dw-icomment-link">显示后 5 条评论</a><span style="display: none;" 
+id="cmtDivider2"> <span class="dw-bar">|</span> </span><a 
+style="display: none;" id="viewAllCmts" class="dw-icomment-link">显示所有评论</a></p></div><p><a
+ 
+href="http://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&amp;lang=zh_CN&amp;d=http%3A%2F%2Fwww.ibm.com%2Fdeveloperworks%2Fcn%2Fjava%2Fj-nativememory-linux%2Findex.html%23icomments"
+ style="display: none;" class="loginLk">登录</a><a id="addCmtLk2" 
+href="#icomments">添加评论</a></p><div class="ibm-alternate-rule"><hr></div><div
+ class="ibm-alternate-rule"><hr></div></div></div>
+    <script language="JavaScript" type="text/javascript">
+      // <![CDATA[
+jQuery('threadShow').insertComment('95%',5,'nCmts','icomments');
+// ]]>
+    </script>
+  </div>
+  <!-- INLINE_COMMENTS_END -->
+  
+
+  <p class="ibm-ind-link ibm-back-to-top"><a class="ibm-anchor-up-link" 
+href="#ibm-pcon">回页首</a></p>
+  <p><a href="http://www.ibm.com/developerworks/cn/ibm/trademarks/">商标</a>
+ &nbsp;|&nbsp; <a 
+href="http://www.ibm.com/developerworks/cn/mydw_terms/">My 
+developerWorks 使用条款与条件</a></p>
+
+<!-- Overlays -->
+<!-- lk - pull in overlays from ww when required on cn -->
+  </div>
+<!-- MAIN_COLUMN_CONTAINER_END -->
+
+<!-- Rating_Meta_BEGIN -->
+<!--Rating_Meta_BEGIN--><div class="metavalue">static.content.url=http://www.ibm.com/developerworks/js/artrating/</div><div
+ class="metavalue">SITE_ID=10</div><div class="metavalue">Zone=Java 
+technology, Linux</div><div class="metavalue">ArticleID=388310</div><div
+ class="metavalue">ArticleTitle=内存详解</div><div class="metavalue">publish-date=05112009</div><div
+ class="metavalue">author1-email=andhall_@uk.ibm.com</div><div 
+class="metavalue">author1-email-cc=jaloi@us.ibm.com</div><script language="javascript" type="text/javascript">document.write('<div class="metavalue">url='+location.href.replace('<', '%3C')+'</div>');</script><div
+ class="metavalue">url=http://www.ibm.com/developerworks/cn/java/j-nativememory-linux/index.html</div><!--Rating_Meta_END-->
+<!-- Rating_Meta_END -->
+
+</div>
+<!-- MAIN_COLUMN_END-->
+
+<!-- RIGHT_COLUMN_BEGIN -->
+<div id="ibm-content-sidebar">
+
+<!-- RIGHT_COLUMN_CONTENT_BEGIN --> 
+<div class="ibm-container"><h2>内容</h2><div class="ibm-container-body"><img
+ alt="" src="index_files/c.gif" height="1" width="1"><ul 
+class="ibm-bullet-list"><li><a class="ibm-feature-link" href="#N10099">本
+机内存简介</a></li><li><a class="ibm-feature-link" href="#how">Java 
+运行时如何使用本机内存</a></li><li><a class="ibm-feature-link" href="#N102E3">本机内存耗
+尽会发生什么？</a></li><li><a class="ibm-feature-link" href="#N102FD">本机内存耗尽示例</a></li><li><a
+ class="ibm-feature-link" href="#N103C7">调试方法和技术</a></li><li><a 
+class="ibm-feature-link" href="#removing">消除限制：更改为 64 位</a></li><li><a 
+class="ibm-feature-link" href="#N106D6">结束语</a></li><li><a 
+class="ibm-feature-link" href="#download">下载</a></li><li><a 
+class="ibm-feature-link" href="#resources">参考资料 </a></li><li><a 
+class="ibm-feature-link" href="#author">关于作者</a></li><li><a 
+class="ibm-feature-link" href="#icomments">建议</a></li></ul></div></div>
+
+ 
+
+<!-- Tagging_Start -->
+<div id="dw-tag-cloud-container" class="ibm-container dw-hidetag"><h2>标签</h2>
+<div id="dw-tag-help"><a class="dwauthor" rel="#tagtip" id="dwtagtip"><img
+ alt="Help" src="index_files/help_icon.gif" align="top" height="16" 
+width="16"></a></div>
+<div style="display: none;" id="tagtip" class="dwauthor-onload-state 
+ibm-no-print">使用 <strong>搜索</strong> 文本框在 My developerWorks 
+中查找包含该标签的所有内容。<p>使用 <strong>滑动条</strong> 调节标签的数量。</p><p><strong>热门标签</strong>
+ 显示了特定专区最受欢迎的标签（例如 Java technology，Linux，WebSphere）。</p><p><strong>我的标
+签&lt; /strong&gt; 显示了特定专区您标记的标签（例如 Java technology，Linux，WebSphere）。</strong></p></div>
+<div class="ibm-access"><strong>使用搜索文本框在 My developerWorks 
+中查找包含该标签的所有内容。<em>热门标签</em> 显示了特定专区最受欢迎的标签（例如 Java 
+technology，Linux，WebSphere）。<em>我的标签</em> 显示了特定专区您标记的标签（例如 Java 
+technology，Linux，WebSphere）。</strong></div>
+<div class="ibm-container-body">
+<div class="dw-tag-search"><form 
+action="//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html" 
+method="get" id="actualtagform" onsubmit="popupform(this, 'join')">
+<p><label for="tagfield"><strong><strong>搜索所有标签</strong></strong></label>
+<strong><input name="lang" value="zh" type="hidden">
+<input id="tagfield" name="tag" maxlength="20" size="17" type="text">&nbsp;<input
+ src="index_files/short-btn.gif" class="ibm-btn-view" alt="submit 
+search" title="提交搜索" value="Search" type="image"></strong></p></form></div>
+<div class="ibm-rule"><hr></div>
+<div id="dw-tag-select">
+<div id="dw-tag-select-popular"><p><strong><strong>热门文章标签</strong>&nbsp;|&nbsp;<br><a
+ id="a-my" href="javascript:;">我的文章标签</a><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></p></div>
+<div id="dw-tag-select-my" class="dw-hidetag"><p><strong><a 
+id="a-popular" href="javascript:;">热门文章标签</a>&nbsp;|&nbsp;<br><strong>我的
+文章标签</strong></strong></p><strong><a href="#dw-tag-access" 
+class="ibm-access">跳转到标签列表</a></strong></div>
+<div id="dw-tag-cloud"></div><strong>  
+</strong></div><strong>   
+</strong></div>
+</div>
+<!-- Tagging_End -->
+
+<!-- Dig_Deeper -->
+
+<!-- High_Visibility_Offer -->
+
+<!-- Special_Offers -->
+
+<!-- RIGHT_COLUMN_CONTENT_END -->
+
+</div>
+<!-- RIGHT_COLUMN_END -->
+
+<!-- CONTENT_BODY_END -->
+</div>
+
+</div>
+<!-- CONTENT_END -->
+
+<strong> <!-- END_IBM-PCON -->
+</strong></div>
+
+<!-- FOOTER_BEGIN -->
+<div id="ibm-page-tools">
+<!-- IBM page tools container -->
+</div>
+<div id="ibm-footer">
+<ul>
+<li class="ibm-first"><strong><a href="http://www.ibm.com/ibm/cn/zh/">关于
+IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/privacy/cn/zh/">隐私条约</a></strong></li>
+<li><strong><a href="http://www.ibm.com/contact/cn/zh/">联系IBM</a></strong></li>
+<li><strong><a href="http://www.ibm.com/legal/cn/zh/">使用条款</a></strong></li>
+<li><a href="http://www.ibm.com/ibm/syndication/cn/zh/">IBM RSS 可定制阅读服务</a></li><li><a
+ href="http://www.ibm.com/employment/cn/">求才启事</a></li></ul>
+<div id="ibm-social-tools"><ul><li><a rel="print" href="#" title="打印本页面"
+ class="ibm-share-print"></a></li><li><a rel="email" href="#" 
+title="用电子邮件发送本页面" class="ibm-share-email"></a></li></ul></div></div>
+<!-- FOOTER_END -->
+
+<strong> <!-- END_IBM-TOP -->
+</strong><div id="ibm-overlay-top"></div></div>
+<strong> 
+ <!-- SCRIPTS_INCLUDE_BEGIN -->
+<!-- JQuery start -->
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_002.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery.js"></script>
+<script type="text/javascript" language="JavaScript" src="index_files/jquery_003.js"></script>
+<script type="text/javascript" language="JavaScript">
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});   	
+	});
+ </script>
+ <!-- JQuery end --><!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<script language="JavaScript">var NTPT_PGEXTRA="ibmSkillLevel=3&ibmAdoptPhase=667&ibmRole=710";</script>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+
+</strong><div id="ibm-metrics">
+<script src="index_files/stats.js" type="text/javascript">//</script>
+</div>
+
+<div style="position: absolute; z-index: 95; display: none;" 
+id="cluetip-waitimage"></div><div style="z-index: 96; display: none; 
+position: absolute;" id="cluetip"><div style="z-index: 95; opacity: 0.1;
+ top: 1px; left: 1px; position: absolute; background-color: rgb(0, 0, 
+0);"></div><div style="z-index: 94; opacity: 0.1; top: 2px; left: 2px; 
+position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="z-index: 93; opacity: 0.1; top: 3px; left: 3px; position: 
+absolute; background-color: rgb(0, 0, 0);"></div><div style="z-index: 
+92; opacity: 0.1; top: 4px; left: 4px; position: absolute; 
+background-color: rgb(0, 0, 0);"></div><div style="z-index: 91; opacity:
+ 0.1; top: 5px; left: 5px; position: absolute; background-color: rgb(0, 
+0, 0);"></div><div style="z-index: 90; opacity: 0.1; top: 6px; left: 
+6px; position: absolute; background-color: rgb(0, 0, 0);"></div><div 
+style="position: relative; z-index: 97;" id="cluetip-outer"><h3 
+id="cluetip-title"></h3><div id="cluetip-inner"></div></div><div 
+id="cluetip-extra"></div><div style="z-index: 97;" id="cluetip-arrows" 
+class="cluetip-arrows"></div></div><div style="position: absolute; 
+display: none; z-index: 9999;" id="livemargins_control"><img 
+src="index_files/monitor-background-horizontal.png" style="position: 
+absolute; left: -77px; top: -5px;" height="5" width="77">	<img 
+src="index_files/monitor-background-vertical.png" style="position: 
+absolute; left: 0pt; top: -5px;">	<img id="monitor-play-button" 
+src="index_files/monitor-play-button.png" 
+onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0.5" 
+style="position: absolute; left: 1px; top: 0pt; opacity: 0.5; cursor: 
+pointer;"></div></body></html>

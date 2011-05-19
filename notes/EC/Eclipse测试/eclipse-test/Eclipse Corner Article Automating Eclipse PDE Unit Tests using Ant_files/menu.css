@@ -1,0 +1,204 @@
+.yuimenu {
+	TOP: -999em; LEFT: -999em
+}
+.yuimenubar {
+	POSITION: static
+}
+.yuimenu .yuimenu {
+	POSITION: absolute
+}
+.yuimenubar .yuimenu {
+	POSITION: absolute
+}
+.yuimenubar LI {
+	LIST-STYLE-TYPE: none
+}
+.yuimenu LI {
+	LIST-STYLE-TYPE: none
+}
+.yuimenubar UL {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenu UL {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenubar LI {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenu LI {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenu H6 {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenubar H6 {
+	PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.yuimenuitemlabel {
+	TEXT-ALIGN: left; WHITE-SPACE: nowrap
+}
+.yuimenubaritemlabel {
+	TEXT-ALIGN: left; WHITE-SPACE: nowrap
+}
+.yuimenubar UL {
+	
+}
+.yuimenubar .yuimenu UL {
+	
+}
+.yuimenubar > .bd > UL:after {
+	LINE-HEIGHT: 0; DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; CONTENT: "."
+}
+.yuimenubaritem {
+	FLOAT: left
+}
+.yuimenubaritemlabel {
+	DISPLAY: block
+}
+.yuimenuitemlabel {
+	DISPLAY: block
+}
+.yuimenuitemlabel .helptext {
+	FONT-STYLE: normal; MARGIN: -1em 0px 0px 10em; DISPLAY: block
+}
+.yui-menu-shadow {
+	Z-INDEX: -1; POSITION: absolute; VISIBILITY: hidden
+}
+.yui-menu-shadow-visible {
+	BOTTOM: -3px; VISIBILITY: visible; TOP: 2px; RIGHT: -3px; LEFT: -3px
+}
+.hide-scrollbars * {
+	OVERFLOW: hidden
+}
+.hide-scrollbars SELECT {
+	DISPLAY: none
+}
+.show-scrollbars.yuimenu {
+	OVERFLOW: visible
+}
+.show-scrollbars.yuimenubar {
+	OVERFLOW: visible
+}
+.hide-scrollbars.yuimenu .yui-menu-shadow {
+	OVERFLOW: hidden
+}
+.hide-scrollbars.yuimenubar .yui-menu-shadow {
+	OVERFLOW: hidden
+}
+.show-scrollbars.yuimenu .yui-menu-shadow {
+	OVERFLOW: auto
+}
+.show-scrollbars.yuimenubar .yui-menu-shadow {
+	OVERFLOW: auto
+}
+.yui-skin-sam .yuimenubar {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 1px solid; LINE-HEIGHT: 2; BACKGROUND: url(../../../../assets/skins/sam/sprite.png) repeat-x 0px 0px; FONT-SIZE: 93%; BORDER-TOP: #808080 1px solid; BORDER-RIGHT: #808080 1px solid
+}
+.yui-skin-sam .yuimenubarnav .yuimenubaritem {
+	BORDER-RIGHT: #ccc 1px solid
+}
+.yui-skin-sam .yuimenubaritemlabel {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 0px solid; PADDING-BOTTOM: 0px; MARGIN: -1px 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; COLOR: #000; BORDER-TOP: #808080 1px solid; CURSOR: default; BORDER-RIGHT: #808080 0px solid; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel {
+	PADDING-RIGHT: 20px
+}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-hassubmenu {
+	BACKGROUND: url(menubaritem_submenuindicator.png) no-repeat right center
+}
+.yui-skin-sam .yuimenubaritem-selected {
+	BACKGROUND: url(../../../../assets/skins/sam/sprite.png) repeat-x 0px -1700px
+}
+.yui-skin-sam .yuimenubaritemlabel-selected {
+	BORDER-BOTTOM-COLOR: #7d98b8; BORDER-TOP-COLOR: #7d98b8; BORDER-RIGHT-COLOR: #7d98b8; BORDER-LEFT-COLOR: #7d98b8
+}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-selected {
+	MARGIN-LEFT: -1px; BORDER-LEFT-WIDTH: 1px
+}
+.yui-skin-sam .yuimenubaritemlabel-disabled {
+	COLOR: #a6a6a6; CURSOR: default
+}
+.yui-skin-sam .yuimenubarnav .yuimenubaritemlabel-hassubmenu-disabled {
+	BACKGROUND-IMAGE: url(menubaritem_submenuindicator_disabled.png)
+}
+.yui-skin-sam .yuimenu {
+	LINE-HEIGHT: 1.5; FONT-SIZE: 93%
+}
+.yui-skin-sam .yuimenubar .yuimenu {
+	FONT-SIZE: 100%
+}
+.yui-skin-sam .yuimenu .yuimenu {
+	FONT-SIZE: 100%
+}
+.yui-skin-sam .yuimenu .bd {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BACKGROUND-COLOR: #fff; BORDER-TOP: #808080 1px solid; BORDER-RIGHT: #808080 1px solid; _zoom: normal
+}
+.yui-skin-sam .yuimenu .yuimenu .bd {
+	
+}
+.yui-skin-sam .yuimenu UL {
+	BORDER-BOTTOM: #ccc 0px solid; BORDER-LEFT: #ccc 0px solid; PADDING-BOTTOM: 3px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 0px solid; PADDING-TOP: 3px
+}
+.yui-skin-sam .yuimenu UL.first-of-type {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.yui-skin-sam .yuimenu H6 {
+	BORDER-BOTTOM: #ccc 0px solid; BORDER-LEFT: #ccc 0px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; COLOR: #a4a4a4; BORDER-TOP: #ccc 1px solid; FONT-WEIGHT: bold; BORDER-RIGHT: #ccc 0px solid; PADDING-TOP: 3px
+}
+.yui-skin-sam .yuimenu UL.hastitle {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.yui-skin-sam .yuimenu H6.first-of-type {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.yui-skin-sam .yuimenu .yui-menu-body-scrolled {
+	BORDER-BOTTOM-COLOR: #ccc; BORDER-TOP-COLOR: #ccc; BORDER-RIGHT-COLOR: #808080; OVERFLOW: hidden; BORDER-LEFT-COLOR: #808080
+}
+.yui-skin-sam .yuimenu .topscrollbar {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BACKGROUND: url(../../../../assets/skins/sam/sprite.png) #fff no-repeat 0px 0px; HEIGHT: 16px; BORDER-TOP: #808080 1px solid; BORDER-RIGHT: #808080 1px solid
+}
+.yui-skin-sam .yuimenu .bottomscrollbar {
+	BORDER-BOTTOM: #808080 1px solid; BORDER-LEFT: #808080 1px solid; BACKGROUND: url(../../../../assets/skins/sam/sprite.png) #fff no-repeat 0px 0px; HEIGHT: 16px; BORDER-TOP: #808080 1px solid; BORDER-RIGHT: #808080 1px solid
+}
+.yui-skin-sam .yuimenu .topscrollbar {
+	BACKGROUND-POSITION: center -950px; BORDER-BOTTOM-WIDTH: 0px
+}
+.yui-skin-sam .yuimenu .topscrollbar_disabled {
+	BACKGROUND-POSITION: center -975px
+}
+.yui-skin-sam .yuimenu .bottomscrollbar {
+	BACKGROUND-POSITION: center -850px; BORDER-TOP-WIDTH: 0px
+}
+.yui-skin-sam .yuimenu .bottomscrollbar_disabled {
+	BACKGROUND-POSITION: center -875px
+}
+.yui-skin-sam .yuimenuitem {
+	_border-bottom: solid 1px #fff
+}
+.yui-skin-sam .yuimenuitemlabel {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 20px; PADDING-RIGHT: 20px; COLOR: #000; CURSOR: default; TEXT-DECORATION: none; PADDING-TOP: 0px
+}
+.yui-skin-sam .yuimenuitemlabel .helptext {
+	MARGIN-TOP: -1.5em
+}
+.yui-skin-sam .yuimenuitem-hassubmenu {
+	BACKGROUND-IMAGE: url(menuitem_submenuindicator.png); BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: right center
+}
+.yui-skin-sam .yuimenuitem-checked {
+	BACKGROUND-IMAGE: url(menuitem_checkbox.png); BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: left center
+}
+.yui-skin-sam .yui-menu-shadow-visible {
+	BACKGROUND-COLOR: #000; opacity: .12
+}
+.yui-skin-sam .yuimenuitem-selected {
+	BACKGROUND-COLOR: #b3d4ff
+}
+.yui-skin-sam .yuimenuitemlabel-disabled {
+	COLOR: #a6a6a6; CURSOR: default
+}
+.yui-skin-sam .yuimenuitem-hassubmenu-disabled {
+	BACKGROUND-IMAGE: url(menuitem_submenuindicator_disabled.png)
+}
+.yui-skin-sam .yuimenuitem-checked-disabled {
+	BACKGROUND-IMAGE: url(menuitem_checkbox_disabled.png)
+}
