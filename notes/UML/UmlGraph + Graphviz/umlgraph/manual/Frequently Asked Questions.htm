@@ -1,0 +1,275 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0043)http://www.umlgraph.org/doc/faq.html -->
+<HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Frequently Asked Questions</TITLE>
+<META name=GENERATOR content="MSHTML 8.00.7601.17537">
+<META name=Author content="Diomidis Spinellis">
+<META content=en http-equiv=Content-Language>
+<META content="text/html; charset=utf-8" http-equiv=Content-type><LINK 
+href="mailto:dds@aueb.gr" rev=made><LINK rel=ToC href="index.html"><LINK 
+href="index.html" rev=Subdocument><LINK rel=previous href="./gui-db.html"><LINK 
+rel=next href="./bib.html">
+<STYLE type=text/css>P.footer {
+	FONT-SIZE: 70%
+}
+PRE {
+	BORDER-BOTTOM: #000080 1px solid; BORDER-LEFT: #000080 1px solid; PADDING-BOTTOM: 4px; BACKGROUND-COLOR: #eeeeee; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; BORDER-TOP: #000080 1px solid; BORDER-RIGHT: #000080 1px solid; PADDING-TOP: 4px
+}
+.code {
+	BORDER-BOTTOM: #000080 1px solid; BORDER-LEFT: #000080 1px solid; PADDING-BOTTOM: 4px; BACKGROUND-COLOR: #eeeeee; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; BORDER-TOP: #000080 1px solid; BORDER-RIGHT: #000080 1px solid; PADDING-TOP: 4px
+}
+P.footer {
+	MARGIN-TOP: 0px; FONT-FAMILY: tahoma; COLOR: #505050; FONT-SIZE: 70%
+}
+H1 {
+	BORDER-LEFT: #a0a0a0 10px solid; PADDING-BOTTOM: 1px; BACKGROUND-COLOR: #ffff99; PADDING-LEFT: 15px; PADDING-RIGHT: 4px; PADDING-TOP: 1px
+}
+HR {
+	MARGIN-TOP: 1em; HEIGHT: 1px
+}
+</STYLE>
+</HEAD>
+<BODY>
+<H1>Frequently Asked Questions</H1><!-- $Id: faq.xml,v 1.18 2011/01/08 18:38:06 dds Exp $ --><!--
+To update the table of contents execute the following vim command from a register
+/^<h2>Contentsjjma/ul>kmb/^$"qyy:g/^<h2><a name/s,<h2><a name="\([^>]*\)>\(.*\)</a></h2>,<li> <a href="\#\1>\2</a></li>,|y Q|u'ad'b"qP
+-->
+<H2>Contents</H2>
+<UL>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#cmdline">What is the command 
+  line sequence to generate a UMLGraph class diagram?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#utfsvg">Why are the SVG 
+  diagrams dot generates malformed?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#antialias">How can I improve 
+  the quality of the bitmap images I generate?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#layout">How can I improve 
+  the layout of my class diagrams?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#mclass">A class appears 
+  multiple times in a class diagram. Why?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#static">Shouldn't static 
+  fields appear underlined?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#winpic">Where can I find a 
+  <EM>pic2plot</EM> executable for Windows?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#cr">Under Windows the output 
+  of <EM>pic2plot</EM> appears empty. Why?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#maven">I have a problem with 
+  Maven's Dotuml plugin. Can you help me?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#autopic">How can I make the 
+  UMLGraph doclet generate sequence diagrams?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#unnamed">Why do the options 
+  specified in the <CODE>UMLOptions</CODE> class stop working, when I pass the 
+  <CODE>packagenames</CODE> option to <EM>javadoc</EM>?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#tiger">Why doesn't UMLGraph 
+  run under Mac OS X?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#cpp">Can I create UML class 
+  diagrams from C++ code?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#ClassCastException">How can 
+  I get around a UMLGraphDoc crash with a ClassCastException?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#license">Under what license 
+  is UMLGraph distributed?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#classnotfound">Why do I get 
+  an exception java.lang.NoClassDefFoundError: 
+  com/sun/tools/javadoc/Main?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#truncxml">How can I prevent 
+  clipped SVG images in sequence diagrams?</A></LI>
+  <LI><A href="http://www.umlgraph.org/doc/faq.html#private">How can I instruct 
+  UMLGraph to include private fields in its output?</A></LI></UL>
+<H2><A name=cmdline>What is the command line sequence to generate a UMLGraph 
+class diagram?</A></H2>Assuming that you diagram's description is in the file 
+Diag.java, issue the command: 
+<DIV class=code><FONT face=monospace>umlgraph Diag png<BR>java&nbsp;<FONT 
+color=#6a5acd>-jar</FONT>&nbsp;path-to/UmlGraph.jar&nbsp;<FONT 
+color=#6a5acd>-package</FONT>&nbsp;<FONT color=#6a5acd>-output</FONT>&nbsp;- 
+Diag.java | dot&nbsp;<FONT color=#6a5acd>-Tpng</FONT>&nbsp;<FONT 
+color=#6a5acd>-oDiag</FONT>.png Diag.dot<BR></FONT></DIV>In the above you can 
+change <CODE>png</CODE> to another file format, and add more UMLGraph switches 
+at the end of the line. 
+<P>
+<H2><A name=utfsvg>Why are the SVG diagrams dot generates 
+malformed?</A></H2>UMLGraph uses guillemot characters for representing the angle 
+brackets around stereotypes, as in «interface». By default these are encoded as 
+ISO-8859-1 characters, which are illegal in the UTF-8 output that dot generates 
+for SVG. When using dot to generate SVG output, you should also specify 
+<CODE>-outputencoding utf8</CODE> to UMLGraph. 
+<H2><A name=antialias>How can I improve the quality of the bitmap images I 
+generate?</A></H2>Both <EM>dot</EM> and <EM>pic2plot</EM> can directly produce 
+bitmap images in formats like GIF, PNG and PNM. However, if you want to produce 
+presentation-quality output the a vector output format like Postscript or SVG is 
+preferable. If you do require a bitmap format, it might be worth to create it at 
+a higher resolution from a Postscript image, and then downsample it. This 
+procedure (used for the diagrams appearing on the UMLGraph web site) will create 
+an antialiased image of a higher quality than what the default bitmap output 
+options produce. The following pipeline is an example of how you can achieve 
+this effect: 
+<DIV class=code><FONT face=monospace>dot&nbsp;<FONT 
+color=#6a5acd>-Tps</FONT>&nbsp;FILENAME.dot |<BR>gs&nbsp;<FONT 
+color=#6a5acd>-q</FONT>&nbsp;<FONT color=#6a5acd>-r360</FONT>&nbsp;<FONT 
+color=#6a5acd>-dNOPAUSE</FONT>&nbsp;<FONT color=#6a5acd>-sDEVICE</FONT><FONT 
+color=#804040><B>=</B></FONT>pnm&nbsp;<FONT 
+color=#6a5acd>-sOutputFile</FONT><FONT 
+color=#804040><B>=</B></FONT>-&nbsp;&nbsp;-&nbsp;<FONT 
+color=#6a5acd>-c</FONT>&nbsp;quit |<BR>pnmcrop |<BR>pnmscale&nbsp;<FONT 
+color=#ff00ff>0</FONT>.<FONT 
+color=#ff00ff>25</FONT>&nbsp;|<BR>ppmtogif&nbsp;<FONT 
+color=#804040><B>&gt;</B></FONT>FILENAME.gif<BR></FONT></DIV>(David Griffiths 
+reports that he had to add to the <EM>gs</EM> command 
+<CODE>-sPAPERSIZE=a4</CODE> or <CODE>-dDEVICEHEIGHTPOINTS=1000</CODE> to avoid 
+getting his results chopped-off.) 
+<P>One other possibility for converting the sequence diagram into Postscript is 
+to pass it through <EM>pic</EM> and <EM>groff</EM>. Tools like <EM>ps2epsi</EM> 
+and <EM>ps2eps</EM> can then be used to convert the Postscript into encapsulated 
+Postscript. Of course, <EM>groff</EM> users will just use the <EM>pic</EM> 
+program as part of their processing pipeline. 
+<H2><A name=layout>How can I improve the layout of my class 
+diagrams?</A></H2>Try manipulating the <EM>dot</EM> parameters ratio, minlen, 
+ranksep, and nodesep. For example, Arnaud Rogues recommends running <EM>dot</EM> 
+with command-line arguments as follows. 
+<DIV class=code><FONT face=monospace>dot&nbsp;<FONT 
+color=#6a5acd>-Gratio</FONT><FONT color=#804040><B>=</B></FONT><FONT 
+color=#ff00ff>0</FONT>.<FONT color=#ff00ff>7</FONT>&nbsp;<FONT 
+color=#6a5acd>-Eminlen</FONT><FONT color=#804040><B>=</B></FONT><FONT 
+color=#ff00ff>2</FONT><BR></FONT></DIV>
+<H2><A name=mclass>A class appears multiple times in a class diagram. 
+Why?</A></H2>Most probably your class diagram uses packages, and you are not 
+qualifying the classes with the respective package names in the tags you use. 
+The tags are not smart enough to do the package resolution, so you will have to 
+prepend the package name to the class, or avoid using packages. 
+<P>
+<H3>Problematic Specification</H3>
+<DIV class=code><FONT face=monospace><FONT 
+color=#a020f0>package</FONT>&nbsp;test;<BR><FONT 
+color=#2e8b57><B>abstract</B></FONT>&nbsp;<FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#0000ff>/** @composed 1 has * AbstractNode */</FONT><BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;InnerNode&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;Leaf&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR></FONT></DIV>
+<H3>First Approach: Class Name Qualified with the Package</H3>
+<DIV class=code><FONT face=monospace><FONT 
+color=#a020f0>package</FONT>&nbsp;test;<BR><FONT 
+color=#2e8b57><B>abstract</B></FONT>&nbsp;<FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#0000ff>/** @composed 1 has * test.AbstractNode */</FONT><BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;InnerNode&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;Leaf&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR></FONT></DIV>
+<H3>Second Approach: No Package Specification</H3>
+<DIV class=code><FONT face=monospace><FONT 
+color=#2e8b57><B>abstract</B></FONT>&nbsp;<FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#0000ff>/** @composed 1 has * test.AbstractNode */</FONT><BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;InnerNode&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR><FONT 
+color=#2e8b57><B>class</B></FONT>&nbsp;Leaf&nbsp;<FONT 
+color=#2e8b57><B>extends</B></FONT>&nbsp;AbstractNode {}<BR></FONT></DIV>
+<H2><A name=static>Shouldn't static fields appear underlined?</A></H2>Yes they 
+should. Unfortunately, <EM>dot</EM> does not (yet) support a way to underline 
+single labels, and thus <EM>UMLGraph</EM> can not show the static fields 
+underlined. 
+<H2><A name=winpic>Where can I find a <EM>pic2plot</EM> executable for 
+Windows?</A></H2>A port of <EM>pic2plot</EM> for Windows can be found in GNU 
+PlotUtils, which is part of the <A 
+href="http://gnuwin32.sourceforge.net/packages.html">GnuWin32</A> project. 
+<H2><A name=cr>Under Windows the output of <EM>pic2plot</EM> appears empty. 
+Why?</A></H2>On Windows platforms note that the current version of 
+<EM>pic2plot</EM> appears to be very picky about carriage return (CR - \r) 
+characters (by default, CR is part of the platform's end of line sequence) 
+appearing in its input file. Therefore, you will probably want to instruct your 
+editor to create Unix-style files, or filter the files to remove the carriage 
+return characters. The following Perl invocation is such a filter: 
+<DIV class=code><FONT face=monospace>perl&nbsp;<FONT 
+color=#6a5acd>-p</FONT>&nbsp;<FONT color=#6a5acd>-e</FONT>&nbsp;<FONT 
+color=#804040><B>"</B></FONT><FONT color=#ff00ff>BEGIN {binmode(STDOUT);} 
+s/</FONT><FONT color=#6a5acd>\r</FONT><FONT color=#ff00ff>//</FONT><FONT 
+color=#804040><B>"</B></FONT><BR></FONT></DIV>In addition, <EM>pic2plot</EM> 
+appears to require that the last input file be properly terminated (with a 
+newline). Apparently, some Windows editors may leave the last line unterminated, 
+so if your editor is in this category it may be safer to add a blank line in the 
+end. 
+<H2><A name=maven>I have a problem with Maven's Dotuml plugin. Can you help 
+me?</A></H2>Sorry, I did not develop this plugin, and therefore can not offer 
+help. Have a look at the project's documentation and mailing lists available 
+through <A 
+href="http://maven-plugins.sourceforge.net/maven-dotuml-plugin/">plugin web 
+page</A>. 
+<H2><A name=autopic>How can I make the UMLGraph doclet generate sequence 
+diagrams?</A></H2>You can't. You have to write the <EM>pic</EM> code for the 
+sequence diagrams by hand. 
+<H2><A name=unnamed>Why do the options specified in the <CODE>UMLOptions</CODE> 
+class stop working, when I pass the <CODE>packagenames</CODE> option to 
+<EM>javadoc</EM>?</A></H2>When you pass the <CODE>packagenames</CODE> option to 
+<EM>javadoc</EM>, the default (unnamed) package (and the <CODE>UMLOptions</CODE> 
+class located in it) is ignored. In such cases you should include the 
+<CODE>UMLOptions</CODE> class within a named package. 
+<H2><A name=tiger>Why doesn't UMLGraph run under Mac OS X?</A></H2>Make sure you 
+are running Java 1.5 (run <CODE>java -version</CODE> to see). If you are not 
+running 1.5 you may need to adjust the symbolic links in 
+<CODE>/System/Library/Frameworks/JavaVM.framework/Versions</CODE>. 
+<H2><A name=cpp>Can I create UML class diagrams from C++ code?</A></H2>This <A 
+href="http://www.spinellis.gr/blog/20060921/">blog entry</A> describes a simple 
+solution that has worked for me. Depending on your requirements YMMV. 
+<H2><A name=ClassCastException>How can I get around a UMLGraphDoc crash with a 
+ClassCastException?</A></H2>This happens due to a know <A 
+href="http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6442982">javadoc 
+bug</A>. By fixing the classpath used for the UNLGraph invocation you can avoid 
+this problem. Olivier Duysens notes: 
+<BLOCKQUOTE>
+  <P>JBuilder users need to go to Preferences/Build/Ant, and tick the box "Use 
+  project libraries when running ant" to solve the issue. </P></BLOCKQUOTE>
+<H2><A name=license>Under what license is UMLGraph distributed?</A></H2>UMLGraph 
+is distributed under the <A 
+href="http://www.opensource.org/licenses/bsd-license.html">BSD license</A> (see 
+the file LICENSE in the distribution). For uniformity with the rest of the web 
+content appearing on this site, the web site of UMLGraph appears under a <A 
+href="http://creativecommons.org/licenses/by-nc-nd/2.5/">Creative Commons 
+Attribution-NonCommercial-NoDerivs 2.5</A> license. This affects only the 
+UMLGraph home page; all other material (for example the documentation) is also 
+part of the UMLGraph distribution, and can therefore be used under the BSD 
+license. 
+<H2><A name=classnotfound>Why do I get an exception 
+java.lang.NoClassDefFoundError: com/sun/tools/javadoc/Main?</A></H2>This 
+exception will occur when you execute UMLGraph directly as a jar (not 
+through<EM>javadoc</EM>), and the files UmlGraph.jar and tools.jar are not in 
+the same directory. Either copy UmlGraph.jar in the directory where the 
+tools.jar of the JDK distribution is located (and execute UmlGraph.jar from 
+there), or copy tools.jar to the directory where UmlGraph.jar is located. (The 
+file tools.jar is typically located in the lib directory of your JDK 
+distribution.) 
+<H2><A name=truncxml>How can I prevent clipped SVG images in sequence 
+diagrams?</A></H2>This appears to be a limitation of <EM>pic2plot</EM>. You can 
+work around it, by increasing the width and height values appearing in the SVG 
+XML file that <EM>pic2plot</EM> generates. 
+<H2><A name=private>How can I instruct UMLGraph to include private fields in its 
+output?</A></H2>You need to pass the <CODE>-private</CODE> flag to 
+<EM>javadoc</EM>. Note that when processing code that includes annotations 
+defined by libraries outside the core J2SE distribution, it is a good idea to 
+include the library jars to the classpath. Otherwise, <EM>javadoc</EM> (and 
+concequently UMLGraph) will fail to process the input classes correctly. This is 
+<A href="http://forums.oracle.com/forums/thread.jspa?threadID=1521148">a known 
+issue</A> with <EM>javadoc</EM>, but only manifests in certain occasions when 
+running UMLGraph, for example when processing private class fields. 
+<P></P>
+<TABLE width="100%">
+  <TBODY>
+  <TR>
+    <TD class=navigate><A accessKey=C id=contents 
+      href="http://www.umlgraph.org/doc/index.html">Contents</A> </TD>
+    <TD class=navigate align=right><A accessKey=P id=previous 
+      href="http://www.umlgraph.org/doc/gui-db.html">«&nbsp;Previous</A>&nbsp;&nbsp;&nbsp;&nbsp;<A 
+      accessKey=N id=next href="http://www.umlgraph.org/doc/bib.html">Next 
+      (Bibliography)&nbsp;»</A></TD></TR></TBODY></TABLE>
+<P></P>
+<HR>
+
+<P class=footer><!--Creative Commons License--><A 
+href="http://creativecommons.org/licenses/by-sa/3.0/gr/deed.en" rel=license><IMG 
+style="BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px" 
+alt="Creative Commons License" align=left 
+src="Frequently%20Asked%20Questions_files/somerights20.png"></A> &nbsp;Last 
+change: Saturday, January 8, 2011 8:38 pm <BR>&nbsp;Unless otherwise expressly 
+stated, all original material on this page created by Diomidis Spinellis is 
+licensed under a <A 
+href="http://creativecommons.org/licenses/by-sa/3.0/gr/deed.en" 
+rel=license>Creative Commons Attribution-Share Alike 3.0 Greece License</A>. 
+</P></BODY></HTML>

@@ -1,0 +1,672 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head><title>Member Log-on - CodeProject</title><link type="text/css" rel="stylesheet" href="http://s.codeproject.com/App_Themes/Std/CSS/CodeProject.min.css?dt=2.3.110520.2">
+<link type="text/css" rel="stylesheet" href="http://s.codeproject.com/App_Themes/Std/CSS/navmenu_ie6.min.css">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<meta name="Description" content="Member Log-on - Free source code and tutorials for Software developers and Architects." >
+<meta name="Keywords" content="Free source code, tutorials" >
+<meta name="Author" content="The Code Project" >
+<meta name="Rating" content="General" >
+<meta name="Robots" content="index, follow" >
+<meta name="Revisit-After" content="1 days" >
+<meta name="google-site-verification" content="RP2bNCUeOmNkkJesEnU8X3UyTbqIcCKP0CmdwU8in5k" >
+<meta name="msapplication-navbutton-color" content="#FF9900"/>
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - All topics" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=1" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - MFC / C++" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=2" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - C#" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=3" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - ASP.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=4" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - .NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=5" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Latest articles - VB.NET" href="http://www.codeproject.com/webservices/articlerss.aspx?cat=6" >
+<link rel="alternate" type="application/rss+xml" title="CodeProject Lounge Postings" href="http://www.codeproject.com/webservices/LoungeRSS.aspx" >
+<link rel="search" type="application/opensearchdescription+xml" title="CodeProject" href="http://www.codeproject.com/info/OpenSearch.xml" >
+
+	<base target="_top" >
+	<link rel="icon" href="/favicon.ico" type="image/ico" >
+<link rel="shortcut icon" href="/favicon.ico"  type="image/ico" >
+<link rel="apple-touch-icon" href="/images/FavIcon-Apple.png" type="image/png" >
+<script type="text/javascript" language="Javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.4.2.min.js"></script><script type='text/javascript'>//<![CDATA[
+if (typeof jQuery == 'undefined') {
+    document.write(unescape("%3Cscript src='/script/JS/jquery-1.4.2.min.js' type='text/javascript' %3E%3C/script%3E"));
+}//]]></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+if(top!=self)top.location.href=location.href; if(typeof(DemoUrl)!="undefined")document.write(unescape('%3Cme')+'ta http'+'-equiv="re' +'fresh" con'+'tent="1;url='+DemoUrl+unescape('"%3CE'));
+
+//]]>
+</script>
+</head>
+<body class="IE6">
+
+<div class="page-background">
+	<div id="C" class="container-content fluid">
+
+		<a href="#Main"><img alt="Click here to Skip to main content" class="access-link" 
+			src="/Images/t.gif" /></a>
+
+		
+		
+
+<div class="container nav-memberbar clearfix">
+<div class="member-stats float-left">7,821,972 members and growing! (39,355 online)</div>
+<div class="float-left"></div>
+<div class="float-right">
+
+
+
+
+	<script type="text/javascript">//<!--
+	function doSubmit(secure)
+	{
+		if (secure)
+			document.subForm.action = "https://www.codeproject.com/script/Membership/LogOn.aspx?rp=%2fscript%2fMembership%2fLogOn.aspx%3frp%3dhttp%253a%252f%252fwww.codeproject.com%252fKB%252ftips%252fdoxysetup%26download%3dtrue"
+		else
+			document.subForm.action = "/script/Membership/LogOn.aspx?rp=%2fscript%2fMembership%2fLogOn.aspx%3frp%3dhttp%253a%252f%252fwww.codeproject.com%252fKB%252ftips%252fdoxysetup%26download%3dtrue"
+		document.subForm.submit();
+		return true;
+	}//-->
+	</script>
+
+	<a name="SignUp"></a>
+	<form name="subForm" id="subForm" action="/script/Membership/LogOn.aspx?rp=%2fscript%2fMembership%2fLogOn.aspx%3frp%3dhttp%253a%252f%252fwww.codeproject.com%252fKB%252ftips%252fdoxysetup%26download%3dtrue" method="post" class="tight">
+
+	
+	<input id="FormName" name="FormName" value="MenuBarForm" type="hidden" />
+
+	Email <input class="small-text" type="text" name="Email" id="Email" style="width:150px" />
+	Password <input class="small-text" type="password" name="Password" id="Password" style="width:60px" />
+	<input type="submit" value="Sign in" class="button" onclick="return doSubmit(false);" />
+	
+	<input type="image"  src="/images/secure.png" class="align-bottom" title="Sign on securely" 
+		onclick="return doSubmit(true);" />
+	<script type="text/javascript">
+function Join(){document.location.href='http://www.codeproject.com/script/Membership/Modify.aspx';return false;}
+document.write('<input type="button" class="button" onclick="return Join();" value="Join"');
+document.write('<input type="hidden" name="fld_quicksign" value="true" />');
+</script>
+	<span class="nowrap">
+		<input type="checkbox" checked = "checked" name="RememberMeCheck" id="RememberMeCheck" value="1"/>
+		<label for="RememberMeCheck">Remember&nbsp;me?</label>
+	</span>&nbsp;
+	<a id="ctl00_MemberMenu_SendPassword" href="/script/Membership/SendPassword.aspx?rp=%2fscript%2fMembership%2fLogOn.aspx%3frp%3dhttp%253a%252f%252fwww.codeproject.com%252fKB%252ftips%252fdoxysetup%26download%3dtrue">Lost password?</a>
+	</form>
+
+</div>
+
+</div>
+		
+
+		
+		<table width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+			<td class="header"><a href="/"><img id="ctl00_Logo" title="The Code Project" src="http://s.codeproject.com/App_Themes/Std/Img/logo225x90.gif" alt="Home" style="height:90px;width:225px;border-width:0px;" /></a></td>
+			<td class="header" align="right">
+				<div class="lqm_ad" width="728px" height="90px" lqm_channel="1" lqm_publisher="495" lqm_zone="77" lqm_format="8"></div>
+			</td>
+		</tr></table>
+
+		
+		<table cellpadding="0" cellspacing="0" class="contrast1-background extended"><tr><td nowrap="nowrap">
+			
+
+<div class="navbar clearfix">
+<ul id="nav">
+
+<li><a id="ctl00_TopNavBar_Home" class="down" href="http://www.codeproject.com">Home</a>
+
+
+<li><a id="ctl00_TopNavBar_Art" class="down" href="/script/Articles/Latest.aspx">Articles</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_ArtTopicList" class="fly last" href="/script/Content/SiteMap.aspx">Chapters and Sections</a>
+		</li>
+		<li><a id="ctl00_TopNavBar_ArtSearch" class="fly break" href="/search.aspx">Search</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestArts" class="fly" href="/script/Articles/Latest.aspx?at=1,3,7">Latest Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtLatestTips" class="fly" href="/script/Articles/Latest.aspx?at=6,8">Latest Tips/Tricks</a></li>
+		<li><a id="ctl00_TopNavBar_ArtTop" class="fly" href="/script/Articles/TopArticles.aspx?ta_so=4">Top Articles</a></li>
+		<li><a id="ctl00_TopNavBar_ArtBeginner" class="fly" href="/search.aspx?aidlst=152&amp;sa_us=True">Beginner Articles</a></li>
+		<li id="ctl00_TopNavBar_VideosLink">
+			<a id="ctl00_TopNavBar_ArtVideoArticles" class="fly" href="/script/Articles/VideoArticleList.aspx">Video Articles</a>
+		</li>
+		<li><a id="ctl00_TopNavBar_ArtBlogArticles" class="fly break" href="/script/Articles/BlogArticleList.aspx">Technical Blogs</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostArticle" class="fly" href="/script/Articles/Submit.aspx">Post an Article</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostTipTrick" class="fly" href="/Tips/post.aspx">Post Tip & Trick</a></li>
+		<li><a id="ctl00_TopNavBar_ArtPostBlog" class="fly break" href="/script/Articles/BlogFeed.aspx">Post your Blog</a></li>
+		<li><a id="ctl00_TopNavBar_ArtGuide" class="fly" href="/info/Submit.aspx">Posting/Update Guidelines</a></li>
+		<li><a id="ctl00_TopNavBar_ArtCompetition" class="fly last" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1">Article Competition</a></li>
+	</ul>
+
+</li>
+
+
+
+<li><a id="ctl00_TopNavBar_Answers" href="/script/Answers/List.aspx?tab=active">Questions & Answers</a>
+	<ul>
+		
+
+		<li class="heading">Quick Answers</li>
+		<li><a id="ctl00_TopNavBar_QAAsk" class="fly" href="/Questions/ask.aspx">Ask a Question</a></li>
+
+		
+		<li><a id="ctl00_TopNavBar_QAUnanswered" class="fly" href="/script/Answers/List.aspx?tab=unanswered">View Unanswered Questions</a></li>
+		<li><a id="ctl00_TopNavBar_QALatest" class="fly" href="/script/Answers/List.aspx?tab=active">View All Questions...</a></li>
+		
+				<li><a id="ctl00_TopNavBar_QATR_ctl00_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;tags=81" style="padding-left:30px">C# questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl01_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;tags=85" style="padding-left:30px">ASP.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl02_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;tags=842" style="padding-left:30px">VB.NET questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl03_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;tags=78" style="padding-left:30px">C++ questions</a></li>
+			
+				<li><a id="ctl00_TopNavBar_QATR_ctl04_Tag" class="fly" href="/script/Answers/List.aspx?tab=active&amp;tags=69" style="padding-left:30px">C#3.0 questions</a></li>
+			
+		<li class="heading">Programming Discussions</li>
+		<li><a id="ctl00_TopNavBar_MessageBoardsAll" class="fly" href="/script/Forums/List.aspx">All Message Boards...</a></li>
+		<li><a class="fly" style="padding-left:30px" href="/Forums/1580997/Application-Lifecycle.aspx">Application Lifecycle<span class="fly-menu">&gt;</span></a>
+<ul><li><a class="fly" href="/Forums/369270/Design-and-Architecture.aspx">Design and Architecture</a></li>
+<li><a class="fly" href="/Forums/1533717/Running-a-Business.aspx">Running a Business</a></li>
+<li><a class="fly" href="/Forums/1533716/Sales-Marketing.aspx">Sales / Marketing</a></li>
+<li><a class="fly" href="/Forums/1651/Collaboration-Beta-Testing.aspx">Collaboration / Beta Testing</a></li>
+<li><a class="fly" href="/Forums/3304/Work-Training-Issues.aspx">Work &amp; Training Issues</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1627782/Free-Tools.aspx">Free Tools</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/12076/ASP-NET.aspx">ASP.NET</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1580226/JavaScript.aspx">JavaScript</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1647/C-Cplusplus-MFC.aspx">C / C++ / MFC<span class="fly-menu">&gt;</span></a>
+<ul><li><a class="fly" href="/Forums/4486/ATL-WTL-STL.aspx">ATL /  WTL / STL</a></li>
+<li><a class="fly" href="/Forums/3785/Managed-Cplusplus-CLI.aspx">Managed C++/CLI</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1649/Csharp.aspx">C#</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1725/Database.aspx">Database</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/186301/Hardware-Devices.aspx">Hardware &amp; Devices<span class="fly-menu">&gt;</span></a>
+<ul><li><a class="fly" href="/Forums/1644/System-Admin.aspx">System Admin</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1606152/Hosting-and-Servers.aspx">Hosting and Servers</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1643/Java.aspx">Java</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1650/NET-Framework.aspx">.NET Framework</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/13695/Mobile.aspx">Mobile</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1540733/Sharepoint.aspx">Sharepoint</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1004257/Silverlight-WPF.aspx">Silverlight / WPF</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1646/Visual-Basic.aspx">Visual Basic</a>
+</li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1640/Web-Development.aspx">Web Development<span class="fly-menu">&gt;</span></a>
+<ul><li><a class="fly" href="/Forums/1580227/CSS.aspx">CSS</a></li>
+<li><a class="fly" href="/Forums/1213656/PHP.aspx">PHP</a></li>
+</ul></li>
+<li><a class="fly" style="padding-left:30px" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Site Bugs / Suggestions</a>
+</li>
+
+
+		<li class="heading">Other Languages<span class="fly-menu">&gt;</span>
+		<ul>
+		<li><a class="fly" href="/Forums/1580229/Hindi.aspx">General Indian Topics</a></li>
+		<li><a class="fly" href="/Forums/1580230/Chinese.aspx">General Chinese Topics</a></li>
+		</ul></li>
+	
+	</ul>
+
+</li>
+
+
+<li><a id="ctl00_TopNavBar_Zones" href="/Zones/index.aspx">Learning Zones</a>
+
+	<ul>
+		<!--<li class="heading">Zones</li>-->
+		<li><a href="/Zones/Commerce/" class="fly">The Commerce Zone</a></li><li><a href="/Zones/Mobile/" class="fly">The Mobile Zone</a></li><li><a href="/Zones/Cloud/" class="fly">The Cloud Zone</a></li><li><a href="/Zones/Hardware/" class="fly">The Hardware Zone</a></li><li><a href="/Zones/Parallelism/" class="fly">The Parallelism Zone</a></li><li><a href="/Zones/WPF-Silverlight/" class="fly">The WPF / Silverlight Zone</a></li><li><a href="/Zones/Flex-Flash/" class="fly">The Flex / Flash Zone</a></li><li><a href="/Zones/SqlServer/" class="fly">The SQL Zone</a></li><li><a href="/Zones/WhitePapers/" class="fly break">WhitePapers / Webcasts</a></li>
+		<li><a id="ctl00_TopNavBar_Solutions" class="fly last" href="/kb/Solution-Center/">Solutions Center</a></li>
+	</ul>
+
+</li>
+
+
+
+
+
+
+
+
+
+
+<li><a id="ctl00_TopNavBar_Features" href="/Feature/">Features</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_WhosWho" class="fly" href="/script/Membership/Profiles.aspx">Who's Who</a></li>
+		<li><a id="ctl00_TopNavBar_MVPs" class="fly" href="/script/Awards/MVPWinners.aspx">CodeProject MVPs</a></li>
+		<li><a id="ctl00_TopNavBar_Companies" class="fly break" href="/script/Membership/Profiles.aspx?mgtid=1&amp;mgm=True">Company Listings</a></li>
+		<li><a id="ctl00_TopNavBar_Catalog" class="fly" href="/script/Catalog/List.aspx">Component & Service Catalog</a></li>
+		<li><a id="ctl00_TopNavBar_Comps" class="fly" href="/script/Awards/CurrentCompetitions.aspx?cmpTpId=1&amp;awsac=true">Competitions</a></li>
+		<li><a id="ctl00_TopNavBar_News" class="fly" href="/script/News/List.aspx">News</a></li>
+		<li><a id="ctl00_TopNavBar_Insider" class="fly" href="/Feature/Insider/">Daily Insider</a></li>
+		<li><a id="ctl00_TopNavBar_Newsletters" class="fly" href="/script/Mailouts/Archive.aspx?mtpid=1">Newsletter archive</a></li>
+		<li><a id="ctl00_TopNavBar_PressRelease" class="fly" href="/script/PressReleases/Preview.aspx">Press Releases</a></li>
+		<li><a id="ctl00_TopNavBar_Surveys" class="fly" href="/script/Surveys/List.aspx">Surveys</a></li>
+		<li><a id="ctl00_TopNavBar_Stuff" class="fly" href="/Info/Stuff.aspx">CodeProject Stuff</a></li>
+		<li><a id="ctl00_TopNavBar_AddIn" class="fly last" href="/Services/Addins/">CodeProject VS Addin </a></li>
+	</ul>
+
+</li>
+
+
+<li><a id="ctl00_TopNavBar_Help" href="/KB/FAQs/">Help!</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_HelpWhatIs" class="fly" href="/info/guide.aspx">What is 'The Code Project'?</a></li>
+		<li><a id="ctl00_TopNavBar_HelpGeneral" class="fly" href="/KB/FAQs/">General FAQ</a></li>
+		<li><a id="ctl00_TopNavBar_HelpPostQuestion" class="fly" href="/Questions/ask.aspx">Post a Question</a></li>
+		<li><a id="ctl00_TopNavBar_HelpBugs" class="fly" href="/Forums/1645/Site-Bugs-Suggestions.aspx">Bugs and Suggestions</a></li>
+		<li><a id="ctl00_TopNavBar_HelpSiteMap" class="fly" href="/script/Content/SiteMap.aspx">Site Directory</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAdvertise" class="fly" href="/info/MediaKit.aspx">Advertise with us</a></li>
+		<li><a id="ctl00_TopNavBar_HelpAboutUs" class="fly last" href="/info/about.aspx">About Us</a></li>
+	</ul>
+
+</li>
+
+
+<li style="margin-left:10px">
+<a id="ctl00_TopNavBar_Lounge" class="simple" href="/Lounge.aspx">The Lounge</a>
+
+	<ul>
+		<li><a id="ctl00_TopNavBar_LoungeLnk" class="fly" href="/Lounge.aspx">The Lounge  </a></li>
+		<li><a id="ctl00_TopNavBar_CleverLnk" class="fly" href="/feature/CleverCode.aspx">Clever Code</a></li>
+		<li><a id="ctl00_TopNavBar_ShameLnk" class="fly" href="/feature/HallOfSHame.aspx">Hall of Shame</a></li>
+		<li><a id="ctl00_TopNavBar_SoapBoxLnk" class="fly" href="/Forums/1536756/The-Soapbox-2-0.aspx">The Soapbox</a></li>
+		
+	</ul>
+
+</li>
+
+</ul>
+
+</div>
+
+<script type="text/javascript">
+
+function ShowMap(prnt, elmId) {
+	var map = $('#' + elmId);
+	
+	if (!prnt.populated && !prnt.populating) {
+		prnt.populating = true;
+		map.css( { 'height': '400px', 'width': '400px' });
+		map.load("/script/content/ajax/SiteMap.aspx", function() { prnt.populated = true; });
+		prnt.populated = true;
+		prnt.populating = false;
+	}
+
+	if (prnt.populated) {
+		var width = Math.min((($(window).width()-map.offset().left) * 0.9), 1000);
+		var height = Math.min((($(window).height()-map.offset().top) * 0.9), 700);
+		map.css('width', width + 'px');
+		map.css('height', height + 'px');
+		map.css('overflow', 'auto');
+		map.css('margin', '0');
+	}
+}
+
+</script>
+		</td><td align="right">
+			
+
+<div class="search-bar">
+
+<form method="get" action="/search.aspx" name="Search" class="tight">
+
+
+<input class="search " id="sb_tb" value="" name="q" />
+
+<div class="hover-container">
+	<div id="SearchFilter" class="search-advanced popup small-text align-left">
+	<b>Search within:<br /></b>
+		
+		<input type="radio" id="sb_kw" name="sbo" value="kw" checked="true"><label for="sb_kw">Articles</label><br>
+<input type="radio" id="sb_qa" name="sbo" value="qa"><label for="sb_qa">Quick Answers</label><br>
+<input type="radio" id="sb_fm" name="sbo" value="fm"><label for="sb_fm">Messages</label><br>
+<input type="radio" id="sb_ctlk" name="sbo" value="ctlk"><label for="sb_ctlk">Product Catalog</label><br>
+
+
+		
+		
+	</div>
+</div>
+</form>
+
+</div>
+		</td></tr></table>
+				
+		
+
+		
+		
+		
+
+		<div id="ctl00_ContentPane" class="container-main ">
+
+			
+
+				<div style="padding-left:5px;padding-right:5px;min-height:600px">
+					<a name="Main"></a>
+					
+					<!-- Main Page Contents Start -->
+					<h1>Member Log-on</h1>
+
+					
+					
+			
+					
+<div style="width:700px;margin:auto">
+	
+	<form name="aspnetForm" method="post" action="LogOn.aspx?rp=http%3a%2f%2fwww.codeproject.com%2fKB%2ftips%2fdoxysetup&amp;download=true" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTI3NzA1NTk5Mg9kFgJmD2QWAgICDxYCHgVjbGFzcwUXY29udGFpbmVyLWNvbnRlbnQgZmx1aWQWBAIJDxYCHgdWaXNpYmxlaGQCCw8WAh8ABQ9jb250YWluZXItbWFpbiAWBAIJDw8WAh8BaGRkAh8PFgIfAWhkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYEBR9jdGwwMCRNQyRNZW1iZXJMb2dPbiRUZXJtc09mVXNlBSNjdGwwMCRNQyRNZW1iZXJMb2dPbiRBbGxOZXdzbGV0dGVycwUiY3RsMDAkTUMkTWVtYmVyTG9nT24kTmV3UmVtZW1iZXJNZQUiY3RsMDAkTUMkTWVtYmVyTG9nT24kT2xkUmVtZW1iZXJNZUK+Y9HzvseKth3w50f4a8l2bNf4" />
+</div>
+
+<div>
+
+	<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEWDALQu5TyCQLDh+fNAgLrhqSKCgLp3qCoDQKN+t3SDAK1i5LrCQKb9KvcDQLY8/zRAwLOiom3CAKDp6DMAwLss/aTAQLOrubXDrMqnGPDlyRYG+d66xc/bo0QxMk/" />
+</div>
+
+	<div id="ctl00_MC_DownloadExplanation" class="box">
+	<p><b>You must logon to download zip files.</b></p>
+
+	<p>To ensure that our limited resources are not abused we must ask that all readers wishing to 
+	download zip files log in first.</p>
+	<p>If you see this message more than once then either choose <b>'Remember me'</b> or try returning 
+	to the page and hitting Ctrl+F5 to force a non-cache refresh and then try again.</p>
+
+	<p>Check the <a href="/KB/FAQs/MemberFAQ.aspx">FAQ</a> if you encounter problems.</p>
+	</div>
+
+	
+<table id="LogOnContainer" width="700px">
+<tr>
+	<td><h3 style="margin:0">Not a member? Sign-up here</h3></td>
+	<td style="width:190px"><h3 class="tight">Existing Members</h3></td>
+</tr>
+<tr valign="top">
+<td style="padding-right:50px">
+	<div id="ctl00_MC_MemberLogOn_SignUpPanel" class="tight" style="padding-right:10px">
+	
+	
+	<div class="box feature small-text">
+	<table cellpadding="2" cellspacing="0">
+		<tr valign="top">
+			<td>Name<br /><small>(optional)</small></td>
+			<td>
+				<div class="nowrap"><input name="ctl00$MC$MemberLogOn$NewName" type="text" id="ctl00_MC_MemberLogOn_NewName" class="small-text" onkeydown="return fnTrapKD(ctl00_MC_MemberLogOn_SignUpButton,event)" style="width:125px;" />&nbsp;</div>
+				<div id="NewNameError" class="error invisible">(Taken)</div>
+			</td>
+			<td style="border-left: 1px solid #ccc">&nbsp;</td>
+			<td><input id="ctl00_MC_MemberLogOn_TermsOfUse" type="checkbox" name="ctl00$MC$MemberLogOn$TermsOfUse" checked="checked" /><label for="ctl00_MC_MemberLogOn_TermsOfUse">I have read and understand the <a target="_blank" href="/info/TermsOfUse.aspx">Terms of Use</a> and the <a target="_blank" href="/info/privacy.aspx">Privacy Policy</a>.</label></td>
+		</tr>
+
+		<tr valign="top">
+			<td>Email</td>
+			<td>
+				<div class="nowrap"><input name="ctl00$MC$MemberLogOn$NewEmail" type="text" id="ctl00_MC_MemberLogOn_NewEmail" class="small-text" onkeydown="return fnTrapKD(ctl00_MC_MemberLogOn_SignUpButton,event)" style="width:125px;" />&nbsp;</div>
+				<div id="NewEmailError" class="error invisible">(Taken)</div>
+			</td>
+			<td style="border-left: 1px solid #ccc">&nbsp;</td>
+			<td><input id="ctl00_MC_MemberLogOn_AllNewsletters" type="checkbox" name="ctl00$MC$MemberLogOn$AllNewsletters" checked="checked" /><label for="ctl00_MC_MemberLogOn_AllNewsletters">Please subscribe me to the CodeProject newsletters</label></td>
+		</tr>
+
+		<tr valign="top">
+			<td>Password</td>
+			<td nowrap="nowrap"><input name="ctl00$MC$MemberLogOn$MemPassword" type="password" id="ctl00_MC_MemberLogOn_MemPassword" class="small-text" onkeydown="return fnTrapKD(ctl00_MC_MemberLogOn_SignUpButton,event)" style="width:125px;" /> &nbsp;</td>
+			<td style="border-left: 1px solid #ccc">&nbsp;</td>
+			<td><input id="ctl00_MC_MemberLogOn_NewRememberMe" type="checkbox" name="ctl00$MC$MemberLogOn$NewRememberMe" checked="checked" /><label for="ctl00_MC_MemberLogOn_NewRememberMe">Remember me for next time</label>
+			</td>
+		</tr>
+		<tr><td colspan="3">&nbsp;</td></tr>
+
+		
+		
+		<tr valign="top">
+			<td colspan="1">&nbsp;</td>
+			<td colspan="3">
+				<input type="submit" name="ctl00$MC$MemberLogOn$SignUpButton" value="Join CodeProject!" id="ctl00_MC_MemberLogOn_SignUpButton" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="/images/secure.png" style="height:16px;width:16px;vertical-align:middle;"> <a href="https://www.codeproject.com/script/Membership/LogOn.aspx">secure signup option</a>
+			</td>
+		</tr>
+		
+	</table>
+		
+	<div id="ctl00_MC_MemberLogOn_JoinExplanation" class="blank-background medium-text">
+		
+		<div><br /><br />Signing up for CodeProject will allow you to:</div>
+		<ul>
+			<li class="medium-text">Download zip files associated with articles.</li>
+			<li class="medium-text">Receive weekly notifications of new articles.</li>
+			<li class="medium-text">Have your own page to let others know what you are up to, 
+			your interests, where you live (and even what you look like!).</li>
+			<li class="medium-text">Bookmark your favourite articles and messages.</li>
+			<li class="medium-text">Post messages on the discussion boards.</li>
+		</ul>
+
+		<div>If you do not wish to receive emails then uncheck the mailout opt-in boxes
+		from the Code Project Emails section. You can unsubscribe or resubscribe to the 
+		newsletters at anytime.</div>
+		
+		<div><br /><br /><b><img src="/images/help.gif" alt="help" align="middle"> Confused?</b> Hopefully the 
+		<a target="_blank" href="/KB/FAQs/MemberFAQ.aspx">FAQ</a> will help.</div>
+	
+	</div>
+	</div>
+
+	
+	
+</div>
+</td>
+<td nowrap="nowrap">
+	<div id="ctl00_MC_MemberLogOn_LogOnPanel" style="margin:0;padding:0;">
+	
+
+	<div class="box feature small-text">
+		<table>
+		<tr valign="top">
+			<td>Email</td>
+			<td><input name="ctl00$MC$MemberLogOn$CurrentEmail" type="text" id="ctl00_MC_MemberLogOn_CurrentEmail" class="small-text" onkeydown="return fnTrapKD(ctl00_MC_MemberLogOn_SignInButton,event)" style="width:100px;" /></td>
+		</tr>
+		<tr>
+			<td>Password</td>
+			<td><input name="ctl00$MC$MemberLogOn$CurrentPassword" type="password" id="ctl00_MC_MemberLogOn_CurrentPassword" class="small-text" onkeydown="return fnTrapKD(ctl00_MC_MemberLogOn_SignInButton,event)" style="width:100px;" /></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td nowrap="nowrap"><input id="ctl00_MC_MemberLogOn_OldRememberMe" type="checkbox" name="ctl00$MC$MemberLogOn$OldRememberMe" checked="checked" /><label for="ctl00_MC_MemberLogOn_OldRememberMe">Remember Me?</label></td>
+		</tr>
+		<tr>
+			<td colspan="2" align="center"><a id="ctl00_MC_MemberLogOn_SendPassword" href="http://www.codeproject.com/script/Membership/SendPassword.aspx?rp=http%3a%2f%2fwww.codeproject.com%2fKB%2ftips%2fdoxysetup">Lost password?</a></td>
+		</tr>
+		
+		<tr>
+			<td style="padding-top:7px;" colspan="2" align="center">
+			<input type="submit" name="ctl00$MC$MemberLogOn$SignInButton" value="Logon" id="ctl00_MC_MemberLogOn_SignInButton" class="button" />&nbsp;&nbsp;&nbsp;&nbsp;<img src="/images/secure.png" style="height:16px;width:16px;vertical-align:middle;"><a href="https://www.codeproject.com/script/Membership/LogOn.aspx">secure logon</a>
+			</td>
+		</tr>
+		
+		</table>
+	</div>
+	
+</div>
+</td>
+</tr>
+</table>
+
+	
+
+<SCRIPT language="javascript">
+<!--
+function fnTrapKD(btn, event){
+ if (document.all){
+  if (event.keyCode == 13){
+   event.returnValue=false;
+   event.cancel = true;
+   btn.click();
+   return false;
+  }
+ }
+ else if (document.getElementById){
+  if (event.which == 13){
+   event.returnValue=false;
+   event.cancel = true;
+   btn.click();
+   return false;
+  }
+ }
+ else if(document.layers){
+  if(event.which == 13){
+   event.returnValue=false;
+   event.cancel = true;
+   btn.click();
+   return false;
+  }
+ }
+}
+// -->
+</SCRIPT></form>
+</div>
+
+					
+
+					<!-- Main Page Contents End -->
+					<br clear="all" />
+				</div>
+
+				<div class="theme1-background padded">
+					<div style="margin:auto;width:468px">
+						<div class="lqm_ad" width="468px" height="60px" lqm_channel="1" lqm_publisher="495" lqm_zone="77" lqm_format="1"></div>
+					</div>
+				</div>
+
+				<div class="extended tiny-text">
+					<div class="row">
+						<div class="float-left">
+							<!--<span id="ctl00_LastUpdatedLabel">Last Updated 23 Mar 2002</span><br />-->
+							Web22 |
+							2.3.110520.2 |
+							<a id="ctl00_AdvertiseLink" href="/info/MediaKit.aspx">Advertise</a> | 
+							<a id="ctl00_PrivacyLink" href="/info/privacy.aspx">Privacy</a> |
+							<a id="ctl00_Mobile" href="../../MasterPages/?rp=http%3a%2f%2fwww.codeproject.com%2fKB%2ftips%2fdoxysetup&amp;download=true&amp;display=Mobile">Mobile</a>
+						</div>
+						<div class="float-right align-right">
+							Copyright &copy; <a href="mailto:webmaster@codeproject.com">CodeProject</a>, 1999-2011<br />
+							All Rights Reserved.
+							<a id="ctl00_TermsOfUseLink" href="/info/TermsOfUse.aspx">Terms of Use</a>
+						</div>
+					</div>
+				</div>
+	
+				<br clear="all" />
+		
+					
+
+			
+
+	</div>
+</div>
+</div>
+<script type="text/javascript" language="Javascript" src="http://cdn1.lakequincy.com/m.min.js?dt=2.3.110520.2"></script>
+<script type="text/javascript" language="Javascript" src="http://s.codeproject.com/Script/JS/watermark.min.js?dt=2.3.110520.2"></script>
+<script type="text/javascript" language="Javascript">//<![CDATA[
+$(function() {
+                                    $('#NewNameError').hide();
+                                    var nameEle = $('#ctl00_MC_MemberLogOn_NewName');
+                                    nameEle.blur(function() {
+                                        var name = $.trim(nameEle.val());
+                                        if (name.length > 0)
+                                            checkName(name);
+                                    });
+                                    var lasttime=new Date().getTime();
+                                    nameEle.keyup(function() {
+                                        var name = $.trim(nameEle.val());
+                                        var current=new Date().getTime();
+                                        if (name.length > 0 && (current-lasttime) > 1000) {
+                                            checkName(name);
+                                            lasttime=current;
+                                        }
+                                    });
+                                    $('#NewEmailError').hide();
+                                    var emailEle = $('#ctl00_MC_MemberLogOn_NewEmail');
+                                    emailEle.blur(function() {
+                                        var email = $.trim(emailEle.val());
+                                        if (email.length > 0)
+                                            checkEmail(email);
+                                    });
+                                    emailEle.keyup(function() {
+                                        var email = $.trim(emailEle.val());
+                                        var current=new Date().getTime();
+                                        if (email.length > 0 && (current-lasttime) > 1000) {
+                                            checkEmail(email);
+                                            lasttime=current;
+                                        }
+                                    });
+                                });
+                                function checkName(name) {
+                                    $.get('/script/Membership/Ajax/NameExists.aspx?mnm=' + escape(name),
+                                        function(data) {
+                                            var vals = data.split('|');
+                                            if (vals.length == 2) {
+                                                if (vals[0].toLowerCase() == 'true' || vals[1].toLowerCase == 'true')
+                                                    $('#NewNameError').show();
+                                                else
+                                                    $('#NewNameError').hide();
+                                            }
+                                        });
+                                }
+                                function checkEmail(email) {
+                                    $.get('/script/Membership/Ajax/EmailExists.aspx?meml=' + escape(email),
+                                        function(data) {
+                                            if (data.toLowerCase() == 'true')
+                                                $('#NewEmailError').show();
+                                            else
+                                                $('#NewEmailError').hide();
+                                        });
+                                }
+if($.LqmAds)$.LqmAds();
+var oSrchFlt = false, oSrchBox=false,srchBoxFoc=false;
+$(document).ready(function() {
+ InitWatermark('sb_tb', 'Search');
+ var sbar = $('#sb_tb'); 
+ var sfilter = $('#SearchFilter');
+ if (sbar && sfilter) {
+  sfilter.removeClass('popup'); sfilter.hide();
+  sbar.blur(function() { if (!oSrchFlt)sfilter.hide();srchBoxFoc=false; });
+  sbar.focus(function() { oSrchFlt=false;srchBoxFoc=true;sfilter.show(); });
+  sbar.mouseleave(function() { oSrchBox=false; });
+  sbar.mouseover(function() { oSrchBox=true; });
+  sfilter.mouseleave(function() { oSrchFlt=false; if (!srchBoxFoc&&!oSrchBox)sfilter.hide();});
+  sfilter.mouseover(function() { oSrchFlt=true; });
+ }
+});
+
+//]]>
+</script>
+
+
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-1735123-1']);
+	_gaq.push(['_trackPageview']);
+	_gaq.push(['_setDomainName', 'www.codeproject.com']);
+	_gaq.push(['_setSessionTimeout', '1200']); 
+
+	(function () {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})(); 
+</script>
+
+</body>
+</html>

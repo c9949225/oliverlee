@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/examples/simple_plugin.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<head>
+    <title>Mojo - Creating a Simple Plugin</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.html");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Barrie Treloar
+baerrach@gmail.com" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+      </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="../index.html" id="bannerLeft">
+    
+                                    <img src="../../images/mojo_logo.png" alt="" />
+    
+            </a>
+                        <a href="http://www.codehaus.org/" id="bannerRight">
+    
+                                    <img src="../../images/codehaus-small.png" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+            <div class="xleft">
+        Last Published: 01/12/2007
+                      </div>
+            <div class="xright">      <a href="http://mojo.codehaus.org/">Mojo</a>
+          |
+          <a href="http://maven.apache.org/maven2">Maven</a>
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+                   <h5>Eclipse PDE Plugin</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="../index-2.html">Introduction</a>
+        </li>
+              
+    <li class="none">
+              <a href="../usage.html">Usage</a>
+        </li>
+              
+    <li class="none">
+              <a href="../lifecycle.html">Build Lifecycle</a>
+        </li>
+              
+    <li class="none">
+              <a href="../plugin-info.html">Goals</a>
+        </li>
+              
+    <li class="none">
+              <a href="../references.html">References</a>
+        </li>
+              
+    <li class="none">
+              <a href="../faq.html">FAQ</a>
+        </li>
+          </ul>
+          <h5>Examples</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="getting_started.html">Getting Started</a>
+        </li>
+              
+    <li class="none">
+              <strong>Creating a plugin</strong>
+        </li>
+              
+    <li class="none">
+              <a href="simple_feature.html">Creating a feature</a>
+        </li>
+              
+    <li class="none">
+              <a href="simple_product.html">Creating a product</a>
+        </li>
+              
+    <li class="none">
+              <a href="simple_updatesite.html">Creating an updatesite</a>
+        </li>
+              
+    <li class="none">
+              <a href="m2eclipse.html">Building M2Eclipse</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="../project-info.html">Project Information</a>
+              </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="../project-reports.html">Project Reports</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+            <img alt="Built by Maven" src="../images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+  
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Overview</h2><p>The goal of this example is to create a simple Eclipse PDE plugin and to successfully build it with pde-maven-plugin.</p></div><div class="section"><h2>Steps</h2><div class="section"><h3>Create the Project</h3><div class="source"><pre>  File &gt; New &gt; Project...
+  
+  Plug-in Development &gt; Plug-in Project (Next)
+  
+  Project name: &quot;test.pde_maven_plugin.simple_plugin&quot;
+  Uncheck &quot;Use default location&quot; and set Location to &quot;&lt;Your Workspace&gt;\PDE_Plugin_Tutorial\plugins\test.pde_maven_plugin.simple_plugin&quot;
+  Source folder: &quot;src/main/java&quot;
+  Output folder: &quot;target/classes&quot;
+  (Next)
+  
+  The defaults for &quot;Plug-in Content&quot; are ok.
+  (Next)
+  
+  Choose &quot;Hello, World&quot; as the template to use.
+  (Next)
+  
+  The defaults for &quot;Sample Action Set&quot; are ok.
+  (Finish)</pre></div><p>If you have never started Plug-in Development before then the &quot;Open Associated Perspective&quot; popup will appear. Click &quot;Remember my decision&quot; and &quot;Yes&quot; to always change to the &quot;Plug-in Development perspective&quot;</p></div><div class="section"><h3>Confirm the Project works</h3><p>Ensure that your Target Platform (under Window &gt; Preferences &gt; Plug-in Development &gt; Target Platform) is set to your Eclipse SDK installation directory, or else your build will likely fail (as your RCP Target normally doesnt include the Eclipse Workbench)</p><p>If the &quot;test.pde_maven_plugin.simple_plugin&quot; editor is not already open then open &quot;plugin.xml&quot; and ensure you are on the &quot;Overview&quot; tab.</p><p>Select &quot;Launch an Eclipse application&quot; from the Testing area of the Overview tab.</p><p>Verify that &quot;Sample Menu&quot; is available from the Menubar.</p><p>Verify that selecting &quot;Sample Menu &gt; Sample Action&quot; displays a pop-up with &quot;Hello, Eclipse world&quot;. Click OK to dismiss the pop-up and close the launched Eclipse application.</p></div><div class="section"><h3>Create pom.xml</h3><p>Now that we know the plugin project works, we can create the pom.xml to get this running in Maven.</p><div class="source"><pre>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;test.pde_maven_plugin&lt;/groupId&gt;
+  &lt;artifactId&gt;simple_plugin&lt;/artifactId&gt;
+  &lt;packaging&gt;zip&lt;/packaging&gt;
+  &lt;name&gt;Simple Plugin PDE Example&lt;/name&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;description&gt;A Simple Plugin PDE Example&lt;/description&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;pde-maven-plugin&lt;/artifactId&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;eclipseInstall&gt;D:\eclipse-3.2&lt;/eclipseInstall&gt;
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;</pre></div></div><div class="section"><h3>Run mvn install</h3><p>Everything is setup and ready to go. Type &quot;mvn install&quot; to build your pde plugin from the command line.</p><p>When everything is complete you should see that your plugin zip file &quot;test.pde_maven_plugin.simple_plugin_1.0.0.zip&quot; gets installed into your local maven repository as &quot;simple_plugin-1.0-SNAPSHOT.zip&quot;</p><div class="source"><pre>[INFO] Installing &lt;Your Workspace&gt;\PDE_Plugin_Tutorial\plugins\test.pde_maven_plugin.simple_plugin\test.pde_maven_plugin.simple_plugin_1.0.0.zip 
+ to &lt;Your M2 REPO&gt;\.m2\repository\test\pde-maven-plugin\simple-plugin\1.0-SNAPSHOT\simple_plugin-1.0-SNAPSHOT.zip
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 16 seconds
+[INFO] Finished at: Fri Nov 24 08:54:54 CST 2006
+[INFO] Final Memory: 5M/9M
+[INFO] ------------------------------------------------------------------------</pre></div></div><div class="section"><h3>Test out your plugin</h3><p>If you are feeling really brave, make a copy of your eclipse installation (D:\Copy of eclipse-3.2 will do) and run this new version to see that it works and does not include your plugin.</p><p>Browse to your m2 repository and copy &lt;Your&#160;M2&#160;REPO&gt;\.m2\repository\test\pde_maven_plugin\simple_plugin.0-SNAPSHOT\simple_plugin-1.0-SNAPSHOT.zip to the plugins directory of your Eclipse copy (D:\Copy of eclipse-3.2\plugins)</p><p>You now need to run Eclipse with the &quot;-clean&quot; option to force it to reload its plugin cache. The easiest way is to edit the &quot;eclipse.ini&quot; file and add &quot;-clean&quot; on a line by itself before the &quot;-vm&quot; argument. e.g:</p><div class="source"><pre>-clean
+-vm
+D:\Programs\Java\jdk1.5.0_08\bin\javaw.exe
+-vmargs
+-Xms80m
+-Xmx1000m</pre></div><p>Run Eclipse and see your &quot;Sample Menu&quot; is available.</p></div></div>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2006-2007
+    
+          Codehaus
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/examples/simple_plugin.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+</html>

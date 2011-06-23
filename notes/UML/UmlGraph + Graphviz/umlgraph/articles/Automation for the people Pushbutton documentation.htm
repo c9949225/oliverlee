@@ -1,0 +1,1718 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0062)http://www.ibm.com/developerworks/library/j-ap06108/index.html -->
+<HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Automation for the people: Pushbutton documentation</TITLE>
+<META content="text/html; charset=UTF-8" http-equiv=Content-Type>
+<META 
+content='(PICS-1.1 "http://www.icra.org/ratingsv02.html" l gen true r (cz 1 lz 1 nz 1 oz 1 vz 1) "http://www.rsac.org/ratingsv01.html" l gen true r (n 0 s 0 v 0 l 0) "http://www.classify.org/safesurf/" l gen true r (SS~~000 1))' 
+http-equiv=PICS-Label><LINK rel=schema.DC 
+href="http://purl.org/DC/elements/1.0/"><LINK rel="SHORTCUT ICON" 
+href="http://www.ibm.com/favicon.ico">
+<META name=Owner content="developerWorks Content/Raleigh/IBM">
+<META scheme=rfc1766 name=DC.Language content=en>
+<META name=IBM.Country content=ZZ>
+<META name=Security content=Public>
+<META name=IBM.SpecialPurpose content=SP001>
+<META name=IBM.PageAttributes content=sid=1003,1004>
+<META name=Source content="v16 Template Generator">
+<META name=Robots content=index,follow>
+<META name=Abstract 
+content="Project documentation is often one of the necessary evils in delivering a software product. But imagine being able to generate your documentation at the click of a button. In this installment of Automation for the people, automation expert Paul Duvall explains how you can use open source tools to automate the generation of Unified Modeling Language (UML) diagrams, build figures, entity-relationship diagrams (ERDs), and even user documentation.">
+<META name=Description 
+content="Project documentation is often one of the necessary evils in delivering a software product. But imagine being able to generate your documentation at the click of a button. In this installment of Automation for the people, automation expert Paul Duvall explains how you can use open source tools to automate the generation of Unified Modeling Language (UML) diagrams, build figures, entity-relationship diagrams (ERDs), and even user documentation.">
+<META name=Keywords 
+content="continuous integration, ant, documentation, automating documentation, automated documentation, mechanized documentation, documentation automation, production-ready software, release engineering, build, automated build, build tools, automation, build scripting, java builds, schema spy, schemaspy, umlgraph, java deployment, ERD, reverse-engineering, software design, javadoc, database diagram, Entity Relationship Diagram, UML, Unified Modeling Language, Doxygen, Grand, build diagram, build diagrams, Ant, production ready systems, production ready software, Paul Duvall, tttjca, tttosca">
+<META scheme=iso8601 name=DC.Date content=2008-06-10>
+<META scheme=IBM_ContentClassTaxonomy name=DC.Type content=CT316>
+<META scheme=IBM_SubjectTaxonomy name=DC.Subject content=TT300>
+<META scheme=IBM_WTMCategory name=IBM.WTMCategory content=SOFDCJVAZZ>
+<META name=DC.Rights content="© Copyright&nbsp;IBM Corporation&nbsp;2008">
+<META scheme=W3CDTF name=IBM.Effective content=2008-06-10>
+<META name=title content="Automation for the people: Pushbutton documentation"><!-- HEADER_SCRIPTS_AND_CSS_INCLUDE --><LINK 
+title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/all.css" 
+media=all><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/screen.css" 
+media=screen,projection><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/screen-uas.css" 
+media=screen,projection><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/screen-fonts.css" 
+media=screen,projection><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/handheld.css" 
+media=handheld><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/print.css" 
+media=print><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/overlay.css" 
+media=screen,projection><!-- dW-specific CSS --><LINK title=www rel=stylesheet 
+type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dw-screen.css" 
+media=screen,projection><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dw-screen-comments-ratings-signin.css" 
+media=screen,projection><LINK title=www rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/jquery.cluetip.css" 
+media=screen,projection><!-- xM Masthead/Footer --><LINK title=www 
+rel=stylesheet type=text/css 
+href="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dw-mf0311.css">
+<SCRIPT type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/ibmcommon.js">//</SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dynamicnav.js">//</SCRIPT>
+<!-- dW functional JS -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/urltactic.js"></SCRIPT>
+<!-- Rating_START -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/showrating.js"></SCRIPT>
+
+<STYLE type=text/css>.metavalue {
+	DISPLAY: none
+}
+</STYLE>
+<!-- Rating_END --><!-- RESERVED_HEADER_INCLUDE -->
+<SCRIPT language=javascript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/ajax1.js"></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/search_counter-maverick.js"></SCRIPT>
+
+<SCRIPT language=javascript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/request_referer_capture-maverick.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>
+ <!--
+ setDefaultQuery('');
+ //-->
+</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>
+ <!--
+ function openNewWindow(url,tar,arg){window.open(url,tar,arg);}
+ //-->
+</SCRIPT>
+<!-- Include file support -->
+<SCRIPT language=JavaScript type=text/javascript>
+(function($) {
+	jQuery.extend({
+		getInc: function(u,d){
+			if(u==null)return;
+			jQuery.ajax({
+	    		type: "GET",
+			url: u,
+			dataType: "text",
+	        	success: function(t) {
+				jQuery(d).html(t);
+				ibmCommon.initShowHide(jQuery(d).children()[0]);			
+			},
+			async: true
+			});
+		}
+	});
+})(jQuery);
+</SCRIPT>
+
+<META name=GENERATOR content="MSHTML 8.00.7601.17537"></HEAD>
+<BODY id=ibm-com>
+<DIV id=ibm-top class=ibm-landing-page><!-- MASTHEAD_BEGIN --><!-- MASTHEAD_BEGIN -->
+<DIV class=ibm-access><A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-content">Skip 
+to main content</A></DIV>
+<DIV id=ibm-masthead-dw><!-- TOP ROW -->
+<DIV id=dw-masthead-top-row>
+<UL id=ibm-unav-home-dw>
+  <LI id=ibm-logo><A href="http://www.ibm.com/us/en/"><IMG alt=IBM® 
+  src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/ibm-smlogo.gif" 
+  width=44 height=16></A> </LI></UL>
+<UL id=ibm-mast-options-dw>
+  <LI id=dw-mast-top-0><A class=dw-mf-noscript 
+  title="Sign in (or register) requires JavaScript" 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Sign in 
+  (or register)</A> </LI>
+  <LI id=dw-mast-top-1><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#SELECTLANG">English</A><IMG 
+  class=dw-preload alt="" 
+  src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/arrow-down-active.gif" 
+  width=8 height=7> </LI>
+  <LI id=dw-mast-top-2 class=dw-mf-hide><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">[userid] 
+  <IMG class=dw-mast-profimg alt=PHOTO src="" width=20 height=20></A> 
+</LI></UL></DIV><!-- TOP ROW SLIDER -->
+<DIV id=ibm-my-menu-dw>
+<DIV class=ibm-ribbon-pane-dw>
+<DIV class=ibm-ribbon-section-dw><!-- Sign-in -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-1-1>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV>
+<DIV id=dw-mast-sso>
+<DIV id=dw-mast-sso-reg>
+<P>If you don't have an IBM ID and password, <A 
+onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;lang=en&amp;d='+encodeURIComponent(location.href);})();" 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">register 
+here</A>.</P></DIV>
+<DIV id=signin_error_mf class=dw-mf-hide></DIV>
+<DIV id=dw-mast-sso-form>
+<FORM id=sForm_mf onsubmit="return false;" method=post name=sForm_name_mf 
+action="">
+<DIV id=dw-mast-sso-id class=dw-mast-sso-id-en><LABEL for=ibmid_mf>IBM 
+ID:</LABEL> <INPUT id=ibmid_mf onkeypress="handleEP(event,this.form,'mf');" 
+maxLength=100 type=text name=ibmid_name_mf> </DIV>
+<DIV id=dw-mast-sso-pw class=dw-mast-sso-pw-en><LABEL 
+for=pw_mf>Password:</LABEL> <INPUT id=pw_mf 
+onkeypress="handleEP(event,this.form,'mf');" maxLength=100 type=password 
+name=pw_name_mf> </DIV>
+<DIV id=dw-mast-sso-target class=dw-mast-sso-target-en><LABEL 
+for=AfterSignIn_mf>After sign in:</LABEL> <SELECT id=AfterSignIn_mf 
+name=AfterSignIn_name_mf> <OPTION selected value="">Stay on the current 
+  page</OPTION> <OPTION 
+  value=/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en>My 
+  developerWorks profile</OPTION> <OPTION 
+  value=/developerworks/mydeveloperworks/homepage?lang=en>My developerWorks 
+  home</OPTION></SELECT> </DIV>
+<DIV id=dw-mast-sso-terms>
+<P class=dw-mf-perm-box><INPUT id=perm_mf type=checkbox name=perm_name_mf><LABEL 
+for=perm_mf> Keep me signed in.</LABEL> </P>
+<P class=dw-mast-sso-terms-en>By clicking <STRONG>Submit</STRONG>, you agree to 
+the <A href="https://www.ibm.com/developerworks/community/terms/">developerWorks 
+terms of use</A>.</P></DIV>
+<DIV><INPUT class=dw-mf-submit-btn onclick="signin('mf');return false;" value=Submit type=submit name=ibm_submit_name_mf> 
+</DIV></FORM></DIV>
+<DIV id=dw-mast-sso-update>
+<UL>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot 
+  your IBM ID?</A></LI></UL><!--[if IE 9]><div class="dw-mf-update-ie9"><![endif]-->
+<UL class=dw-mf-pwupdate>
+  <LI><A class=ibm-forward-link 
+  onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();" 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Forgot 
+  your password?</A></LI>
+  <LI><A class=ibm-forward-link 
+  onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();" 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Change 
+  your password</A></LI></UL><!--[if IE 9]></div><![endif]--></DIV>
+<DIV id=dw-mast-sso-text>
+<P>The first time you sign into developerWorks, a <STRONG>profile</STRONG> is 
+created for you. This profile includes the first name, last name, and display 
+name you identified when you registered with developerWorks. <STRONG>Select 
+information in your developerWorks profile is displayed to the public, but you 
+may edit the information at any time.</STRONG> Your first name, last name 
+(unless you choose to hide them), and display name will accompany the content 
+that you post.</P>
+<P class=dw-mf-secure>All information submitted is secure.</P></DIV></DIV>
+<DIV id=dw-mast-dname class=dw-mf-hide>
+<P>The first time you sign in to developerWorks, a profile is created for you, 
+so you need to choose a display name. Your display name accompanies the content 
+you post on developerworks.</P>
+<P><STRONG>Please choose a display name between 3-31 characters</STRONG>. Your 
+display name must be unique in the developerWorks community and should not be 
+your email address for privacy reasons.</P>
+<DIV id=signin_dname_error_mf class=dw-mf-hide></DIV>
+<DIV id=dw-mast-dname-form>
+<FORM id=dForm_mf onsubmit="return false;" method=post name=dForm_name_mf 
+action="">
+<DIV id=dw-mast-dname-mf><LABEL for=dname_mf>Display name:</LABEL> <INPUT 
+id=dname_mf onkeypress="handleEP(event,this.form,'mf');" maxLength=31 size=25 
+type=text name=dname_name_mf> </DIV>
+<DIV id=dw-mast-dname-terms>
+<P>By clicking <STRONG>Submit</STRONG>, you agree to the <A 
+href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms 
+of use</A>.</P></DIV>
+<DIV><INPUT class=dw-mf-submit-btn onclick="signin('mf');return false;" value=Submit type=submit name=dname_submit_name_mf> 
+</DIV></FORM></DIV>
+<DIV id=dw-mast-dname-secure>
+<P class=dw-mf-secure>All information submitted is secure.</P></DIV></DIV>
+<DIV id=dw-mast-auth class=dw-mf-hide>
+<DIV>
+<H2>My developerWorks:</H2>
+<UL>
+  <LI><A id=dw-mast-top-0-0 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">My 
+  profile</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">My 
+  home</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/groups/service/html/mycommunities?lang=en">My 
+  groups</A></LI></UL></DIV>
+<DIV id=dw-mast-notify class=dw-mf-hide>
+<H2>My notifications:</H2>
+<UL>
+  <LI><A id=new_notify 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/homepage?lang=en">{[num_notify] 
+  new notifications}([num_notify] new notification)</A></LI>
+  <LI><A id=new_invite 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/profiles/html/wc.do?action=in&amp;requireAuth=true&amp;widgetId=friends&amp;lang=[lang]">{[num_invite] 
+  network requests}([num_invite] network request)</A></LI></UL></DIV>
+<DIV class=dw-mast-more>
+<UL class=ibm-link-list>
+  <LI><A class=dw-more-link onclick="signOut(); return false;" 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#"><STRONG>Sign 
+  out</STRONG></A></LI></UL></DIV></DIV></DIV></DIV><!-- Language selector -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-2-1>
+<H2>Select a language:</H2>
+<UL>
+  <LI><A id=dw-mast-top-1-0 
+  href="http://www.ibm.com/developerworks/">English</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/cn/">中文</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/jp/">日本語</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/kr/">한국어</A></LI></UL></DIV>
+<DIV class=dw-mast-col-2-2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/ru/">Русский</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/br/">Português 
+(Brasil)</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/ssa/">Español</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/vn/">Việt</A></LI></UL></DIV>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV></DIV></DIV></DIV><!-- BOTTOM ROW -->
+<DIV id=ibm-universal-nav-dw>
+<UL id=ibm-unav-links-dw>
+  <LI id=ibm-unav-home-dwlogo><A href="http://www.ibm.com/developerWorks/"><IMG 
+  alt=developerWorks® 
+  src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dw-wordmark.gif" 
+  width=218 height=32></A> </LI></UL>
+<UL id=ibm-menu-links-dw>
+  <LI id=dw-mast-nav-0><A 
+  href="http://www.ibm.com/developerworks/topics/">Technical topics</A></LI>
+  <LI id=dw-mast-nav-1><A 
+  href="http://www.ibm.com/developerworks/downloads/">Evaluation 
+  software</A></LI>
+  <LI id=dw-mast-nav-2><A 
+  href="http://www.ibm.com/developerworks/community/">Community</A></LI>
+  <LI id=dw-mast-nav-3><A 
+  href="http://www.ibm.com/developerworks/events/">Events</A></LI></UL>
+<FORM id=ibm-search-form method=get name=form1 
+action=//www.ibm.com/search/csass/search/><INPUT value=dw type=hidden name=sn> 
+<INPUT value=en type=hidden name=lang> <INPUT value=US type=hidden name=cc> 
+<INPUT value=utf type=hidden name=en> <INPUT value=20 type=hidden name=hpp> 
+<INPUT value=dw type=hidden name=dws> 
+<P><LABEL for=q><IMG alt="Search developerWorks" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/c.gif" 
+width=1 height=1></LABEL> <INPUT id=q value="Search developerWorks" 
+maxLength=100 type=text name=q> <INPUT id=ibm-search class=ibm-btn-search value=Search type=submit name=Search> 
+</P></FORM></DIV><!-- BOTTOM ROW SLIDER -->
+<DIV id=ibm-common-menu-dw>
+<DIV class="ibm-ribbon-pane-dw dw-ribbon-pane-en">
+<DIV class=ibm-ribbon-section-dw><!-- Technical topics category -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-3-1>
+<H2>IBM products:</H2>
+<UL>
+  <LI><A id=dw-mast-nav-0-0 href="http://www.ibm.com/developerworks/aix/">AIX 
+  and UNIX</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/ibmi/">IBM i</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/data/">Information 
+  Management</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/lotus/">Lotus</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/rational/">Rational</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/tivoli/">Tivoli</A></LI>
+  <LI><A 
+href="http://www.ibm.com/developerworks/websphere/">WebSphere</A></LI></UL></DIV>
+<DIV class=dw-mast-col-3-2>
+<H2>Technologies:</H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/java/">Java technology</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/linux/">Linux</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/opensource/">Open 
+  source</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/webservices/">SOA and web 
+  services</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/web/">Web development</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/xml/">XML</A></LI></UL></DIV>
+<DIV class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+<H2>Solutions:</H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/cloud/">Cloud 
+computing</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/industry/">Industries</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/servicemanagement/">Integrated 
+  Service Management</A></LI></UL>
+<UL>
+  <LI class=dw-mast-newgroup><A 
+  href="http://www.ibm.com/developerworks/library/">Technical library</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/feeds/">Feeds and 
+  syndication</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/newsletter/">Newsletters</A></LI></UL></DIV>
+<DIV class="dw-mast-more dw-mast-more-en">
+<UL class=ibm-link-list>
+  <LI><A class=dw-more-link 
+  href="http://www.ibm.com/developerworks/topics/"><STRONG>More about Technical 
+  topics</STRONG></A></LI></UL></DIV>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV><!-- Evaluation software category -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-1-1>
+<H2>Find software by:</H2>
+<UL>
+  <LI><A id=dw-mast-nav-1-0 
+  href="http://www.ibm.com/developerworks/downloads/product.html">IBM 
+  product</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/downloads/evalmethod.html">Evaluation 
+  method (Download, online trial, product beta, cloud)</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/downloads/industry.html">Industry</A></LI></UL></DIV>
+<DIV class=dw-mast-more>
+<UL class=ibm-link-list>
+  <LI><A class=dw-more-link 
+  href="http://www.ibm.com/developerworks/downloads/"><STRONG>More about 
+  Evaluation software</STRONG></A></LI></UL></DIV>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV><!-- Community category -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-3-1>
+<UL>
+  <LI><A id=dw-mast-nav-2-0 
+  href="https://www.ibm.com/developerworks/community/homepage/">My home</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/profiles/">Profiles</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/groups/">Groups</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/blogs/">Blogs</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/bookmarks/">Bookmarks</A></LI></UL></DIV>
+<DIV class=dw-mast-col-3-2>
+<UL>
+  <LI><A href="https://www.ibm.com/developerworks/forums/">Forums</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/mydeveloperworks/wikis/">Wikis</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/files/">Files</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/activities/">Activities</A></LI>
+  <LI><A 
+  href="https://www.ibm.com/developerworks/community/podcasts/">Podcasts</A></LI></UL></DIV>
+<DIV class="dw-mast-col-3-3 dw-mast-col-3-3-en">
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/champion/">IBM Champion 
+  program</A></LI></UL></DIV>
+<DIV class="dw-mast-more dw-mast-more-en">
+<UL class=ibm-link-list>
+  <LI><A class=dw-more-link 
+  href="http://www.ibm.com/developerworks/community/"><STRONG>More about 
+  Community</STRONG></A></LI></UL></DIV>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV><!-- Events category -->
+<DIV class=dw-mast-columns>
+<DIV class=dw-mast-col-1-1>
+<UL>
+  <LI><A id=dw-mast-nav-3-0 
+  href="http://www.ibm.com/developerworks/briefings/">Briefings</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/find/events/">Find events 
+  (briefings, webcasts, conferences...)</A></LI></UL></DIV>
+<DIV class=dw-mast-more>
+<UL class=ibm-link-list>
+  <LI><A class=dw-more-link 
+  href="http://www.ibm.com/developerworks/events/"><STRONG>More about 
+  Events</STRONG></A></LI></UL></DIV>
+<DIV class=dw-mast-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV></DIV></DIV></DIV></DIV>
+<DIV id=fdiv class=ibm-access></DIV><!-- MASTHEAD_END --><!-- MASTHEAD_END -->
+<DIV id=ibm-pcon><!-- CONTENT_BEGIN -->
+<DIV id=ibm-content><!-- Navigation_Trail_BEGIN --><!-- &nbsp; -->
+<DIV id=ibm-content-head>
+<UL id=ibm-navigation-trail>
+  <LI class=ibm-first><A 
+  href="http://www.ibm.com/developerworks/">developerWorks</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/java/">Java technology</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical 
+  library</A></LI></UL></DIV><!-- Navigation_Trail_END --><!-- dW_Summary Area_START -->
+<DIV id=dw-summary-article>
+<DIV class=dw-content-head>
+<H1>Automation for the people: Pushbutton documentation</H1>
+<P><EM>Automate the generation of your developer and user 
+documentation</EM></P></DIV>
+<DIV class="ibm-container-body ibm-two-column">
+<DIV class="ibm-column ibm-first">
+<DIV class=author><A class=dwauthor 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#author1" 
+rel=#authortip1>Paul Duvall</A>, CTO, Stelligent Incorporated</DIV>
+<DIV id=authortip1 class="dwauthor-onload-state ibm-no-print">
+<DIV class=position><IMG alt="Paul Duvall" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/p-pduvall2.jpg" 
+width=64 height=80></DIV>Paul Duvall is the CTO of <A 
+href="http://www.stelligent.com/">Stelligent Incorporated</A>, an Agile 
+consultancy that helps development teams deliver production-ready software. He 
+is the co-author of the Addison-Wesley Signature Series book <A 
+href="http://www.amazon.com/gp/product/0321336380/?tag=integratecom-20"><I>Continuous 
+Integration: Improving Software Quality and Reducing Risk</I></A> 
+(Addison-Wesley Professional, 2007; Jolt Award 2008 winner). He also contributed 
+to the <A 
+href="http://www.amazon.com/gp/product/0471463612/?tag=integratecom-20"><I>UML 2 
+Toolkit</I></A> (Wiley, 2003) and the <A 
+href="http://www.amazon.com/No-Fluff-Just-Stuff-Anthology/dp/0978739280/?tag=integratecom-20"><I>No 
+Fluff Just Stuff Anthology</I></A> (Pragmatic Programmers, 2007).</DIV>
+<P></P>
+<P><STRONG>Summary:</STRONG>&nbsp; Project documentation is often one of the 
+necessary evils in delivering a software product. But imagine being able to 
+generate your documentation at the click of a button. In this installment of <A 
+href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=automation+people:"><I>Automation 
+for the people</I> </A>, automation expert Paul Duvall explains how you can use 
+open source tools to automate the generation of Unified Modeling Language (UML) 
+diagrams, build figures, entity-relationship diagrams (ERDs), and even user 
+documentation.</P>
+<P class=ibm-no-print><A 
+href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=automation+people:">View 
+more content in this series</A></P>
+<DIV id=dw-tag-content class=ibm-no-print></DIV>
+<DIV id=dw-moretags-access class=ibm-access></DIV>
+<P class=ibm-no-print>
+<DIV id=dw-tag-this class=ibm-no-print><A class=ibm-external-link 
+onclick="jQuery.launchTagThisWindow(); return false;" 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Tag 
+this!</A></DIV>
+<DIV id=interestShow class=ibm-no-print></DIV>
+<P></P></DIV>
+<DIV class="ibm-column ibm-second">
+<P class=leading><B>Date:</B>&nbsp; 10 Jun 2008 <BR><B>Level: 
+</B>&nbsp;Introductory <BR class=ibm-ind-link><B>PDF:</B>&nbsp; <A 
+href="http://download.boulder.ibm.com/ibmdl/pub/software/dw/java/j-ap06108-pdf.pdf">A4 
+and Letter</A> (275KB)<A class=ibm-external-link 
+href="http://www.adobe.com/products/acrobat/readstep2.html">Get Adobe® 
+Reader®</A> <BR><STRONG>Also available in:&nbsp;</STRONG> &nbsp;<A 
+href="http://www.ibm.com/developerworks/cn/java/j-ap06108/">Chinese</A> &nbsp;<A 
+href="http://www.ibm.com/developerworks/kr/library/j-ap06108/">Korean</A> 
+&nbsp;<A 
+href="http://www.ibm.com/developerworks/ru/library/j-ap06108/">Russian</A> 
+&nbsp;<A 
+href="http://www.ibm.com/developerworks/jp/java/library/j-ap06108/">Japanese</A> 
+<BR><BR><STRONG>Activity:</STRONG>&nbsp; 25750 views 
+<BR><STRONG>Comments:</STRONG> &nbsp; <SPAN id=nCmts><IMG alt="" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/circle-preloader.gif" 
+width=50 height=12><IMG alt="" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/c.gif" 
+width=1 height=14></SPAN> <!-- Rating_Area_Begin -->
+<DIV id=art-rating-summary></DIV><!-- Rating_Area_End -->
+<P></P></DIV></DIV></DIV><!-- dW_Summary_Area_END --><!-- CONTENT_BODY -->
+<DIV id=ibm-content-body><!-- MAIN_COLUMN_BEGIN -->
+<DIV id=ibm-content-main><!-- Related_Searches_Area --><!-- Related_Searches_Area_Begin -->
+<SCRIPT language=javascript type=text/javascript>
+	     capture_referrer();
+</SCRIPT>
+
+<DIV style="DISPLAY: none" id=dw-related-searches-article>
+<DIV class="ibm-container ibm-alternate-two">
+<DIV class=ibm-container-body><!--  START : HTML FOR ARTICLE SEARCH -->
+<DIV style="DISPLAY: block" id=article_results></DIV><!--  END : HTML FOR ARTICLE SEARCH --></DIV></DIV></DIV><!-- Related_Searches_Area_End --><!-- MAIN_COLUMN_CONTAINER_BEGIN -->
+<DIV class=ibm-container><!-- MAIN_COLUMN_CONTENT_BEGIN -->
+<P>I don't often run across developers who tell me they like writing 
+documentation for their software-development projects. Unless you never expect 
+to leave your project, will always be the lone developer, or have no users — 
+probably not good signs for a project — you need a semipermanent way to 
+communicate the software's purpose to others. Some developers misconstrue the 
+Agile Manifesto's "Working software <I>over</I> comprehensive documentation" 
+statement to mean that <I>no</I> documentation is necessary (see <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A>). 
+On the other hand, you don't need to burden users or other developers with 
+unnecessary documentation. I typically look for the happy medium. You guessed 
+it: This article shows you how <I>automation</I> can streamline the process (and 
+reduce the misery) of generating project documentation.</P>
+<DIV class="ibm-container ibm-alt-header dw-container-sidebar">
+<H2>About this series</H2>
+<DIV class=ibm-container-body>
+<P>As developers, we work to automate processes for end-users; yet, many of us 
+overlook opportunities to automate our own development processes. To that end, 
+<A 
+href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=automation+people:"><I>Automation 
+for the people</I> </A>is a series of articles dedicated to exploring the 
+practical uses of automating software development processes and teaching you 
+<I>when</I> and <I>how</I> to apply automation successfully.</P></DIV></DIV>
+<P>In my experience, two key problems plague documentation in software 
+development. The first is the likelihood that no one is reading it. A second 
+common problem is that almost the moment documentation is written, it is 
+outdated. The two problems are causally connected. If documentation were 
+current, people would be more likely to read it. Automating your documentation's 
+generation will help you keep it up to date and thereby make it more useful for 
+your software's users.</P>
+<P>Other types of documentation could probably benefit from automation, but I'll 
+focus on automating the documentation tasks that have often caused me anguish 
+(see <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A> 
+for links to the tools in this list):</P>
+<UL>
+  <LI>Generating <B>UML</B> diagrams based on the current source code, using 
+  UMLGraph.</LI>
+  <LI>Creating <B>entity-relationship diagrams (ERDs)</B> to document the tables 
+  and relationships in a database, using SchemaSpy.</LI>
+  <LI>Producing <B>build diagrams</B> of Ant build targets and their 
+  relationships, using Grand.</LI>
+  <LI>Spawning <B>source-code documentation</B>, using Doxygen.</LI>
+  <LI>Making the <B>user documentation</B>, using DocBook.</LI></UL>
+<P>I'll use a general format in which I:</P>
+<OL>
+  <LI>Describe the issues involved in performing each task manually.</LI>
+  <LI>Present an automation example that uses Apache Ant in conjunction with the 
+  relevant document- or diagram-generating tool.</LI>
+  <LI>Show an image of the script-generated documentation that's based on the 
+  code examples.</LI></OL>
+<P>As usual in this series, all of the examples use freely available and open 
+source tools that you can use in your projects. Some of the tools (for example, 
+UMLGraph and Grand) use an accompanying tool called GraphViz, which consumes a 
+.dot file generated by the particular tool. </P>
+<P><A name=N100EB><SPAN class=atitle>Reverse-engineering code into 
+UML</SPAN></A></P>
+<P>I've worked on projects that had some of the most wonderfully designed UML 
+diagrams you've ever seen — at the beginning of the project. Trouble was, in one 
+particular case, the technical lead didn't always keep the model up to date with 
+the source code. Or he spent valuable time <I>manually</I> reverse-engineering 
+the source into the model. Neither approach was an optimal solution. A 
+beautifully constructed UML diagram means nothing if the code that's checked 
+into the version-control repository is not accurately represented in the model. 
+If the decisions you make aren't based on the actual code, you're likely to 
+experience problems downstream.</P>
+<P>You can make diagrams meaningful for decision making, easier to create, and 
+up to date by including diagram generation in the build process and setting up a 
+Continuous Integration (CI) environment to create the diagrams with every change 
+(or periodically).</P>
+<P>Listing 1 uses Ant, UMLGraph, and Graphviz to document source code: 
+</P><BR><A name=listing1><B>Listing 1. Ant script using UMLGraph documentation 
+tool</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>&lt;property name="reports.dir" value="${basedir}/reports"/&gt;
+  &lt;mkdir dir="${reports.dir}"/&gt;
+  &lt;path id="project.path"&gt;
+    &lt;pathelement path="${basedir}/src"/&gt;
+    &lt;pathelement path="${basedir}/lib"/&gt;
+  &lt;/path&gt;
+  &lt;javadoc sourcepath="${basedir}/src" destdir="${reports.dir}" 
+    classpathref="project.path" access="private"&gt;
+    &lt;doclet name="org.umlgraph.doclet.UmlGraphDoc" 
+	  path="UMLGraph.jar"&gt;
+        &lt;<STRONG>param name="-attributes" /&gt;
+        &lt;param name="-enumerations" /&gt;
+        &lt;param name="-enumconstants" /&gt;
+        &lt;param name="-operations" /&gt;
+        &lt;param name="-qualify" /&gt;
+        &lt;param name="-types" /&gt;
+        &lt;param name="-visibility"</STRONG> /&gt;
+    &lt;/doclet&gt;
+  &lt;/javadoc&gt;
+  &lt;apply executable="dot" dest="${reports.dir}" parallel="false"&gt;
+    &lt;arg value="-Tpng"/&gt;
+    &lt;arg value="-o"/&gt;
+     &lt;targetfile/&gt;
+     &lt;srcfile/&gt;
+     &lt;fileset dir="${reports.dir}" includes="*.dot"/&gt;
+     &lt;mapper type="glob" from="*.dot" to="*.png"/&gt;
+  &lt;/apply&gt;
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>In Listing 1, I use UMLGraph in combination with Javadoc to generate some 
+basic UML class diagrams within a Javadoc HTML report. When calling 
+<CODE>UmlGraphDoc</CODE>, I pass in the following attributes to customize the 
+information that's displayed in each class diagram:</P>
+<DIV class="ibm-container ibm-alt-header dw-container-sidebar">
+<H2>Graphing with GraphViz</H2>
+<DIV class=ibm-container-body>
+<P>For UMLGraph to work properly, you must have installed the Graphviz tool (see 
+<A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A>), 
+and the Graphviz .dot file must be available in your machine's system path. 
+</P></DIV></DIV>
+<UL>
+  <LI><B><CODE>-attributes</CODE> </B>displays fields for a class.</LI>
+  <LI><B><CODE>-enumerations</CODE> </B>shows different enumerations.</LI>
+  <LI><B><CODE>-enumconstants</CODE> </B>shows possible values for 
+  enumerations.</LI>
+  <LI><B><CODE>-operations</CODE> </B>displays the Java methods for a 
+class.</LI>
+  <LI><B><CODE>-qualify</CODE> </B>shows fully qualified class names.</LI>
+  <LI><B><CODE>-types</CODE> </B>displays data types for arguments and return 
+  types.</LI>
+  <LI><B><CODE>-visibility</CODE> </B>shows field and method modifiers: 
+  <CODE>public</CODE>, <CODE>protected</CODE>, <CODE>private</CODE>, or 
+  <CODE>default</CODE>.</LI></UL>
+<P>Figure 1 shows an example UML diagram for the <CODE>LoginDaoImpl</CODE> class 
+and its relationships, as generated to HTML by UMLGraph:</P><BR><A 
+name=fig1><B>Figure 1. UML diagram generated by UMLGraph</B></A><BR><IMG 
+alt="UML diagram of Java class and its relationships generated by UMLGraph" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/uml-graph.jpg" 
+width=572 height=318> <BR>
+<P>See the full figure <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/sidefile.html#fig1">here</A>.</P>
+<P>UMLGraph can generate more complex relationships and additional detail. But 
+even the rather rudimentary UML class diagram in this simple example provides a 
+lot of information. It also serves the purpose of providing a quick visual 
+representation of the software based on the current code base. It prevents 
+"Well, that's what the code is <I>supposed</I> to look like" types of statements 
+and can enable opportunities for better decision making (see <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A> 
+for a link describing the many attributes that can be used to customize 
+UMLGraph's output).</P>
+<DIV class=ibm-alternate-rule>
+<HR>
+</DIV>
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P>
+<P><A name=N101A3><SPAN class=atitle>Documenting the database</SPAN></A></P>
+<P>Just as automating the creation of the latest UML diagrams is beneficial, so 
+too is automating a visual representation of your database. The 
+entity-relationship diagram (ERD) is the most popular diagram type for 
+visualizing databases. Most tools that create ERDs (ERWin, for example, among 
+many others) require manual generation of the ERD. Although the tool I'll 
+demonstrate, SchemaSpy, is no match for some of the more sophisticated tools 
+available, it can give you a high-level ERD view of your database — along with 
+constraints, relationships, and so on. What's more, by running it with an 
+automated build, you can painlessly check the latest representation of the Data 
+Definition Language (DDL) from your version-control repository.</P>
+<P>The Ant script in Listing 2 uses the SchemaSpy tool to create a file 
+formatted for Javadoc:</P><BR><A name=listing2><B>Listing 2. Using SchemaSpy 
+with Ant and Javadoc</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>&lt;property name="reports.dir" value="${basedir}"/&gt;
+&lt;java jar="schemaSpy_3.1.1.jar"
+  output="${reports.dir}/output.log"
+  error="${reports.dir}/error.log"
+  fork="true"&gt;
+  &lt;<STRONG>arg line="-t mysql"/&gt;
+  &lt;arg line="-host localhost"/&gt;
+  &lt;arg line="-port 3306"/&gt;
+  &lt;arg line="-db brewery"/&gt;
+  &lt;arg line="-u root"/&gt;
+  &lt;arg line="-p sa"/&gt;
+  &lt;arg line="-cp mysql-connector-java-5.0.5-bin.jar"/&gt;
+  &lt;arg line="-o ${reports.dir}</STRONG>"/&gt;
+&lt;/java&gt;
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>Listing 2 uses the <CODE>java</CODE> Ant task to call SchemaSpy, passing a 
+number of attributes: </P>
+<UL>
+  <LI><B><CODE>-t</CODE> </B>is the type of database. (Valid values are 
+  <CODE>mysql</CODE>, <CODE>ora</CODE>, <CODE>db2</CODE>, and the like.)</LI>
+  <LI><B><CODE>-host</CODE> </B>is name of the machine where the database is 
+  hosted.</LI>
+  <LI><B><CODE>-port</CODE> </B>is the port number for the database URL.</LI>
+  <LI><B><CODE>-u</CODE> </B>is the database username.</LI>
+  <LI><B><CODE>-p</CODE> </B>is the database password.</LI>
+  <LI><B><CODE>-cp</CODE> </B>is the classpath (used to indicate the location of 
+  the database driver JAR file).</LI>
+  <LI><B><CODE>-o</CODE> </B>is the output directory location.</LI></UL>
+<P>These command-line attributes for SchemaSpy are used to generate the HTML 
+file that displays the ERD, as shown in Figure 2: </P><BR><A name=fig2><B>Figure 
+2. ERD created with SchemaSpy and Ant</B></A><BR><IMG 
+alt="ERD created with SchemaSpy and Ant" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/schema-spy.jpg" 
+width=572 height=404> <BR>
+<P>By using a combination of tools, executing ERD-generation scripts against the 
+database as part of a build, and scheduling ERD generation, you gain a quick and 
+easy way to make many database decisions during development.</P>
+<DIV class=ibm-alternate-rule>
+<HR>
+</DIV>
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P>
+<P><A name=N1022F><SPAN class=atitle>Diagramming your builds</SPAN></A></P>
+<P>Often, build scripts have complex relationships among dependent targets. I've 
+seen many build scripts of more than 1,000 lines containing unnecessary 
+duplication. It can be difficult to get a handle on them without a high-level 
+view of the automated build. An effective way to determine quickly what a build 
+is doing or not doing is to create a diagram of its targets and relationships. A 
+visual model of your Ant targets can help you make more effective and expedient 
+decisions to improve your build scripts' designs.</P>
+<P>A combination of Ant, Grand, and Graphviz lets you create an accurate visual 
+representation of your build targets. A number of tools purport to visualize Ant 
+targets. An advantage of Grand is that it uses the Ant API, so it creates a 
+diagram whether or not the Ant script is fully working.</P>
+<P>The Ant script in Listing 3 demonstrates the use of the Grand tool to create 
+a visual representation of an Ant script's targets, including the dependencies 
+among the targets: </P><BR><A name=listing3><B>Listing 3. Creating diagram of 
+Ant targets using Ant and Grand</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>&lt;target name="create-ant-diagram"&gt;
+  &lt;property name="file.type" <STRONG>value="pdf"</STRONG> /&gt;
+  &lt;typedef resource="net/ggtools/grand/antlib.xml" 
+    classpath="grand-1.8.jar"/&gt;
+  &lt;grand output="build.dot" <STRONG>buildfile</STRONG>="${basedir}/build.xml"/&gt;
+    &lt;exec <STRONG>executable="dot"</STRONG> &gt;
+      &lt;arg line="-T${file.type} -Gsize=11.69,8.27 -Grotate=90 -o build.${file.type} 
+    ${grand.output.file}"/&gt;
+    &lt;/exec&gt;
+&lt;/target&gt;
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>In Listing 3, first I create the task by pointing to 
+<CODE>grand-1.8.jar</CODE>. Next, I provide the name of the build file I'm 
+analyzing, in the <CODE>buildfile</CODE> attribute. The <CODE>output</CODE> 
+attribute is the Graphviz file (I named it <CODE>build.dot</CODE>) I'm creating. 
+Finally, I call the <CODE>dot</CODE> executable to generate the PDF of the build 
+targets of the <CODE>buildfile</CODE>. Figure 3 shows an example of this 
+file:</P><BR><A name=fig3><B>Figure 3. Diagram of Ant targets generated by Ant, 
+Grand, and GraphViz</B></A><BR><IMG 
+alt="Diagram of Ant targets generated by Ant, Grand, and GraphViz" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/build-grand.gif" 
+width=424 height=487> <BR>
+<P>I can use these diagrams to analyze a completed project or to refine the 
+build process for a project that's still in development.</P>
+<DIV class=ibm-alternate-rule>
+<HR>
+</DIV>
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P>
+<P><A name=N1027E><SPAN class=atitle>Documenting your code</SPAN></A></P>
+<P>If I want to remember what or possibly why I created a new Java class or 
+method, I write a Java code comment. But if I want to get a more comprehensive 
+view of the classes, methods, and attributes, I need a code documentation tool. 
+For years, the Java platform has provided Javadoc as a way of generating code 
+documentation for all classes in a code base. In fact, the <CODE>javadoc</CODE> 
+task comes standard in Ant, and it generates code documentation. However, the 
+onus is on the developer to embed a collection of unsightly HTML tags within the 
+Java source code comments. For example, with Javadoc, your code comments might 
+look like Listing 4: </P><BR><A name=listing4><B>Listing 4. Code comments for 
+Javadoc</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>/**
+  This is &lt;i&gt;the&lt;/i&gt; LoginServiceImpl  class.  
+  &lt;p&gt; 
+  Refer to &lt;a href="url.html"&gt;
+  LoginService overview&lt;/a&gt; for more details.
+  &lt;p&gt;
+  There is one type of supported {@link LoginServiceImpl }:
+  &lt;ul&gt;
+    &lt;li&gt;{@link LoginServiceImpl } (this class)&lt;/li&gt;
+  &lt;/ul&gt;
+*/
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>When you use Doxygen, code comments are much more terse, without the embedded 
+HTML, as demonstrated in Listing 5: </P><BR><A name=listing5><B>Listing 5. Code 
+comments for Doxygen</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>/**
+This is &lt;i&gt;the&lt;/i&gt; LoginServiceImpl class.
+Refer to \ref LoginService for more details.
+There is one type of supported LoginService:
+- LoginServiceImpl (this class)
+*/
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>Both Javadoc and Doxygen provide support for automating the generation of 
+code documentation, but Doxygen makes it easier by offering a more intuitive 
+approach to annotating source code using comments. The Ant snippet in Listing 6 
+shows the most basic use of Doxygen:</P><BR><A name=listing6><B>Listing 6. Ant 
+script using Doxygen documentation tool</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>&lt;target name="generate-doxygen"&gt;
+  &lt;taskdef name="doxygen" classname="org.doxygen.tools.DoxygenTask" 
+    classpath="ant-doxygen.jar" /&gt;
+  &lt;doxygen configFilename="Doxyfile"&gt;
+  &lt;property name="INPUT" value="${src.dir}" /&gt;
+  &lt;property name="RECURSIVE" value="yes" /&gt;
+  &lt;/doxygen&gt;
+&lt;/target&gt;
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>In Listing 6, the <CODE>configFilename</CODE> value of <CODE>Doxyfile</CODE> 
+is the name of a configuration file that is generated through Doxygen; you can 
+customize it for your own use. Figure 4 shows an example HTML report generated 
+for the <CODE>LoginDaoImpl</CODE> class by the Doxygen example in Listing 6: 
+</P><BR><A name=fig4><B>Figure 4. HTML Doxygen documentation</B></A><BR><IMG 
+alt="HTML Doxygen documentation" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/doxygen.jpg" 
+width=572 height=239> <BR>
+<P>See the full figure <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/sidefile.html#fig4">here</A>.</P>
+<P>By creating Doxygen documentation as part of an automated build, you can get 
+the most up-to-date usage information on an API.</P>
+<DIV class=ibm-alternate-rule>
+<HR>
+</DIV>
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P>
+<P><A name=N102D7><SPAN class=atitle>User documentation</SPAN></A></P>
+<P>So far, you may have been thinking that generating technical documentation 
+automatically is nice but that your pain lies in creating <I>user</I> 
+documentation. In writing my own user documentation, I found I was spending 
+quite a bit of time simply copying and pasting text throughout the document. 
+When I started to analyze the process, I determined that I can automate items 
+such as version numbers and file names by defining them in a single source. And 
+by separating the content from the formatting using XML and Extensible 
+Stylesheet Language (XSL), I can make wholesale changes to the document's look 
+and feel with a simple change to a stylesheet.</P>
+<P>DocBook, a tool that's been available for years, lets you define documents in 
+XML and produce the document in many formats, including HTML and PDF. DocBook 
+provides a schema that defines the templates for writers to use.</P>
+<P>Listing 7 uses a combination of Ant, a DocBook XSL file, and XSL Formatting 
+Objects (XSL-FO) to generate a PDF of my user documentation (see <A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A>):</P><BR><A 
+name=listing7><B>Listing 7. Creating a PDF using Ant, DocBook, and 
+FO</B></A><BR>
+<TABLE border=0 cellSpacing=0 cellPadding=0 width="100%">
+  <TBODY>
+  <TR>
+    <TD class=code-outline><PRE class=displaycode>&lt;target name="pdf" depends="init" description="Generates PDF files from DocBook XML"&gt;
+  &lt;property name="fo.stylesheet" value="${docbook.xsl.dir}/fo/docbook.xsl" /&gt;
+  &lt;xslt style="${fo.stylesheet}" extension=".fo" basedir="${src.dir}" destdir="${fo.dir}"&gt;
+    &lt;classpath refid="xalan.classpath" /&gt;
+    &lt;include name="${guide}.xml" /&gt;
+  &lt;/xslt&gt;
+  &lt;property name="fop.home" value="lib/fop-0.94" /&gt;
+  &lt;taskdef name="fop" classname="org.apache.fop.tools.anttasks.Fop"&gt;
+    &lt;classpath&gt;
+      &lt;fileset dir="${fop.home}/lib"&gt;
+        &lt;include name="*.jar" /&gt;
+      &lt;/fileset&gt;
+      &lt;fileset dir="${fop.home}/build"&gt;
+        &lt;include name="fop.jar" /&gt;
+        &lt;include name="fop-hyph.jar" /&gt;
+      &lt;/fileset&gt;
+    &lt;/classpath&gt;
+  &lt;/taskdef&gt;
+  &lt;fop format="application/pdf" fofile="${fo.dir}/${guide}.fo" 
+    outfile="${doc.dir}/${guide}.pdf" /&gt;
+&lt;/target&gt;
+</PRE></TD></TR></TBODY></TABLE><BR>
+<P>Figure 5 shows a section of a PDF generated from the script in Listing 
+7:</P><BR><A name=fig5><B>Figure 5. PDF of user-guide 
+documentation</B></A><BR><IMG alt="PDF of user-guide documentation" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/user-guide-pdf.jpg" 
+width=572 height=476> <BR>
+<P>Because all of my content is defined in text-based XML, I can easily write 
+scripts that make wide-sweeping changes to the documentation. Further, I can 
+generate these documents as part of the build process, thus providing a single 
+standard source to define elements such as versions, definitions, abbreviations, 
+file names, and directories.</P>
+<DIV class=ibm-alternate-rule>
+<HR>
+</DIV>
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P>
+<P><A name=N1030C><SPAN class=atitle>Documentation doesn't need to be 
+manual</SPAN></A></P>
+<P>I hope this article has convinced you that effective approaches to automating 
+the generation of documentation are available. In my view, the most important 
+aspect of documentation is communication, not the process of generating the 
+document. The automation tools and techniques I've described can help you keep 
+your documentation accurate and up to date, thereby eliminating the main culprit 
+— outdated information — behind documentation's chronic underuse. </P><!-- CMA ID: 312880 --><!-- Site ID: 1 --><!--XSLT stylesheet used to transform this file: dw-document-html-6.0.xsl--><BR>
+<P><A name=resources><SPAN class=atitle>Resources</SPAN></A></P>
+<P><B>Learn</B></P>
+<UL>
+  <LI><A href="http://agilemanifesto.org/">Manifesto for Agile Software 
+  Development</A>: Read the Agile Manifesto.<BR><BR></LI>
+  <LI>"<A href="http://www.umlgraph.org/doc/indexw.html">Drawing UML Diagrams 
+  with UMLGraph</A>" (Diomidis Spinellis, Athens University of Economics and 
+  Business): This article includes a list of class diagram options for 
+  UMLGraph.<BR><BR></LI>
+  <LI><A href="http://graphviz.org/Gallery.php">Graphviz Gallery</A> 
+  (graphviz.org): A gallery of example diagrams to use with 
+  Graphviz.<BR><BR></LI>
+  <LI>"<A href="http://www.codeproject.com/KB/tips/doxysetup.aspx">10 Minutes to 
+  document your code</A>" (Peter Chen, The Code Project, January 2003): An 
+  article describing how to set up Doxygen.<BR><BR></LI>
+  <LI><A href="http://ant-doxygen.blogspot.com/">Doxygen Ant blog</A>: Get the 
+  latest information from the creator of the Doxygen Ant task.<BR><BR></LI>
+  <LI>"<A href="http://www.ibm.com/developerworks/library/j-jtp0821.html"> 
+  <I>Java theory and practice</I>: I have to document THAT?</A>" (Brian Goetz, 
+  developerWorks, August 2002): Get some guidelines on how to write more useful 
+  Javadoc.<BR><BR></LI>
+  <LI><A href="http://www.w3.org/TR/xsl/">XSL and FO</A>: Home base for these 
+  World Wide Web Consortium stylesheet-language recommendations.<BR><BR></LI>
+  <LI><A 
+  href="http://www.amazon.com/DocBook-XSL-Complete-Guide-4th/dp/0974152137/"><I>DocBook 
+  XSL: The Complete Guide</I> (4th Edition)</A> (Bob Stayton, Sagehill 
+  Enterprises, 2007): This book covers all aspects of DocBook publishing tools, 
+  including installing, using, and customizing the stylesheets and processing 
+  tools. <BR><BR></LI>
+  <LI><A 
+  href="http://www.amazon.com/Java-Power-Tools-Ferguson-Smart/dp/0596527934/"><I>Java 
+  Power Tools</I> </A>(John Ferguson Smart, O'Reilly, 2008): Chapter 30 of this 
+  phenomenal book covers SchemaSpy, UMLGraph, and Doxygen.<BR><BR></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/xml/standards/x-docbookspec.html">DocBook 
+  resources on developerWorks</A>: Learn more about expressing technical 
+  documentation in XML.<BR><BR></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/views/java/libraryview.jsp?search_by=automation+people:"><I>Automation 
+  for the people</I> </A>(Paul Duvall, developerWorks): Read the complete 
+  series.<BR><BR></LI>
+  <LI>Browse the <A 
+  href="http://www.ibm.com/developerworks/apps/SendTo?bookstore=safari">technology 
+  bookstore</A> for books on these and other technical topics. <BR><BR></LI>
+  <LI><A href="http://www.ibm.com/developerworks/java/">developerWorks Java 
+  technology zone</A>: Hundreds of articles about every aspect of Java 
+  programming.<BR><BR></LI></UL>
+<P><B>Get products and technologies</B></P>
+<UL>
+  <LI><A href="http://ant.apache.org/bindownload.cgi">Ant</A>: Download Ant and 
+  start building software in a predictable and repeatable manner.<BR><BR></LI>
+  <LI><A href="http://www.ggtools.net/grand/">Grand</A>: Download Grand to 
+  diagram Ant build scripts.<BR><BR></LI>
+  <LI><A href="http://schemaspy.sourceforge.net/">SchemaSpy</A>: Download 
+  SchemaSpy to create ERDs for your database.<BR><BR></LI>
+  <LI><A href="http://www.stack.nl/~dimitri/doxygen/">Doxygen</A>: Download 
+  Doxygen to generate detailed code documentation.<BR><BR></LI>
+  <LI><A href="http://www.umlgraph.org/">UMLGraph</A>: Download UMLGraph to 
+  reverse-engineer source code into UML diagrams automatically.<BR><BR></LI>
+  <LI><A href="http://docbook.sourceforge.net/">DocBook</A>: Download DocBook to 
+  generate content in different formats.<BR><BR></LI></UL>
+<P><B>Discuss</B></P>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/forums/dw_forum.jsp?forum=812&amp;cat=10">Improve 
+  Your Code Quality discussion forum</A>: Regular developerWorks contributor 
+  Andrew Glover brings his considerable expertise as a consultant focused on 
+  improving code quality to this moderated discussion forum. <BR><BR></LI>
+  <LI><A 
+  href="http://www-128.ibm.com/developerworks/spaces/accelerate">Accelerate 
+  development space</A>: Regular developerWorks contributor Andrew Glover hosts 
+  a one stop portal for all things related to developer testing, Continuous 
+  Integration, code metrics, and refactoring. <BR><BR></LI>
+  <LI>Check out <A 
+  href="http://www.ibm.com/developerworks/blogs/">developerWorks blogs</A> and 
+  get involved in the <A 
+  href="http://www.ibm.com/developerworks/community">developerWorks 
+  community</A>. <BR><BR></LI></UL>
+<P><A name=author><SPAN class=atitle>About the author</SPAN></A></P>
+<DIV class="ibm-container ibm-portrait-module ibm-alternate-two">
+<DIV class=ibm-container-body><IMG alt="Paul Duvall" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/p-pduvall2.jpg" 
+width=64 height=80>
+<P><A name=author1></A>Paul Duvall is the CTO of <A 
+href="http://www.stelligent.com/">Stelligent Incorporated</A>, an Agile 
+consultancy that helps development teams deliver production-ready software. He 
+is the co-author of the Addison-Wesley Signature Series book <A 
+href="http://www.amazon.com/gp/product/0321336380/?tag=integratecom-20"><I>Continuous 
+Integration: Improving Software Quality and Reducing Risk</I></A> 
+(Addison-Wesley Professional, 2007; Jolt Award 2008 winner). He also contributed 
+to the <A 
+href="http://www.amazon.com/gp/product/0471463612/?tag=integratecom-20"><I>UML 2 
+Toolkit</I></A> (Wiley, 2003) and the <A 
+href="http://www.amazon.com/No-Fluff-Just-Stuff-Anthology/dp/0978739280/?tag=integratecom-20"><I>No 
+Fluff Just Stuff Anthology</I></A> (Pragmatic Programmers, 
+2007).</P></DIV></DIV><!-- MAIN_COLUMN_CONTENT_END --><!-- OVERLAYS_START --><!-- Report_Abuse_Start -->
+<DIV id=reportabuseoverlay class="ibm-common-overlay ibm-no-print">
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main><A class=ibm-access name=reportabuseoverlay>Report abuse 
+help</A> 
+<DIV class=ibm-title>
+<H1>Report abuse</H1></DIV>
+<DIV class="ibm-container ibm-alternate">
+<P><STRONG>Thank you.</STRONG> This entry has been flagged for moderator 
+attention.</P>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<DIV class=ibm-buttons-row><INPUT class="ibm-btn-cancel-sec dw-btn-cancel-sec" onclick="ibmCommon.Overlays.hide('reportabuseoverlay');return false;" value=Close type=button name=ibm-cancel> 
+</DIV></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV><!-- Report_Abuse_Error_Start -->
+<DIV id=reportabuseoverlayerror class="ibm-common-overlay ibm-no-print">
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main><A class=ibm-access name=reportabuseoverlayerror>Report 
+abuse help</A> 
+<DIV class=ibm-title>
+<H1>Report abuse</H1></DIV>
+<DIV class="ibm-container ibm-alternate">
+<P class=ibm-ind-error><STRONG>Report abuse submission failed. Please try again 
+later.</STRONG></P>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<DIV class=ibm-buttons-row><INPUT class="ibm-btn-cancel-sec dw-btn-cancel-sec" onclick="ibmCommon.Overlays.hide('reportabuseoverlayerror');return false;" value=Close type=button name=ibm-cancel> 
+</DIV></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV><!-- Sign in OVERLAY STARTS HERE -->
+<DIV id=signin_overlay class=ibm-common-overlay>
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close onclick=clearForm(); 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main>
+<DIV class="ibm-title ibm-subtitle">
+<H1>developerWorks: Sign in</H1>
+<DIV id=ibm-overlay-error-signin class=no-display></DIV></DIV>
+<DIV class="ibm-container ibm-alternate ibm-buttons-last">
+<DIV class=ibm-container-body>
+<P class=ibm-overlay-intro>If you don't have an IBM ID and password, <A 
+onclick="(function () {window.location='/developerworks/dwwi/DWAuthRouter?m=reg&amp;d='+encodeURIComponent(location.href);})();" 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">register 
+here</A>.</P>
+<FORM id=sFormId class=ibm-column-form onsubmit="return false;" method=post 
+name=sForm action="">
+<P><LABEL for=ibmid>IBM ID:</LABEL><SPAN><INPUT id=ibmid class=required 
+onkeypress=handleEP(event,this.form); size=25 type=text name=ibm-id><BR><A 
+class=ibm-forward-link 
+href="http://www.ibm.com/developerworks/dwwi/jsp/WSHelp.jsp?lang=en_US">Forgot 
+your IBM ID?</A></SPAN> </P>
+<P><LABEL for=password>Password:</LABEL><SPAN><INPUT id=password class=required 
+onkeypress=handleEP(event,this.form); size=25 type=password name=password><BR><A 
+class=ibm-forward-link 
+onclick="(function () {window.location='https://www.ibm.com/account/profile?page=forgot&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(getAuthUrl())+'%3Fm%3Dloginpage%26lang%3Den_US%26d%3D'+encodeURIComponent(location.href);})();" 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Forgot 
+your password?</A><BR><A class=ibm-forward-link 
+onclick="(function () {window.location='https://www.ibm.com/account/profile?page=chpw&amp;lang=en_US&amp;appname=ibm&amp;required=null&amp;d='+encodeURIComponent(location.href);})();" 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Change 
+your password</A></SPAN></P>
+<P class=no-bottom-padding><LABEL for=AfterSignIn>After sign in:</LABEL> 
+<SPAN><SELECT id=AfterSignIn name=SignInAction> <OPTION selected value="">Stay 
+  on the current page</OPTION> <OPTION 
+  value=/developerworks/mydeveloperworks/profiles/html/myProfileView.do>My 
+  developerWorks profile</OPTION> <OPTION 
+  value=/developerworks/mydeveloperworks/homepage/>My developerWorks 
+  home</OPTION></SELECT> </SPAN></P>
+<P class=dw-perm-box><SPAN><INPUT id=perm type=checkbox name=perm_name><LABEL 
+for=perm> Keep me signed in.</LABEL></SPAN> </P>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<P>By clicking <STRONG>Submit</STRONG>, you agree to the <A 
+href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms 
+of use</A>.</P>
+<DIV class=ibm-buttons-row>
+<P><INPUT class=ibm-btn-arrow-pri onclick="signin();return false;" value=Submit type=submit name=ibm-submit><SPAN 
+class=ibm-sep>&nbsp;</SPAN> <INPUT class=ibm-btn-cancel-sec onclick="clearForm();ibmCommon.Overlays.hide('signin_overlay');return false;" value=Cancel type=button name=ibm-cancel></P></DIV></FORM>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<P>The first time you sign into developerWorks, a profile is created for you. 
+This profile includes the first name, last name, and display name you identified 
+when you registered with developerWorks. <STRONG>Select information in your 
+developerWorks profile is displayed to the public, but you may edit the 
+information at any time</STRONG>. Your first name, last name (unless you choose 
+to hide them), and display name will accompany the content that you post.</P>
+<DIV class=dw-overlay-legal>
+<P>All information submitted is secure.</P></DIV></DIV></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV><!-- Sign in OVERLAY ENDS HERE --><!-- Display name OVERLAY STARTS HERE -->
+<DIV id=displayname_overlay class=ibm-common-overlay>
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close onclick=clearForm(); 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main>
+<DIV class="ibm-title ibm-subtitle">
+<H1>Choose your display name</H1>
+<DIV id=ibm-overlay-error-dname class=no-display></DIV></DIV>
+<DIV class="ibm-container ibm-alternate ibm-buttons-last">
+<DIV class=ibm-container-body>
+<P class=ibm-overlay-intro>The first time you sign in to developerWorks, a 
+profile is created for you, so you need to choose a display name. Your display 
+name accompanies the content you post on developerWorks.</P>
+<P><STRONG>Please choose a display name between 3-31 characters</STRONG>. Your 
+display name must be unique in the developerWorks community and should not be 
+your email address for privacy reasons.</P>
+<FORM id=dFormId class=ibm-column-form onsubmit="return false;" method=post 
+name=dForm action="">
+<P><LABEL for=displayname>Display name:</LABEL><SPAN><INPUT id=displayname 
+onkeypress=handleEP(event,this.form); size=25 type=text 
+name=displayname></SPAN><SPAN class=ibm-form-note>(Must be between 3 – 31 
+characters.)</SPAN> </P>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<P>By clicking <STRONG>Submit</STRONG>, you agree to the <A 
+href="https://www.ibm.com/developerworks/community/terms/">developerWorks terms 
+of use</A>.</P>
+<DIV class=ibm-buttons-row>
+<P><INPUT class=ibm-btn-arrow-pri onclick="signin();return false;" value=Submit type=submit name=ibm-submit><SPAN 
+class=ibm-sep>&nbsp;</SPAN> <INPUT class=ibm-btn-cancel-sec onclick="clearForm();ibmCommon.Overlays.hide('displayname_overlay');return false;" value=Cancel type=button name=ibm-cancel></P></DIV></FORM>
+<DIV class=ibm-overlay-rule>
+<HR>
+</DIV>
+<DIV class=dw-overlay-legal>
+<P>All information submitted is secure.</P></DIV></DIV></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV><!-- Display name OVERLAY ENDS HERE --><!-- OVERLAYS_END --><!-- RATINGS START -->
+<P class=ibm-no-print><SPAN class=atitle><A name=iratings>Rate this 
+article</A></SPAN></P><INPUT id=art-rating value=0 type=hidden name=ratinga>
+<DIV id=art-rating-module></DIV>
+<SCRIPT language=JavaScript type=text/javascript>
+// <![CDATA[
+   // widget div id and article id as args
+   window.artRating.init('art-rating-module','art-rating-summary');
+// ]]>
+</SCRIPT>
+<!-- RATINGS END --><!-- INLINE_COMMENTS_START -->
+<P class=ibm-no-print><SPAN class=atitle><A 
+name=icomments>Comments</A></SPAN></P>
+<DIV id=threadShow></DIV><!-- INLINE_COMMENTS_END -->
+<P class="ibm-ind-link ibm-back-to-top"><A class=ibm-anchor-up-link 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#ibm-pcon">Back 
+to top</A></P><!-- Overlays --><!-- Zone/Leaf_Interest_Overlay_Start -->
+<DIV id=dwmyinterestadd class="ibm-common-overlay ibm-no-print">
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#close">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main><A class=ibm-access name=dwmyinterestaddhelp>Help: Update or 
+add to My dW interests</A> 
+<DIV class=ibm-title>
+<H1>What's this?</H1></DIV>
+<DIV class="ibm-container ibm-alternate">
+<P>This little timesaver lets you update your My developerWorks profile with 
+just one click! The general subject of this content (AIX and UNIX, Information 
+Management, Lotus, Rational, Tivoli, WebSphere, Java, Linux, Open source, SOA 
+and Web services, Web development, or XML) will be added to the interests 
+section of your profile, if it's not there already. You only need to be logged 
+in to My developerWorks.</P>
+<P>And what's the point of adding your interests to your profile? That's how you 
+find other users with the same interests as yours, and see what they're reading 
+and contributing to the community. Your interests also help us recommend 
+relevant developerWorks content to you.</P>
+<P><A 
+href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View 
+your My developerWorks profile</A></P>
+<P class=ibm-access><A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#interestShow">Return 
+from help</A></P></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV>
+<DIV id=dwmyinterestremove class="ibm-common-overlay ibm-no-print">
+<DIV class=ibm-head>
+<P><A class=ibm-common-overlay-close 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#close">Close 
+[x]</A></P></DIV>
+<DIV class=ibm-body>
+<DIV class=ibm-main><A class=ibm-access name=dwmyinterestremovehelp>Help: Remove 
+from My dW interests</A> 
+<DIV class=ibm-title>
+<H1>What's this?</H1></DIV>
+<DIV class="ibm-container ibm-alternate">
+<P>Removing this interest does not alter your profile, but rather removes this 
+piece of content from a list of all content for which you've indicated interest. 
+In a future enhancement to My developerWorks, you'll be able to see a record of 
+that content.</P>
+<P><A 
+href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/home.do?lang=en">View 
+your My developerWorks profile</A></P>
+<P class=ibm-access><A 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#interestShow">Return 
+from help</A></P></DIV></DIV></DIV>
+<DIV class=ibm-footer></DIV></DIV><!-- Zone/Leaf_Interest_Overlay_End --></DIV><!-- MAIN_COLUMN_CONTAINER_END --><!-- Rating_Meta_BEGIN --><!--Rating_Meta_BEGIN-->
+<DIV 
+class=metavalue>static.content.url=http://www.ibm.com/developerworks/js/artrating/</DIV>
+<DIV class=metavalue>SITE_ID=1</DIV>
+<DIV class=metavalue>Zone=Java technology, Open source</DIV>
+<DIV class=metavalue>ArticleID=312880</DIV>
+<DIV class=metavalue>ArticleTitle=Automation for the people: Pushbutton 
+documentation</DIV>
+<DIV class=metavalue>publish-date=06102008</DIV>
+<DIV class=metavalue>author1-email=paul.duvall@stelligent.com</DIV>
+<DIV class=metavalue>author1-email-cc=jaloi@us.ibm.com</DIV>
+<SCRIPT language=javascript type=text/javascript>document.write('<div class="metavalue">url='+location.href.replace(/</g, '%3C')+'</div>');</SCRIPT>
+<!--Rating_Meta_END--><!-- Rating_Meta_END --></DIV><!-- MAIN_COLUMN_END--><!-- RIGHT_COLUMN_BEGIN -->
+<DIV id=ibm-content-sidebar><!-- RIGHT_COLUMN_CONTENT_BEGIN -->
+<DIV class=ibm-container>
+<H2>Table of contents</H2>
+<DIV class=ibm-container-body><IMG alt="" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/c(1).gif" 
+width=1 height=1>
+<UL class=ibm-bullet-list>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N100EB">Reverse-engineering 
+  code into UML</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N101A3">Documenting 
+  the database</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N1022F">Diagramming 
+  your builds</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N1027E">Documenting 
+  your code</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N102D7">User 
+  documentation</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#N1030C">Documentation 
+  doesn't need to be manual</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#resources">Resources</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#author">About 
+  the author</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#icomments">Comments</A></LI></UL></DIV></DIV><!--XSLT stylesheet used to transform this content: s-nextsteps.xsl-->
+<DIV class=ibm-container>
+<H2>Next steps from IBM</H2>
+<DIV class=ibm-container-body><IMG border=0 alt="" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/spot-nextsteps.jpg" 
+width=188 height=58>
+<P>Rational Modeler is a free, UML 2.1 based environment that helps users to 
+improve communication by specifying, visualizing and documenting their system, 
+architecture and software designs using a standard graphical language. </P>
+<DIV class=ibm-rule>
+<HR>
+</DIV>
+<UL class=ibm-bullet-list>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/downloads/r/modeler/index.html">Try: 
+  Download a Rational Modeler, a free, UML 2.1 based environment for specifying 
+  systems, software, and architecture.</A></LI>
+  <LI><A class=ibm-feature-link 
+  href="http://www.ibm.com/developerworks/downloads/r/modeler/buy.html">Buy: 
+  Rational Modeler Rhapsody Corporate Edition</A></LI></UL></DIV></DIV><!-- Tagging_Start -->
+<DIV id=dw-tag-cloud-container class="ibm-container dw-hidetag">
+<H2>Tags</H2>
+<DIV id=dw-tag-help><A id=dwtagtip class=dwauthor rel=#tagtip><IMG alt=Help 
+align=top 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/help_icon.gif" 
+width=16 height=16></A></DIV>
+<DIV id=tagtip class="dwauthor-onload-state ibm-no-print">Use the <STRONG>search 
+field</STRONG> to find all types of content in My developerWorks with that tag.
+<P>Use the <STRONG>slider bar</STRONG> to see more or fewer tags.</P>
+<P>For articles in technology zones (such as Java technology, Linux, Open 
+source, XML), <STRONG>Popular tags</STRONG> shows the top tags for <EM>all 
+technology zones</EM>. For articles in product zones (such as Info Mgmt, 
+Rational, WebSphere), <STRONG>Popular tags</STRONG> shows the top tags for 
+<EM>just that product zone</EM>.</P>
+<P>For articles in technology zones (such as Java technology, Linux, Open 
+source, XML), <STRONG>My tags</STRONG> shows your tags for <EM>all technology 
+zones</EM>. For articles in product zones (such as Info Mgmt, Rational, 
+WebSphere), <STRONG>My tags</STRONG> shows your tags for <EM>just that product 
+zone</EM>.</P></DIV>
+<DIV class=ibm-access>Use the search field to find all types of content in My 
+developerWorks with that tag. <EM>Popular tags</EM> shows the top tags for this 
+particular content zone (for example, Java technology, Linux, WebSphere). <EM>My 
+tags</EM> shows your tags for this particular content zone (for example, Java 
+technology, Linux, WebSphere).</DIV>
+<DIV class=ibm-container-body>
+<DIV class=dw-tag-search>
+<FORM id=actualtagform onsubmit="popupform(this, 'join')" method=get 
+action=//www.ibm.com/developerworks/mydeveloperworks/bookmarks/html?lang=en>
+<P><LABEL for=tagfield><STRONG>Search all tags</STRONG></LABEL><INPUT 
+id=tagfield maxLength=20 size=17 type=text name=tag>&nbsp;<INPUT 
+class=ibm-btn-view title="submit search" value=Search alt="submit search" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/short-btn.gif" 
+type=image></P></FORM></DIV>
+<DIV class=ibm-rule>
+<HR>
+</DIV>
+<DIV id=dw-tag-select>
+<DIV id=dw-tag-select-popular>
+<P><STRONG>Popular article tags</STRONG>&nbsp;|&nbsp;<BR><A id=a-my 
+href="javascript:;">My article tags</A><A class=ibm-access 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#dw-tag-access">Skip 
+to tags list</A></P></DIV>
+<DIV id=dw-tag-select-my class=dw-hidetag>
+<P><A id=a-popular href="javascript:;">Popular article 
+tags</A>&nbsp;|&nbsp;<BR><STRONG>My article tags</STRONG></P><A class=ibm-access 
+href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#dw-tag-access">Skip 
+to tags list</A></DIV>
+<DIV id=dw-tag-cloud></DIV></DIV></DIV></DIV><!-- Tagging_End --><!-- Dig_Deeper -->
+<DIV class=ibm-container>
+<H2>Dig deeper into Java on developerWorks</H2>
+<DIV class=ibm-container-body>
+<UL class=ibm-link-list>
+  <LI class=ibm-first><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/java/">Overview</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/java/newto/">New to Java 
+  programming</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/views/java/downloads.jsp">Downloads 
+  and products</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/views/java/projects.jsp">Open source 
+  projects</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/views/java/standards.jsp">Standards</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/views/java/library.jsp">Technical 
+  library (articles, tutorials, and more)</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/java/training/">Training</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/forums/dw_jforums.jsp">Forums</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/views/java/events.jsp">Events</A></LI>
+  <LI><A class=ibm-forward-link 
+  href="http://www.ibm.com/developerworks/newsletter/">Newsletter</A></LI></UL></DIV></DIV><!-- High_Visibility_Offer --><!--XSLT stylesheet used to transform this content: s-highvisibilityoffer.xsl-->
+<DIV class=ibm-container>
+<H2>Seeking nominations</H2>
+<DIV class=ibm-container-body><IMG border=0 alt="IBM Champion logo" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/hivis-champion-community.jpg" 
+width=188 height=70>
+<P class=ibm-ind-link><A class=ibm-forward-link 
+href="https://www.ibm.com/developerworks/champion/">Nominate IBM Champions: 
+experts who help you build a smarter planet with IBM</A></P></DIV></DIV><!-- Special_Offers -->
+<DIV class=ibm-container>
+<H2>Special offers</H2>
+<DIV class=ibm-container-body>
+<P class=dw-special-offers><A 
+href="http://www.ibm.com/developerworks/demos/"><IMG border=0 
+alt="On demand demos: An easy way to watch and learn" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/tile_v16_ondemanddemos.gif" 
+width=158 height=50></A></P>
+<P class=dw-special-offers><A 
+href="http://www.ibm.com/developerworks/aboutdw/dwa/?ca=dti-dwarp"><IMG border=0 
+alt="Get recognized! W Author Program" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/tile_v16_dwaarp.gif" 
+width=158 height=50></A></P>
+<P class=dw-special-offers><A 
+href="https://www.ibm.com/developerworks/cloud/index.html?ca=dti-cloudzone"><IMG 
+border=0 alt="Cloud Computing resources for IT professionals" 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/tile_v16_cloudzoneA.gif" 
+width=158 height=50></A></P>
+<DIV class=ibm-rule>
+<HR>
+</DIV>
+<P class=ibm-ind-link><A class=ibm-forward-link 
+href="http://www.ibm.com/developerworks/downloads/?ca=dti-tilemoreoffers">Trial 
+software offers</A></P></DIV></DIV><!-- RIGHT_COLUMN_CONTENT_END --></DIV><!-- RIGHT_COLUMN_END --><!-- CONTENT_BODY_END --></DIV></DIV><!-- CONTENT_END --><!-- END_IBM-PCON --></DIV><!-- FOOTER_BEGIN -->
+<DIV id=ibm-footer><!-- IBM footer container; disabled --></DIV>
+<DIV id=ibm-page-tools-dw>
+<DIV id=dw-footer-top-row>
+<UL id=dw-foot-options>
+  <LI id=dw-print><A class=ibm-print-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Print 
+  this page</A></LI></UL>
+<UL id=ibm-foot-options-dw>
+  <LI id=dw-foot-0><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Share 
+  this page</A></LI>
+  <LI id=dw-foot-1><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Follow 
+  developerWorks</A></LI></UL></DIV><!-- TOP ROW SLIDER -->
+<DIV id=dw-page-tools-menu>
+<DIV class=ibm-ribbon-pane-dw>
+<DIV class=ibm-ribbon-section-dw><!-- Share this page -->
+<DIV class=dw-footer-columns>
+<DIV class=dw-footer-col-3-1>
+<H2>Share this page:</H2>
+<UL class=ibm-link-list>
+  <LI><A id=dw-foot-0-0 class=ibm-facebook-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Facebook</A></LI>
+  <LI><A class=ibm-linkedin-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">LinkedIn</A></LI>
+  <LI><A class=ibm-twitter-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Twitter</A></LI></UL></DIV>
+<DIV class=dw-footer-col-3-2>
+<UL class=ibm-link-list>
+  <LI><A class=ibm-delicious-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Delicious</A></LI>
+  <LI><A class=ibm-digg-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Digg</A></LI>
+  <LI><A class=ibm-stumbleupon 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">StumbleUpon</A></LI></UL></DIV>
+<DIV class=dw-footer-col-3-3>
+<UL class=ibm-link-list>
+  <LI><A class=ibm-email-link 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Email 
+  this page</A></LI></UL></DIV>
+<DIV class=dw-footer-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV><!-- Follow developerWorks -->
+<DIV class=dw-footer-columns>
+<DIV class=dw-footer-col-1-1>
+<H2>Follow developerWorks:</H2>
+<UL class=ibm-link-list>
+  <LI><A id=dw-foot-1-0 class=ibm-facebook-link 
+  href="http://www.facebook.com/developerworks">Facebook</A></LI>
+  <LI><A class=ibm-twitter-link 
+  href="http://twitter.com/developerWorks">Twitter</A></LI></UL></DIV>
+<DIV class=dw-footer-close>
+<UL>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/library/j-ap06108/index.html#">Close 
+  [x]</A></LI></UL></DIV></DIV></DIV></DIV></DIV></DIV>
+<DIV id=ibm-footer-module-dw>
+<DIV class=dw-footer-columns>
+<DIV class=dw-footer-col-6-1>
+<H2><A href="http://www.ibm.com/developerworks/topics/">Technical 
+topics</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/aix/">AIX and UNIX</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/ibmi/">IBM i</A></LI>
+  <LI class="dw-footer-newline dw-footer-newline-en"><A 
+  href="http://www.ibm.com/developerworks/data/">Information<BR>Management</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/lotus/">Lotus</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/rational/">Rational</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/tivoli/">Tivoli</A></LI>
+  <LI><A 
+href="http://www.ibm.com/developerworks/websphere/">WebSphere</A></LI></UL>
+<UL>
+  <LI class=dw-footer-newgroup><A 
+  href="http://www.ibm.com/developerworks/cloud/">Cloud computing</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/industry/">Industries</A></LI>
+  <LI class="dw-footer-newline dw-footer-newline-en"><A 
+  href="http://www.ibm.com/developerworks/servicemanagement/">Integrated 
+  Service<BR>Management</A></LI></UL></DIV>
+<DIV class=dw-footer-col-6-2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/java/">Java technology</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/linux/">Linux</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/opensource/">Open 
+  source</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/webservices/">SOA and web 
+  services</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/web/">Web development</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/xml/">XML</A></LI></UL>
+<H2 class=dw-footer-more><A 
+href="http://www.ibm.com/developerworks/topics/">More...</A></H2></DIV>
+<DIV class=dw-footer-col-6-3>
+<H2><A href="http://www.ibm.com/developerworks/downloads/">Evaluation 
+software</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/downloads/product.html">By IBM 
+  product</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/downloads/evalmethod.html">By 
+  evaluation method</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/downloads/industry.html">By 
+  industry</A></LI></UL>
+<H2 class=dw-footer-newgroup><A 
+href="http://www.ibm.com/developerworks/events/">Events</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/briefings/">Briefings</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/find/webcasts/">Webcasts</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/find/events/">Find 
+  events</A></LI></UL></DIV>
+<DIV class=dw-footer-col-6-4>
+<H2><A href="http://www.ibm.com/developerworks/community/">Community</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/forums/">Forums</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/community/groups/">Groups</A></LI>
+  <LI><A 
+href="http://www.ibm.com/developerworks/community/blogs/">Blogs</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/mydeveloperworks/wikis/">Wikis</A></LI>
+  <LI><A href="https://www.ibm.com/developerworks/community/terms/">Terms of 
+  use</A></LI>
+  <LI><A href="https://www.ibm.com/developerworks/community/report/">Report 
+  abuse</A></LI></UL>
+<UL>
+  <LI class="dw-footer-newgroup dw-footer-newline"><A 
+  href="http://www.ibm.com/developerworks/champion/">IBM 
+  Champion<BR>program</A></LI></UL>
+<H2 class=dw-footer-more><A 
+href="http://www.ibm.com/developerworks/community/">More...</A></H2></DIV>
+<DIV class=dw-footer-col-6-5>
+<H2><A href="http://www.ibm.com/developerworks/aboutdw/">About 
+developerWorks</A></H2>
+<UL>
+  <LI><A href="https://www.ibm.com/developerworks/feedback">Site help and 
+  feedback</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/developerworks/aboutdw/contacts.html">Contacts</A></LI>
+  <LI><A href="https://www.ibm.com/developerworks/ideas">Article 
+  submissions</A></LI></UL>
+<H2 class="dw-footer-headonly dw-footer-newgroup">Related resources</H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/university/">Students and 
+  faculty</A></LI>
+  <LI><A href="http://www.ibm.com/isv/">Business Partners</A></LI></UL></DIV>
+<DIV class=dw-footer-col-6-6>
+<H2><A href="http://www.ibm.com/">IBM</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/solutions/">Solutions</A></LI>
+  <LI><A href="http://www.ibm.com/software/">Software</A></LI>
+  <LI><A href="http://www.ibm.com/software/sw-services/">Software 
+  services</A></LI>
+  <LI><A href="http://www.ibm.com/support/">Support</A></LI>
+  <LI><A 
+  href="http://www.ibm.com/support/publications/us/library/index.shtml">Product 
+  information</A></LI>
+  <LI><A href="http://www.ibm.com/redbooks/">Redbooks</A></LI>
+  <LI><A href="http://www.ibm.com/privacy/">Privacy</A></LI>
+  <LI><A 
+href="http://www.ibm.com/accessibility/">Accessibility</A></LI></UL></DIV></DIV><!-- Language selector no-script --><NOSCRIPT>
+<DIV id=dw-footer-selectlang>
+<H2><A name=SELECTLANG>Select a language:</A></H2>
+<UL>
+  <LI><A href="http://www.ibm.com/developerworks/">English</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/cn/">中文</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/jp/">日本語</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/kr/">한국어</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/ru/">Русский</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/br/">Português 
+(Brasil)</A></LI>
+  <LI><A href="http://www.ibm.com/developerworks/ssa/">Español</A></LI>
+  <LI><A 
+href="http://www.ibm.com/developerworks/vn/">Việt</A></LI></UL></DIV></NOSCRIPT></DIV><!-- FOOTER_END --><!-- END_IBM-TOP --></DIV><!-- SCRIPTS_INCLUDE_BEGIN --><!-- JQuery start -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/jquery.hoverIntent.minified.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/jquery.cluetip.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/ui.core-1.7.1.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/ui.slider-1.7.1.js"></SCRIPT>
+<!-- xM Masthead/Footer -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/jquery.tools.min.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/jquery.jscroll.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dw_v16.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/flash-detect.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dwsi.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/dwjquerytags.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/showcomments.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>
+// <![CDATA[
+ jQuery('threadShow').showComments('95%',5,'nCmts','icomments');
+// ]]>
+</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>
+	jQuery.noConflict();     
+	// Put all your code in your document ready area
+	jQuery(document).ready(function(jQuery) {
+	// Do jQuery stuff using jQuery 
+	jQuery('a.dwauthor').cluetip({
+		local: true,
+		showTitle: false,
+		positionBy: 'bottomTop',
+		sticky: true,	
+		mouseOutClose: true,
+		closeText: '<img src="//dw1.s81c.com/developerworks/js/jquery/cluetip98/i/x.gif" alt="Close" />',
+		arrows: false,
+		dropShadow: true,
+		cluetipClass: 'dwbasic'
+		});
+
+		//tagging
+		login="false";
+		userid="";
+		whichTags = "init";
+		pCont = "";
+		mCont = "";
+		signInMCont = "";
+		accessCont = "";
+		pValue = 0;
+		mValue = 0;
+
+		rBHash = null;
+		rBHash = new Object();
+		rBHash['viperLang'] = 'en';
+		rBHash['urlLang'] = 'en';
+		rBHash['tagThisWinTitle'] = 'Tagit';
+		rBHash['pTags1'] = 'Popular tags';
+		rBHash['pTags2'] = 'End of Popular tags';
+		rBHash['mTags1'] = 'My tags';
+		rBHash['mTags2'] = 'End of My tags';
+		rBHash['alt1'] = 'Loading Content';
+		rBHash['noATags'] = 'No active tags';
+		rBHash['signIn1'] = 'Please ';
+		rBHash['signIn2'] = 'sign in';
+		rBHash['signIn3'] = ' to access';
+		rBHash['signIn4'] = 'My Tags';
+		rBHash['signIn5'] = 'To access My Tags, please ';
+		rBHash['signIn6'] = 'sign in';
+		rBHash['signIn7'] = 'Read Popular tags';
+
+		zoneHash = new Object();
+		zoneHash['aix'] = 'AIX and UNIX zone';
+		zoneHash['ibmi'] = 'IBM i zone';
+		zoneHash['data'] = 'Information Management zone';
+		zoneHash['lotus'] = 'Lotus zone';
+		zoneHash['rational'] = 'Rational zone';
+		zoneHash['tivoli'] = 'Tivoli zone';
+		zoneHash['websphere'] = 'WebSphere zone';
+		zoneHash['architecture'] = 'Technical library';
+		zoneHash['autonomic'] = 'Technical library';
+		zoneHash['java'] = 'Technical library';
+		zoneHash['cloud'] = 'Technical library';
+		zoneHash['industry'] = 'Technical library';
+		zoneHash['library'] = 'Technical library';
+		zoneHash['linux'] = 'Technical library';
+		zoneHash['opensource'] = 'Technical library';
+		zoneHash['power'] = 'Technical library';
+		zoneHash['webservices'] = 'Technical library';
+		zoneHash['web'] = 'Technical library';
+		zoneHash['xml'] = 'Technical library';
+		zoneHash['wireless'] = 'Technical library';
+		jQuery.checkRB();
+		jQuery.getPopularTags("/developerworks/dwtags/dwjquerytabtags?lang=" + rBHash['viperLang'] + "&base=" + jQuery.getNormalizedZoneUrl(location.href));
+		jQuery.getUserTags();
+		if(jQuery.isTutorial(location.href) == "true") {
+			jQuery.getTagsForContent("/developerworks/tagging/UseCaseServlet?lang=" + rBHash['viperLang'] + "&format=maverick&cType=tutorials&use_case=geturltags&action=gettags&url=" + jQuery.normalizeUrl(location.href));
+		}
+		else {
+			jQuery.getTagsForContent("/developerworks/tagging/UseCaseServlet?lang=" + rBHash['viperLang'] + "&format=maverick&cType=articles&use_case=geturltags&action=gettags&url=" + jQuery.normalizeUrl(location.href));
+
+		}
+		
+		// si
+		initSI();
+	});
+ </SCRIPT>
+<!-- JQuery end --><!-- Overlay js -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/overlay.js"></SCRIPT>
+<!-- My dW Interest article -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/showinterest.js">//</SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>
+        // <![CDATA[
+			var contentId = '';
+			var contentAreas = '';
+			var caArr = [];
+			contentId = '312880';
+			contentAreas = 'java,opensource';
+			if(contentAreas != ''){caArr = contentAreas.split(',');}
+			var loginLink = 'https://www.ibm.com/developerworks/dwwi/DWAuthRouter?m=loginpage&d=' + encodeURIComponent(window.location);jQuery('interestShow').showInterest(contentId,'dw-article',{'int_tops':[441,263,9,214,622],'int_prods':[], 'int_prod_fam':[],'int_cont_area':caArr},
+'<div id="dw-interest-anon"><a id="intAnonBtn" class="ibm-external-link" href="">Update My dW interests</a> (<a class="dw-interest" href="' + loginLink + '">Log in</a> | <a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Update My dW interests</a></div>',
+'<div id="dw-interest-add"><a id="intSelectBtn" class="ibm-external-link" href="">Add to My dW interests</a> (<a class="dw-interest" href="#overlay" onclick="ibmCommon.Overlays.show(\'dwmyinterestadd\', this);return false;">What\'s this?</a>) <a class="ibm-access" href="#dwmyinterestaddhelp">Skip to help for Add to My dW interests</a></div>',
+'<div id="dw-interest-remove">Added to My dW interests (<a class="dw-interest" href="https://www.ibm.com/developerworks/mydeveloperworks/profiles/html/myProfileView.do?lang=en">Edit</a>)</div>'
+);
+// ]]>
+</SCRIPT>
+<!-- BEGIN: Use this section to set page specific variables for the Unica Page Tag -->
+<SCRIPT language=JavaScript>var NTPT_PGEXTRA="ibmSkillLevel=2&ibmAdoptPhase=-&ibmRole=-";</SCRIPT>
+<!--END --><!-- SCRIPTS_INCLUDE_END -->
+<DIV id=ibm-metrics>
+<SCRIPT type=text/javascript 
+src="Automation%20for%20the%20people%20Pushbutton%20documentation_files/stats.js">//</SCRIPT>
+</DIV></BODY></HTML>

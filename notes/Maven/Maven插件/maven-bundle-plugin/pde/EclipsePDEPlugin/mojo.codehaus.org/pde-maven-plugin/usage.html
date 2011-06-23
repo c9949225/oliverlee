@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/usage.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<head>
+    <title>Mojo - Maven 2 Eclispe PDE Plugin</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.html");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Dan T. Tran
+dantran@gmail.com
+Barrie Treloar
+baerrach@gmail.com" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+      </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://mojo.codehaus.org/" id="bannerLeft">
+    
+                                    <img src="../images/mojo_logo.png" alt="" />
+    
+            </a>
+                        <a href="http://www.codehaus.org/" id="bannerRight">
+    
+                                    <img src="../images/codehaus-small.png" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+            <div class="xleft">
+        Last Published: 01/12/2007
+                      </div>
+            <div class="xright">      <a href="http://mojo.codehaus.org/">Mojo</a>
+          |
+          <a href="http://maven.apache.org/maven2">Maven</a>
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+                   <h5>Eclipse PDE Plugin</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="index-2.html">Introduction</a>
+        </li>
+              
+    <li class="none">
+              <strong>Usage</strong>
+        </li>
+              
+    <li class="none">
+              <a href="lifecycle.html">Build Lifecycle</a>
+        </li>
+              
+    <li class="none">
+              <a href="plugin-info.html">Goals</a>
+        </li>
+              
+    <li class="none">
+              <a href="references.html">References</a>
+        </li>
+              
+    <li class="none">
+              <a href="faq.html">FAQ</a>
+        </li>
+          </ul>
+          <h5>Examples</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="examples/getting_started.html">Getting Started</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_plugin.html">Creating a plugin</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_feature.html">Creating a feature</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_product.html">Creating a product</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_updatesite.html">Creating an updatesite</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/m2eclipse.html">Building M2Eclipse</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-info.html">Project Information</a>
+              </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-reports.html">Project Reports</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+  
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Usage</h2><div class="section"><h3>Source Structure</h3><p>To use this plugin, structure your PDE plugin and feature directories using the following format:</p><div class="source"><pre>
+  features
+    feature-1
+    feature-2
+    ....
+  plugins
+    plugin-1
+    plugin-2 (if this is a pde product then also include the following:)
+      your-product-name.product (for pde products only)
+      buildConfiguration/build.properties (for pde products only)
+    ....
+    </pre></div></div><div class="section"><h3>Build with the custom build lifecycle provided by pde-maven-plugin</h3><p>To build each feature/plugin with the custom <a href="lifecycle.html"> build lifecycle</a> provided by pde-maven-plugin, place a pom file with following contents.</p><div class="source"><pre>
+&lt;project&gt;
+
+  .....
+  
+  &lt;packaging&gt;zip&lt;/packaging&gt;
+  
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;pde-maven-plugin&lt;/artifactId&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+           &lt;buildProperties&gt;
+             Additional PDE ant properies goes here
+             .....
+           &lt;/buildProperties&gt;
+        &lt;/configuration&gt;
+        &lt;!-- Also bind to mvn clean --&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;clean-pde&lt;/id&gt;
+            &lt;phase&gt;clean&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;clean&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+        &lt;/executions&gt;        
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  
+&lt;/project&gt;
+ </pre></div><p>Note that, building a PDE feature or product also triggers its plugin builds, therefore it is not neccessary to place a pom under dependent plugins.</p></div><div class="section"><h3>Build with default maven build lifecycle</h3><p>You can configure <a href="attach-mojo.html">pde:attach</a> to a build execution so that you have complete control over where in the build lifecylce you want the plugin to be executed.</p><div class="source"><pre>
+&lt;project&gt;
+
+  .....
+  
+  &lt;packaging&gt;pom&lt;/packaging&gt;
+  
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;pde-maven-plugin&lt;/artifactId&gt;
+        &lt;configuration&gt;
+           &lt;buildProperties&gt;
+             Additional PDE ant properies goes here
+             .....
+           &lt;/buildProperties&gt;
+        &lt;/configuration&gt;
+        &lt;executions&gt;
+          &lt;execution&gt;
+            &lt;id&gt;build-pde&lt;/id&gt;
+            &lt;phase&gt;compile&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;attach&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;
+          &lt;!-- Also bind to mvn clean --&gt;
+          &lt;execution&gt;
+            &lt;id&gt;clean-pde&lt;/id&gt;
+            &lt;phase&gt;clean&lt;/phase&gt;
+            &lt;goals&gt;
+              &lt;goal&gt;clean&lt;/goal&gt;
+            &lt;/goals&gt;
+          &lt;/execution&gt;          
+        &lt;/executions&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+  
+&lt;/project&gt;
+</pre></div></div></div>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2006-2007
+    
+          Codehaus
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/usage.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:34 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+</html>

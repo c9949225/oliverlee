@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/ext-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<head>
+    <title>Mojo - 
+    pde-maven-plugin - pde:ext</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.html");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+      </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://mojo.codehaus.org/" id="bannerLeft">
+    
+                                    <img src="../images/mojo_logo.png" alt="" />
+    
+            </a>
+                        <a href="http://www.codehaus.org/" id="bannerRight">
+    
+                                    <img src="../images/codehaus-small.png" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+            <div class="xleft">
+        Last Published: 01/12/2007
+                      </div>
+            <div class="xright">      <a href="http://mojo.codehaus.org/">Mojo</a>
+          |
+          <a href="http://maven.apache.org/maven2">Maven</a>
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+                   <h5>Eclipse PDE Plugin</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="index-2.html">Introduction</a>
+        </li>
+              
+    <li class="none">
+              <a href="usage.html">Usage</a>
+        </li>
+              
+    <li class="none">
+              <a href="lifecycle.html">Build Lifecycle</a>
+        </li>
+              
+    <li class="none">
+              <a href="plugin-info.html">Goals</a>
+        </li>
+              
+    <li class="none">
+              <a href="references.html">References</a>
+        </li>
+              
+    <li class="none">
+              <a href="faq.html">FAQ</a>
+        </li>
+          </ul>
+          <h5>Examples</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="examples/getting_started.html">Getting Started</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_plugin.html">Creating a plugin</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_feature.html">Creating a feature</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_product.html">Creating a product</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/simple_updatesite.html">Creating an updatesite</a>
+        </li>
+              
+    <li class="none">
+              <a href="examples/m2eclipse.html">Building M2Eclipse</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-info.html">Project Information</a>
+              </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="project-reports.html">Project Reports</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+  
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        
+  
+  
+    <a name="pde:ext"></a><div class="section"><h2>pde:ext</h2>
+      <p>Build PDE artifact via this plugin's custom build lifecycle. The output of this build is
+deployable.</p>
+      <p><b>Mojo Attributes</b>:<ul>
+          <li>Requires a Maven 2.0 project to execute.</li>
+          <li>Executes as an aggregator plugin.</li>
+          <li>Requires dependency resolution of artifacts in scope: <code>test</code></li>
+          <li>Automatically executes within the lifecycle phase: <code>compile</code></li>
+          </ul>
+        
+      <a name="Required Parameters"></a><div class="section"><h3>Required Parameters</h3>
+        <table class="bodyTable">
+          <tr class="a">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            </tr>
+          <tr class="b">
+            <td><b><a href="#eclipseInstall">eclipseInstall</a></b></td>
+            <td><code>File</code></td>
+            <td>Eclipse Platform SDK Directory Default value is <code>c:/eclipse</code>.</td>
+            </tr>
+          </table>
+        </div>
+      <a name="Optional Parameters"></a><div class="section"><h3>Optional Parameters</h3>
+        <table class="bodyTable">
+          <tr class="a">
+            <th>Name</th>
+            <th>Type</th>
+            <th>Description</th>
+            </tr>
+          <tr class="b">
+            <td><b><a href="#antDebug">antDebug</a></b></td>
+            <td><code>boolean</code></td>
+            <td>Ant debug capability Default value is <code>false</code>.</td>
+            </tr>
+          <tr class="a">
+            <td><b><a href="#antVerbose">antVerbose</a></b></td>
+            <td><code>boolean</code></td>
+            <td>Ant verbose capability Default value is <code>false</code>.</td>
+            </tr>
+          <tr class="b">
+            <td><b><a href="#buildProperties">buildProperties</a></b></td>
+            <td><code>Map</code></td>
+            <td>Additional system properties to be passed into PDE ant build. See the generated build.xml
+files for list of overrideable properties. javacFailOnError=true is injected automatically if
+not found.</td>
+            </tr>
+          <tr class="a">
+            <td><b><a href="#eclipseBuildScriptProperties">eclipseBuildScriptProperties</a></b></td>
+            <td><code>Map</code></td>
+            <td>Additional system properties to be passed into PDE eclipse.buildScript task which is use to
+generete PDE Ant build files. buildDirectory and baseLocation are automatically injected if
+not set.</td>
+            </tr>
+          <tr class="b">
+            <td><b><a href="#pdeBuildConfigDirectory">pdeBuildConfigDirectory</a></b></td>
+            <td><code>String</code></td>
+            <td>When a product build is run, then the location of the PDE build configuration directory must
+be specified. A product build will expect a build.properties file to exist in this directory.
+You can use
+${eclipseInstall}/plugins/org.eclipse.pde.build_{pdeBuildVersion}/templates/headless-build/build.properties
+as a starter file. See
+http://help.eclipse.org/help32/topic/org.eclipse.pde.doc.user/guide/tasks/pde_product_build.htm
+Building an RCP application from a product configuration file for more details. Default value is <code>buildConfiguration</code>.</td>
+            </tr>
+          <tr class="a">
+            <td><b><a href="#pdeBuildTempFolder">pdeBuildTempFolder</a></b></td>
+            <td><code>File</code></td>
+            <td>PDE Ant build temporary directory Default value is <code>${project.build.directory}/pdeTemp</code>.</td>
+            </tr>
+          <tr class="b">
+            <td><b><a href="#pdeBuildVersion">pdeBuildVersion</a></b></td>
+            <td><code>String</code></td>
+            <td>When a product build is run then use this version of the pde build scripts. The build scripts
+are located at
+${eclipseInstall}/plugins/org.eclipse.pde.build_{pdeBuildVersion}/scripts/productBuild</td>
+            </tr>
+          <tr class="a">
+            <td><b><a href="#pdeProductFilename">pdeProductFilename</a></b></td>
+            <td><code>String</code></td>
+            <td>Build a product instead of a feature.
+
+If defined then a PDE Product will be built (instead of the feature, fragment or plug-in).
+This value defines the product file that will be used to build the product.</td>
+            </tr>
+          </table>
+        </div>
+      <a name="Parameter Details"></a><div class="section"><h3>Parameter Details</h3>
+        <b><a name="antDebug">antDebug</a></b>
+        Ant debug capability
+        <ul>
+          <li><b>Type</b>: <code>boolean</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${antDebug}</code></li>
+          <li><b>Default</b>: <code>false</code></li>
+          </ul><hr></hr><b><a name="antVerbose">antVerbose</a></b>
+        Ant verbose capability
+        <ul>
+          <li><b>Type</b>: <code>boolean</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${antVerbose}</code></li>
+          <li><b>Default</b>: <code>false</code></li>
+          </ul><hr></hr><b><a name="buildProperties">buildProperties</a></b>
+        Additional system properties to be passed into PDE ant build. See the generated build.xml
+files for list of overrideable properties. javacFailOnError=true is injected automatically if
+not found.
+        <ul>
+          <li><b>Type</b>: <code>java.util.Map</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          </ul><hr></hr><b><a name="eclipseBuildScriptProperties">eclipseBuildScriptProperties</a></b>
+        Additional system properties to be passed into PDE eclipse.buildScript task which is use to
+generete PDE Ant build files. buildDirectory and baseLocation are automatically injected if
+not set.
+        <ul>
+          <li><b>Type</b>: <code>java.util.Map</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          </ul><hr></hr><b><a name="eclipseInstall">eclipseInstall</a></b>
+        Eclipse Platform SDK Directory
+        <ul>
+          <li><b>Type</b>: <code>java.io.File</code></li>
+          <li><b>Required</b>: <code>Yes</code></li>
+          <li><b>Expression</b>: <code>${eclipseInstall}</code></li>
+          <li><b>Default</b>: <code>c:/eclipse</code></li>
+          </ul><hr></hr><b><a name="pdeBuildConfigDirectory">pdeBuildConfigDirectory</a></b>
+        When a product build is run, then the location of the PDE build configuration directory must
+be specified. A product build will expect a build.properties file to exist in this directory.
+You can use
+${eclipseInstall}/plugins/org.eclipse.pde.build_{pdeBuildVersion}/templates/headless-build/build.properties
+as a starter file. See
+http://help.eclipse.org/help32/topic/org.eclipse.pde.doc.user/guide/tasks/pde_product_build.htm
+Building an RCP application from a product configuration file for more details.
+        <ul>
+          <li><b>Type</b>: <code>java.lang.String</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${pdeBuildConfigDirectory}</code></li>
+          <li><b>Default</b>: <code>buildConfiguration</code></li>
+          </ul><hr></hr><b><a name="pdeBuildTempFolder">pdeBuildTempFolder</a></b>
+        PDE Ant build temporary directory
+        <ul>
+          <li><b>Type</b>: <code>java.io.File</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${pdeTempDirectory}</code></li>
+          <li><b>Default</b>: <code>${project.build.directory}/pdeTemp</code></li>
+          </ul><hr></hr><b><a name="pdeBuildVersion">pdeBuildVersion</a></b>
+        When a product build is run then use this version of the pde build scripts. The build scripts
+are located at
+${eclipseInstall}/plugins/org.eclipse.pde.build_{pdeBuildVersion}/scripts/productBuild
+        <ul>
+          <li><b>Type</b>: <code>java.lang.String</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${pdeBuildVersion}</code></li>
+          </ul><hr></hr><b><a name="pdeProductFilename">pdeProductFilename</a></b>
+        Build a product instead of a feature.
+
+If defined then a PDE Product will be built (instead of the feature, fragment or plug-in).
+This value defines the product file that will be used to build the product.
+        <ul>
+          <li><b>Type</b>: <code>java.lang.String</code></li>
+          <li><b>Required</b>: <code>No</code></li>
+          <li><b>Expression</b>: <code>${pdeProductFilename}</code></li>
+          </ul>
+        </div>
+      </div>
+    
+  
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2006-2007
+    
+          Codehaus
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/ext-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+</html>

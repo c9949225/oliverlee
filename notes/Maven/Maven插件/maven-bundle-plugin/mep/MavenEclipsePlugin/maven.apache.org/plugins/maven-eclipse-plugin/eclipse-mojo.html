@@ -1,0 +1,1192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/eclipse-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+<head>
+    <title>Maven Eclipse plugin - eclipse:eclipse</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="../../../www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-25
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="eclipse:eclipse"></a>eclipse:eclipse</h2>
+<p><strong>Full name</strong>:</p>
+<p>org.apache.maven.plugins:maven-eclipse-plugin:2.8:eclipse</p>
+<p><strong>Description</strong>:</p>
+<div>Generates the following eclipse configuration files: 
+
+<ul><li><code>.project</code> and <code>.classpath</code> files</li>
+<li><code>.setting/org.eclipse.jdt.core.prefs</code> with project
+specific compiler settings</li>
+<li>various configuration files for WTP (Web Tools Project), if the
+parameter <code>wtpversion</code> is set to a valid version (WTP
+configuration is not generated by default)</li>
+</ul>
+
+
+If this goal is run on a multiproject root, dependencies between
+modules will be configured as direct project dependencies in
+Eclipse (unless <code>useProjectReferences</code> is set to
+<code>false</code>).</div><p><strong>Attributes</strong>:</p>
+<ul><li>Requires a Maven 2.0 project to be executed.</li>
+<li>Invokes the execution of the lifecycle phase <code>generate-resources</code> prior to executing itself.</li>
+</ul>
+<div class="section"><h3><a name="Required_Parameters"></a>Required Parameters</h3>
+<table class="bodyTable"><tr class="a"><th>Name</th>
+<th>Type</th>
+<th>Since</th>
+<th>Description</th>
+</tr>
+<tr class="b"><td><strong><a href="#buildOutputDirectory">buildOutputDirectory</a></strong></td>
+<td><code>File</code></td>
+<td><code>-</code></td>
+<td>The default output directory<br />
+<strong>Default value is</strong>: <code>${project.build.outputDirectory}</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#useProjectReferences">useProjectReferences</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>When set to false, the plugin will not create sub-projects and
+instead reference those sub-projects using the installed package in
+the local repository<br />
+<strong>Default value is</strong>: <code>true</code>.</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="Optional_Parameters"></a>Optional Parameters</h3>
+<table class="bodyTable"><tr class="b"><th>Name</th>
+<th>Type</th>
+<th>Since</th>
+<th>Description</th>
+</tr>
+<tr class="a"><td><strong><a href="#addGroupIdToProjectName">addGroupIdToProjectName</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>If set to <code>true</code>, the groupId of the artifact is
+appended to the name of the generated Eclipse project. See
+projectNameTemplate for other options.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="b"><td><strong><a href="#addVersionToProjectName">addVersionToProjectName</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>If set to <code>true</code>, the version number of the artifact is
+appended to the name of the generated Eclipse project. See
+projectNameTemplate for other options.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#additionalBuildcommands">additionalBuildcommands</a></strong></td>
+<td><code>List</code></td>
+<td><code>-</code></td>
+<td>List of eclipse build commands to be added to the default ones. Old
+style: 
+
+<pre>
+&lt;additionalBuildcommands&gt;
+   &lt;buildcommand&gt;org.springframework.ide.eclipse.core.springbuilder&lt;/buildcommand&gt;
+&lt;/additionalBuildcommands&gt;
+</pre>
+
+New style: 
+
+<pre>
+&lt;additionalBuildcommands&gt;
+   &lt;buildCommand&gt;
+     &lt;name&gt;org.ui.externaltools.ExternalToolBuilder&lt;/name&gt;
+     &lt;triggers&gt;auto,full,incremental,&lt;/triggers&gt;
+     &lt;arguments&gt;
+       &lt;LaunchConfigHandle&gt;&amp;lt;project&amp;gt;./externalToolBuilders/MavenBuilder.launch&lt;/LaunchConfighandle&gt;
+     &lt;/arguments&gt;
+   &lt;/buildCommand&gt;
+&lt;/additionalBuildcommands&gt;
+</pre>
+
+Note the difference between
+<code>build<strong>c</strong>ommand</code> and
+<code>build<strong>C</strong>ommand</code>. You can mix and match
+old and new-style configuration entries.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#additionalConfig">additionalConfig</a></strong></td>
+<td><code>EclipseConfigFile[]</code></td>
+<td><code>-</code></td>
+<td>Allow to configure additional generic configuration files for
+eclipse that will be written out to disk when running
+eclipse:eclipse. FOr each file you can specify the name and the
+text content. 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+     &lt;name&gt;.checkstyle&lt;/name&gt;
+     &lt;content&gt;
+       &lt;![CDATA[&lt;fileset-config file-format-version=&quot;1.2.0&quot; simple-config=&quot;true&quot;&gt;
+         &lt;fileset name=&quot;all&quot; enabled=&quot;true&quot; check-config-name=&quot;acme corporate style&quot; local=&quot;false&quot;&gt;
+             &lt;file-match-pattern match-pattern=&quot;.&quot; include-pattern=&quot;true&quot;/&gt;
+         &lt;/fileset&gt;
+         &lt;filter name=&quot;NonSrcDirs&quot; enabled=&quot;true&quot;/&gt;
+       &lt;/fileset-config&gt;]]&gt;
+     &lt;/content&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+&lt;/plugin&gt;
+</pre>
+
+Instead of the content you can also define (from version 2.5) an
+url to download the file : 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+     &lt;name&gt;.checkstyle&lt;/name&gt;
+     &lt;url&gt;http://some.place.org/path/to/file&lt;/url&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+</pre>
+
+or a location : 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+    &lt;name&gt;.checkstyle&lt;/name&gt;
+    &lt;location&gt;/checkstyle-config.xml&lt;/location&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+ &lt;dependencies&gt;
+  &lt;!-- The file defined in the location is stored in this dependency --&gt;
+  &lt;dependency&gt;
+   &lt;groupId&gt;eclipsetest&lt;/groupId&gt;
+   &lt;artifactId&gt;checkstyle-config&lt;/artifactId&gt;
+   &lt;version&gt;1.0&lt;/version&gt;
+  &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+&lt;/plugin&gt;
+</pre><br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#additionalProjectFacets">additionalProjectFacets</a></strong></td>
+<td><code>Map</code></td>
+<td><code>-</code></td>
+<td>List of eclipse project facets to be added to the default ones. 
+
+<pre>
+&lt;additionalProjectFacets&gt;
+   &lt;jst.jsf&gt;1.1&lt;jst.jsf/&gt;
+&lt;/additionalProjectFacets&gt;
+</pre><br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#additionalProjectnatures">additionalProjectnatures</a></strong></td>
+<td><code>List</code></td>
+<td><code>-</code></td>
+<td>List of eclipse project natures to be added to the default ones. 
+
+<pre>
+&lt;additionalProjectnatures&gt;
+   &lt;projectnature&gt;org.springframework.ide.eclipse.core.springnature&lt;/projectnature&gt;
+&lt;/additionalProjectnatures&gt;
+</pre><br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#ajdtVersion">ajdtVersion</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>The version of AJDT for which configuration files will be
+generated. The default value is &quot;1.5&quot;, supported versions are
+&quot;none&quot; (AJDT support disabled), &quot;1.4&quot;, and &quot;1.5&quot;.<br />
+<strong>Default value is</strong>: <code>none</code>.</td>
+</tr>
+<tr class="b"><td><strong><a href="#buildcommands">buildcommands</a></strong></td>
+<td><code>List</code></td>
+<td><code>-</code></td>
+<td>List of eclipse build commands. By default the
+<code>org.eclipse.jdt.core.javabuilder</code> builder plus the
+needed WTP builders are added. If you specify any configuration for
+this parameter, only those buildcommands specified will be used;
+the defaults won't be added. Use the
+<code>additionalBuildCommands</code> parameter for that.
+Configuration example: Old style: 
+
+<pre>
+&lt;buildcommands&gt;
+   &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilder&lt;/buildcommand&gt;
+   &lt;buildcommand&gt;org.eclipse.jdt.core.javabuilder&lt;/buildcommand&gt;
+   &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver&lt;/buildcommand&gt;
+&lt;/buildcommands&gt;
+</pre>
+
+For new style, see <code>additionalBuildCommands</code>.<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#classpathContainers">classpathContainers</a></strong></td>
+<td><code>List</code></td>
+<td><code>-</code></td>
+<td>List of container classpath entries. By default the
+<code>org.eclipse.jdt.launching.JRE_CONTAINER</code> classpath
+container is added. Configuration example: 
+
+<pre>
+&lt;classpathContainers&gt;
+   &lt;classpathContainer&gt;org.eclipse.jdt.launching.JRE_CONTAINER&lt;/classpathContainer&gt;
+   &lt;classpathContainer&gt;org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5&lt;/classpathContainer&gt;
+   &lt;classpathContainer&gt;org.eclipse.jst.j2ee.internal.web.container/artifact&lt;/classpathContainer&gt;
+&lt;/classpathContainers&gt;
+</pre><br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#downloadJavadocs">downloadJavadocs</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Enables/disables the downloading of javadoc attachments. Defaults
+to false. When this flag is <code>true</code> remote repositories
+are checked for javadocs: in order to avoid repeated check for
+unavailable javadoc archives, a status cache is mantained. With
+versions 2.6+ of the plugin to reset this cache run <code>mvn
+eclipse:remove-cache</code>, or use the <code>forceRecheck</code>
+option with versions. With older versions delete the file
+<code>mvn-eclipse-cache.properties</code> in the target directory.<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#downloadSources">downloadSources</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Enables/disables the downloading of source attachments. Defaults to
+false. When this flag is <code>true</code> remote repositories are
+checked for sources: in order to avoid repeated check for
+unavailable source archives, a status cache is mantained. With
+versions 2.6+ of the plugin to reset this cache run <code>mvn
+eclipse:remove-cache</code>, or use the <code>forceRecheck</code>
+option with versions. With older versions delete the file
+<code>mvn-eclipse-cache.properties</code> in the target directory.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#eclipseDownloadSources">eclipseDownloadSources</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td><strong>Deprecated.</strong> use downloadSources<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#eclipseProjectDir">eclipseProjectDir</a></strong></td>
+<td><code>File</code></td>
+<td><code>-</code></td>
+<td>Eclipse workspace directory.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#excludes">excludes</a></strong></td>
+<td><code>List</code></td>
+<td><code>2.5</code></td>
+<td>List of artifact to exclude from eclipse classpath, beeing provided
+by some eclipse classPathContainer [MECLIPSE-79]<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#forceRecheck">forceRecheck</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Enables/disables the rechecking of the remote repository for
+downloading source/javadoc attachments. Defaults to false. When
+this flag is <code>true</code> and the source or javadoc attachment
+has a status cache to indicate that it is not available, then the
+remote repository will be rechecked for a source or javadoc
+attachment and the status cache updated to reflect the new state.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#limitProjectReferencesToWorkspace">limitProjectReferencesToWorkspace</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Limit the use of project references to the current workspace. No
+project references will be created to projects in the reactor when
+they are not available in the workspace.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#linkedResources">linkedResources</a></strong></td>
+<td><code>List</code></td>
+<td><code>2.8</code></td>
+<td>A list of links to local files in the system. A configuration like
+this one in the pom : &lt;plugin&gt;
+&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+&lt;configuration&gt; &lt;linkedResources&gt;
+&lt;linkedResource&gt;
+&lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
+&lt;type&gt;1&lt;/type&gt;
+&lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
+&lt;/linkedResource&gt; &lt;/linkedResources&gt;
+&lt;/configuration&gt; &lt;/plugin&gt; will produce in the .project
+: &lt;linkedResources&gt; &lt;link&gt;
+&lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
+&lt;type&gt;1&lt;/type&gt;
+&lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
+&lt;/link&gt; &lt;/linkedResources&gt;<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#manifest">manifest</a></strong></td>
+<td><code>File</code></td>
+<td><code>-</code></td>
+<td>The relative path of the manifest file<br />
+<strong>Default value is</strong>: <code>${basedir}/META-INF/MANIFEST.MF</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#packaging">packaging</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>The project packaging.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#pde">pde</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Is it an PDE project? If yes, the plugin adds the necessary natures
+and build commands to the .project file. Additionally it copies all
+libraries to a project local directory and references them instead
+of referencing the files in the local Maven repository. It also
+ensured that the &quot;Bundle-Classpath&quot; in META-INF/MANIFEST.MF is
+synchronized.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#projectNameTemplate">projectNameTemplate</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>Allows configuring the name of the eclipse projects. This property
+if set wins over addVersionToProjectName and
+addGroupIdToProjectName You can use <code>[groupId]</code>,
+<code>[artifactId]</code> and <code>[version]</code> variables. eg.
+<code>[groupId].[artifactId]-[version]</code><br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#projectnatures">projectnatures</a></strong></td>
+<td><code>List</code></td>
+<td><code>-</code></td>
+<td>List of eclipse project natures. By default the
+<code>org.eclipse.jdt.core.javanature</code> nature plus the needed
+WTP natures are added. Natures added using this property
+<strong>replace</strong> the default list. 
+
+<pre>
+&lt;projectnatures&gt;
+   &lt;projectnature&gt;org.eclipse.jdt.core.javanature&lt;/projectnature&gt;
+   &lt;projectnature&gt;org.eclipse.wst.common.modulecore.ModuleCoreNature&lt;/projectnature&gt;
+&lt;/projectnatures&gt;
+</pre><br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#skip">skip</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Skip the operation when true.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="b"><td><strong><a href="#sourceExcludes">sourceExcludes</a></strong></td>
+<td><code>List</code></td>
+<td><code>2.6.1</code></td>
+<td>List of exclusions to add to the source directories on the
+classpath. Adds excluding=&quot;&quot; to the classpathentry of the eclipse
+.classpath file. [MECLIPSE-104]<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#sourceIncludes">sourceIncludes</a></strong></td>
+<td><code>List</code></td>
+<td><code>2.6.1</code></td>
+<td>List of inclusions to add to the source directories on the
+classpath. Adds including=&quot;&quot; to the classpathentry of the eclipse
+.classpath file. 
+
+<p>Java projects will always include &quot;**/*.java&quot;</p>
+<p>Ajdt projects will always include &quot;**/*.aj&quot;</p>
+<p>[MECLIPSE-104]</p>
+<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#workspace">workspace</a></strong></td>
+<td><code>File</code></td>
+<td><code>2.5</code></td>
+<td>This eclipse workspace is read and all artifacts detected there
+will be connected as eclipse projects and will not be linked to the
+jars in the local repository. Requirement is that it was created
+with the similar wtp settings as the reactor projects, but the
+project name template my differ. The pom's in the workspace
+projects may not contain variables in the artefactId, groupId and
+version tags. If workspace is not defined, then an attempt to
+locate it by checking up the directory hierarchy will be made.<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#wtpContextName">wtpContextName</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>JEE context name of the WTP module. ( ex. WEB context name ).<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#wtpapplicationxml">wtpapplicationxml</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Must the application files be written for ear projects in a
+separate directory.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#wtpdefaultserver">wtpdefaultserver</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>What WTP defined server to use for deployment informations.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#wtpmanifest">wtpmanifest</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Must the manifest files be written for java projects so that that
+the jee classpath for wtp is correct.<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="a"><td><strong><a href="#wtpversion">wtpversion</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>The version of WTP for which configuration files will be generated.
+The default value is &quot;none&quot; (don't generate WTP configuration),
+supported versions are &quot;R7&quot;, &quot;1.0&quot;, and &quot;1.5&quot;<br />
+<strong>Default value is</strong>: <code>none</code>.</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="Parameter_Details"></a>Parameter Details</h3>
+<p><strong><a name="addGroupIdToProjectName">addGroupIdToProjectName</a>:</strong></p>
+<div>If set to <code>true</code>, the groupId of the artifact is
+appended to the name of the generated Eclipse project. See
+projectNameTemplate for other options.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.addGroupIdToProjectName}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="addVersionToProjectName">addVersionToProjectName</a>:</strong></p>
+<div>If set to <code>true</code>, the version number of the artifact is
+appended to the name of the generated Eclipse project. See
+projectNameTemplate for other options.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.addVersionToProjectName}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="additionalBuildcommands">additionalBuildcommands</a>:</strong></p>
+<div>List of eclipse build commands to be added to the default ones. Old
+style: 
+
+<pre>
+&lt;additionalBuildcommands&gt;
+   &lt;buildcommand&gt;org.springframework.ide.eclipse.core.springbuilder&lt;/buildcommand&gt;
+&lt;/additionalBuildcommands&gt;
+</pre>
+
+New style: 
+
+<pre>
+&lt;additionalBuildcommands&gt;
+   &lt;buildCommand&gt;
+     &lt;name&gt;org.ui.externaltools.ExternalToolBuilder&lt;/name&gt;
+     &lt;triggers&gt;auto,full,incremental,&lt;/triggers&gt;
+     &lt;arguments&gt;
+       &lt;LaunchConfigHandle&gt;&amp;lt;project&amp;gt;./externalToolBuilders/MavenBuilder.launch&lt;/LaunchConfighandle&gt;
+     &lt;/arguments&gt;
+   &lt;/buildCommand&gt;
+&lt;/additionalBuildcommands&gt;
+</pre>
+
+Note the difference between
+<code>build<strong>c</strong>ommand</code> and
+<code>build<strong>C</strong>ommand</code>. You can mix and match
+old and new-style configuration entries.</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="additionalConfig">additionalConfig</a>:</strong></p>
+<div>Allow to configure additional generic configuration files for
+eclipse that will be written out to disk when running
+eclipse:eclipse. FOr each file you can specify the name and the
+text content. 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+     &lt;name&gt;.checkstyle&lt;/name&gt;
+     &lt;content&gt;
+       &lt;![CDATA[&lt;fileset-config file-format-version=&quot;1.2.0&quot; simple-config=&quot;true&quot;&gt;
+         &lt;fileset name=&quot;all&quot; enabled=&quot;true&quot; check-config-name=&quot;acme corporate style&quot; local=&quot;false&quot;&gt;
+             &lt;file-match-pattern match-pattern=&quot;.&quot; include-pattern=&quot;true&quot;/&gt;
+         &lt;/fileset&gt;
+         &lt;filter name=&quot;NonSrcDirs&quot; enabled=&quot;true&quot;/&gt;
+       &lt;/fileset-config&gt;]]&gt;
+     &lt;/content&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+&lt;/plugin&gt;
+</pre>
+
+Instead of the content you can also define (from version 2.5) an
+url to download the file : 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+     &lt;name&gt;.checkstyle&lt;/name&gt;
+     &lt;url&gt;http://some.place.org/path/to/file&lt;/url&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+</pre>
+
+or a location : 
+
+<pre>
+&lt;plugin&gt;
+ &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+ &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+ &lt;configuration&gt;
+  &lt;additionalConfig&gt;
+   &lt;file&gt;
+    &lt;name&gt;.checkstyle&lt;/name&gt;
+    &lt;location&gt;/checkstyle-config.xml&lt;/location&gt;
+   &lt;/file&gt;
+  &lt;/additionalConfig&gt;
+ &lt;/configuration&gt;
+ &lt;dependencies&gt;
+  &lt;!-- The file defined in the location is stored in this dependency --&gt;
+  &lt;dependency&gt;
+   &lt;groupId&gt;eclipsetest&lt;/groupId&gt;
+   &lt;artifactId&gt;checkstyle-config&lt;/artifactId&gt;
+   &lt;version&gt;1.0&lt;/version&gt;
+  &lt;/dependency&gt;
+ &lt;/dependencies&gt;
+&lt;/plugin&gt;
+</pre></div><ul><li><strong>Type</strong>: <code>org.apache.maven.plugin.eclipse.EclipseConfigFile[]</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="additionalProjectFacets">additionalProjectFacets</a>:</strong></p>
+<div>List of eclipse project facets to be added to the default ones. 
+
+<pre>
+&lt;additionalProjectFacets&gt;
+   &lt;jst.jsf&gt;1.1&lt;jst.jsf/&gt;
+&lt;/additionalProjectFacets&gt;
+</pre></div><ul><li><strong>Type</strong>: <code>java.util.Map</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="additionalProjectnatures">additionalProjectnatures</a>:</strong></p>
+<div>List of eclipse project natures to be added to the default ones. 
+
+<pre>
+&lt;additionalProjectnatures&gt;
+   &lt;projectnature&gt;org.springframework.ide.eclipse.core.springnature&lt;/projectnature&gt;
+&lt;/additionalProjectnatures&gt;
+</pre></div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="ajdtVersion">ajdtVersion</a>:</strong></p>
+<div>The version of AJDT for which configuration files will be
+generated. The default value is &quot;1.5&quot;, supported versions are
+&quot;none&quot; (AJDT support disabled), &quot;1.4&quot;, and &quot;1.5&quot;.</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.ajdtVersion}</code></li>
+<li><strong>Default</strong>: <code>none</code></li>
+</ul>
+<hr />
+<p><strong><a name="buildOutputDirectory">buildOutputDirectory</a>:</strong></p>
+<div>The default output directory</div><ul><li><strong>Type</strong>: <code>java.io.File</code></li>
+<li><strong>Required</strong>: <code>Yes</code></li>
+<li><strong>Expression</strong>: <code>${outputDirectory}</code></li>
+<li><strong>Default</strong>: <code>${project.build.outputDirectory}</code></li>
+</ul>
+<hr />
+<p><strong><a name="buildcommands">buildcommands</a>:</strong></p>
+<div>List of eclipse build commands. By default the
+<code>org.eclipse.jdt.core.javabuilder</code> builder plus the
+needed WTP builders are added. If you specify any configuration for
+this parameter, only those buildcommands specified will be used;
+the defaults won't be added. Use the
+<code>additionalBuildCommands</code> parameter for that.
+Configuration example: Old style: 
+
+<pre>
+&lt;buildcommands&gt;
+   &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilder&lt;/buildcommand&gt;
+   &lt;buildcommand&gt;org.eclipse.jdt.core.javabuilder&lt;/buildcommand&gt;
+   &lt;buildcommand&gt;org.eclipse.wst.common.modulecore.ComponentStructuralBuilderDependencyResolver&lt;/buildcommand&gt;
+&lt;/buildcommands&gt;
+</pre>
+
+For new style, see <code>additionalBuildCommands</code>.</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="classpathContainers">classpathContainers</a>:</strong></p>
+<div>List of container classpath entries. By default the
+<code>org.eclipse.jdt.launching.JRE_CONTAINER</code> classpath
+container is added. Configuration example: 
+
+<pre>
+&lt;classpathContainers&gt;
+   &lt;classpathContainer&gt;org.eclipse.jdt.launching.JRE_CONTAINER&lt;/classpathContainer&gt;
+   &lt;classpathContainer&gt;org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v5.5&lt;/classpathContainer&gt;
+   &lt;classpathContainer&gt;org.eclipse.jst.j2ee.internal.web.container/artifact&lt;/classpathContainer&gt;
+&lt;/classpathContainers&gt;
+</pre></div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="downloadJavadocs">downloadJavadocs</a>:</strong></p>
+<div>Enables/disables the downloading of javadoc attachments. Defaults
+to false. When this flag is <code>true</code> remote repositories
+are checked for javadocs: in order to avoid repeated check for
+unavailable javadoc archives, a status cache is mantained. With
+versions 2.6+ of the plugin to reset this cache run <code>mvn
+eclipse:remove-cache</code>, or use the <code>forceRecheck</code>
+option with versions. With older versions delete the file
+<code>mvn-eclipse-cache.properties</code> in the target directory.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${downloadJavadocs}</code></li>
+</ul>
+<hr />
+<p><strong><a name="downloadSources">downloadSources</a>:</strong></p>
+<div>Enables/disables the downloading of source attachments. Defaults to
+false. When this flag is <code>true</code> remote repositories are
+checked for sources: in order to avoid repeated check for
+unavailable source archives, a status cache is mantained. With
+versions 2.6+ of the plugin to reset this cache run <code>mvn
+eclipse:remove-cache</code>, or use the <code>forceRecheck</code>
+option with versions. With older versions delete the file
+<code>mvn-eclipse-cache.properties</code> in the target directory.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${downloadSources}</code></li>
+</ul>
+<hr />
+<p><strong><a name="eclipseDownloadSources">eclipseDownloadSources</a>:</strong></p>
+<div><strong>Deprecated.</strong> use downloadSources</div><div>Enables/disables the downloading of source attachments. Defaults to
+false. DEPRECATED - use downloadSources</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.downloadSources}</code></li>
+</ul>
+<hr />
+<p><strong><a name="eclipseProjectDir">eclipseProjectDir</a>:</strong></p>
+<div>Eclipse workspace directory.</div><ul><li><strong>Type</strong>: <code>java.io.File</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.projectDir}</code></li>
+</ul>
+<hr />
+<p><strong><a name="excludes">excludes</a>:</strong></p>
+<div>List of artifact to exclude from eclipse classpath, beeing provided
+by some eclipse classPathContainer [MECLIPSE-79]</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Since</strong>: <code>2.5</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="forceRecheck">forceRecheck</a>:</strong></p>
+<div>Enables/disables the rechecking of the remote repository for
+downloading source/javadoc attachments. Defaults to false. When
+this flag is <code>true</code> and the source or javadoc attachment
+has a status cache to indicate that it is not available, then the
+remote repository will be rechecked for a source or javadoc
+attachment and the status cache updated to reflect the new state.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${forceRecheck}</code></li>
+</ul>
+<hr />
+<p><strong><a name="limitProjectReferencesToWorkspace">limitProjectReferencesToWorkspace</a>:</strong></p>
+<div>Limit the use of project references to the current workspace. No
+project references will be created to projects in the reactor when
+they are not available in the workspace.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.limitProjectReferencesToWorkspace}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="linkedResources">linkedResources</a>:</strong></p>
+<div>A list of links to local files in the system. A configuration like
+this one in the pom : &lt;plugin&gt;
+&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+&lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+&lt;configuration&gt; &lt;linkedResources&gt;
+&lt;linkedResource&gt;
+&lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
+&lt;type&gt;1&lt;/type&gt;
+&lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
+&lt;/linkedResource&gt; &lt;/linkedResources&gt;
+&lt;/configuration&gt; &lt;/plugin&gt; will produce in the .project
+: &lt;linkedResources&gt; &lt;link&gt;
+&lt;name&gt;src/test/resources/oracle-ds.xml&lt;/name&gt;
+&lt;type&gt;1&lt;/type&gt;
+&lt;location&gt;C://jboss/server/default/deploy/oracle-ds.xml&lt;/location&gt;
+&lt;/link&gt; &lt;/linkedResources&gt;</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Since</strong>: <code>2.8</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="manifest">manifest</a>:</strong></p>
+<div>The relative path of the manifest file</div><ul><li><strong>Type</strong>: <code>java.io.File</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.manifest}</code></li>
+<li><strong>Default</strong>: <code>${basedir}/META-INF/MANIFEST.MF</code></li>
+</ul>
+<hr />
+<p><strong><a name="packaging">packaging</a>:</strong></p>
+<div>The project packaging.</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${project.packaging}</code></li>
+</ul>
+<hr />
+<p><strong><a name="pde">pde</a>:</strong></p>
+<div>Is it an PDE project? If yes, the plugin adds the necessary natures
+and build commands to the .project file. Additionally it copies all
+libraries to a project local directory and references them instead
+of referencing the files in the local Maven repository. It also
+ensured that the &quot;Bundle-Classpath&quot; in META-INF/MANIFEST.MF is
+synchronized.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.pde}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="projectNameTemplate">projectNameTemplate</a>:</strong></p>
+<div>Allows configuring the name of the eclipse projects. This property
+if set wins over addVersionToProjectName and
+addGroupIdToProjectName You can use <code>[groupId]</code>,
+<code>[artifactId]</code> and <code>[version]</code> variables. eg.
+<code>[groupId].[artifactId]-[version]</code></div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.projectNameTemplate}</code></li>
+</ul>
+<hr />
+<p><strong><a name="projectnatures">projectnatures</a>:</strong></p>
+<div>List of eclipse project natures. By default the
+<code>org.eclipse.jdt.core.javanature</code> nature plus the needed
+WTP natures are added. Natures added using this property
+<strong>replace</strong> the default list. 
+
+<pre>
+&lt;projectnatures&gt;
+   &lt;projectnature&gt;org.eclipse.jdt.core.javanature&lt;/projectnature&gt;
+   &lt;projectnature&gt;org.eclipse.wst.common.modulecore.ModuleCoreNature&lt;/projectnature&gt;
+&lt;/projectnatures&gt;
+</pre></div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="skip">skip</a>:</strong></p>
+<div>Skip the operation when true.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.skip}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="sourceExcludes">sourceExcludes</a>:</strong></p>
+<div>List of exclusions to add to the source directories on the
+classpath. Adds excluding=&quot;&quot; to the classpathentry of the eclipse
+.classpath file. [MECLIPSE-104]</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Since</strong>: <code>2.6.1</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="sourceIncludes">sourceIncludes</a>:</strong></p>
+<div>List of inclusions to add to the source directories on the
+classpath. Adds including=&quot;&quot; to the classpathentry of the eclipse
+.classpath file. 
+
+<p>Java projects will always include &quot;**/*.java&quot;</p>
+<p>Ajdt projects will always include &quot;**/*.aj&quot;</p>
+<p>[MECLIPSE-104]</p>
+</div><ul><li><strong>Type</strong>: <code>java.util.List</code></li>
+<li><strong>Since</strong>: <code>2.6.1</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+</ul>
+<hr />
+<p><strong><a name="useProjectReferences">useProjectReferences</a>:</strong></p>
+<div>When set to false, the plugin will not create sub-projects and
+instead reference those sub-projects using the installed package in
+the local repository</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>Yes</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.useProjectReferences}</code></li>
+<li><strong>Default</strong>: <code>true</code></li>
+</ul>
+<hr />
+<p><strong><a name="workspace">workspace</a>:</strong></p>
+<div>This eclipse workspace is read and all artifacts detected there
+will be connected as eclipse projects and will not be linked to the
+jars in the local repository. Requirement is that it was created
+with the similar wtp settings as the reactor projects, but the
+project name template my differ. The pom's in the workspace
+projects may not contain variables in the artefactId, groupId and
+version tags. If workspace is not defined, then an attempt to
+locate it by checking up the directory hierarchy will be made.</div><ul><li><strong>Type</strong>: <code>java.io.File</code></li>
+<li><strong>Since</strong>: <code>2.5</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.workspace}</code></li>
+</ul>
+<hr />
+<p><strong><a name="wtpContextName">wtpContextName</a>:</strong></p>
+<div>JEE context name of the WTP module. ( ex. WEB context name ).</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${wtpContextName}</code></li>
+</ul>
+<hr />
+<p><strong><a name="wtpapplicationxml">wtpapplicationxml</a>:</strong></p>
+<div>Must the application files be written for ear projects in a
+separate directory.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.wtpapplicationxml}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="wtpdefaultserver">wtpdefaultserver</a>:</strong></p>
+<div>What WTP defined server to use for deployment informations.</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.wtpdefaultserver}</code></li>
+</ul>
+<hr />
+<p><strong><a name="wtpmanifest">wtpmanifest</a>:</strong></p>
+<div>Must the manifest files be written for java projects so that that
+the jee classpath for wtp is correct.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipse.wtpmanifest}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="wtpversion">wtpversion</a>:</strong></p>
+<div>The version of WTP for which configuration files will be generated.
+The default value is &quot;none&quot; (don't generate WTP configuration),
+supported versions are &quot;R7&quot;, &quot;1.0&quot;, and &quot;1.5&quot;</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${wtpversion}</code></li>
+<li><strong>Default</strong>: <code>none</code></li>
+</ul>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/eclipse-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+</html>

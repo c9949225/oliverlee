@@ -1,0 +1,1457 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0067)http://bennypan1980.blog.163.com/blog/static/879198232010295015597/ -->
+<HTML lang=zh xml:lang="zh" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben的日志 - 网易博客</TITLE>
+<META content=IE=8 http-equiv=X-UA-Compatible>
+<META content=text/html;charset=gbk http-equiv=content-type>
+<META content=text/css http-equiv=content-style-type>
+<META content=text/javascript http-equiv=content-script-type>
+<META name=version content=neblog-1.0>
+<SCRIPT type=text/javascript>
+      
+      
+      document.uniqueID!=document.uniqueID&&!!location.hash&&(location.hash=location.hash); 
+      document.domain = location.hostname.replace(/^.*\.([\w]+\.[\w]+)$/,'$1');
+      window.focus();
+      window.getMusicTimeStamp=function(){return '68bf8aa87fcb824f3387ff169c2c71f0';};
+    </SCRIPT>
+
+<META name=author content=bennypan1980,阿Ben>
+<META name=keywords 
+content="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图,日志,阿Ben,Silver的博客,网易博客,网易,blog">
+<META name=description 
+content="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图,阿Ben的网易博客,掌声背后,">
+<SCRIPT type=text/javascript>
+    (function(){
+     var R=24,C=11,a=[];
+     for(var i=0;i<C;i++)for(var j=0;j<R;a.push('.icn0-'+i+j+'{background-position:'+(i>0?('-'+i*40+'px'):'0')+' '+(j>0?('-'+j*20+'px'):'0')+';}'),j++);
+          document.write('<style type="text/css">'+a.join('')+'</st'+'yle>');
+    })();
+  </SCRIPT>
+<LINK rel=stylesheet type=text/css 
+href="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/c.css"><LINK 
+id=blog-163-com-theme rel=stylesheet type=text/css 
+href="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/nb.css"><!--[if lte IE 6]>
+  <style type="text/css">
+    html,body,#blog-163-com-ie6body{height:100%;width:100%;overflow:hidden;}
+    #blog-163-com-ie6body{overflow:auto;overflow-y:scroll;}
+    #blog-163-com{background:none;}
+  </style>
+  <![endif]-->
+<STYLE type=text/css>.m-3 .nbw-ryt .left .mcnt {
+	PADDING-LEFT: 10px
+}
+.m-3 .nbw-ryt .right .acts {
+	POSITION: relative; LINE-HEIGHT: 20px; MARGIN: 0px 0px 35px
+}
+.m-3 .nbw-ryt .right .more {
+	LINE-HEIGHT: 24px; MARGIN-TOP: -15px; HEIGHT: 24px
+}
+#blog-163-com .m-3 .phide {
+	DISPLAY: none
+}
+.m-3 .nbw-ryt .left .nbw-bitm {
+	POSITION: relative; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .title {
+	MARGIN: 30px 0px 20px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .title .tcnt {
+	FONT-FAMILY: "微软雅黑", "黑体", Arial, Helvetica, Sans-Serif; FONT-SIZE: 20px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .tdep {
+	MARGIN-BOTTOM: 20px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .tbar {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 10px; LINE-HEIGHT: 20px; MARGIN: 5px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 10px; PADDING-TOP: 10px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .bct {
+	PADDING-LEFT: 0px; FONT-SIZE: 14px
+}
+.m-3 .nbw-ryt .left .nbw-bitm .muava {
+	BORDER-RIGHT-WIDTH: 1px; MARGIN: 5px 7px 0px 0px; FLOAT: left; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; HEIGHT: 40px; BORDER-LEFT-WIDTH: 0px
+}
+.m-3 .nbw-ryt .left .snl .pnb DIV {
+	TEXT-ALIGN: left; LINE-HEIGHT: 20px
+}
+.m-3 .nbw-ryt .cite {
+	TEXT-ALIGN: left; LINE-HEIGHT: 24px; MARGIN: 20px 0px 0px 50px
+}
+.m-3 .nbw-ryt .cite .close {
+	TEXT-ALIGN: right; MARGIN: 0px; FLOAT: right
+}
+.m-3 .nbw-ryt .cite SPAN {
+	CURSOR: pointer
+}
+.m-3 .nbw-ryt .cite .nbw-act {
+	TEXT-ALIGN: center
+}
+.m-3 .nbw-ryt .cite .ads {
+	WIDTH: 400px; MARGIN-LEFT: 20px
+}
+.m-3 .nbw-ryt .cite .tbac {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; LINE-HEIGHT: 24px; LIST-STYLE-TYPE: none; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; MARGIN-LEFT: 60px; BORDER-TOP: 0px; LIST-STYLE-IMAGE: none; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .nbw-ryt .cite .tbl {
+	WIDTH: 150px; OVERFLOW: hidden
+}
+.m-3 .nbw-ryt .cite .tbr {
+	MARGIN-LEFT: 20px; OVERFLOW: hidden
+}
+.m-3 .nbw-act-share {
+	POSITION: relative
+}
+.m-3 .nbw-act-share .nas-wrap {
+	VISIBILITY: hidden
+}
+.m-3 .nbw-act-share:hover .nas-wrap {
+	VISIBILITY: visible
+}
+.m-3 .js-share-hover .nas-wrap {
+	VISIBILITY: visible
+}
+.m-3 .nas-wrap {
+	BACKGROUND: url(/newpage/images/blog/icn-share.png?0011) no-repeat 9999px 9999px
+}
+.nas-itm {
+	BACKGROUND: url(/newpage/images/blog/icn-share.png?0011) no-repeat 9999px 9999px
+}
+.nas-wb {
+	BACKGROUND: url(/newpage/images/blog/icn-share.png?0011) no-repeat 9999px 9999px
+}
+.m-3 .nas-wrap {
+	MARGIN-TOP: 5px
+}
+.nas-itm {
+	TEXT-DECORATION: none
+}
+.nas-wb {
+	TEXT-DECORATION: none
+}
+.nas-itm {
+	TEXT-DECORATION: underline
+}
+.nas-wb:hover {
+	TEXT-DECORATION: underline
+}
+.m-3 .nas-itm {
+	MARGIN: 0px 1px 0px 6px; WIDTH: 16px; FLOAT: left; HEIGHT: 16px; OVERFLOW: hidden; CURSOR: pointer
+}
+.m-3 .nas-itm0 {
+	BACKGROUND-POSITION: 0px -173px
+}
+.m-3 .nas-itm1 {
+	BACKGROUND-POSITION: 0px -56px
+}
+.m-3 .nas-itm2 {
+	BACKGROUND-POSITION: 0px -85px
+}
+.m-3 .nas-itm3 {
+	BACKGROUND-POSITION: 0px -227px
+}
+.m-3 .nas-itm4 {
+	BACKGROUND-POSITION: 0px -143px
+}
+.m-3 .nas-itm5 {
+	BACKGROUND-POSITION: 0px -201px
+}
+.m-3 .nas-itm6 {
+	BACKGROUND-POSITION: 0px -249px
+}
+.m-3 .nas-itm7 {
+	BACKGROUND-POSITION: 0px -283px
+}
+.m-3 .nas-itm8 {
+	BACKGROUND-POSITION: 0px -313px
+}
+.m-3 .nas-itm9 {
+	BACKGROUND-POSITION: 0px -342px
+}
+.nas-wb {
+	LINE-HEIGHT: normal; PADDING-LEFT: 20px; BACKGROUND-POSITION: 0px -173px; CURSOR: pointer
+}
+.nas-icn0fix {
+	MARGIN-TOP: 4px
+}
+.nas-tofix {
+	LINE-HEIGHT: 25px; MARGIN-TOP: 0px
+}
+.m-3 .ptc {
+	POSITION: absolute; CURSOR: pointer
+}
+.m-3 .ptc .ptcp .bcmimg {
+	BACKGROUND-IMAGE: url(http://b.bst.126.net/newpage/images/blogcmtimg.png); PADDING-BOTTOM: 0px; LINE-HEIGHT: 22px; PADDING-LEFT: 0px; WIDTH: 22px; PADDING-RIGHT: 6px; BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: 0px 0px; FLOAT: left; HEIGHT: 22px; PADDING-TOP: 0px
+}
+.m-3 .ptc .ptcp {
+	POSITION: absolute; WIDTH: 94px; BOTTOM: 5px; CLEAR: both; CURSOR: pointer; LEFT: 5px
+}
+.m-3 .ptc .ptcp .ptcmi {
+	PADDING-BOTTOM: 3px; MARGIN: 0px; PADDING-LEFT: 5px; WIDTH: 16px; PADDING-RIGHT: 6px; FLOAT: left; HEIGHT: 16px; PADDING-TOP: 3px; _padding: 2px 6px 0 3px
+}
+.m-3 .ptc .ptcp .ptcmt {
+	TEXT-ALIGN: left; LINE-HEIGHT: 22px; MARGIN: 0px 0px 0px -3px; WIDTH: 67px; BACKGROUND-POSITION: -418px -50px; FLOAT: left; HEIGHT: 22px; COLOR: #444444; OVERFLOW: hidden
+}
+.m-3 .ptc .ptcp .ptcmt-2 {
+	PADDING-LEFT: 6px; WIDTH: 61px; BACKGROUND-POSITION: -424px -50px
+}
+.m-3 .relateblog {
+	TEXT-ALIGN: left
+}
+.m-3 .relateblog H4 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .relateblog .cnt {
+	MARGIN: 10px 0px; PADDING-LEFT: 8px
+}
+.m-3 .relateblog .cnt UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; LIST-STYLE-IMAGE: none; PADDING-TOP: 0px
+}
+.m-3 .relateblog .cnt UL LI {
+	LINE-HEIGHT: 24px; HEIGHT: 24px; MARGIN-RIGHT: 20px
+}
+.m-3 .relateblog .cnt UL LI SPAN {
+	MARGIN: 0px 8px
+}
+.m-3 .author {
+	TEXT-ALIGN: left
+}
+.m-3 .comment {
+	TEXT-ALIGN: left
+}
+.m-3 .author .nlogif {
+	LINE-HEIGHT: 20px; WIDTH: 150px; MARGIN-LEFT: 5px; _margin-left: 3px
+}
+.m-3 .author .nlogif .nbw-fce {
+	MARGIN: 0px 3px 0px 10px; _margin-left: 5px
+}
+.m-3 .author .nlogif .pright {
+	PADDING-BOTTOM: 5px; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 85px; PADDING-RIGHT: 0px; PADDING-TOP: 5px; _padding-top: 10px
+}
+.m-3 .nbw-ryt .right H4 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .author H4 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .comment H4 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 30px; MARGIN: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .author .cwd {
+	BORDER-BOTTOM: 0px; TEXT-ALIGN: left; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.m-3 .author .vname {
+	TEXT-ALIGN: center; WIDTH: 50px
+}
+.m-3 .author .cnt {
+	MARGIN: 10px 0px 10px -5px
+}
+.m-3 .author .nbw-fce {
+	MARGIN: 0px 11px
+}
+.m-3 .author .nbw-f50 {
+	WIDTH: 50px
+}
+.m-3 .nbw-ryt .left .top {
+	POSITION: relative; PADDING-BOTTOM: 5px; LINE-HEIGHT: 20px
+}
+.m-3 .nbw-ryt .left .top .ilft {
+	POSITION: absolute; TOP: 0px; LEFT: 0px
+}
+.m-3 .nbw-ryt .left .top .irgt {
+	POSITION: absolute; TOP: 0px; RIGHT: -10px
+}
+.m-3 .nbw-ryt .left .top .pleft {
+	TEXT-ALIGN: left; WIDTH: 40%; HEIGHT: 20px; MARGIN-LEFT: 20px; OVERFLOW: hidden; _margin-left: 10px
+}
+.m-3 .nbw-ryt .left .top .pright {
+	TEXT-ALIGN: right; WIDTH: 40%; HEIGHT: 20px; OVERFLOW: hidden; MARGIN-RIGHT: 10px; _margin-right: 5px
+}
+.m-3 .nbw-ryt .left .snl .top {
+	POSITION: relative; PADDING-BOTTOM: 15px; LINE-HEIGHT: 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 5px
+}
+.m-3 .nbw-ryt .left .snl .top .ilft {
+	POSITION: absolute; TOP: 5px; LEFT: -10px
+}
+.m-3 .nbw-ryt .left .snl .top .irgt {
+	POSITION: absolute; TOP: 5px; RIGHT: -10px
+}
+.m-3 .nbw-ryt .left .snl .top .pleft {
+	TEXT-ALIGN: left; WIDTH: 40%; HEIGHT: 20px; MARGIN-LEFT: 10px; OVERFLOW: hidden; _margin-left: 5px
+}
+.m-3 .nbw-ryt .left .snl .top .pright {
+	TEXT-ALIGN: right; WIDTH: 40%; HEIGHT: 20px; OVERFLOW: hidden; MARGIN-RIGHT: 10px; _margin-left: 5px
+}
+.m-3 .nbw-ryt .left .snl .pnb {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; OVERFLOW: hidden; PADDING-TOP: 5px; _width: 100%
+}
+.m-3 .comment H4 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .comment .publish {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 10px; MARGIN: 10px 0px; PADDING-LEFT: 5px; PADDING-RIGHT: 0px; PADDING-TOP: 0px
+}
+.m-3 .comment .publish .nbw-fce {
+	PADDING-TOP: 0px
+}
+.m-3 .comment .publish .nbw-fce .cwd {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.m-3 .comment .publish .redt {
+	MARGIN-LEFT: 65px
+}
+.m-3 .comment .nolog {
+	BORDER-BOTTOM: #000 1px solid; TEXT-ALIGN: center; BORDER-LEFT: #000 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 40px; BACKGROUND-COLOR: #ffffe1; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; HEIGHT: 40px; BORDER-TOP: #000 1px solid; BORDER-RIGHT: #000 1px solid; PADDING-TOP: 0px; _height: 20px; _padding: 10px 0
+}
+.m-3 .comment .case {
+	PADDING-BOTTOM: 10px; PADDING-LEFT: 5px
+}
+.m-3 .comment .vgl {
+	TEXT-ALIGN: center; MARGIN: 8px; WIDTH: 75%
+}
+#blog-163-com .m-3 .comment .nbw-cmt .cnt {
+	WIDTH: 488px
+}
+#blog-163-com .m-3 .comment .nbw-cmt .nbw-cmt .cnt {
+	WIDTH: 444px
+}
+.m-3 .edt-cmt {
+	WIDTH: 444px
+}
+.m-3 .comment .publish .edt-cmt {
+	WIDTH: 488px
+}
+.m-3 .comment .publish .edt-cmt .zbcc {
+	DISPLAY: none
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs0 {
+	FONT-SIZE: 150%
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs0 * {
+	FONT-SIZE: 150%
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs1 {
+	FONT-SIZE: 130%
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs1 * {
+	FONT-SIZE: 130%
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs2 {
+	
+}
+.m-3 .nbw-ryt .left .nbw-bitm .js-fs2 * {
+	
+}
+.m-3 .js-fcurrent {
+	FONT-WEIGHT: bold; TEXT-DECORATION: none; font-color: #000
+}
+.m-3 .nbw-bitm .dream {
+	MARGIN-TOP: -10px; CLEAR: both
+}
+.m-3 .nbw-bitm .cited {
+	MARGIN-TOP: -15px
+}
+.m-3 .nbw-bitm .rdif {
+	LINE-HEIGHT: 24px; HEIGHT: 24px
+}
+.m-3 .nbw-bitm .rdif .pnt {
+	LINE-HEIGHT: 24px; HEIGHT: 24px; MARGIN-RIGHT: 10px
+}
+.m-3 .nbw-bitm .rdif .pclass {
+	WIDTH: 57px; HEIGHT: 22px; VERTICAL-ALIGN: middle
+}
+.m-3 .nbw-bitm .rdif .rdct {
+	DISPLAY: inline-block
+}
+.m-3 .snl .rdcnt {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 5px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; PADDING-TOP: 5px
+}
+.m-3 .snl .rdcnt .nbw-fce {
+	MARGIN: 0px 5px
+}
+.m-3 .snl .rdcnt P {
+	MARGIN: 10px 0px
+}
+.m-3 .snl .rdcnt .rrb {
+	LINE-HEIGHT: 22px; LIST-STYLE-TYPE: none; HEIGHT: 22px; LIST-STYLE-IMAGE: none
+}
+.m-3 .acts .iblock {
+	WIDTH: 18px
+}
+.m-3 .ns {
+	MARGIN: 0px 0px 0px 2px
+}
+.m-3 .cancel {
+	DISPLAY: none
+}
+.m-3 .js-hover .cancel {
+	DISPLAY: inline
+}
+.m-3 .follow:hover .cancel {
+	DISPLAY: inline
+}
+.m-3 .frd:hover .cancel {
+	DISPLAY: inline
+}
+.m-3 .follow {
+	
+}
+.m-3 .flw {
+	BORDER-BOTTOM: #b7b7b7 1px solid; BORDER-LEFT: #b7b7b7 1px solid; PADDING-BOTTOM: 7px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; BACKGROUND: #fefce4; COLOR: #000; BORDER-TOP: #b7b7b7 1px solid; BORDER-RIGHT: #b7b7b7 1px solid; PADDING-TOP: 7px
+}
+.m-3 .acts .flw .iblock {
+	WIDTH: 20px
+}
+.m-3 .sntesctf {
+	WIDTH: 15px; MARGIN-LEFT: 3px
+}
+.dr-warm {
+	BORDER-BOTTOM: #aaa 1px solid; BORDER-LEFT: #aaa 1px solid; PADDING-BOTTOM: 12px; LINE-HEIGHT: 20px; MARGIN: 18px 0px; PADDING-LEFT: 18px; WIDTH: 480px; PADDING-RIGHT: 18px; BACKGROUND: #ffffdc; COLOR: #666; BORDER-TOP: #aaa 1px solid; BORDER-RIGHT: #aaa 1px solid; PADDING-TOP: 12px
+}
+.dr-warm A {
+	COLOR: #02a; TEXT-DECORATION: underline
+}
+.dr-warm A:hover {
+	COLOR: #02a; TEXT-DECORATION: underline
+}
+.m-3 .commentcntwrap {
+	POSITION: relative; ZOOM: 1
+}
+.m-3 .cmtMultiUserRole {
+	POSITION: absolute; WIDTH: 300px; BOTTOM: 5px; LEFT: 62px
+}
+.m-3 .cmtMultiUserRole .selectRole {
+	BORDER-BOTTOM: medium none; BORDER-LEFT: medium none; PADDING-BOTTOM: 0px; PADDING-LEFT: 1px; PADDING-RIGHT: 1px; FLOAT: right; BORDER-TOP: medium none; BORDER-RIGHT: medium none; PADDING-TOP: 1px
+}
+.m-3 .cmtMultiUserRole .selectRole .ztxt {
+	WIDTH: auto; FLOAT: left; OVERFLOW: hidden
+}
+.m-3 .cmtMultiUserRole .selectRole .zdwn {
+	TEXT-INDENT: -9999px; BACKGROUND: url(/newpage/images/icon.png) no-repeat -240px -420px; FLOAT: left
+}
+.m-3 .cmtMultiUserRole .selectRole .zlst .zitm {
+	
+}
+.m-3 .cmtMultiUserRole .selectRole .zlst .zitm:hover {
+	BACKGROUND-COLOR: #ececec; COLOR: #333
+}
+.m-3 .cmtMultiUserRole .selectRole .slst .js-zhvr-910.item {
+	BACKGROUND-COLOR: #ececec; COLOR: #333
+}
+.m-3 .nbw-cmt {
+	POSITION: static
+}
+.m-3 .nbw-cmt .thde {
+	POSITION: relative; ZOOM: 1
+}
+.m-3 .publish .redt {
+	POSITION: relative; ZOOM: 1
+}
+.m-3 .publish .redt .cmtMultiUserRole {
+	LEFT: 135px; _left: 132px
+}
+.m-3 .cmtMultiUserRole .js-showlist {
+	BORDER-BOTTOM: #aaa 0px solid; BORDER-LEFT: #aaa 1px solid; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; BORDER-TOP: #aaa 1px solid; BORDER-RIGHT: #aaa 1px solid; PADDING-TOP: 0px
+}
+.m-3 .cmtMultiUserRole .js-showlist .zlst {
+	BORDER-BOTTOM: #aaa 1px solid; BORDER-LEFT: #aaa 1px solid; BORDER-TOP: #aaa 0px solid; BORDER-RIGHT: #aaa 1px solid
+}
+.m-3 .multiuserItem {
+	
+}
+.m-3 .multiuserItem .author {
+	MARGIN-RIGHT: -50px
+}
+.m-3 .multiuserItem .multicntwrap {
+	PADDING-BOTTOM: 20px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 30px
+}
+.m-3 .multiuserItem .multicnt {
+	MARGIN-LEFT: 50px; _padding-top: 2px
+}
+.m-3 .nbw-ryt .left .multiuserItem .multicnt .title {
+	MARGIN-TOP: 0px; WIDTH: 95%; MARGIN-BOTTOM: 0px
+}
+.m-3 .nbw-ryt .left .multiuserItem .multicnt .tdep {
+	MARGIN-BOTTOM: 0px
+}
+.m-3 .attachment {
+	MARGIN-BOTTOM: 20px
+}
+.m-3 .awidth {
+	WIDTH: 40px
+}
+.m-3 .view {
+	MARGIN-RIGHT: 10px
+}
+.m-3 .nbw-cmt .op {
+	LINE-HEIGHT: 18px; HEIGHT: 18px; VERTICAL-ALIGN: middle
+}
+.m-3 .suggestedreading {
+	POSITION: relative; ZOOM: 1; OVERFLOW: hidden
+}
+.m-3 .suggestedreading .m-list {
+	PADDING-LEFT: 15px; MARGIN-LEFT: 0px; FONT-SIZE: 14px; OVERFLOW: hidden
+}
+.m-3 .suggestedreading .m-list .gap {
+	COLOR: #adadad; MARGIN-LEFT: 8px
+}
+.m-3 .suggestedreading .m-list LI {
+	PADDING-BOTTOM: 2px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; HEIGHT: 20px; VERTICAL-ALIGN: middle; PADDING-TOP: 3px
+}
+.m-3 .suggestedreading .wrap LI {
+	WIDTH: 118px; FLOAT: left; HEIGHT: 146px
+}
+.m-3 .suggestedreading .suggesteditem1 {
+	LINE-HEIGHT: 24px; MARGIN: 5px 10px 5px 0px; FONT-SIZE: 12px
+}
+.m-3 .suggestedreading .suggesteditem2 {
+	MARGIN: 5px 0px; FONT-SIZE: 12px
+}
+.m-3 .suggestedreading .suggesteditem2 .imgwrap1 {
+	POSITION: relative; WIDTH: 90px; ZOOM: 1; HEIGHT: 90px; OVERFLOW: hidden
+}
+.m-3 .suggestedreading .suggesteditem2 .imgwrap2 {
+	Z-INDEX: 2; POSITION: absolute; TOP: 0px; LEFT: 0px
+}
+.m-3 .suggestedreading .suggesteditem2 .btitle {
+	WIDTH: 96px; HEIGHT: 148px; OVERFLOW: hidden; TEXT-DECORATION: none
+}
+.m-3 .suggestedreading .suggesteditem2 .sep {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; PADDING-TOP: 5px
+}
+.m-3 .suggestedreading .suggesteditem2 A {
+	CURSOR: pointer
+}
+.m-3 .suggestedreading .suggesteditem2 A:hover {
+	TEXT-DECORATION: none
+}
+.m-3 .suggestedreading .suggesteditem2 IMG {
+	BORDER-RIGHT-WIDTH: 0px; BORDER-TOP-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px
+}
+.m-3 .suggestedreading .color1 {
+	BACKGROUND-COLOR: #b3786b
+}
+.m-3 .suggestedreading .color2 {
+	BACKGROUND-COLOR: #d2c1a8
+}
+.m-3 .suggestedreading .color3 {
+	BACKGROUND-COLOR: #d46646
+}
+.m-3 .suggestedreading .color4 {
+	BACKGROUND-COLOR: #d28fa8
+}
+.m-3 .suggestedreading .color5 {
+	BACKGROUND-COLOR: #c84f54
+}
+.m-3 .suggestedreading .white {
+	COLOR: white
+}
+.m-3 .suggestedreading .imgtip {
+	MARGIN: 2px; FONT-FAMILY: 微软雅黑; COLOR: white; FONT-SIZE: 13px; FONT-WEIGHT: bold
+}
+.m-3 .suggestedreading .borderwrap {
+	PADDING-BOTTOM: 2px; BACKGROUND-COLOR: #fff; PADDING-LEFT: 2px; PADDING-RIGHT: 2px; PADDING-TOP: 2px
+}
+.m-3 .suggestedreading .time {
+	POSITION: absolute; BOTTOM: 0px; RIGHT: 0px
+}
+.m-3 .suggestedreading .hidsep {
+	MARGIN-LEFT: -1px
+}
+.m-3 .suggestedreading .srtitle {
+	MARGIN-BOTTOM: 10px; FONT-SIZE: 14px; FONT-WEIGHT: bold
+}
+.m-3 #yodaoad {
+	PADDING-LEFT: 5px
+}
+.m-3 .relategroup {
+	WIDTH: 45%
+}
+.m-3 .blogvote {
+	POSITION: relative; PADDING-LEFT: 35px; ZOOM: 1
+}
+.m-3 .blogvote .sep {
+	MARGIN: 0px 5px
+}
+.m-3 .blogvote .vtitle {
+	MARGIN: 15px 0px 15px -30px
+}
+.m-3 .blogvote .vtitle SPAN {
+	PADDING-RIGHT: 8px
+}
+.m-3 .blogvote .vtitle .close {
+	WIDTH: 60px; HEIGHT: 24px; VERTICAL-ALIGN: middle
+}
+.m-3 .blogvote .roleview {
+	PADDING-RIGHT: 10px
+}
+.m-3 .blogvote .roleview .iblock {
+	WIDTH: 10px
+}
+.m-3 .blogvote .options {
+	CLEAR: both; MARGIN-RIGHT: 10px
+}
+.m-3 .blogvote .options UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; LIST-STYLE-IMAGE: none; PADDING-TOP: 0px
+}
+.m-3 .blogvote .options UL LI {
+	PADDING-BOTTOM: 10px; LINE-HEIGHT: 16px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; PADDING-TOP: 10px
+}
+.m-3 .blogvote .options .role {
+	MARGIN-BOTTOM: 15px
+}
+.m-3 .blogvote .options .acts {
+	LINE-HEIGHT: 26px; MARGIN-BOTTOM: 15px; HEIGHT: 24px
+}
+.m-3 .blogvote .options .acts .leftpt {
+	LINE-HEIGHT: 26px; HEIGHT: 24px
+}
+.m-3 .blogvote .options .acts .leftpt BUTTON {
+	LINE-HEIGHT: 18px; HEIGHT: 24px
+}
+.m-3 .blogvote .options .acts .leftpt SPAN {
+	
+}
+.m-3 .blogvote .options .acts .view {
+	MARGIN-LEFT: 5px
+}
+.m-3 .blogvote .fvote {
+	PADDING-TOP: 10px
+}
+.m-3 .blogvote .fvote UL {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 10px 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; LIST-STYLE-IMAGE: none; PADDING-TOP: 0px
+}
+.m-3 .blogvote .fvote UL LI {
+	MARGIN: 5px 0px; HEIGHT: 20px
+}
+.m-3 .blogvote .options UL .col0 {
+	LINE-HEIGHT: 20px; MARGIN-TOP: -3px; WIDTH: 230px; MARGIN-RIGHT: 10px; _margin-top: -5px
+}
+.m-3 .blogvote .options UL .col0 INPUT {
+	_top: 3px; _position: relative
+}
+.m-3 .blogvote .options UL .col0 LABEL {
+	WIDTH: 200px; _top: 4px; _position: relative
+}
+.m-3 .blogvote .options UL .col1 {
+	LINE-HEIGHT: 14px; WIDTH: 190px; BACKGROUND: #eaeaea 0px 0px; HEIGHT: 14px
+}
+.m-3 .blogvote .options UL .col1 .iblock {
+	WIDTH: 100%; HEIGHT: 16px; VERTICAL-ALIGN: middle
+}
+</STYLE>
+
+<META name=GENERATOR content="MSHTML 8.00.7601.17537"></HEAD>
+<BODY id=blog-163-com class="nb-body nb-inr nb-prv"><!--[if lte IE 6]><div id="blog-163-com-ie6bodywrap" class=""><![endif]--><!--[if lte IE 6]><div id="blog-163-com-ie6body" class="nb-body"><![endif]-->
+<DIV id=blog-163-com-topbar class="nb-nbar clearfix">
+<DIV class="pl fl clearfix">
+<DIV class="nbw-im fl im im0" ?><A hideFocus class="lbl bd ia noul " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://www.163.com/" 
+target=_blank><SPAN class=tx>网易</SPAN><SPAN 
+class="iblock icn0 icn0-421">&nbsp;</SPAN></A>
+<DIV class="nbw-tcd box-shadow bd"><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://news.163.com/" 
+target=_blank>新闻 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://t.163.com/" 
+target=_blank>微博 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://email.163.com/" 
+target=_blank>邮箱 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://photo.163.com/" 
+target=_blank>相册 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://www.youdao.com/" 
+target=_blank>有道 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://photo.163.com/pp/square/" 
+target=_blank>摄影 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://fm.163.com/?fmblogzx0628" 
+target=_blank>闪电邮 </A><A hideFocus class="itm noul  " 
+href="http://m.123.163.com/?frombkcp" target=_blank>手机邮 </A><A hideFocus 
+class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://yxp.163.com/" 
+target=_blank>印像派 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://dream.163.com/?from=bkcp" 
+target=_blank>梦幻人生 </A>
+<DIV class="sep bd space">&nbsp;</DIV><A hideFocus class="itm noul  " 
+href="http://blog.163.com/redirect.html?frompersonalbloghome&amp;url=http://sitemap.163.com/" 
+target=_blank>更多 </A></DIV></DIV><SPAN style="MARGIN-LEFT: 0px" 
+class="fl iblock space icn1 icn1-4">&nbsp;</SPAN> 
+<DIV class="nbw-im fl im im10" ?><A hideFocus class="lbl bd ia noul " 
+href="http://blog.163.com/?frompersonalbloghome" target=_blank><SPAN 
+class=tx>博客</SPAN><SPAN class="iblock icn0 icn0-421">&nbsp;</SPAN></A>
+<DIV class="nbw-tcd box-shadow bd"><A hideFocus class="itm noul  " 
+href="http://blog.163.com/services/wapblog.html?frompersonalbloghome" 
+target=_blank>手机博客 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/clone/clone.html?frompersonalbloghome" 
+target=_blank>博客搬家 </A>
+<DIV class="sep bd space">&nbsp;</DIV><A hideFocus class="itm noul  " 
+href="http://blog.163.com/blog_admin/blog/static/721279201082863728829/?frompersonalbloghome" 
+target=_blank>LiveWriter写博 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/blog_admin/blog/static/721279201092713253500/?frompersonalbloghome" 
+target=_blank>Word写博 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/services/mailblog.html?frompersonalbloghome" 
+target=_blank>邮件写博 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/services/emsblog.html?frompersonalbloghome" 
+target=_blank>短信写博 </A>
+<DIV class="sep bd space">&nbsp;</DIV><A hideFocus class="itm noul  " 
+href="http://blog.163.com/showMultiUser.do?frompersonalbloghome" 
+target=_blank>群博客 </A><A hideFocus class="itm noul youcai " 
+href="http://blog.163.com/BLOG_YOUCAI/" target=_blank>博客油菜地 </A><A hideFocus 
+class="itm noul  " href="http://blog.163.com/ht/?frompersonalbloghome" 
+target=_blank>博客话题 </A><A hideFocus class="itm noul  " 
+href="http://blog.163.com/hot/history/?frompersonalbloghome" target=_blank>博客热点 
+</A><A hideFocus class="itm noul  " 
+href="http://q.163.com/#home?frompersonalbloghome" target=_blank>博客圈子 </A><A 
+hideFocus class="itm noul  " 
+href="http://blog.163.com/findFriend.do?type=5?frompersonalbloghome" 
+target=_blank>找朋友 </A></DIV></DIV>
+<DIV class="nbw-im fl im1 im explore"><A class="lbl bd ima spy" 
+href="http://blog.163.com/public/explore/?frompersonalbloghome">发现</A></DIV>
+<DIV class="nbw-im fl im1 im bloggroup"><A class="lbl bd ima spy" 
+href="http://blog.163.com/g/?frompersonalbloghome">小组</A></DIV>
+<DIV class="nbw-im fl im1 im customtheme"><A class="lbl bd ima spy" 
+href="http://blog.163.com/public/theme/?frompersonalbloghome">风格</A></DIV>
+<DIV class="nbw-im fl im1 im seebyway"><A class="lbl bd ima spy" title=随便看看 
+href="http://blog.163.com/randomUser.do"></A></DIV><SPAN 
+class="fl iblock space icn1 icn1-4">&nbsp;</SPAN> 
+<DIV id=topbar_randShowArea class=fl>
+<DIV class="nbw-im fl im1 im randtag"><A style="WIDTH: 80px" 
+class="lbl bd ima moveblog randshow" href="http://blog.163.com/showMultiUser.do" 
+target=_blank>群博客召集令</A></DIV></DIV></DIV>
+<DIV class="fr pr clearfix">
+<DIV id=topbar_loginAndReg class=fr><A style="COLOR: #ff7700; MARGIN-LEFT: 10px" 
+class="iblock fr ima" 
+href="http://reg.163.com/reg/reg.jsp?product=blog&amp;url=http://blog.163.com/ntesRegBlank.html&amp;loginurl=http://blog.163.com/" 
+target=_blank>创建博客</A> <A class="iblock fr ima ztag" 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295015597/#">登录</A> 
+<SPAN class="fr iblock space icn1 icn1-4 spx">&nbsp;</SPAN> 
+<DIV id=topbar_followArea class="nbw-im fr"><SPAN 
+class="lbl bd ima followit fl ztag"><SPAN class="fl addicon">&nbsp;</SPAN><SPAN 
+class=fl>关注</SPAN></SPAN></DIV></DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+  (function(){
+      var e = document.getElementById('blog-163-com-main');
+      if(!!e) e.parentNode.insertBefore(document.getElementById('blog-163-com-topbar'),e);
+      e = document.getElementById('blog-notice-email');
+      if(!!e) window.setTimeout(function(){e.style.display='';},50);
+  })()
+</SCRIPT>
+
+<DIV id=blog-163-com-toptips class="blogtoptips phide">
+<DIV class=blogtoptipswrap>
+<DIV id=newbulletinstip class="newbulletinstip phide"><A 
+class="lnknews fc03 m2a tiptag phide" 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295015597/" 
+target=_blank></A><SPAN class="txtnews tiptag phide"></SPAN>&nbsp;&nbsp;&nbsp;<A 
+hideFocus class="fc03 ul nextorprevnews tiptag phide" 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295015597/">显示下一条</A>&nbsp;&nbsp;|&nbsp;&nbsp;<A 
+hideFocus class="fc03 ul close tiptag" 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295015597/">关闭</A> 
+</DIV></DIV>
+<DIV id=istyletip class="istyletip phide">
+<DIV><A class="m2a iblock" href="http://blog.163.com/vipShow.do?fromblogbanner" 
+target=_blank></A><SPAN class="istyletag m2a"></SPAN></DIV></DIV>
+<DIV id=$_faxiantip class="faxiantip phide">
+<DIV><A class="m2a iblock" 
+href="http://blog.163.com/public/explore/?fromblogbanner" 
+target=_blank></A><SPAN class="faxiantag m2a"></SPAN></DIV></DIV>
+<DIV id=$_guanggaotip class="guanggaotip phide">
+<DIV><SPAN class="guanggaotag m2a"></SPAN></DIV></DIV></DIV>
+<DIV id=blog-163-com-main class="nb-wrap wsy">
+<DIV class="nb-are nb-top">
+<DIV id=blog-163-com-banner class="wkg h">
+<DIV class=t>
+<H1 class="n c"><SPAN class="ztag pre">Silver的博客</SPAN></H1>
+<P class="d c"><SPAN class="ztag pre">掌声背后</SPAN></P></DIV>
+<DIV class="f h ztag"></DIV><A hideFocus class=x 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295015597/#" 
+target=_blank><SPAN class="xx ztag"></SPAN></A></DIV></DIV>
+<DIV class="nb-are nb-nav">
+<DIV class=wkg>
+<DIV class="c h">
+<H2>导航</H2>
+<UL class="noul clearfix">
+  <LI class="w w0"><A hideFocus class="i i0 fc01 h" 
+  href="http://bennypan1980.blog.163.com/">首页</A> </LI>
+  <LI class="w w1 selected"><A hideFocus class="i i1 fc01 h" 
+  href="http://bennypan1980.blog.163.com/blog/">日志</A> </LI>
+  <LI class="w w2"><A hideFocus class="i i2 fc01 h" 
+  href="http://bennypan1980.blog.163.com/album/">相册</A> </LI>
+  <LI class="w w3"><A hideFocus class="i i3 fc01 h" 
+  href="http://bennypan1980.blog.163.com/music/">音乐</A> </LI>
+  <LI class="w w4"><A hideFocus class="i i4 fc01 h" 
+  href="http://bennypan1980.blog.163.com/collection/">收藏</A> </LI>
+  <LI class="w w5"><A hideFocus class="i i5 fc01 h" 
+  href="http://bennypan1980.blog.163.com/friends/">博友</A> </LI>
+  <LI class="w w6"><A hideFocus class="i i6 fc01 h" 
+  href="http://bennypan1980.blog.163.com/profile/">关于我</A> </LI></UL><!--
+ --></DIV>
+<DIV class="l h"></DIV>
+<DIV class="r h"></DIV></DIV></DIV>
+<DIV class="nb-are nb-smt">
+<DIV class="wkg h space">
+<DIV class="l h">&nbsp;</DIV>
+<DIV class="r h">&nbsp;</DIV>
+<DIV class="c h">&nbsp;</DIV></DIV></DIV>
+<DIV class="nb-are nb-cnt">
+<DIV class=wkg>
+<DIV id=blog-163-com-container class="c wc h clearfix ">
+<DIV id=-3 class="nb-mdl lcr m-3 ">
+<DIV class="nb-mt lcr th fc02">
+<DIV class="c tc th lcr">
+<H2 class="thide nb-jsc mdl_t_t">日志</H2></DIV>
+<DIV class="r tm th nb-jsc"></DIV>
+<DIV class="l tl th"></DIV>
+<DIV class="r tr th"></DIV></DIV>
+<DIV class="nb-mc lcr">
+<DIV class="c cc lcr nb-jsc">
+<SCRIPT>
+function g_onSuggestedReadingImgLoad(_img){
+    var image = new Image();
+    image.src = _img.src;
+    var _width = 90;
+    var _height = 90;
+    if(image.width > image.height){
+    	_img.style.marginLeft = -Math.floor((image.width*(_height/image.height)-_width)/2)+'px';
+    	_img.style.height = _height+'px';
+    }else {
+    	_img.style.width = _width+'px';
+    	_img.style.marginTop = -Math.floor((image.height*(_width/image.width)-_height)/2)+'px';
+    }
+    _img.style.display = 'block';
+}
+</SCRIPT>
+
+<DIV class="nbw-ryt ztag clearfix ">
+<DIV class="right bdwl bds0 bdc0">
+<DIV class="cnt ztag"></DIV></DIV>
+<DIV class=left>
+<DIV class="lcnt bdwr bds0 bdc0 ">
+<DIV id=$_divTopLink class="top fc03 bdwb bdc0 bds2 clearfix"><SPAN 
+class="ilft iblock icn0 icn0-620">&nbsp;</SPAN> 
+<DIV class="pleft thide"><A class=m2a 
+href="http://bennypan1980.blog.163.com/blog/static/8791982320102245054636/">找回你的拨号上网密码 
+- Dialupass-飞豆网</A></DIV><SPAN class="irgt iblock icn0 icn0-619">&nbsp;</SPAN> 
+<DIV class="pright thide"><A class=m2a 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295210880/">用PowerDesigner12.5生成类图代码方法 
+- 凌风在此欢迎你 - 博客园</A></DIV></DIV>
+<DIV class="mcnt ztag">
+<DIV class="nbw-bitm bdwb bds2 bdc0 ">
+<DIV class=multicntwrap>
+<DIV class=multicnt>
+<DIV>
+<H3 class="title pre fs1"><SPAN class=tcnt>使用 IBM Rational Software Architect 从 
+Java 代码逆向工程生成 UML 类图和序列图</SPAN><SPAN class="bgc0 fc07 fw0 fs0"></SPAN></H3>
+<P style="LINE-HEIGHT: 20px" class="tdep clearfix nbw-act fc06"><SPAN 
+class=pleft><A class="fc03 m2a" title=计算机 
+href="http://bennypan1980.blog.163.com/blog/#m=0&amp;t=1&amp;c=fks_087066085086083075080083084095092081088066093094084064">计算机</A> 
+<SPAN class=sep>2010-03-09 17:00:15</SPAN> <SPAN class=sep>阅读<SPAN 
+id=$_spanReadCount>174</SPAN></SPAN> <SPAN class=sep>评论<SPAN 
+id=$_spanCommentCount>0</SPAN></SPAN> </SPAN><SPAN 
+class="pright fc07 ztag"><SPAN class=sep></SPAN>&nbsp;&nbsp;字号：<SPAN 
+class="ul sep fc04">大</SPAN><SPAN class="ul sep fc04">中</SPAN><SPAN 
+class="sep ul fc04">小</SPAN></SPAN><SPAN id=$_blog_subscribe 
+class="pright pnt fc03"><SPAN class="iblock icn0 icn0-919">&nbsp;</SPAN><A 
+class=m2a>订阅</A></SPAN> </P></DIV></DIV></DIV>
+<DIV></DIV>
+<DIV class="bct fc05 fc11 nbw-blog ztag">
+<TABLE border=0 cellSpacing=0 cellPadding=0 width=301>
+  <TBODY>
+  <TR>
+    <TD>本文内容包括：</TD></TR>
+  <TR>
+    <TD>
+      <UL>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N10094" 
+        cmImpressionSent="1">类及序列图问题的实质</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N100BE" 
+        cmImpressionSent="1">识别一个 UML 类图的继承树</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N101DD" 
+        cmImpressionSent="1">产生一个高层的 UML 类图</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N102BC" 
+        cmImpressionSent="1">创建一个序列图</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N1031C" 
+        cmImpressionSent="1">总结</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#N10326" 
+        cmImpressionSent="1">致谢</A> </LI>
+        <LI><A href="http://www.uml.org.cn/oobject/200908033.asp#resources" 
+        cmImpressionSent="1">参考资料 </A></LI></UL></TD></TR></TBODY></TABLE>
+<BLOCKQUOTE>本文面向于那些软件架构师，设计师和开发人员，他们想使用 IBM&reg; Rational&reg; Software Architect 从 
+  Java? 源代码来逆向工程生成 UML 类和序列图。 逆向工程经常被用来从已有的源代码中以一种抽象模型 UML 
+  格式来获得丢失的设计文档，其可以用来研究一个系统的静态结构和动态行为，并用于扩展新的特性到产品。 作者详细说明了使用 IBM Rational 
+  Software Architect 进行逆向工程的限制，并阐述了克服这些限制的技术。 您将从使用这些技术技巧和窍门中受益，以识别组件，并从 Java 
+  类中产生像 UML 类和序列图这样的高层抽象。</BLOCKQUOTE>
+<P>软件结构师、开发人员及测试人员都熟知统一建模语言（UML），该语言适用于文档化用例、类图、序列图和其他图表。也可以通过其他许多软件辅助工具来帮助软件工程师来完成这些工作，或者是 
+<I>正向工程</I> 或者是 <I>逆向工程</I>的。</P>
+<UL>
+  <LI><B>正向工程</B>是对一个系统物理结构实现的高层抽象性、逻辑性及独立性设计的传统处理过程。 </LI></UL>
+<UL>
+  <LI><B>逆向工程</B>是对一个已存在系统的分析处理，以鉴别它的组成部分及它们的内在联系，从而以高层抽象性来构建一个系统的框架。在大多数情况下，逆向工程用于以抽象的模型 
+  UML 格式从已存在的源代码中，提取已丢失的设计文件，从而同时可得知一个系统的静态结构及动态行为。 </LI></UL>
+<H3><A><SPAN>类及序列图问题的实质</SPAN></A></H3>
+<P>IBM&reg; Rational&reg; Software Architect 在很多工业中得以广泛采用，因为它提供了很多的特性以帮助逆向工程师。 问题是当您以 
+Java? 代码逆向构建 UML 类及序列图时，Rational Software Architect 不能自动地产生有用的 UML 类及序列图。 
+但是已经存在改善 Rational Software Architect 输出产物的技术。本篇文章论证了怎样使用这里介绍的技术技巧，从 Java 
+代码中识别其组成部分及对 UML 种类和序列图进行高层的抽象。</P>
+<P>使用逆向工程，您可以很容易就从正向工程中得到您想要的，本篇文章将介绍在逆向工程以下领域中存在的问题：</P>
+<UL>
+  <LI>发现其抽象类及识别它们的等级结构 </LI>
+  <LI>产生具有聚合及关联关系的高层抽象性的类图 </LI>
+  <LI>构建序列图 </LI></UL>
+<P>接下来的部分为每个问题提供一个解决方案，并论证了怎样产生有意义的类及序列图。例子向您展示了怎样从一个已给 Java 
+项目的源代码中，识别一个系统的继承关系及组成部分，以对 UML 类图及序列图进行高层的抽象。</P>
+<P><B>注意：</B> <BR>本篇文章中的例子产生于 Rational Software Architect 7.0 版本</P>
+<H3><A><SPAN>识别一个 UML 类图的继承树</SPAN></A></H3>
+<P>继承关系是一种普遍的对象型的模式。它允许一组类共享共同的状态和行为，从而子类可以从父类那里继承共同的状态和行为。从一个已存在系统中发现整个的继承树结构是相当有用的，因为它能向您揭露在树中什么是顶级类以及什么是子类。而且，您可以识别一个继承树中有哪些共同状态及行为，以及这些共同行为怎样起作用。您可以在探索过程中以以下三种方式使用 
+Rational Software Architect。</P>
+<UL>
+  <LI>从一个工作场所或工作集中发现其抽象结构 </LI>
+  <LI>从抽象结构表中选择一个类从而显示其抽象类图 </LI>
+  <LI>在一个浏览表中研究树状结构，您会发现显示在 <B>Abstraction</B>之下的一系列抽象类。 </LI></UL>
+<P>第一步是在一个已存在系统中自动得到其顶级类。这样您就能使用这些类作为切入点以研究继承树中的类。您可以按以下步骤来完成此项。</P>
+<OL>
+  <LI>打开 Rational Software Architect 中 <B>Diagram Navigation</B>视图。 </LI>
+  <LI>在 <B>Object-oriented Pattern</B>下，右键点击 <B>Abstraction</B>，然后点击 <B>Discover 
+  Architecture</B>（如图 1 所示）。 </LI></OL>
+<P>这可以揭示整个工作空间的架构。</P><A><B>图 1.发现整个工作空间的架构</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=发现整个工作空间的架构 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge001.jpg" 
+width=409 height=157> 
+<P>图 2 显示了得到一个抽象类图的树状结构所需的剩余步骤：</P>
+<OL start=3>
+  <LI>通过右键点击位于 <B>Abstraction</B>之下的类 <CO><WBR>DE&gt;<FONT 
+  face=新宋体>Car</FONT></CO><WBR>DE&gt;来打开内容菜单。 </LI>
+  <LI>显示右边面板中 <CO><WBR>DE&gt;<FONT 
+  face=新宋体>Car</FONT></CO><WBR>DE&gt;类图，通过选择菜单中的 <B>Show Diagram</B>选项。 </LI>
+  <LI>通过选择并右键点击右边面板中类图 <CO><WBR>DE&gt;<FONT 
+  face=新宋体>Car</FONT></CO><WBR>DE&gt;来打开内容菜单。 </LI>
+  <LI>通过选择内容菜单中 <B>Explore in Browse Diagram</B>选项来产生抽象类图的树状结构。 </LI></OL>
+<P>做完第六步，您将在右边面板中见到 <CO><WBR>DE&gt;<FONT 
+face=新宋体>Car</FONT></CO><WBR>DE&gt;类图的树状结构。</P><A><B>图 2. 
+从整个工作场所中发现其抽象结构</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=从整个工作场所中发现其抽象结构 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaMLge002.jpg" 
+width=572 height=442> 
+<P>结果有以下缺陷：</P>
+<UL>
+  <LI>结构树中被发现类的同类及子类可能被丢失。 </LI>
+  <LI>除去被发现的抽象类之外，其他类没有属性及操作。 </LI></UL>
+<P>要得到第六步产生的树状结构，还需其他的步骤。您需要增加分离度（如图 3 所示），这决定了从被发现类扩展的层。</P><A><B>图 3. 
+改变分离度</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=改变分离度 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge003.jpg" 
+width=238 height=72> 
+<P>默认度是 1，这就是为什么在继承树中一些子类会丢失的原因。在本例中，分离度被增加至 2。</P>
+<P>第二个问题是除了在树状结构中被发现的类，其他类没有属性和操作。这不利于使用者出于再使用的目的来研究已存在的普遍模式。</P>
+<P>接下来的例子将向您展示，怎样识别具有任意属性及操作的整个继承树。</P>
+<OL start=3>
+  <LI>向 Rational Software Architect 载入一个 Java 项目。 </LI>
+  <LI>切换至 <B>Diagram Navigation</B>视图，按以上步骤所述，从工作场所中发现其抽象结构。 </LI>
+  <LI>从您感兴趣的第二步中找出一个抽象类。 </LI>
+  <LI>通过寻找模型搜索器中的类，找出等级树状结构类 ，双击打开编辑器中的类，按下 <B>F4</B>以打开等级树。确保 <B>type 
+  hierarchy</B>已被选择。 </LI>
+  <LI>右键点击类，并将其转变为一个可视的类图，通过选择 <B>Visualize &gt; Add to New Diagram File &gt; 
+  Class Diagram</B>，如图4所示。 </LI>
+  <LI>通过右键点击并选择 <B>Visualize &gt; Add to Current Diagram</B>来向当前的图添加剩余的类。 
+</LI></OL><A><B>图 4 . 将类可视化为新的类图</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=将类可视化为新的类图 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge004.jpg" 
+width=572 height=116> 
+<P>图 5 展示了产生一个继承树类图的过程：</P>
+<OL start=9>
+  <LI>打开并按下 <B>F4</B>以显示类的等级。 </LI>
+  <LI>选择每一个类并将其添加到类图中。 </LI>
+  <LI>检查并完成右边的图。 </LI></OL><A><B>图 5. 产生一个继承树类图的机理</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=产生一个继承树类图的机理 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge005.jpg" 
+width=572 height=443> 
+<P>类图以 Rational Software Architect 
+默认格式产生。有几个有用的修改可以帮助您将图表进行可视化。例如，您可以修改连接路径样式以使用树状样式路径 ，并且您可以通过在工作区右键点击来打开内容菜单然后点击 
+Arrange all。到此产生的类图要比自动产生的看上去更好。如图 6 所示。</P><A><B>图 6. 
+带有属性的继承树状图及树状路径连接</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=带有属性的继承树状图及树状路径连接 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge006.jpg" 
+width=572 height=579> 
+<P>图6中的类既显示了属性又显示了操作。属性及操作显示的好处在于，您可以研究它们共同的状态及行为，从而进一步了解一个已存在系统是如何被实现的，这将有助于系统的再使用。</P>
+<H3><A><SPAN>产生一个高层的 UML 类图</SPAN></A></H3>
+<P>Rational Software Architect 能让您通过从一个Java项目中，选择多个 Java 文件，来产生类图。</P>
+<OL>
+  <LI>在模型搜索器中，使用 <B>Visualize</B>来将它们添加到一个新图或当前的类图中。 </LI></OL>
+<P>如果多个类已经被添加到当前的图中，那么它们之间的关系也将被显示。</P>
+<P>图 7 是一个从 Java 代码中自动产生的类图的例子</P><A><B>图 7. 一个自动产生的类图</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=一个自动产生的类图 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge007.jpg" 
+width=572 height=444> 
+<P>如图 7 所示，您可以从模型搜索器中选择多个 Java 文件 来将它们在新的类图中可视化。如果您想添加更多的类，您可以选择更多的 Java 
+源代码来将它们在当前的类图中可视化。本图显示类包括在项目及它们的基本关系中。这有利于在项目中自动发现 UML 类，但是自动发现的关系在这里用处不大。</P>
+<P>在图 7 中，几乎所有的关系是 
+<I>use</I>除去继承关系。使用关系太过平常以至于不能给出有用的设计信息，越来越多的特别的聚集及组成关系被隐藏了甚至当所有的关系在图中都出现过。聚集关系表现为一对多关系当一个类含有其他类的很多项目时，组成关系用于描述一多一关系当一个类仅含有其他类的一个例子时。这个高层的抽象意味着对类之间更精确的关系发现，并为本设计的执行提供了有用的信息。这个类图如果没有抽象关系的细节将不再像以前那样有用。</P>
+<P>这里，我们尝试并探索了，以半自动方法产生UML类图的高层抽象方案。 UML 
+类以和以前同样的技术发现，并且类间的关系由人为指定。高层的抽象方案基于研究已有源代码所必须的知识。</P>
+<P>图 8 的例子显示了，怎样应用这个方法来得到高层的 UML 类图。</P><A><B>图 8. 使用 UML 
+模型向导建立一个空白模型</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt="使用 UML 模型向导建立一个空白模型" 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge008.jpg" 
+width=439 height=588> 
+<P>为了得到一个高层的类图，您必须首先建立一个空白模型。</P>
+<OL start=2>
+  <LI>按图 8 所述步骤建立一个新的空白模型： 
+  <OL type=A>
+    <LI>在文件种类下，选择 <B>UML Modeling</B>。 </LI>
+    <LI>在模板下，选择 <B>Blank Model</B>。 </LI>
+    <LI>在文件名区域，输入 <I>Blank Model</I>。 </LI>
+    <LI>对于目的文件夹，输入 <I>example</I>。 </LI>
+    <LI>默认的图检查框 "Create a default diagram in the new model" 应该被检查。 </LI>
+    <LI>对于默认的图种类，选择 <B>Freeform Diagram</B>。 </LI>
+    <LI>点击 <B>Finish</B>。 </LI></OL></LI></OL>
+<P>接下来的一步是从自动生产类图中总结选择的类。 Rational Software Architect 
+中的总结，能让您从一个类中拷贝一个类并粘贴到另一个类图中，这必须在一个空白模型中完成。如果您将总结的类粘贴到同一个类图，或本空白模型以外另一个类图中时，那么该类的属性和功能将丢失。</P>
+<OL start=3>
+  <LI>通过图 9 所示的步骤，从自动生成的类图中总结已选择的 Java 类： 
+  <OL type=A>
+    <LI>从 classdiagram2.dnx 中选择类 <CO><WBR>DE&gt;<FONT 
+    face=新宋体>FuelTank</FONT></CO><WBR>DE&gt;，<CO><WBR>DE&gt;<FONT 
+    face=新宋体>Engine</FONT></CO><WBR>DE&gt;，<CO><WBR>DE&gt;<FONT 
+    face=新宋体>Passenger</FONT></CO><WBR>DE&gt;以及 <CO><WBR>DE&gt;<FONT 
+    face=新宋体>Car</FONT></CO><WBR>DE&gt; </LI>
+    <LI>在一个已选类上右键点击以打开内容菜单 </LI>
+    <LI>选择 <B>Harvest</B>菜单 </LI></OL></LI>
+  <LI>将已总结的类粘贴至分离的创建于步 2 的类图中。 </LI>
+  <LI>在类间创建聚集及组成关系。 </LI></OL><A><B>图 9. 一个类图中的总结类</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=一个类图中的总结类 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge009.jpg" 
+width=572 height=478> 
+<P>下一步，在类间创建关联关系，这使您能够在聚集及组成关系中选择一个。图 10 显示了一个高层的类图。</P><A><B>图 10. 半自动方法产生的 UML 
+类图的高层抽象</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt="半自动方法产生的 UML 类图的高层抽象" 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge010.jpg" 
+width=533 height=462> 
+<P>通过将图 10 与图 9 进行比较，您可以发现半自动方法能精确显示类间关系。本图可用于独立设计执行文件，或已有系统远期改善。</P>
+<P><B>着重点：</B> <BR>如果不经过总结，聚集及组成关系将不能应用于 Rational Software Architect 。</P>
+<H3><A><SPAN>创建一个序列图</SPAN></A></H3>
+<P>序列图是应用最为广泛的 UML 动态建模方法。它致力于识别一个系统的行为。一个序列图通常应用于建模用例，以显示一个系统的方法及功能。</P>
+<P>Rational Software Architect 不能从 Java 代码中自动创建一个序列图。下面的步骤会告诉您怎样去创建一个：</P>
+<OL>
+  <LI>创建一个空白模型。 </LI>
+  <LI>创建一个序列图： 
+  <OL type=A>
+    <LI>在 <B>Blank Model</B>上右键点击。 </LI>
+    <LI>从 drop-down (context) 菜单中，选择 <B>Add Diagram</B>然后选择 <B>Sequence 
+    Diagram</B>（如图 11 所示）。 </LI></OL></LI>
+  <LI>向序列图添加类。 </LI>
+  <LI>在两个类间对方法标记进行排序。 </LI>
+  <LI>保存序列图。 </LI></OL><A><B>图 11. 创建一个序列图</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt=创建一个序列图 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge011.jpg" 
+width=498 height=346> 
+<P>当您完成创建一个序列图，一个序列文件产生于 <B>Collaboration: Interaction </B>标签下。 您可以从 Java 
+代码中向序列图添加类。二者均见于图 12 。</P>
+<P>图 12 的主要工作区显示了一个序列图的例子。</P><A><B>图 12. 产生于 Java 源文件的序列图</B></A><BR><IMG 
+title="使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图 - 阿Ben - Silver的博客" 
+alt="产生于 Java 源文件的序列图" 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/imaLMge012.jpg" 
+width=572 height=585> 
+<P>一个方法调用意味着信息从召集者传向被召集者。被召集者是方法所有人，它从方法召集者那里收到信息。信息可以是单道的也可以是双道的。一个序列图由在处于一组方法所有者及一个初始发起者之间的，一系列方法标记组成。第一个标记必须从发起第一个方法标记的地方开始。</P>
+<H3><A><SPAN>总结</SPAN></A></H3>
+<P>本篇文章论证了怎样通过应用 Rational Software Architect v7.0 ，从 Java 代码中使用逆向工程创建 UML 
+类及序列图。层级类图代表着一种方式，该方式能发现在一个项目或工作集中，发现整个类间的层次关系。这将有助于开发人员向一个已有系统扩展或添加新功能。高层的类图能直观显示类间的聚集及组成关系。这有助于开发人员扩展或修改一个已有设计。这对开发人员们开发大型应用系统意义非凡。序列图显示了在执行特定任务时类间的动态方法标记。这为系统中提供了清晰的运行原理图。</P>
+<H3><A><SPAN>致谢</SPAN></A></H3>
+<P>作者对 Philip Norton 和 Noel Rooney 对本文所作的总结和回馈表示感谢。</P></DIV>
+<DIV></DIV>
+<DIV></DIV>
+<DIV></DIV>
+<DIV class="ptc phide ztag"><SPAN class=ptcp><SPAN 
+class="iblock bcmimg">&nbsp;</SPAN> <SPAN 
+class="nbc-0 nbc-0-40 ptcmt ptcmt-2">评论这张</SPAN> </SPAN></DIV>
+<DIV class="ptc phide ztag"><SPAN class=ptcp><SPAN 
+class="nbc-0 nbc-0-40 ptcmi"><IMG 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/microblog.png"> 
+</SPAN><SPAN class="nbc-0 nbc-0-40 ptcmt">转发至微博</SPAN> </SPAN></DIV>
+<DIV class="nbw-act tbar fc03 clearfix">
+<DIV style="LINE-HEIGHT: 24px; HEIGHT: 24px">
+<DIV class="pleft rdif"><SPAN id=$_spanRecommend class="pnt pleft"><IMG 
+class=pclass 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/tuijian.png"></SPAN> 
+<SPAN id=$_spanShowRecommend class="pleft rdct  phide"><SPAN 
+class="pleft ul fc03"><SPAN id=$_spanRecommendCount>0</SPAN>人</SPAN><SPAN 
+class="pleft iblock icn0 icn0-722 nbw-tgl1 nas-icn0fix">&nbsp;</SPAN><SPAN 
+class="pleft iblock icn0 icn0-621 nbw-tgl0 nas-icn0fix">&nbsp;</SPAN><SPAN 
+class=fc07></SPAN>|&nbsp; </SPAN><SPAN 
+class="fc07 pleft nas-tofix">分享到：</SPAN><SPAN class="nas-wrap pleft"><SPAN 
+id=$_shareBtn_163weibo class="nas-itm nas-itm0" title=分享到网易微博>&nbsp;</SPAN><SPAN 
+id=$_shareBtn_sinaweibo class="nas-itm nas-itm6" 
+title=分享到新浪微博>&nbsp;</SPAN><SPAN id=$_shareBtn_qqweibo class="nas-itm nas-itm9" 
+title=分享到腾讯微博>&nbsp;</SPAN><SPAN id=$_shareBtn_msn class="nas-itm nas-itm7" 
+title=分享到MSN>&nbsp;</SPAN><SPAN id=$_shareBtn_qq class="nas-itm nas-itm3" 
+title=分享到QQ空间>&nbsp;</SPAN><SPAN id=$_shareBtn_renren class="nas-itm nas-itm1" 
+title=分享到人人网>&nbsp;</SPAN><SPAN id=$_shareBtn_kaixin class="nas-itm nas-itm2" 
+title=分享到开心网>&nbsp;</SPAN><SPAN id=$_shareBtn_douban class="nas-itm nas-itm4" 
+title=分享到豆瓣>&nbsp;</SPAN><SPAN id=$_shareBtn_dream class="nas-itm nas-itm8" 
+title=分享到梦幻人生>&nbsp;</SPAN></SPAN></SPAN> </DIV>
+<DIV class=pright><SPAN class=fc07>阅读(<SPAN 
+id=$_spaniReadCount>174</SPAN>)</SPAN><SPAN class="sep fc07">|</SPAN> <SPAN 
+class=fc07>评论(<SPAN id=$_spaniCommentCount>0</SPAN>)</SPAN><SPAN 
+class="sep fc07">|</SPAN> <SPAN id=$_spanCite class=m2a>引用</SPAN> <SPAN 
+id=$_spanCiteCount class=m2a>(0)</SPAN> <SPAN class="sep fc07">|</SPAN><SPAN 
+id=$_spanReport class=m2a>举报</SPAN> </DIV></DIV></DIV></DIV>
+<DIV class=snl>
+<DIV id=$_divRecommendContent class="phide bdwb bds2 bdc0 rdcnt"></DIV>
+<DIV style="DISPLAY: none; _zoom: 1" id=yodaoad 
+class="bdwb bds2 bdc0">&nbsp;</DIV>
+<DIV id=$_divTopLink class="top fc03 clearfix"><SPAN 
+class="ilft iblock icn0 icn0-620">&nbsp;</SPAN> 
+<DIV class="pleft thide"><A class=m2a 
+href="http://bennypan1980.blog.163.com/blog/static/8791982320102245054636/">找回你的拨号上网密码 
+- Dialupass-飞豆网</A></DIV><SPAN class="irgt iblock icn0 icn0-619">&nbsp;</SPAN> 
+<DIV class="pright thide"><A class=m2a 
+href="http://bennypan1980.blog.163.com/blog/static/879198232010295210880/">用PowerDesigner12.5生成类图代码方法 
+- 凌风在此欢迎你 - 博客园</A></DIV></DIV>
+<DIV class="relateblog phide">
+<H4 class="bdwb bds2 bdc0 fc07 fs0">历史上的今天</H4>
+<DIV class="cnt ztag clearfix"></DIV></DIV>
+<DIV class="relateblog phide">
+<H4 class="bdwb bds2 bdc0 fc07 fs0">相关文章</H4>
+<DIV class="cnt ztag clearfix"></DIV></DIV>
+<DIV class=author>
+<H4 class="bdwb bds2 bdc0 fc07 fs0">最近读者</H4>
+<DIV class="cnt ztag clearfix"></DIV></DIV>
+<DIV style="_zoom: 1" id=yodaoad_1 class=phide></DIV>
+<DIV class=comment>
+<H4 class="bdwb bds2 bdc0 fc07 fs0">评论</H4><A id=blogComment 
+name=blogComment></A>
+<DIV class=ztag></DIV></DIV></DIV>
+<DIV class="cite ztag fc03"></DIV></DIV></DIV></DIV></DIV>
+<DIV class="phide nb-init"><TEXTAREA name=js>    this.p={  m:2,
+              b:2,
+              id:'fks_080066086083083074085081086095092081088066093094084064',
+              blogTitle:'使用 IBM Rational Software Architect 从 Java 代码逆向工程生成 UML 类图和序列图',
+              blogAbstract:'&lt;TABLE cellSpacing=0 cellPadding=0 width=301 border=0\&gt;\r\n&lt;TBODY\&gt;\r\n&lt;TR\&gt;\r\n&lt;TD \&gt;本文内容包括：&lt;/TD\&gt;&lt;/TR\&gt;\r\n&lt;TR \&gt;\r\n&lt;TD\&gt;\r\n&lt;UL\&gt;\r\n&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N10094\" cmImpressionSent=\"1\"\&gt;类及序列图问题的实质&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N100BE\" cmImpressionSent=\"1\"\&gt;识别一个 UML 类图的继承树&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N101DD\" cmImpressionSent=\"1\"\&gt;产生一个高层的 UML 类图&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N102BC\" cmImpressionSent=\"1\"\&gt;创建一个序列图&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N1031C\" cmImpressionSent=\"1\"\&gt;总结&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;A href=\"http://www.uml.org.cn/oobject/200908033.asp#N10326\" cmImpressionSent=\"1\"\&gt;致谢&lt;/A\&gt; \r\n&lt;/LI\&gt;&lt;LI\&gt;&lt;/LI\&gt;&lt;/UL\&gt;&lt;/TD\&gt;&lt;/TR\&gt;&lt;/TABLE\&gt;',
+              blogUrl:'blog/static/879198232010295015597',
+              isPublished:1,
+              istop:false,
+              type:0,
+              modifyTime:0,
+              publishTime:1268125215597,
+              permalink:'blog/static/879198232010295015597',
+              commentCount:0,
+              mainCommentCount:0,
+              recommendCount:0,
+              bsrk:-100,
+              publisherId:0,
+              recomBlogHome:false,
+              attachmentsFileIds:[],
+              vote:{},
+              groupInfo:{},
+              friendstatus:'none',
+              followstatus:'unFollow',
+              pubSucc:'',
+              visitorProvince:'广东',
+              visitorCity:'深圳',
+              isWeekend:true,
+              taobaoVersion:6,
+              taobaolink:"http://g.163.com/a?CID=4399&amp;Values=3931351846&amp;Redirect=http://ju.atpanel.com/?url=http://www.tmall.com/?ad_id=100040497852881d4a61&amp;am_id=&amp;cm_id=&amp;pm_id=",
+              taobaobgimage:"http://blog.163.com/newpage/images/taobaolayerbg5.jpg",
+              mset:'000',
+              mcon:'',
+              srk:-100,
+              remindgoodnightblog:false,
+              isBlackVisitor:false,
+              isShowYodaoAd:false
+            }
+  </TEXTAREA> <TEXTAREA id=m-3-jst-1 name=jst>    {list a as x}
+    {if !!x}
+    &lt;div class="iblock nbw-fce nbw-f40"&gt;
+      &lt;a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/${x.visitorName}/"&gt;
+      {if x.visitorName==visitor.userName}
+      &lt;img alt="${x.visitorNickname|escape}" onerror="location.f40" class="cwd bdwa bdc0" src="${fn1(x.visitorName)}&amp;r=${visitor.imageUpdateTime}"/&gt;
+      {else}
+      &lt;img alt="${x.visitorNickname|escape}" onerror="location.f40" class="cwd bdwa bdc0" src="${fn1(x.visitorName)}"/&gt;
+      {/if}
+      &lt;/a&gt;
+      &lt;div class="cwd vname thide"&gt;
+        {if x.moveFrom=='wap'}
+          &lt;a class="noul pnt" target="_blank" href="http://blog.163.com/services/wapblog.html?frompersonalbloghome"&gt;&lt;span title="通过手机博客访问" class="iblock icn0 icn0-417"&gt;&nbsp;&lt;/span&gt;&lt;/a&gt;
+        {/if}
+        &lt;a class="fc03 m2a"  target="_blank" hidefocus="true" href="http://blog.163.com/${x.visitorName}/"&gt;
+          ${fn(x.visitorNickname,8)|escape}
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    {/if}
+    {/list}
+  </TEXTAREA> <TEXTAREA id=m-3-jst-2 name=jst>    {if !!a}
+    &lt;a target="_blank" href="http://blog.163.com/${a.userName}/"&gt;&lt;img class="bdwa bdc0 pnt" onerror="location.f60" src="${fn1(a.userName)}"/&gt;&lt;/a&gt;
+    &lt;a target="_blank" class="fc03 m2a" href="http://blog.163.com/${a.userName}/"&gt;${fn(a.nickname,8)|escape}&lt;/a&gt;
+    &lt;div class="intro fc05"&gt;${a.selfIntro|escape}{if great260}${suplement}{/if}&lt;/div&gt;
+	    &lt;div class="acts ztag"&gt;&lt;/div&gt;
+    {/if}
+  </TEXTAREA> &lt;#--最新日志，群博日志--&gt; <TEXTAREA id=m-3-jst-3 name=jst>    {list a as x}
+    {if !!x}
+    &lt;li class="thide"&gt;&lt;a target="_blank" class="fc03 m2a" href="${furl()}${x.permalink}/?latestBlog"&gt;${fn(x.title,26)|escape}&lt;/a&gt;&lt;/li&gt;
+    {/if}
+    {/list}
+  </TEXTAREA> &lt;#--推荐日志--&gt; <TEXTAREA id=m-3-jst-4 name=jst>    &lt;p class="fc06"&gt;推荐过这篇日志的人：&lt;/p&gt;
+    &lt;div&gt;
+      {list a as x}
+      {if !!x}
+      &lt;div class="iblock nbw-fce nbw-f40"&gt;
+        &lt;a class="fc03 noul" target="_blank" hidefocus="true" href="http://blog.163.com/${x.recommenderName}/"&gt;
+        &lt;img alt="${x.recommenderNickname}" onerror="location.f40" class="cwd bdwa bdc0" src="${fn1(x.recommenderName)}"/&gt;
+        &lt;/a&gt;
+        &lt;div class="cwd thide"&gt;
+          &lt;a class="fc03 m2a" target="_blank" hidefocus="true" href="http://blog.163.com/${x.recommenderName}/"&gt;
+            ${fn(x.recommenderNickname,6)|escape}
+          &lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      {/if}
+      {/list}
+    &lt;/div&gt;
+    {if !!b&amp;&amp;b.length&gt;0}
+    &lt;p  class="fc06"&gt;他们还推荐了：&lt;/p&gt;
+    &lt;ul&gt;
+    {list b as y}
+      {if !!y}
+        &lt;li class="rrb"&gt;&lt;span class="iblock"&gt;·&lt;/span&gt;&lt;a class="fc03 m2a" target="_blank" href="http://blog.163.com/${y.recommendBlogPermalink}/?from=blog/static/879198232010295015597"&gt;${y.recommendBlogTitle}&lt;/a&gt;&lt;/li&gt;
+      {/if}
+    {/list}
+    &lt;/ul&gt;
+    {/if}
+  </TEXTAREA> &lt;#--引用记录--&gt; <TEXTAREA id=m-3-jst-5 name=jst>    &lt;span class="pleft fc07"&gt;引用记录：&lt;/span&gt;
+    &lt;ul class="tbac"&gt;
+    {list d as x}
+      &lt;li class="clearfix"&gt;
+        &lt;span class="pleft iblock"&gt;·&lt;/span&gt;
+        &lt;div class="tbl thide pleft"&gt;&lt;span&gt;&lt;a target="_blank" class="fc07 m2a" href="${x.referBlogUrl}"&gt;${x.referBlogTitle}&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+        &lt;div class="tbr pleft"&gt;&lt;span&gt;&lt;a target="_blank" class="fc07 m2a" href="${x.referHomePage}"&gt;${x.referUserName}&lt;/a&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;/li&gt;
+    {/list}
+    &lt;/ul&gt;
+  </TEXTAREA> &lt;#--博主推荐--&gt; <TEXTAREA id=m-3-jst-6 name=jst>    {list a as x}
+    {if !!x}
+    &lt;li class="thide"&gt;&lt;a target="_blank" class="fc03 m2a" href="http://blog.163.com/${x.userName}/${x.permalink}/?recommendBlog" title="${x.title|default:""|escape}"&gt;${x.title|default:""|escape}&lt;/a&gt;&lt;/li&gt;
+    {/if}
+    {/list}
+  </TEXTAREA> &lt;#--随机阅读--&gt; <TEXTAREA id=m-3-jst-7 name=jst>    {list a as x}
+    {if !!x}
+    &lt;li class="thide"&gt;&lt;a target="_blank" class="fc03 m2a" href="http://blog.163.com/${x.userName}/${x.permalink}/?personalRecomBlog" title="${x.title|default:""|escape}"&gt;${x.title|default:""|escape}&lt;/a&gt;&lt;/li&gt;
+    {/if}
+    {/list}
+  </TEXTAREA> &lt;#--首页推荐--&gt; <TEXTAREA id=m-3-jst-8 name=jst>    {list a as x}
+    {if !!x}
+    &lt;li class="thide"&gt;&lt;a target="_blank" class="fc03 m2a" target="_blank" href="${x.blogUrl|default:""|escape}?recommendReader" title="${x.blogTile|default:""|escape}"&gt;${x.blogTile|default:""|escape}&lt;/a&gt;&lt;/li&gt;
+    {/if}
+    {/list}
+  </TEXTAREA> &lt;#--相关文章--&gt; <TEXTAREA id=m-3-jst-9 name=jst>    &lt;ul&gt;
+      {list a as x}
+      {if x_index&gt;9}{break}{/if}
+      {if !!x}
+        &lt;li class="thide fc03"&gt;
+          &lt;a class="m2a" target="_blank" target="_blank"  href="${x.url|default:""}?fromdm&amp;fromSearch&amp;isFromSearchEngine=${isFromSearchEngine|default:"no"}"  title="${x.title|default:""|escape}"&gt;${x.title|default:""|escape}&lt;/a&gt;&lt;span class="fc07"&gt;${fn2(parseInt(x.date),'yyyy-MM-dd HH:mm:ss')}&lt;/span&gt;
+        &lt;/li&gt;
+      {/if}
+      {/list}
+    &lt;/ul&gt;
+  </TEXTAREA> &lt;#--历史上的今天--&gt; <TEXTAREA id=m-3-jst-10 name=jst>    &lt;ul&gt;
+      {list a as x}
+      {if x_index&gt;4}{break}{/if}
+      {if !!x}
+        &lt;li class="thide fc03"&gt;
+          &lt;a class="m2a" target="_blank"  href="http://blog.163.com/${x.userName}/${x.permalink|default:""}"  title="${x.title|default:""|escape}"&gt;${fn1(x.title,60)|escape}&lt;/a&gt;&lt;span class="fc07"&gt;${fn2(x.publishTime,'yyyy-MM-dd HH:mm:ss')}&lt;/span&gt;
+        &lt;/li&gt;
+      {/if}
+      {/list}
+    &lt;/ul&gt;
+  </TEXTAREA> &lt;#--右边模块结构--&gt; <TEXTAREA id=m-3-txt-0 name=txt>    &lt;div class="uinfo ztag"&gt;&lt;/div&gt;
+    &lt;h4 class="fc07 fs0 ltt"&gt;最新日志&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;h4 class="fc07 fs0 ltt phide ztag"&gt;该作者的其他文章&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;h4 class="fc07 fs0 ltt phide ztag"&gt;博主推荐&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;h4 class="fc07 fs0 ltt phide ztag"&gt;相关日志&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;h4 class="fc07 fs0 ltt phide ztag"&gt;随机阅读&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;h4 class="fc07 fs0 ltt phide ztag"&gt;首页推荐&lt;/h4&gt;
+    &lt;ul class="ztag blst"&gt;&lt;/ul&gt;
+    &lt;div class="more"&gt;&lt;a target="_blank" class="fc03 m2a" href="http://blog.163.com"&gt;更多&gt;&gt;&lt;/a&gt;&lt;/div&gt;
+    &lt;br/&gt;&lt;a id="yodaoad_suggest" target="_blank" href="http://fankui.163.com/ft/comment.fb?pid=12004&amp;fid=16023" class="fc05 m2a phide"&gt;对“推广广告”提建议&lt;/a&gt;
+    &lt;br/&gt;&lt;br/&gt;
+    &lt;div id="yodaoad_r" style="display:none;_zoom:1;"&gt;&lt;/div&gt;
+  </TEXTAREA> &lt;#--评论模块结构--&gt; <TEXTAREA id=m-3-txt-1 name=txt>    &lt;div class="publish ztag"&gt;&lt;/div&gt;
+    &lt;div class="bdwt bds2 bdc0 phide" id="yodaoad_2" style="_zoom:1;"&gt;&lt;/div&gt;
+    &lt;div class="ztag bdwt bds2 bdc0"&gt;
+      &lt;div class="case"&gt;&lt;/div&gt;
+      &lt;div class="clearfix"&gt;&lt;/div&gt;
+    &lt;/div&gt;
+  </TEXTAREA> &lt;#--引用模块结构--&gt; <TEXTAREA id=m-3-txt-2 name=jst>     &lt;div class="close"&gt;
+       &lt;span class="ztag iblock icn0 icn0-57"&gt;&nbsp;&lt;/span&gt;
+     &lt;/div&gt;
+	 &lt;div class="ztag phide"&gt;&lt;/div&gt;
+  </TEXTAREA> &lt;#--博主发起的投票--&gt; <TEXTAREA id=m-3-txt-3 name=jst>    {list a as x}
+    {if !!x}
+      &lt;li&gt;
+      &lt;a href="http://blog.163.com/${x.userName}/" target="_blank" class="m2a fc03"&gt;${x.nickName|escape}&lt;/a&gt;&nbsp;&nbsp;投票给
+        {var first_option = true;}
+        {list x.voteDetailList as voteToOption}
+            {if voteToOption==1}
+              {if first_option==false},{/if}&nbsp;&nbsp;“${b[voteToOption_index]}”&nbsp;&nbsp;
+            {/if}
+        {/list}
+        {if (x.role!="-1") },“我是${c[x.role]}”&nbsp;&nbsp;{/if}
+        &nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="fc07"&gt;&nbsp;&nbsp;&nbsp;&nbsp;${fn1(x.voteTime)}&lt;/span&gt;
+        {if x.userName==''}{/if}
+    {/if}
+    {/list}
+  </TEXTAREA> </DIV></DIV>
+<DIV class="l cl h100"></DIV>
+<DIV class="r cr h100"></DIV></DIV>
+<DIV class="nb-mb lcr bh space">
+<DIV class="l bl bh">&nbsp;</DIV>
+<DIV class="r br bh">&nbsp;</DIV>
+<DIV class="c bc bh lcr">&nbsp;</DIV></DIV></DIV></DIV>
+<DIV class="l wl g lg h100">&nbsp;</DIV>
+<DIV class="l wl t lt">&nbsp;</DIV>
+<DIV class="l wl b lb">&nbsp;</DIV>
+<DIV class="r wr g rg h100">&nbsp;</DIV>
+<DIV class="r wr t rt">&nbsp;</DIV>
+<DIV class="r wr b rb">&nbsp;</DIV></DIV></DIV>
+<DIV class="nb-are nb-smb">
+<DIV class="wkg h space">
+<DIV class="l h">&nbsp;</DIV>
+<DIV class="r h">&nbsp;</DIV>
+<DIV class="c h">&nbsp;</DIV></DIV></DIV>
+<DIV class="nb-are nb-fot">
+<DIV class="wkg h">
+<H2>页脚</H2>
+<DIV class=k><A class="m2a fc08" href="http://corp.163.com/index_gb.html" 
+target=_blank>公司简介</A> <SPAN class="p fc10">-</SPAN> <A class="m2a fc08" 
+href="http://gb.corp.163.com/gb/contactus.html" target=_blank>联系方法</A> <SPAN 
+class="p fc10">-</SPAN> <A class="m2a fc08" 
+href="http://corp.163.com/gb/job/job.html" target=_blank>招聘信息</A> <SPAN 
+class="p fc10">-</SPAN> <A class="m2a fc08" href="http://help.163.com/?b13abk1" 
+target=_blank>客户服务</A> <SPAN class="p fc10">-</SPAN> <A class="m2a fc08" 
+href="http://corp.163.com/gb/legal/legal.html" target=_blank>隐私政策</A> <SPAN 
+class="p fc10">-</SPAN> <A class="m2a fc08" 
+href="http://blog.163.com/public/theme/" target=_blank>博客风格</A> <SPAN 
+class="p fc10">-</SPAN> <A class="m2a fc08" 
+href="http://blog.163.com/services/wapblog.html" target=_blank>手机博客</A> </DIV>
+<P class=fc08>网易公司版权所有&nbsp;&copy;1997-2011</P></DIV></DIV></DIV><!--[if lte IE 6]></div><![endif]--><!--[if lte IE 6]></div><![endif]-->
+<DIV id=blog-163-com-layer class=nb-layer></DIV>
+<DIV style="DISPLAY: none" id=blog-163-com-template 
+class="nb-tpl nb-init phide"><TEXTAREA id=nb-jst-a1 rows=1 cols=1 name=jst>  &lt;a class="pr" target="_blank" href="http://help.163.com/special/007525FT/blog.html?b13aze1"&gt;帮助&lt;/a&gt;
+  &lt;span class="fr iblock space icn1 icn1-4"&gt;&nbsp;&lt;/span&gt;
+  &lt;a class="pr" target="_blank" href="http://blog.163.com/activation.do?host=activation&amp;&amp;username=${u}"&gt;${u}&lt;/a&gt;
+</TEXTAREA> <TEXTAREA id=nb-jst-d0 rows=1 cols=1 name=jst>      {list wl as x}
+        &lt;div class="grp"&gt;${x.g}&lt;/div&gt;
+        {list x.l as y}
+        &lt;a class="itm noul" href="#" hidefocus="true" name="{if typeof(y.v)=='string'}${y.v}{else}${y_index}{/if}"&gt;${y.n}&lt;/a&gt;
+        {/list}
+      {/list}
+</TEXTAREA> <TEXTAREA id=nb-jst-d1 rows=1 cols=1 name=jst>	{if defined('wl')}
+        {list wl as x}&lt;a class="itm noul" href="#" hidefocus="true" name="${x.v}"&gt;${x.n}&lt;/a&gt;{/list}
+    {/if}
+</TEXTAREA> </DIV>
+<SCRIPT type=text/javascript>
+  window.N = {tm:{'zbtn':'nbtn',
+                  'bdc0':'bdc0','bdc2':'bdc1',
+				  'bgc0':'bgc0','bgc1':'bgc1','bgc2':'bgc2','bgh0':'bgc9',
+				  'fc00':'fc03','fc01':'fc04','fc02':'fc05','fc03':'fc06','fc04':'fc07','fc05':'fc09'}};
+  Date.servTime = '05/26/2011 12:51:41';
+  location.api = 'http://api.blog.163.com/';
+  location.msg = 'http://api.blog.163.com/msg/dwr';
+  location.dwr = 'http://api.blog.163.com/bennypan1980/dwr';
+  location.vcd = 'http://api.blog.163.com/cap/captcha.jpgx?parentId=87919823&r=';
+  location.mrt = 'http://b.bst.126.net/newpage/style/mbox/';
+  location.fce = 'http://os.blog.163.com/common/ava.s?host=';
+  location.fce2= 'http://os.blog.163.com/common/ava.s?a=1&t=3864&host=';
+  location.passportfce = 'http://os.blog.163.com/common/ava.s?passport=';
+  location.fpr = 'http://b.bst.126.net/common/portrait/face/preview/';
+  location.f60 = 'http://b.bst.126.net/common/face60.png';
+  location.f140= 'http://b.bst.126.net/common/face140.png';
+  location.adf140= 'http://b.bst.126.net/common/admireface140.png';
+  location.ept = 'http://b.bst.126.net/common/empty.png';
+  location.guide_profile_add= 'http://b.bst.126.net/common/guide_profile_add.gif';
+  location.phtoto_dream = 'http://photo.dream.163.com/blog/writeBlogCallback.do';
+  window.CF = {
+    ca:false
+   ,cb:''
+   ,cc:false
+   ,cd:false
+   ,ce:'-3'
+   ,ck:0
+   ,ci:['api.blog.163.com'
+       ,'http://photo.163.com/photo/html/crossdomain.html?t=20100205'
+        
+        ,'ud.blog.163.com'
+        
+        
+        
+        
+        ]
+   ,cj:[-3]
+   ,cl:''
+   ,cm:["","blog/","album/","music/","collection/","friends/","profile/","pprank/"]
+   ,cf:0
+   ,co:{pv:false
+       ,ti:4178
+       ,tn:''
+       ,tc:0
+       ,tl:3
+       ,ut:0
+       ,un:''
+       ,um:''
+       ,ui:0
+       ,ud:false}
+   ,cp:{nr:0
+       ,cr:0
+       ,vr:-100
+       ,fr:0}
+   ,cs:0
+   ,ct:{'nav':['首页','日志','相册','音乐','收藏','博友','关于我'],'enabled':[0,1,6],'defaultnav':parseInt('1111111',2)}
+   ,cu:false
+   ,cv:false
+   ,cw:false
+  };
+  window.UD = {};
+  UD.host = {
+      userId:87919823
+     ,userName:'bennypan1980'
+     ,nickName:'阿Ben'
+     ,imageUpdateTime:-1
+     ,baseUrl:'http://bennypan1980.blog.163.com/'
+     ,gender:'他'
+     ,email:'bennypan1980@163.com'
+     ,photo163Name:'bennypan1980'
+     ,photo163HostName:'bennypan1980'
+     ,TOKEN_HTMLMODULE:''
+     ,isMultiUserBlog:false
+     ,isWumiUser:false
+  };
+</SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/pc.js"></SCRIPT>
+
+<SCRIPT type=text/javascript src=""></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/pm.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="使用%20IBM%20Rational%20Software%20Architect%20从%20Java%20代码逆向工程生成%20UML%20类图和序列图%20-%20阿Ben的日志%20-%20网易博客_files/ntes.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    _ntes_nacc='blog';neteaseTracker();
+    
+    new Image().src = 'http://blog.163.com/newpage/images/analyse.png?s=p&t='+new Date().getTime();
+  </SCRIPT>
+</BODY></HTML>

@@ -1,0 +1,393 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/reactor.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:57 GMT -->
+<head>
+    <title>Maven Eclipse plugin - Multiple Module Project with Eclipse</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Bernd Mau, mau@hhla.de
+Fabrizio Giustina" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="../../../www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-22
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+              <strong>Multiple Module Projects</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Multiple Module Projects</h2>
+<div class="section"><h3>Project layout</h3>
+<p>Due to the workspace idea many Eclipse users are used to a flat layout and therefore want to keep this structure. The following sample shows how to handle maven multiple module projects with Eclipse for both the standard maven hierachical project layout and the flat Eclipse-like layout.</p>
+<div class="section"><h4>Hierachical project layout</h4>
+<p>Suppose Eclipse is your favorite SCM client, this step by step example shows how to set up a new mutiple module project.</p>
+<ol type="1"><li>Set up a new Eclipse workspace called <i>step-by-step</i> and add the <i>M2_REPO</i> classpath variable.</li>
+<li>Open the command line shell and change to the newly created workspace directory.</li>
+<li>From the command line, create a new maven project using the archetype plugin.<div class="source"><pre>mvn archetype:create -DgroupId=guide.ide.eclipse -DartifactId=guide-ide-eclipse</pre>
+</div>
+</li>
+<li>Create a new simple project <i>guide-ide-eclipse</i> inside the <i>step-by-step</i> workspace with Eclipse (From the menu bar, select File &gt;New &gt; Project. Select Simple &gt; Project). Eclipse will create a simple <i>.project</i>-file for your <i>guide-ide-eclipse</i>-project and you should be able to see the <i>pom.xml</i>-file.</li>
+<li>Delete the <i>src</i>-folder and open the <i>pom.xml</i>-file to change the packaging of your parent project to <i>pom</i>.<div class="source"><pre>  &lt;packaging&gt;pom&lt;/packaging&gt;</pre>
+</div>
+</li>
+<li>From the command line change to the <i>guide-ide-eclipse</i> project directory and create some modules.<div class="source"><pre>cd guide-ide-eclipse
+mvn archetype:create -DgroupId=guide.ide.eclipse -DartifactId=guide-ide-eclipse-site
+mvn archetype:create -DgroupId=guide.ide.eclipse.core -DartifactId=guide-ide-eclipse-core
+mvn archetype:create -DgroupId=guide.ide.eclipse.module1 -DartifactId=guide-ide-eclipse-module1</pre>
+</div>
+</li>
+<li>Add the newly created modules to your parent pom.<div class="source"><pre>  &lt;modules&gt;
+    &lt;module&gt;guide-ide-eclipse-site&lt;/module&gt;
+    &lt;module&gt;guide-ide-eclipse-core&lt;/module&gt;
+    &lt;module&gt;guide-ide-eclipse-module1&lt;/module&gt;
+  &lt;/modules&gt;</pre>
+</div>
+</li>
+<li>Add the parent to the POMs of the new modules:<div class="source"><pre>  &lt;parent&gt;
+  &lt;groupId&gt;guide.ide.eclipse&lt;/groupId&gt;
+  &lt;artifactId&gt;guide-ide-eclipse&lt;/artifactId&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;/parent&gt;</pre>
+</div>
+</li>
+<li>Add dependency from <i>module1</i> to the <i>core</i>-module:<div class="source"><pre>    &lt;dependency&gt;
+      &lt;groupId&gt;guide.ide.eclipse.core&lt;/groupId&gt;
+      &lt;artifactId&gt;guide-ide-eclipse-core&lt;/artifactId&gt;
+      &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;</pre>
+</div>
+</li>
+<li>Install the project in your local repository and generate the Eclipse files:<div class="source"><pre>mvn install
+mvn eclipse:eclipse</pre>
+</div>
+</li>
+<li>Check in your project using the Eclipse team support (select from the context menu Team &gt; Share Project). <i>Note:</i> Do not check in the generated Eclipse files. If you use CVS you should have a <i>.cvsignore</i>-file with the following entries for each module:<div class="source"><pre>target
+.classpath
+.project
+.wtpmodules</pre>
+</div>
+<p>Even the parent project should have this <i>.cvsignore</i>-file. Eclipse will automatically generate a new simple <i>.project</i>-file when you check out the project from the repository.</p>
+</li>
+</ol>
+<p>From now on you have different options to proceed. If you are working on all modules simultanously and you'd rather have Eclipse project dependencies than binary dependencies, you should set up a new workspace and import all projects from <i>step-by-step/guide-ide-eclipse</i>. Note, you have to delete the <i>.project</i>-file of your parent project before. The result is the same as checking out the whole project from the command line, running <i>mvn eclipse:eclipse</i> and finally importing the projects into your Eclipse workspace. In both cases you will be able to synchronize your changes using Eclipse.</p>
+<p>In case of large projects with many developers involved, it can be tedious to check out all modules and keep them up to date. Especially if you are only interested in one or two modules. In this case using binary dependencies is much more comfortable. Just check out the modules you want to work on with Eclipse and run <i>mvn eclipse:eclipse</i> for each module (see also <a href="usage.html">Maven as an external tool</a>. Of course, all referenced artifacts must be available from your maven repository.</p>
+</div>
+<div class="section"><h4><a name="Flat_Project_Layout">Flat Project Layout</a></h4>
+<p>It is possible to move the parent POM in its own directory on the same level with the referenced modules, thus resulting to a Flat Project Layout.</p>
+<p>Using a Flat Project Layout you can checkout and edit the parent POM without checking out the whole project.</p>
+<ol type="1"><li>Create a new directory under <i>guide-ide-eclipse</i> called <i>guide-ide-eclipse-project</i> and move the parent POM to it.</li>
+<li>Change the module references in the parent POM to:<div class="source"><pre>  &lt;modules&gt;
+    &lt;module&gt;../guide-ide-eclipse-site&lt;/module&gt;
+    &lt;module&gt;../guide-ide-eclipse-core&lt;/module&gt;
+    &lt;module&gt;../guide-ide-eclipse-module1&lt;/module&gt;
+  &lt;/modules&gt;</pre>
+</div>
+</li>
+</ol>
+<p><b>Issue:</b> The Maven Release Plugin does not support the flat structure (<a href="http://jira.codehaus.org/browse/MRELEASE-261" class="externalLink">MRELEASE-261</a>).</p>
+</div>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/reactor.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:57 GMT -->
+</html>

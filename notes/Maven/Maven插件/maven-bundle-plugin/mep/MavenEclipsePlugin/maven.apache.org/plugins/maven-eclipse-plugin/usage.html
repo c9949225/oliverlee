@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/usage.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:57 GMT -->
+<head>
+    <title>Maven Eclipse plugin - Usage</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Bernd Mau, mau@hhla.de" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="../../../www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-22
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+              <strong>Usage</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Maven Eclipse Plugin: Usage</h2>
+<p>This mini guide explains howto use Maven in Eclipse IDE.</p>
+<ul><li><a href="#Maven repository">Maven repository</a></li>
+<li><a href="#Maven as an external tool">Maven as an external tool</a></li>
+<li><a href="#Simple Project">Simple Project</a></li>
+<li><a href="#Project with Dependencies">Project with Dependencies</a></li>
+<li><a href="#Multiple Module Projects">Multiple Module Projects</a></li>
+<li><a href="#Eclipse PDE Projects">Eclipse PDE Projects</a></li>
+</ul>
+<div class="section"><h3><a name="Maven_repository">Maven repository</a></h3>
+<p>Eclipse needs to know the path to the local maven repository. Therefore the classpath variable <i>M2_REPO</i> has to be set. Execute the following command:</p>
+<div class="source"><pre>mvn -Declipse.workspace=&lt;path-to-eclipse-workspace&gt; eclipse:add-maven-repo</pre>
+</div>
+<p>You can also define a new classpath variable inside Eclipse: From the menu bar, select Window &gt; Preferences. Select the Java &gt; Build Path &gt; Classpath Variables page.</p>
+</div>
+<div class="section"><h3><a name="Maven_as_an_external_tool">Maven as an external tool</a></h3>
+<p>You might want to execute some maven goals from inside Eclipse. This is possible by configuring an external launcher.</p>
+<p>It is best practice to prepare Eclipse by adding a variable, which points to your local maven excutable (mvn.bat/mvn).</p>
+<p>From the menu bar, select Window &gt; Preferences. Select the Run/Debug &gt; String Substitution. Add a new variable e.g. <i>maven_exec</i>.</p>
+<p>When you set up a new external launcher (from the menu bar, select Run &gt; External Tools. Select Program) you can refer to <i>maven_exec</i> in the location field.</p>
+<p>Furthermore refer to <i>project_loc</i> as the working directory and specify the maven goals of your choice as arguments, e.g. <i>eclipse:eclipse</i>.</p>
+<p>For further information please refer to the Eclipse help.</p>
+</div>
+<div class="section"><h3><a name="Simple_Project">Simple Project</a></h3>
+<p>If you have a simple java project which is made up of only one module, using Eclipse is very simple. To generate the Eclipse project files from your POM you execute the following command:</p>
+<div class="source"><pre>mvn eclipse:eclipse</pre>
+</div>
+<p>If you have created or checked out the project with Eclipse, you only have to refresh the project in your workspace. Otherwise you have to import the project into your Eclipse workspace (From the menu bar, select File &gt; Import &gt; Existing Projects into Workspace). In the latter case the project (directory) should not be located in your workspace, because Eclipse might come into trouble, especially if you want to use Eclipse as the scm client.</p>
+</div>
+<div class="section"><h3><a name="Project_with_Dependencies">Project with Dependencies</a></h3>
+<p>If your maven project has dependencies, the eclipse classpath will be synchronised with the current list of maven dependencies, as well as any transitive maven dependencies.</p>
+<p>After making changes to your maven dependencies inside the pom file, rerun <i>eclipse:eclipse</i> and refresh your eclipse workspace for the new dependencies to take effect.</p>
+</div>
+<div class="section"><h3><a name="Multiple_Module_Projects">Multiple Module Projects</a></h3>
+<p>If your maven project consists of a number of aggregated projects with a common root pom, and if some of these aggregated projects depend on each other, the <i>eclipse:eclipse</i> goal will configure each dependent project in eclipse as an eclipse project dependency, rather than an eclipse jar dependency.</p>
+<p>By doing this, changes to code within project A will be available immediately to project B, assuming that project B defines a dependency on project A.</p>
+<p>For further details, see <a href="reactor.html">Multiple Module Projects</a>.</p>
+</div>
+<div class="section"><h3><a name="Eclipse_PDE_Projects">Eclipse PDE Projects</a></h3>
+<p>This plugin is capable of creating and / or synchronising an Eclipse Plugin Development Environment project.</p>
+<p>For further details, see the configuration instructions <a href="pde.html">here</a>.</p>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/usage.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:57 GMT -->
+</html>

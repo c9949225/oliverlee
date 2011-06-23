@@ -1,0 +1,469 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/examples/multi-module-projects.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:57 GMT -->
+<head>
+    <title>Maven Eclipse plugin - Multi-module projects with WTP</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.css");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Roland Asmann
+Richard van Nieuwenhoven" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="../../../../www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/plugins/" id="bannerLeft">
+    
+                                            <img src="../../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/plugins/" id="bannerRight">
+    
+                                            <img src="../../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-22
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="../reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="../wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+              <strong>Multi-module projects with WTP</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="../project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="../images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Using maven-eclipse-plugin in multi-module projects with WTP</h2>
+<p>Developing Multi-module projects with Maven and Eclipse can be done efficiently using the the best of both Maven 2 and Eclipse's WTP. </p>
+<p>Especially with projects that have EJB and EAR modules, it can be difficult to use Maven 2.0 and WTP. There are however good solutions to these obstacles, without losing any of the functionality of either Maven nor WTP.</p>
+<div class="section"><h3>The flat project structure</h3>
+<p>One of the major problems that occur when using Maven and Eclipse together, is that Maven encourages the use of deep project structures, whereas eclipse can't handle those. A solution to this problem is to force Maven to use the flat structure:</p>
+<div class="source"><pre>.....
+&lt;modules&gt;
+  &lt;module&gt;../module1&lt;/module&gt;
+  &lt;module&gt;../module2&lt;/module&gt;
+&lt;/modules&gt;
+.....</pre>
+</div>
+<p>This has some very big drawbacks: You will lose the possibility to use several of Maven's tools (eg the release-plugin), because these are unable to handle flat structures.</p>
+<p>The best approach is to do everything the way it was intended in Maven, and let the maven-eclipse-plugin bend WTP to its will. Therefore, the recommendation would be to use the deep structures:</p>
+<div class="source"><pre>.....
+&lt;modules&gt;
+  &lt;module&gt;module1&lt;/module&gt;
+  &lt;module&gt;module2&lt;/module&gt;
+&lt;/modules&gt;
+.....</pre>
+</div>
+</div>
+<div class="section"><h3>The Example project</h3>
+<p>This project is an example of a multi-module projects, containing some JAR-, a WAR- and an EAR-project. You can download it from <a href="#j2ee-simple.tar.gz">here</a>. The project is based on the j2ee-simple archetype.</p>
+<div class="section"><h4>Step by step</h4>
+<p>Follow the example steps to install the multi-module project in your Eclipse.</p>
+<ul><li>create a new workspace with Eclipse 3.3 and WTP 2.0</li>
+<li>define the <tt>M2_REPO</tt> variable in Eclipse</li>
+<li>extract the example project somewhere</li>
+<li>start '<tt>mvn eclipse:eclipse install</tt>' from the command-line in the root project (j2ee-simple)</li>
+<li>use the <a href="Multi%20Project%20Import/Export%20Plugin.html">Multi Project Import/Export Plugin</a> to import all the modules into Eclipse</li>
+<li>define your favorite application server in the WTP Server view</li>
+<li>add and publish the project to the server </li>
+<li>start the server</li>
+<li>open your browser to <a href="http://localhost:8080/servlet/hello" class="externalLink">http://localhost:8080/servlet/hello</a></li>
+<li>your maven project is up and running as a eclipse / wtp project</li>
+</ul>
+</div>
+</div>
+<div class="section"><h3>Source Control Management</h3>
+<p>Eclipse and Maven support a wide range of SCM systems (like CVS and SVN). The usage in a WTP/Maven project has some peculiarities, which we will discuss below.</p>
+<div class="section"><h4>Control files</h4>
+<p>Do not check in the Eclipse control files in your SCM, you can (and should) regenerate them every time you need them!</p>
+<p>When using CVS, put these files in the .cvsignore file of every module. A basic version will look something like this:</p>
+<div class="source"><pre>.classpath
+.project
+.settings
+target</pre>
+</div>
+<p>For SVN, use the svn:ignore property in the root directory of each project.</p>
+</div>
+<div class="section"><h4>The organization project</h4>
+<p>One solution to sharing the exact Maven configuration between all developers, is to create a project containing the Maven binary release. This project can also be included in the SCM system, so that any updates (be it a new version or a configuration.change) are received by all developers.</p>
+</div>
+</div>
+<div class="section"><h3><a name="Multi_Project_ImportExport_Plugin">Multi Project Import/Export Plugin</a></h3>
+<p>There is an Eclipe plugin available that can help a lot when using multi-module projects. This plugin can import several projects at once, and it can do so from both a deep and a flat structure.</p>
+<p>The plugin is called &quot;Multi Project Import/Export Plugin&quot; and can be found <a href="http://eclipse-tools.sourceforge.net/" class="externalLink">here</a>. You can also reference the update site in eclipse, using the URL: <b>http://eclipse-tools.sourceforge.net/updates/</b></p>
+</div>
+<div class="section"><h3>Project names</h3>
+<p>The project names in Eclipse do not have to be the same as the name of the folder. Instead of forcing Maven to generate artifacts without version name (which is considered bad practice), the maven-eclipse-plugin can adapt the project names to include the version name! This way the artifact Eclipse generates, will have the same name as the artifact the Maven generates!</p>
+<p>Many problems in the area of &quot;the eclipse exported ear works, but the maven generated not&quot; (or vice-versa) come from this different &quot;final name&quot; problem.</p>
+<p>The best way to evade such problems is to use this setting for the maven-eclipse-plugin:</p>
+<div class="source"><pre>&lt;projectNameTemplate&gt;[artifactId]-[version]&lt;/projectNameTemplate&gt;</pre>
+</div>
+</div>
+<div class="section"><h3>The pom modules</h3>
+<p>The root of the projects in Maven is always a POM-module. These projects can be imported into Eclipse as well, which then enables you to create and use <b>External Tool-launches</b> with workspace-locations. This makes the launches also exchangeable between developers and they can therefore also be stored in SCM.</p>
+<div class="section"><h4>Duplicate folders</h4>
+<p>Some peculiarities you will have to remember when you checked out the root pom project in your workspace:</p>
+<ul><li>first synchronize the modules</li>
+<li>then <b>refresh</b> the pom project (this step is <b>very</b> important!)</li>
+<li>then synchonize the root pom project <br />
+(only necessary when the root pom changed or you created a new module)</li>
+</ul>
+<p>Watch out that the files accessible in modules under the root pom project, are <b>physically</b> the same files as in the imported projects. Eclipse will show the any changes after the next refresh.</p>
+</div>
+</div>
+<div class="section"><h3>Maven builds as launches</h3>
+<p>As was said above, it is very useful to have your Maven builds inside Eclipse as a Launch-configuration. To create these, you should create a new External Tool and fill out the following values:</p>
+<ul><li>Name:<p>The name for the launch -- this can be chosen freely.</p>
+</li>
+<li>Location:<div class="source"><pre>    ${env_var:JAVA_HOME}/bin/java</pre>
+</div>
+<p>If you're on Windows, you should add the '.exe' extension to the above command.</p>
+<p>Or, if you really want to make the builds interoperable, all developers should create a variable in their workspace called 'JAVA_EXECUTABLE', holding either the value 'java' (linux) or 'java.exe' (windows). The above command can then be changed into</p>
+<div class="source"><pre>    ${env_var:JAVA_HOME}/bin/${JAVA_EXECUTABLE}</pre>
+</div>
+</li>
+<li>Working Directory: <p>Select the root pom project here.</p>
+<div class="source"><pre>    ${workspace_loc:/j2ee-simple}</pre>
+</div>
+</li>
+<li>Arguments:<p>In the example below, we presume you have made the organization-project containing the Maven distribution. The project is called 'organization'.</p>
+<div class="source"><pre>  -Dclassworlds.conf=${resource_loc:organization/maven-2.0/bin/m2.conf}
+  -Dmaven.home=${resource_loc:organization/maven-2.0}
+  -classpath ${resource_loc:organization/maven-2.0/core/boot/classworlds-1.1.jar}
+   org.codehaus.classworlds.Launcher
+
+  -DdownloadSources=true
+  -Dmaven.test.skip=${string_prompt:maven.test.skip:false}
+   clean eclipse:clean eclipse:eclipse install</pre>
+</div>
+<p>The last three lines are configurations for plugins and the actual goals to run. These can be changed if necessary.</p>
+<p>The second to last line is used to have Eclipse prompt for running or skipping tests. Enter 'true' to skip the tests, anything else will run the tests.</p>
+</li>
+<li>Refresh / Refresh resources upon completion<p>Best to activate &quot;The entire workspace&quot; just to be sure all projects are aware of changes.</p>
+</li>
+<li>Common / Save as Shared file<p>Best to select the Root pom project location. The resulting launch file can be put under SCM control.</p>
+</li>
+</ul>
+</div>
+<div class="section"><h3>The EAR project</h3>
+<p>WTP saves some extra information in the application.xml that would otherwise be generated by the maven-ear-plugin. We do not want to interfere with the maven-ear-plugin, so the maven-eclipse-plugin generates a special application.xml for WTP. This enables you to use the WTP deployer in the server view.</p>
+<p>Important: this generated version of the application.xml will <b>NOT</b> be used in the maven build.</p>
+</div>
+<div class="section"><h3>The EJB project</h3>
+<p>WTP automatically uses the ejbModule's source folder, but it is not mandatory. Use the Maven location instead: 'src/main/resources' for the ejb-jar.xml (etc) and 'src/main/java' for the JAVA-beans.</p>
+<p>TIP: if WTP can not read your deployment descriptor, check if you included a 'display-name'-tag and specified the <i>xml encoding</i> in the xml file.</p>
+</div>
+<div class="section"><h3>The WAR project</h3>
+<p>Early versions of WTP had some problems when no toplevel directory was used for the webcontent. As of v1.5 this problem is no longer there! This enables using the standard maven directory 'src/main/webapp' as the web-content folder. </p>
+<p>The WEB-INF/classes directory can still trigger problems, therefore it is best <b>not</b> to include JAVA classes in a war module. Just put them in a separate JAVA (JAR) module and a lot of undetermined problems disappear. </p>
+<p>WTP needs the context root in the war project, but in Maven it is defined in the ear project. As long as the ear project is available in the reactor (as part of the same multi module build) the eclipse plugin will take the context root from the ear project configuration. </p>
+</div>
+<div class="section"><h3>The Eclipse MANIFEST files</h3>
+<p>In Maven the manifest is generated by the maven-jar-plugin from the dependencies just before packaging, but WTP needs them to run. The maven-eclipse-plugin will generate a manifest that is available only to Eclipse (located at 'target/generated-resources/eclipse/META-INF/MANIFEST.MF'), meaning that it will be ignored in the normal maven build.</p>
+</div>
+<div class="section"><h3>Deploying with WTP</h3>
+<p>When you followed all directions described here, there should be no problem to deploy your EARs using the WTP tools for your application server. So there is no need to start a maven build after every change. </p>
+</div>
+<div class="section"><h3>Finally</h3>
+<p>The configuration of the maven-eclipse-plugin used in this description is:</p>
+<div class="source"><pre>  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-eclipse-plugin&lt;/artifactId&gt;
+    &lt;version&gt;2.8&lt;/version&gt;
+    &lt;configuration&gt;
+      &lt;projectNameTemplate&gt;[artifactId]-[version]&lt;/projectNameTemplate&gt;
+      &lt;wtpmanifest&gt;true&lt;/wtpmanifest&gt;
+      &lt;wtpapplicationxml&gt;true&lt;/wtpapplicationxml&gt;
+      &lt;wtpversion&gt;2.0&lt;/wtpversion&gt;
+      &lt;manifest&gt;${basedir}/src/main/resources/META-INF/MANIFEST.MF&lt;/manifest&gt;
+    &lt;/configuration&gt;
+  &lt;/plugin&gt;</pre>
+</div>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/examples/multi-module-projects.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+</html>

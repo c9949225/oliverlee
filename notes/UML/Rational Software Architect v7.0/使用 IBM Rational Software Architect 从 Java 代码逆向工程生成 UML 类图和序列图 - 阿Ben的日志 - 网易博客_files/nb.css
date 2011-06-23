@@ -1,0 +1,165 @@
+BODY {
+	COLOR: #333333
+}
+.fc00 {
+	COLOR: #33383c
+}
+.fc01 {
+	COLOR: #4f5557
+}
+.fc02 {
+	COLOR: #33383c
+}
+.fc02 A {
+	COLOR: #33383c
+}
+.fc03 {
+	COLOR: #37708b
+}
+.fc03 A {
+	COLOR: #37708b
+}
+.fc11 A {
+	COLOR: #37708b
+}
+.fc04 {
+	COLOR: #63a7b5
+}
+.fc04 A {
+	COLOR: #63a7b5
+}
+.fc05 {
+	COLOR: #333333
+}
+.fc06 {
+	COLOR: #777777
+}
+.fc07 {
+	COLOR: #aaaaaa
+}
+.fc08 {
+	COLOR: #aaaaaa
+}
+.fc09 {
+	COLOR: #33383c
+}
+.fc10 {
+	COLOR: #dddddd
+}
+.bdc0 {
+	BORDER-BOTTOM-COLOR: #dddddd; BORDER-TOP-COLOR: #dddddd; BORDER-RIGHT-COLOR: #dddddd; BORDER-LEFT-COLOR: #dddddd
+}
+.bdc1 {
+	BORDER-BOTTOM-COLOR: #d8dfe6; BORDER-TOP-COLOR: #d8dfe6; BORDER-RIGHT-COLOR: #d8dfe6; BORDER-LEFT-COLOR: #d8dfe6
+}
+.bdc9t {
+	BORDER-TOP-COLOR: #ffffff
+}
+.bdc9r {
+	BORDER-RIGHT-COLOR: #ffffff
+}
+.bdc9b {
+	BORDER-BOTTOM-COLOR: #ffffff
+}
+.bdc9l {
+	BORDER-LEFT-COLOR: #ffffff
+}
+.bgc0 {
+	BACKGROUND-COLOR: #eeeeee
+}
+.bgc9:hover {
+	BACKGROUND-COLOR: #eeeeee
+}
+.js-bgc9-hover.bgc9 {
+	BACKGROUND-COLOR: #eeeeee
+}
+.bgc1 {
+	BACKGROUND-COLOR: #ffffff
+}
+.bgc2 {
+	BACKGROUND-COLOR: #a7bbcf
+}
+.bgp0 {
+	BACKGROUND-IMAGE: url(img/-1.gif)
+}
+.nb-body {
+	BACKGROUND-COLOR: #4f5557
+}
+.nb-wrap {
+	BACKGROUND: url(img/top_bg.jpg) no-repeat center top
+}
+.nb-bar {
+	BACKGROUND: #a7bbcf
+}
+.nb-top .h {
+	HEIGHT: 87px
+}
+.nb-top .t {
+	FONT-FAMILY: Tahoma, "ËÎÌו", Arial, Verdana, Helvetica, Sans-Serif; COLOR: #33383c; FONT-SIZE: 12px; TOP: 25px; LEFT: 150px
+}
+.nb-top .n {
+	FONT-SIZE: 24px
+}
+.nb-nav .wkg {
+	BACKGROUND: url(img/bg_tab.jpg) no-repeat center top
+}
+.nb-nav .h {
+	LINE-HEIGHT: 32px; HEIGHT: 32px
+}
+.nb-nav .l {
+	WIDTH: 170px
+}
+.nb-nav .r {
+	WIDTH: 60px
+}
+.nb-nav .c {
+	MARGIN: 0px 60px 0px 170px
+}
+.nb-nav .selected {
+	BACKGROUND: url(img/tab_on.gif) no-repeat center center
+}
+.nb-nav .selected .i {
+	COLOR: #4f5557; FONT-WEIGHT: bold
+}
+.nb-nav .selected .i:hover {
+	COLOR: #4f5557; FONT-WEIGHT: bold
+}
+.nb-cnt .wkg {
+	BACKGROUND: #cbd8e1 no-repeat left top
+}
+.nb-cnt .wc {
+	MARGIN: 0px 5px
+}
+.nb-fot .wkg {
+	BACKGROUND: url(img/bg_bottom.gif) repeat-x left top
+}
+.nb-fot .h {
+	HEIGHT: 110px
+}
+.nb-fot .k {
+	PADDING-TOP: 25px
+}
+.nb-mdl {
+	BORDER-BOTTOM: #9ab0bb 1px solid; MARGIN: 10px 5px
+}
+.nb-mdl .th {
+	LINE-HEIGHT: 25px; HEIGHT: 25px
+}
+.nb-mt .tl {
+	WIDTH: 10px; BACKGROUND: url(img/bg_titlebar_c_l.gif) no-repeat left top
+}
+.nb-mt .tc {
+	MARGIN: 0px 35px 0px 10px; BACKGROUND: url(img/bg_titlebar.gif) repeat-x left top
+}
+.nb-mt .tr {
+	WIDTH: 35px; BACKGROUND: url(img/bg_titlebar_c_r.gif) no-repeat left top
+}
+.nb-mc {
+	BORDER-LEFT: #9ab0bb 1px solid; BACKGROUND-COLOR: #ffffff; BORDER-RIGHT: #9ab0bb 1px solid
+}
+.nb-mc .nb-mc.cl .cr {
+	DISPLAY: none
+}
+.nb-mb {
+	DISPLAY: none
+}

@@ -1,0 +1,902 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/surefire-report.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+<head>
+    <title>Maven Eclipse plugin - Surefire Report</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-25
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+            
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="project-reports.html">Project Reports</a>
+                  <ul>
+                  
+    <li class="none">
+                    <a href="checkstyle.html">Checkstyle</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="cobertura/index.html">Cobertura Test Coverage</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="cpd.html">CPD Report</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="apidocs/index.html">JavaDocs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="plugin-info.html">Plugin Documentation</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="pmd.html">PMD Report</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="xref/index.html">Source Xref</a>
+          </li>
+                  
+    <li class="none">
+              <strong>Surefire Report</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="taglist.html">Tag List</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="testapidocs/index.html">Test JavaDocs</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="xref-test/index.html">Test Source Xref</a>
+          </li>
+              </ul>
+        </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <script type="text/javascript">
+function toggleDisplay(elementId) {
+ var elm = document.getElementById(elementId + 'error');
+ if (elm && typeof elm.style != "undefined") {
+ if (elm.style.display == "none") {
+ elm.style.display = "";
+ document.getElementById(elementId + 'off').style.display = "none";
+ document.getElementById(elementId + 'on').style.display = "inline";
+ } else if (elm.style.display == "") { elm.style.display = "none";
+ document.getElementById(elementId + 'off').style.display = "inline";
+ document.getElementById(elementId + 'on').style.display = "none";
+ } 
+ } 
+ }
+</script><div class="section"><h2>Surefire Report</h2>
+</div>
+<div class="section"><h2><a name="Summary"></a>Summary</h2>
+<div class="section">[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</div>
+<br />
+<table class="bodyTable"><tr class="a"><th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td>53</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>2.236</td>
+</tr>
+</table>
+<br />
+Note: failures are anticipated and checked for with assertions while errors are unanticipated.<br />
+</div>
+<div class="section"><h2><a name="Package_List"></a>Package List</h2>
+<div class="section">[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</div>
+<br />
+<table class="bodyTable"><tr class="a"><th>Package</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse">org.apache.maven.plugin.eclipse</a></td>
+<td>36</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>1.705</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipse.reader">org.apache.maven.plugin.eclipse.reader</a></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.14</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse.writers.workspace">org.apache.maven.plugin.eclipse.writers.workspace</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.016</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipse.writers">org.apache.maven.plugin.eclipse.writers</a></td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.344</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.ide">org.apache.maven.plugin.ide</a></td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.031</td>
+</tr>
+</table>
+<br />
+Note: package statistics are not computed recursively, they only sum up all of its testsuites numbers.<div class="section"><h3><a name="org.apache.maven.plugin.eclipse"></a>org.apache.maven.plugin.eclipse</h3>
+<table class="bodyTable"><tr class="a"><th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipseAddMavenRepoMojoTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseAddMavenRepoMojoTest">AddMavenRepoMojoTest</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.5</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipseBuildCommandTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseBuildCommandTest">BuildCommandTest</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipseEclipsePluginUnitTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseEclipsePluginUnitTest">EclipsePluginUnitTest</a></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.204</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipseEclipseSourceDirTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseEclipseSourceDirTest">EclipseSourceDirTest</a></td>
+<td>7</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipseEclipseToMavenTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseEclipseToMavenTest">EclipseToMavenTest</a></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.016</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipseInstallPluginsMojoTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseInstallPluginsMojoTest">InstallPluginsMojoTest</a></td>
+<td>12</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.985</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipseMakeArtifactsTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipseMakeArtifactsTest">MakeArtifactsTest</a></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.reader"></a>org.apache.maven.plugin.eclipse.reader</h3>
+<table class="bodyTable"><tr class="a"><th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse.readerReadWorkspaceLocationsTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.readerReadWorkspaceLocationsTest">ReadWorkspaceLocationsTest</a></td>
+<td>5</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.14</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writers.workspace"></a>org.apache.maven.plugin.eclipse.writers.workspace</h3>
+<table class="bodyTable"><tr class="a"><th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse.writers.workspaceEclipseCodeFormatterTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.writers.workspaceEclipseCodeFormatterTest">EclipseCodeFormatterTest</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.016</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writers"></a>org.apache.maven.plugin.eclipse.writers</h3>
+<table class="bodyTable"><tr class="a"><th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse.writersEclipseClasspathWriterUnitTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.writersEclipseClasspathWriterUnitTest">EclipseClasspathWriterUnitTest</a></td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.094</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipse.writersEclipseOSGiManifestWriterTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.writersEclipseOSGiManifestWriterTest">EclipseOSGiManifestWriterTest</a></td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.016</td>
+</tr>
+<tr class="b"><td><a href="#org.apache.maven.plugin.eclipse.writersEclipseProjectWriterTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.writersEclipseProjectWriterTest">EclipseProjectWriterTest</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.047</td>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.eclipse.writersEclipseWtpComponent15WriterTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.eclipse.writersEclipseWtpComponent15WriterTest">EclipseWtpComponent15WriterTest</a></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.187</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.ide"></a>org.apache.maven.plugin.ide</h3>
+<table class="bodyTable"><tr class="b"><th></th>
+<th>Class</th>
+<th>Tests</th>
+<th>Errors </th>
+<th>Failures</th>
+<th>Skipped</th>
+<th>Success Rate</th>
+<th>Time</th>
+</tr>
+<tr class="a"><td><a href="#org.apache.maven.plugin.ideIdeUtilsTest"><img src="images/icon_success_sml.gif" /></a></td>
+<td><a href="#org.apache.maven.plugin.ideIdeUtilsTest">IdeUtilsTest</a></td>
+<td>4</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>100%</td>
+<td>0.031</td>
+</tr>
+</table>
+</div>
+<br />
+</div>
+<div class="section"><h2><a name="Test_Cases"></a>Test Cases</h2>
+<div class="section">[<a href="#Summary">Summary</a>] [<a href="#Package_List">Package List</a>] [<a href="#Test_Cases">Test Cases</a>]</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseAddMavenRepoMojoTest"></a>AddMavenRepoMojoTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testMinConfiguration</td>
+<td>0.453</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseBuildCommandTest"></a>BuildCommandTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testEquals</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseEclipsePluginUnitTest"></a>EclipsePluginUnitTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testBuildDirectoryList_ShouldUseTestOutputDirFromProjectWhenBuildOutputDirIsStandard</td>
+<td>0.063</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testExtractResourceDirs_ShouldUseResourceOutput</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testExtractResourceDirs_ShouldUseSpecifiedOutputDirectory</td>
+<td>0.016</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testExtractResourceDirs_ShouldIncludeMainAndTestResources</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testExtractResourceDirs_ShouldIncludeMainAndTestResourcesWhenBaseDirsDiffer</td>
+<td>0.063</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseEclipseSourceDirTest"></a>EclipseSourceDirTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testMerge_src_main_java_with_src_main_resources</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testMerge_two_resource_directories</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testMerge_two_resource_directories_with_duplicates</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToString_src_main_java</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToString_src_main_resources</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToString_src_test_java</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToString_src_test_resources</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseEclipseToMavenTest"></a>EclipseToMavenTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testParseDependencies</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testParseDependenciesWithQualifier</td>
+<td>0.016</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testCreateGroupId</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testCreateArtifactId</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testOsgiVersionToMavenVersion</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseInstallPluginsMojoTest"></a>InstallPluginsMojoTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testJira_MECLIPSE_418_correct_bundle_headers</td>
+<td>0.125</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testJira_MECLIPSE_418_no_bundle_name</td>
+<td>0.031</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testJira_MECLIPSE_418_no_bundle_symbolicname</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testJira_MECLIPSE_418_no_manifest_headers</td>
+<td>0.031</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testJira_MECLIPSE_488</td>
+<td>0.032</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldInstallAsJarWhenPropertyNotSpecified</td>
+<td>0.031</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldInstallAsJarWhenPropertyIsTrue</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldInstallAsDirWhenPropertyIsFalse</td>
+<td>0.25</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldInstallWhenTypeContainedInPluginTypesListWithMultipleValues</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldNotInstallWhenTypeNotContainedInPluginTypesList</td>
+<td>0.016</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldRemoveOldDirectoryBeforeInstallingNewJarWhenOverwriteIsFalse</td>
+<td>0.235</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testShouldRemoveOldDirectoryBeforeInstallingNewJarWhenOverwriteIsTrue</td>
+<td>0.078</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipseMakeArtifactsTest"></a>MakeArtifactsTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testParseDependencies</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testParseDependenciesWithQualifier</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testCreateGroupId</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testCreateArtifactId</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testOsgiVersionToMavenVersion</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.readerReadWorkspaceLocationsTest"></a>ReadWorkspaceLocationsTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetProjectLocation_ForProjectAtWorkspaceLevel</td>
+<td>0.109</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetProjectLocation_ForProjectsWithinProjects</td>
+<td>0.016</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetProjectLocation_ForProjectsOutsideWorkspace</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testReadDefinedServers_PrefsFileDoesNotExist</td>
+<td>0.015</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testReadDefinedServers_PrefsFileExistsWithMissingRuntimes</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writersEclipseClasspathWriterUnitTest"></a>EclipseClasspathWriterUnitTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testWrite_ShouldMaskOutputDirsNestedWithinAnExistingOutputDir</td>
+<td>0.063</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testWrite_ShouldGenerateValidJavadocURLs</td>
+<td>0.031</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writersEclipseOSGiManifestWriterTest"></a>EclipseOSGiManifestWriterTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetNormalizedVersionTwoDigitsSnapshot</td>
+<td>0.016</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetNormalizedVersionThreeDigitsSnapshot</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetNormalizedVersionFourDigitsSnapshot</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writersEclipseProjectWriterTest"></a>EclipseProjectWriterTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testWrite_preservingLinkedResources</td>
+<td>0.047</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writersEclipseWtpComponent15WriterTest"></a>EclipseWtpComponent15WriterTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testWriteEjbComponentMECLIPSE455</td>
+<td>0.187</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.eclipse.writers.workspaceEclipseCodeFormatterTest"></a>EclipseCodeFormatterTest</h3>
+<table class="bodyTable"><tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testLoadFormatter</td>
+<td>0.016</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="org.apache.maven.plugin.ideIdeUtilsTest"></a>IdeUtilsTest</h3>
+<table class="bodyTable"><tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testGetProjectNameStringIdeDependency</td>
+<td>0.031</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToRelativeAndFixSeparator_WhereOnDifferentDrivesAndAbsolutePaths</td>
+<td>0</td>
+</tr>
+<tr class="a"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToRelativeAndFixSeparator_WhereOnDifferentDrivesAndFileToAddRelative</td>
+<td>0</td>
+</tr>
+<tr class="b"><td><img src="images/icon_success_sml.gif" /></td>
+<td>testToRelativeAndFixSeparator_MECLIPSE_261</td>
+<td>0</td>
+</tr>
+</table>
+</div>
+<br />
+</div>
+<br />
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/surefire-report.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+</html>

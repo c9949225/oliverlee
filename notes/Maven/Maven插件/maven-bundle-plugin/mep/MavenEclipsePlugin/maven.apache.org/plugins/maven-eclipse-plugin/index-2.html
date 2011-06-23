@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/index.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+<head>
+    <title>Maven Eclipse plugin - Introduction</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Edwin Punzalan" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="http://www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-25
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+              <strong>Introduction</strong>
+        </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+            
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+            <li class="expanded">
+                    <a href="project-info.html">Project Information</a>
+                  <ul>
+                  
+    <li class="none">
+              <strong>About</strong>
+        </li>
+                  
+    <li class="none">
+                    <a href="integration.html">Continuous Integration</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="dependencies.html">Dependencies</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="issue-tracking.html">Issue Tracking</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="mail-lists.html">Mailing Lists</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="plugin-management.html">Plugin Management</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="license.html">Project License</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="plugins.html">Project Plugins</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="project-summary.html">Project Summary</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="team-list.html">Project Team</a>
+          </li>
+                  
+    <li class="none">
+                    <a href="source-repository.html">Source Repository</a>
+          </li>
+              </ul>
+        </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Maven Eclipse Plugin</h2>
+<p>The Eclipse Plugin is used to generate Eclipse IDE files (*.classpath, *.wtpmodules and the .settings folder) for use with a project.</p>
+<p>Note: Starting at version 2.6, by default, the generated .classpath now includes &quot;**/*.java&quot; for source directories and excludes &quot;**/*.java&quot; for resource directories. See the example on <a href="examples/specifying-source-path-inclusions-and-exclusions.html">specifying source path inclusions and exclusions</a> for more details on how to change this behavior.</p>
+<div class="section"><h3>Goals Overview</h3>
+<p>The Maven Eclipse Plugin has several goals.</p>
+<div class="section"><h4>Standard eclipse goals</h4>
+<ul><li><a href="configure-workspace-mojo.html">eclipse:configure-workspace</a> is used to add the classpath variable M2_REPO to Eclipse which points to your local repository and optional to configure other workspace features.</li>
+<li><a href="eclipse-mojo.html">eclipse:eclipse</a> generates the Eclipse configuration files.</li>
+<li><a href="clean-mojo.html">eclipse:clean</a> is used to delete the files used by the Eclipse IDE.</li>
+</ul>
+</div>
+<div class="section"><h4>Specific goals</h4>
+<div class="section"><h5>Specific goals for PDE developments</h5>
+<ul><li><a href="to-maven-mojo.html">eclipse:to-maven</a> Add eclipse artifacts from an eclipse installation to the local repo. This mojo automatically analize the eclipse directory, copy plugins jars to the local maven repo, and generates appropriate poms. This is the official central repository builder for Eclipse plugins, so it has the necessary default values. For customized repositories see <a href="make-artifacts-mojo.html">eclipse:make-artifacts</a>.</li>
+<li><a href="install-plugins-mojo.html">eclipse:install-plugins</a> installs all resolved project dependencies of a particular type (usually 'eclipse-plugin') into the specified Eclipse installation directory.</li>
+<li><a href="make-artifacts-mojo.html">eclipse:make-artifacts</a> copies all Eclipse plugins from an installation directory to the local repository, generating POMs for each.</li>
+</ul>
+</div>
+<div class="section"><h5>Specific goals to support myeclipse</h5>
+<ul><li><a href="myeclipse-mojo.html">eclipse:myeclipse</a> Generates the MyEclipse configuration files.</li>
+<li><a href="myeclipse-clean-mojo.html">eclipse:myeclipse-clean</a> Deletes the config files used by MyEclipse.</li>
+</ul>
+</div>
+<div class="section"><h5>Specific goals to support RAD v6</h5>
+<ul><li><a href="rad-mojo.html">eclipse:rad</a> Generates the Rad-6 configuration files.</li>
+<li><a href="rad-clean-mojo.html">eclipse:rad-clean</a> Deletes the config files used by Rad-6.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section"><h3>Usage</h3>
+<p>General instructions on how to use the Eclipse Plugin can be found on the <a href="usage.html">usage page</a>. Some more specific use cases are described in the examples given below. Last but not least, users occasionally contribute additional examples, tips or errata to the <a class="externalLink" href="http://docs.codehaus.org/display/MAVENUSER/Eclipse+Plugin">plugin's wiki page</a>.</p>
+<p>In case you still have questions regarding the plugin's usage, please have a look at the <a href="faq.html">FAQ</a> and feel free to contact the <a href="mail-lists.html">user mailing list</a>. The posts to the mailing list are archived and could already contain the answer to your question as part of an older thread. Hence, it is also worth browsing/searching the <a href="mail-lists.html">mail archive</a>.</p>
+<p>If you feel like the plugin is missing a feature or has a defect, you can fill a feature request or bug report in our <a href="issue-tracking.html">issue tracker</a>. When creating a new issue, please provide a comprehensive description of your concern. Especially for fixing bugs it is crucial that the developers can reproduce your problem. For this reason, entire debug logs, POMs or most preferably little demo projects attached to the issue are very much appreciated. Of course, patches are welcome, too. Contributors can check out the project from our <a href="source-repository.html">source repository</a> and will find supplementary information in the <a class="externalLink" href="http://maven.apache.org/guides/development/guide-helping.html">guide to helping with Maven</a>.</p>
+</div>
+<div class="section"><h3>Examples</h3>
+<p>To provide you with better understanding on some usages of the Eclipse Plugin, you can take a look into the following examples:</p>
+<ul><li><a href="examples/prevent-module-references.html">Prevent Module References</a></li>
+<li><a href="examples/attach-library-sources.html">Attach Library Sources</a></li>
+<li><a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures and Build Commands</a></li>
+<li><a href="examples/additional-facets.html">Adding additional facets</a></li>
+<li><a href="examples/load-code-styles.html">Load Code Style file</a></li>
+<li><a href="examples/configure-checkstyle.html">Configure Checkstyle</a></li>
+<li><a href="examples/multi-module-projects.html">Multi-module projects with WTP</a></li>
+<li><a href="examples/ajdt-projects.html">AJDT projects</a></li>
+<li><a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a></li>
+</ul>
+</div>
+<div class="section"><h3>Trouble Shooting</h3>
+<p>See <a href="trouble-shooting/index.html">Trouble Shooting</a> for more details.</p>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/index.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+</html>

@@ -1,0 +1,437 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/make-artifacts-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+<head>
+    <title>Maven Eclipse plugin - eclipse:make-artifacts</title>
+    <style type="text/css" media="all">
+      @import url("css/maven-base.css");
+      @import url("css/maven-theme.css");
+      @import url("css/site.css");
+    </style>
+    <link rel="stylesheet" href="css/print.css" type="text/css" media="print" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+                                                    
+<script type="text/javascript" src="../../../www.google-analytics.com/urchin.js"></script>
+                                                        
+<script type="text/javascript">_uacct = "UA-140879-1";
+        urchinTracker();</script>
+                    </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="http://maven.apache.org/" id="bannerLeft">
+    
+                                            <img src="../../images/apache-maven-project-2.png" alt="" />
+    
+            </a>
+                        <a href="http://maven.apache.org/" id="bannerRight">
+    
+                                            <img src="../../images/maven-logo-2.gif" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+            
+  
+    
+            <div class="xleft">
+          
+                <a href="http://www.apache.org/" class="externalLink">Apache</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/index.html">Maven</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+                &gt;
+      
+                <a href="http://maven.apache.org/plugins/maven-eclipse-plugin" class="externalLink">Maven Eclipse Plugin</a>
+                  </div>
+            <div class="xright">      
+  
+
+  
+    
+            
+  
+    
+             Last Published: 2010-02-25
+              &nbsp;| Version: 2.8
+            </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+            
+  
+    
+                   <h5>Overview</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="index-2.html">Introduction</a>
+          </li>
+              
+    <li class="none">
+                    <a href="plugin-info.html">Goals</a>
+          </li>
+              
+    <li class="none">
+                    <a href="usage.html">Usage</a>
+          </li>
+              
+    <li class="none">
+                    <a href="faq.html">FAQ</a>
+          </li>
+              
+    <li class="none">
+                    <a href="trouble-shooting/index.html">Trouble Shooting</a>
+          </li>
+          </ul>
+              <h5>Configuration</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="reactor.html">Multiple Module Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="pde.html">Eclipse PDE Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="wtp.html">WTP Support</a>
+          </li>
+          </ul>
+              <h5>Examples</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="examples/additional-facets.html">Adding additional facets</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/ajdt-projects.html">AJDT Projects</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/attach-library-sources.html">Attach Library Sources</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/configure-checkstyle.html">Configure Checkstyle</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/load-code-styles.html">Load Code Style file</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/multi-module-projects.html">Multi-module projects with WTP</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/prevent-module-references.html">Prevent Module References</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/provide-project-natures-and-build-commands.html">Provide Project Natures And Build Commands</a>
+          </li>
+              
+    <li class="none">
+                    <a href="examples/specifying-source-path-inclusions-and-exclusions.html">Specifying source path inclusions and exclusions</a>
+          </li>
+          </ul>
+              <h5>Project Documentation</h5>
+            <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-info.html">Project Information</a>
+                </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+                    <a href="project-reports.html">Project Reports</a>
+                </li>
+          </ul>
+              <h5>Maven Projects</h5>
+            <ul>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/ant-tasks/index.html">Ant Tasks</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/doxia/index.html">Doxia</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/jxr/index.html">JXR</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/maven-1.x/index.html">Maven 1.x</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/index.html">Maven 2</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/mercury/index.html">Mercury</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/plugins/index.html">Plugins</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/scm/index.html">SCM</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/shared/index.html">Shared Components</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/surefire/index.html">Surefire</a>
+          </li>
+              
+    <li class="none">
+                    <a href="http://maven.apache.org/wagon/index.html">Wagon</a>
+          </li>
+          </ul>
+                                           <a href="http://maven.apache.org/" title="Built by Maven" class="poweredBy">
+            <img alt="Built by Maven" src="images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+            
+  
+    
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2><a name="eclipse:make-artifacts"></a>eclipse:make-artifacts</h2>
+<p><strong>Full name</strong>:</p>
+<p>org.apache.maven.plugins:maven-eclipse-plugin:2.8:make-artifacts</p>
+<p><strong>This plugin goal has been deprecated</strong>:</p>
+<div>use <code>EclipseToMavenMojo</code> for the latest naming
+conventions</div><p><strong>Description</strong>:</p>
+<div>Add eclipse artifacts from an eclipse installation to the local
+repo. This mojo automatically analize the eclipse directory, copy
+plugins jars to the local maven repo, and generates appropriate
+poms. Use <code>eclipse:to-maven</code> for the latest naming
+conventions in place, <code>groupId</code>.
+<code>artifactId</code>.</div><p><strong>Attributes</strong>:</p>
+<div class="section"><h3><a name="Optional_Parameters"></a>Optional Parameters</h3>
+<table class="bodyTable"><tr class="a"><th>Name</th>
+<th>Type</th>
+<th>Since</th>
+<th>Description</th>
+</tr>
+<tr class="b"><td><strong><a href="#deployTo">deployTo</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>Specifies a remote repository to which generated artifacts should
+be deployed to. If this property is specified, artifacts are also
+deployed to the remote repo. The format for this parameter is
+<code>id::layout::url</code><br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#eclipseDir">eclipseDir</a></strong></td>
+<td><code>File</code></td>
+<td><code>-</code></td>
+<td>Eclipse installation dir. If not set, a value for this parameter
+will be asked on the command line.<br />
+</td>
+</tr>
+<tr class="b"><td><strong><a href="#forcedQualifier">forcedQualifier</a></strong></td>
+<td><code>String</code></td>
+<td><code>-</code></td>
+<td>Default token to use as a qualifier. Tipically qualifiers for
+plugins in the same eclipse build are different. This parameter can
+be used to &quot;align&quot; qualifiers so that all the plugins coming from
+the same eclipse build can be easily identified. For example,
+setting this to &quot;M3&quot; will force the pluging versions to be
+&quot;*.*.*.M3&quot;<br />
+</td>
+</tr>
+<tr class="a"><td><strong><a href="#resolveVersionRanges">resolveVersionRanges</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Resolve version ranges in generated pom dependencies to versions of
+the other plugins being converted<br />
+<strong>Default value is</strong>: <code>false</code>.</td>
+</tr>
+<tr class="b"><td><strong><a href="#stripQualifier">stripQualifier</a></strong></td>
+<td><code>boolean</code></td>
+<td><code>-</code></td>
+<td>Strip qualifier (fourth token) from the plugin version. Qualifiers
+are for eclipse plugin the equivalent of timestamped snapshot
+versions for Maven, but the date is maintained also for released
+version (e.g. a jar for the release <code>3.2</code> can be named
+<code>org.eclipse.core.filesystem_1.0.0.v20060603.jar</code>. It's
+usually handy to not to include this qualifier when generating
+maven artifacts for major releases, while it's needed when working
+with eclipse integration/nightly builds.<br />
+<strong>Default value is</strong>: <code>true</code>.</td>
+</tr>
+</table>
+</div>
+<div class="section"><h3><a name="Parameter_Details"></a>Parameter Details</h3>
+<p><strong><a name="deployTo">deployTo</a>:</strong></p>
+<div>Specifies a remote repository to which generated artifacts should
+be deployed to. If this property is specified, artifacts are also
+deployed to the remote repo. The format for this parameter is
+<code>id::layout::url</code></div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${deployTo}</code></li>
+</ul>
+<hr />
+<p><strong><a name="eclipseDir">eclipseDir</a>:</strong></p>
+<div>Eclipse installation dir. If not set, a value for this parameter
+will be asked on the command line.</div><ul><li><strong>Type</strong>: <code>java.io.File</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${eclipseDir}</code></li>
+</ul>
+<hr />
+<p><strong><a name="forcedQualifier">forcedQualifier</a>:</strong></p>
+<div>Default token to use as a qualifier. Tipically qualifiers for
+plugins in the same eclipse build are different. This parameter can
+be used to &quot;align&quot; qualifiers so that all the plugins coming from
+the same eclipse build can be easily identified. For example,
+setting this to &quot;M3&quot; will force the pluging versions to be
+&quot;*.*.*.M3&quot;</div><ul><li><strong>Type</strong>: <code>java.lang.String</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${forcedQualifier}</code></li>
+</ul>
+<hr />
+<p><strong><a name="resolveVersionRanges">resolveVersionRanges</a>:</strong></p>
+<div>Resolve version ranges in generated pom dependencies to versions of
+the other plugins being converted</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${resolveVersionRanges}</code></li>
+<li><strong>Default</strong>: <code>false</code></li>
+</ul>
+<hr />
+<p><strong><a name="stripQualifier">stripQualifier</a>:</strong></p>
+<div>Strip qualifier (fourth token) from the plugin version. Qualifiers
+are for eclipse plugin the equivalent of timestamped snapshot
+versions for Maven, but the date is maintained also for released
+version (e.g. a jar for the release <code>3.2</code> can be named
+<code>org.eclipse.core.filesystem_1.0.0.v20060603.jar</code>. It's
+usually handy to not to include this qualifier when generating
+maven artifacts for major releases, while it's needed when working
+with eclipse integration/nightly builds.</div><ul><li><strong>Type</strong>: <code>boolean</code></li>
+<li><strong>Required</strong>: <code>No</code></li>
+<li><strong>Expression</strong>: <code>${stripQualifier}</code></li>
+<li><strong>Default</strong>: <code>true</code></li>
+</ul>
+</div>
+</div>
+
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2002-2010
+    
+          The Apache Software Foundation
+          
+  
+
+  
+    
+            
+  
+    
+   - <a href="http://maven.apache.org/privacy-policy.html">Privacy Policy</a></div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from maven.apache.org/plugins/maven-eclipse-plugin/make-artifacts-mojo.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 04:30:58 GMT -->
+</html>

@@ -1,0 +1,1 @@
+http://swik.net/Eclipse/del.icio.us%2Ftag%2Feclipse/graphvizjavadocview+-+An+enhanced+eclipse+javadoc+view+which+inline+renders+the+graphviz+snippets+embeded+in+javadoc.+-+Google+Project+Hosting/fdu4f

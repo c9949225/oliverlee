@@ -1,0 +1,11 @@
+HTTrack3.44-1+htsswf+htsjava launched on Thu, 26 May 2011 20:59:35 at http://www.umlgraph.org/javadoc/index.html +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwr3%e0C2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f0#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2010], %s -->" -%l "cs, en, *" http://www.umlgraph.org/javadoc/index.html -O1 D:\umlgraph\api\umlgraph +*.png +*.gif +*.jpg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+
+HTTrack Website Copier/3.44-1 mirror complete in 9 minutes 28 seconds : 42 links scanned, 40 files written (1108328 bytes overall) [1187061 bytes received at 2089 bytes/sec], 1.2 requests per connection
+(No errors, 0 warnings, 0 messages)

@@ -1,0 +1,123 @@
+#cmtTog DIV.dw-commentbox {
+	BACKGROUND-COLOR: #ffffb8
+}
+TEXTAREA.dw-operable {
+	BACKGROUND-COLOR: #ffffff
+}
+TEXTAREA.dw-inoperable {
+	BACKGROUND-COLOR: #efefef
+}
+#notifiedSect {
+	FONT-FAMILY: arial, sans-serif !important; FONT-SIZE: 0.76em !important
+}
+#art-rating-summary {
+	FONT-FAMILY: arial, sans-serif !important; FONT-SIZE: 0.76em !important
+}
+.dw-btn-cancel-sec {
+	FONT-FAMILY: arial, sans-serif !important; FONT-SIZE: 0.76em !important
+}
+#notifiedSect LABEL {
+	WIDTH: 300px !important; FONT-WEIGHT: normal !important
+}
+#notifiedSect LABEL > SPAN {
+	MARGIN-TOP: -4px; FLOAT: left; MARGIN-LEFT: 2px
+}
+#notifiedSect > SPAN {
+	PADDING-RIGHT: 75px; FLOAT: right; VERTICAL-ALIGN: bottom
+}
+P.ibm-buttons-row {
+	BACKGROUND-COLOR: #ffffb8
+}
+.dw-comment-totals {
+	BORDER-BOTTOM-STYLE: none !important; BORDER-RIGHT-STYLE: none !important; BORDER-TOP-STYLE: none !important; BORDER-LEFT-STYLE: none !important
+}
+DIV.dw-comment-totals > DIV {
+	BACKGROUND-IMAGE: none !important; BORDER-BOTTOM-STYLE: none !important; BORDER-RIGHT-STYLE: none !important; BORDER-TOP-STYLE: none !important; BORDER-LEFT-STYLE: none !important
+}
+.dw-comment-totals-label {
+	TEXT-ALIGN: right !important
+}
+.dw-how-many-comments-label {
+	TEXT-ALIGN: left !important; WHITE-SPACE: nowrap
+}
+.dw-how-many-comments {
+	TEXT-ALIGN: left !important
+}
+.dw-noborder {
+	BORDER-BOTTOM-STYLE: none !important; BORDER-RIGHT-STYLE: none !important; BORDER-TOP-STYLE: none !important; BORDER-LEFT-STYLE: none !important
+}
+.dw-item-note-alternate-left {
+	FONT-FAMILY: arial, sans-serif; FLOAT: left; FONT-SIZE: 1em
+}
+.dw-item-note-alternate-right {
+	FONT-FAMILY: arial, sans-serif; MARGIN-BOTTOM: 3px; FLOAT: right; FONT-SIZE: 1em
+}
+.dw-report-abuse {
+	FLOAT: right; MARGIN-RIGHT: 5px !important
+}
+.dw-clear-both {
+	CLEAR: both
+}
+#ibmid {
+	WIDTH: 200px
+}
+#password {
+	WIDTH: 200px
+}
+#displayname {
+	WIDTH: 200px
+}
+.rating-label {
+	MARGIN-LEFT: -3000px
+}
+.rating-image {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; PADDING-RIGHT: 0px !important; MARGIN-BOTTOM: 4px; MARGIN-LEFT: 2970px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px !important
+}
+.rating-image2 {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; PADDING-RIGHT: 0px !important; MARGIN-BOTTOM: 4px; MARGIN-LEFT: 2966px; VERTICAL-ALIGN: middle; PADDING-TOP: 0px !important
+}
+.dw-container-ratings {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BACKGROUND: none transparent scroll repeat 0% 0%; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+.dw-avg-rating {
+	PADDING-BOTTOM: 0px !important; PADDING-LEFT: 0px !important; PADDING-RIGHT: 0px !important; VERTICAL-ALIGN: -4px; PADDING-TOP: 0px !important
+}
+.dw-view-comment {
+	BACKGROUND-IMAGE: url(//www.ibm.com/i/v16/icons/d_bold.gif); PADDING-BOTTOM: 3px; PADDING-LEFT: 15px; PADDING-RIGHT: 0px; BACKGROUND-REPEAT: no-repeat; MARGIN-LEFT: -4px; PADDING-TOP: 0px
+}
+.dw-overlay-legal {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 0.6em; PADDING-LEFT: 18px; PADDING-RIGHT: 18px; BACKGROUND: url(//www.ibm.com/i/v16/icons/lock.gif) no-repeat 100% 50%; COLOR: #666666; PADDING-TOP: 0.6em
+}
+.dw-rating-text {
+	PADDING-BOTTOM: 4px; FONT-FAMILY: arial, sans-serif; FONT-SIZE: 0.76em; VERTICAL-ALIGN: middle
+}
+.dw-ratings-form {
+	MARGIN-LEFT: 3px
+}
+.dw-ratings-submit {
+	MARGIN-LEFT: -3px
+}
+.no-bottom-padding {
+	PADDING-BOTTOM: 0px
+}
+.metavalue {
+	DISPLAY: none
+}
+.no-display {
+	DISPLAY: none !important
+}
+INPUT.dw-btn-arrow-sec {
+	BACKGROUND: url(//www.ibm.com/developerworks/i/short-btn-y.gif) no-repeat -2px 0px
+}
+INPUT.dw-btn-arrow-sec:hover {
+	BACKGROUND: url(//www.ibm.com/developerworks/i/short-btn-ry.gif) no-repeat -2px 0px; COLOR: #2a507b
+}
+#art-rating-widget {
+	HEIGHT: 220px
+}
+#art-rating-widget {
+	WIDTH: 500px !important
+}
+.dw-your-rating {
+	FLOAT: left; MARGIN-LEFT: 123px
+}

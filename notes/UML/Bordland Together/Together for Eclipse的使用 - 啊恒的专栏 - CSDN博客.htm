@@ -1,0 +1,857 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<!-- saved from url=(0059)http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx -->
+<HTML xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Together for Eclipse的使用 - 啊恒的专栏 - CSDN博客</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type>
+<SCRIPT type=text/javascript>
+        try { document.domain = "csdn.net"; } catch (ex) { }
+    </SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/jquery.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/jquery.highlighter.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/highlighter.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/common.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/AreaCounter.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/feedback.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/relatedarticle.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/google_service.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GS_googleAddAdSenseService("ca-pub-1076724771190722");
+    GS_googleEnableAllServices();
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GA_googleAddSlot("ca-pub-1076724771190722", "blog_postpage_72890");
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+    GA_googleFetchAds();
+</SCRIPT>
+<LINK rel=stylesheet type=text/css 
+href="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/Valentine_1.css" 
+media=all><LINK rel=stylesheet type=text/css 
+href="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/csdn_favbykimi.css" 
+media=all><LINK rel="Shortcut Icon" 
+href="http://profile.csdn.net/a_heng/picture/1.ico"><LINK title=RSS 
+rel=alternate type=application/rss+xml 
+href="http://feeds.feedsky.com/csdn.net/a_heng">
+<META name=GENERATOR content="MSHTML 8.00.7601.17537"></HEAD>
+<BODY id=defaultuser>
+<DIV id=csdnblog_allwrap>
+<DIV id=csdnblog_midwrap>
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/pub_topnav_2011.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/AreaCounter(1).js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    // 页面加载完毕，脚本开始执行
+    $(document).ready(function() {
+        ChangeUserState();
+        $("#notice").find("a").click(HideNoticeInfo);
+    });
+    
+    var userName = getCookie("UserName");
+    var isGuest = !userName || userName == "Guest";
+    var delay = 20 * 60 * 1000;
+    var timer = 0;
+
+    function ChangeUserState() {        
+        clearInterval(timer);
+        if (isGuest) {
+            HideNoticeInfo();
+        }
+        else {
+            RefreshNoticeInfo();
+            timer = setInterval( RefreshNoticeInfo, delay);
+        }
+    }
+    
+    var apiUrl = "/!handler/NoticeHandler.ashx?jsoncallback=?";
+    function RefreshNoticeInfo() {
+        $.getJSON(apiUrl + "&_t=" + Math.random(), function(result) {
+            if (result.noticeNum) {
+                newNoticeCount = result.noticeNum;
+                if (newNoticeCount <= 0) {
+                    $("#notice").hide();
+                }
+                else {
+                    $("#noticeCount").text(newNoticeCount);
+                    $("#notice").show();
+                }
+            }
+        });
+    }
+    
+    function HideNoticeInfo() {
+        $("#notice").hide();
+    }
+</SCRIPT>
+
+<DIV id=csdnblog_header>
+<H1><A href="http://blog.csdn.net/a_heng">啊恒的专栏</A></H1>
+<H2>生活的意义在于充实</H2>
+<UL id=personalnav>
+  <LI style="DISPLAY: none" id=notice><SPAN class=newnotice><A class=red 
+  onclick=LogClickCount(this,216); href="http://hi.csdn.net/space-notice.html" 
+  target=_blank><SPAN id=noticeCount></SPAN>条新通知</A></SPAN></LI>
+  <LI style="DISPLAY: none"><A id=a_login 
+  href="http://passport.csdn.net/UserLogin.aspx">登录</A></LI>
+  <LI style="DISPLAY: none"><A id=a_register 
+  href="http://passport.csdn.net/CSDNUserRegister.aspx" 
+target=_blank>注册</A></LI>
+  <LI style="DISPLAY: none"><A id=a_welcome href="http://hi.csdn.net/" 
+  target=_blank>欢迎</A></LI>
+  <LI style="DISPLAY: none"><A id=a_exit 
+  href="http://writeblog.csdn.net/Signout.aspx">退出</A></LI>
+  <LI style="DISPLAY: none"><A id=a_myblog 
+  href="http://blog.csdn.net/">我的博客</A></LI>
+  <LI style="DISPLAY: none"><A id=a_configure 
+  href="http://writeblog.csdn.net/configure.aspx" target=_blank>配置</A></LI>
+  <LI style="DISPLAY: none"><A id=a_postedit 
+  href="http://writeblog.csdn.net/PostEdit.aspx" target=_blank>写文章</A></LI>
+  <LI style="DISPLAY: none"><A id=a_postlist 
+  href="http://writeblog.csdn.net/PostList.aspx" target=_blank>文章管理</A></LI>
+  <LI><A id=a_bloghome href="http://blog.csdn.net/" 
+target=_blank>博客首页</A></LI></UL>
+<UL id=blogsearchsty>
+  <LI><INPUT id=inputSearch class=bolgsearch type=text></LI>
+  <LI class=selectsty><SELECT id=Search_ddlSearchScope 
+  name=Search:ddlSearchScope> <OPTION selected value=all>全站</OPTION> <OPTION 
+    value=a_heng>当前博客</OPTION></SELECT> </LI>
+  <LI><INPUT id=buttonSearch class=bolggobtn value=搜索 type=button></LI></UL>
+<UL id=menu>
+  <LI><A href="http://hi.csdn.net/a_heng" target=_blank>空间</A></LI>
+  <LI><A class=on href="http://blog.csdn.net/a_heng">博客</A></LI>
+  <LI><A href="http://hi.csdn.net/!s/friend/list/a_heng" 
+  target=_blank>好友</A></LI>
+  <LI><A href="http://hi.csdn.net/!s/album/list/a_heng" 
+target=_blank>相册</A></LI>
+  <LI><A class=last href="http://hi.csdn.net/!s/wall/to/a_heng" 
+  target=_blank>留言</A></LI></UL></DIV>
+<SCRIPT type=text/javascript>
+    var CurrentUserName = 'a_heng';
+</SCRIPT>
+
+<DIV id=csdnblog_sidebar>
+<DIV class=gutter>
+<DIV class=aboutauthor>
+<DL>
+  <DT>用户操作</DT>
+  <DD class=middle><A href="http://hi.csdn.net/!s/wall/to/a_heng" 
+  target=_blank>[留言]</A>&nbsp; <A href="http://hi.csdn.net/!s/msg/to/a_heng" 
+  target=_blank>[发消息]</A>&nbsp; <A 
+  href="http://hi.csdn.net/!s/friend/add/a_heng" target=_blank>[加为好友]</A>&nbsp; 
+  </DD><SPAN id=userInfo></SPAN><SPAN id=SubscriptionList>
+  <DT>订阅我的博客</DT>
+  <DD><A href="http://feeds.feedsky.com/csdn.net/a_heng"><IMG border=0 alt=XML聚合 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/gif.gif"> 
+  </A>&nbsp;&nbsp; <A href="http://feeds.feedsky.com/csdn.net/a_heng" 
+  target=_blank><IMG border=0 alt=FeedSky 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/feedsky.gif"> 
+  </A></DD>
+  <DD><A 
+  href="http://www.xianguo.com/subscribe.php?url=http://feeds.feedsky.com/csdn.net/a_heng" 
+  target=_blank><IMG border=0 alt=订阅到鲜果 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss_xianguo.jpg"> 
+  </A></DD>
+  <DD><A 
+  href="http://fusion.google.com/add?feedurl=http://feeds.feedsky.com/csdn.net/a_heng" 
+  target=_blank><IMG border=0 alt=订阅到Google 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss_google.gif"> 
+  </A></DD>
+  <DD><A 
+  href="http://www.zhuaxia.com/add_channel.php?url=http://feeds.feedsky.com/csdn.net/a_heng" 
+  target=_blank><IMG border=0 alt=订阅到抓虾 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss_zhuaxia.gif"> 
+  </A></DD></SPAN>
+  <DT><SPAN style="DISPLAY: none" class=floatright><A class=a_edit 
+  href="http://writeblog.csdn.net/configure.aspx" 
+  target=_blank>[编辑]</A></SPAN>a_heng的公告 </DT>
+  <DD></DD>
+  <DT><SPAN style="DISPLAY: none" class=floatright><A class=a_edit 
+  href="http://writeblog.csdn.net/EditCategories.aspx?catID=1" 
+  target=_blank>[编辑]</A></SPAN>文章分类</DT>
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A href="http://blog.csdn.net/a_heng/category/823848.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    href="http://blog.csdn.net/a_heng/category/823848.aspx">CSS</A></LI>
+    <LI><A href="http://blog.csdn.net/a_heng/category/384767.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    href="http://blog.csdn.net/a_heng/category/384767.aspx">Hibernate</A></LI>
+    <LI><A href="http://blog.csdn.net/a_heng/category/374288.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    title=JAVA相关 
+    href="http://blog.csdn.net/a_heng/category/374288.aspx">JAVA</A></LI>
+    <LI><A href="http://blog.csdn.net/a_heng/category/374164.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    title=整理对JS有用的笔记 
+    href="http://blog.csdn.net/a_heng/category/374164.aspx">JavaScript</A></LI>
+    <LI><A href="http://blog.csdn.net/a_heng/category/374286.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    title=数据库方面整理 
+    href="http://blog.csdn.net/a_heng/category/374286.aspx">数据库</A></LI>
+    <LI><A href="http://blog.csdn.net/a_heng/category/399561.aspx/rss"><IMG 
+    alt=(RSS) 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rss.gif"></A><A 
+    href="http://blog.csdn.net/a_heng/category/399561.aspx">摘录</A></LI></UL></DIV></DD>
+  <DT>存档</DT>
+  <DD>
+  <DIV class=publiclist_sidebar>
+  <UL>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2011/05.aspx">2011年05月(1)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2010/08.aspx">2010年08月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2010/04.aspx">2010年04月(3)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2010/03.aspx">2010年03月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2010/02.aspx">2010年02月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2010/01.aspx">2010年01月(1)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/09.aspx">2009年09月(4)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/08.aspx">2009年08月(5)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/07.aspx">2009年07月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/06.aspx">2009年06月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/04.aspx">2009年04月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2009/01.aspx">2009年01月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/12.aspx">2008年12月(2)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/10.aspx">2008年10月(1)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/09.aspx">2008年09月(1)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/07.aspx">2008年07月(4)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/06.aspx">2008年06月(3)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/05.aspx">2008年05月(6)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/04.aspx">2008年04月(7)</A></LI>
+    <LI><A 
+    href="http://blog.csdn.net/a_heng/archive/2008/03.aspx">2008年03月(4)</A></LI></UL></DIV></DD></DL></DIV></DIV></DIV>
+<STYLE type=text/css>.chal {
+	FONT-FAMILY: Verdana, Helvetica, Arial, sans-serif; FONT-SIZE: 12px; FONT-WEIGHT: normal
+}
+.chal .conts SPAN.adv {
+	TEXT-ALIGN: right; PADDING-BOTTOM: 1px; LINE-HEIGHT: 18px; PADDING-LEFT: 0px; WIDTH: 300px; PADDING-RIGHT: 10px; FLOAT: right; HEIGHT: auto; FONT-WEIGHT: bold; PADDING-TOP: 5px
+}
+.chal .conts SPAN.adv IMG {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: 300px; PADDING-RIGHT: 0px; HEIGHT: 60px; PADDING-TOP: 3px
+}
+.chal .conts {
+	BORDER-BOTTOM: #ccc 1px solid; TEXT-ALIGN: left; BORDER-LEFT: #ccc 1px solid; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: auto; PADDING-RIGHT: 0px; CLEAR: both; OVERFLOW: hidden; BORDER-TOP: #ccc 1px solid; BORDER-RIGHT: #ccc 1px solid; PADDING-TOP: 0px
+}
+.chal .conts #ann #annbody {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; PADDING-LEFT: 0px; WIDTH: auto; PADDING-RIGHT: 0px; MARGIN-BOTTOM: 5px; HEIGHT: 18px; CLEAR: both; OVERFLOW: hidden; BORDER-TOP: #aacbee 1px dashed; PADDING-TOP: 0px
+}
+.chal .conts #ann #annbodylis {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px 10px; PADDING-LEFT: 0px; WIDTH: auto; PADDING-RIGHT: 0px; LIST-STYLE-IMAGE: none; PADDING-TOP: 0px
+}
+.chal .conts #ann #annbodylis LI {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; LINE-HEIGHT: 150%; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 100%; PADDING-RIGHT: 0px; FLOAT: left; COLOR: #004797; PADDING-TOP: 0px
+}
+.chal .conts #ann #annbodylis LI A {
+	COLOR: #f00
+}
+.chal .conts #ann #annbodylis LI.cen {
+	TEXT-ALIGN: center
+}
+.chal .conts #ann #annbodylis LI.rig {
+	TEXT-ALIGN: right
+}
+.default_contents H4.notice {
+	BACKGROUND: url(http://c.csdn.net/bbs/f/i/l/pic04.gif) #ffffdd no-repeat 4px 10px
+}
+.commentnew DL DD.recruit {
+	BORDER-BOTTOM: #c1ae9e 1px solid; TEXT-ALIGN: left; BORDER-LEFT: #c1ae9e 1px solid; PADDING-BOTTOM: 1px; PADDING-LEFT: 1px; WIDTH: 200px; PADDING-RIGHT: 1px; DISPLAY: inline; FLOAT: left; MARGIN-LEFT: 15px; BORDER-TOP: #c1ae9e 1px solid; BORDER-RIGHT: #c1ae9e 1px solid; PADDING-TOP: 1px
+}
+.commentnew DL DD.recruit H5 {
+	LINE-HEIGHT: 24px; PADDING-LEFT: 10px; BACKGROUND: #e0dbd3; HEIGHT: 24px; COLOR: #47381c; FONT-SIZE: 12px
+}
+.commentnew DL DD.recruit UL {
+	PADDING-BOTTOM: 0px; MARGIN: 10px 5px; PADDING-LEFT: 0px; WIDTH: auto; PADDING-RIGHT: 0px; FLOAT: none; HEIGHT: 252px; OVERFLOW: hidden; PADDING-TOP: 0px
+}
+.commentnew DL DD.recruit UL LI {
+	LIST-STYLE-TYPE: none; PADDING-LEFT: 12px; MARGIN-BOTTOM: 6px; BACKGROUND: url(http://c.csdn.net/www/images/blog/dot_2.gif) no-repeat left 7px; HEIGHT: 36px; MARGIN-LEFT: 5px; OVERFLOW: hidden; LIST-STYLE-IMAGE: none
+}
+.commentnew DL DD UL {
+	PADDING-BOTTOM: 10px; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 474px; PADDING-RIGHT: 0px; FLOAT: left; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.left {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; MARGIN: 0px 0px 0px 12px; PADDING-LEFT: 0px; WIDTH: 70px; PADDING-RIGHT: 0px; DISPLAY: inline; FLOAT: left; PADDING-TOP: 0px
+}
+* + HTML .commentnew DL DD UL LI.left {
+	LINE-HEIGHT: 20px
+}
+.commentnew DL DD UL LI.lefttop {
+	PADDING-BOTTOM: 5px; MARGIN: 0px 0px 0px 12px; PADDING-LEFT: 0px; WIDTH: 70px; PADDING-RIGHT: 0px; DISPLAY: inline; FLOAT: left; PADDING-TOP: 5px
+}
+.commentnew DL DD UL LI.right {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; MARGIN: 0px; PADDING-LEFT: 0px; WIDTH: 380px; PADDING-RIGHT: 12px; DISPLAY: inline; FLOAT: left; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.right IMG.brow {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 4px; PADDING-RIGHT: 4px; FLOAT: left; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.right .textarea {
+	BORDER-BOTTOM: #c3c3c3 1px solid; BORDER-LEFT: #c3c3c3 1px solid; PADDING-BOTTOM: 3px; MARGIN: 0px; PADDING-LEFT: 3px; WIDTH: 378px; PADDING-RIGHT: 3px; FLOAT: left; HEIGHT: 150px; VERTICAL-ALIGN: top; BORDER-TOP: #c3c3c3 1px solid; BORDER-RIGHT: #c3c3c3 1px solid; PADDING-TOP: 3px
+}
+.commentnew DL DD UL LI.right .input {
+	BORDER-BOTTOM: #c3c3c3 1px solid; BORDER-LEFT: #c3c3c3 1px solid; PADDING-BOTTOM: 0px; LINE-HEIGHT: 18px; MARGIN: 0px; PADDING-LEFT: 2px; WIDTH: 120px; PADDING-RIGHT: 2px; FLOAT: left; HEIGHT: 18px; VERTICAL-ALIGN: middle; BORDER-TOP: #c3c3c3 1px solid; BORDER-RIGHT: #c3c3c3 1px solid; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.right SPAN.left {
+	TEXT-ALIGN: left; WIDTH: auto; FLOAT: left
+}
+.commentnew DL DD UL LI.right SPAN.right {
+	TEXT-ALIGN: right; WIDTH: 100px; FLOAT: right
+}
+.commentnew DL DD UL LI.right SPAN A {
+	COLOR: #f00
+}
+.commentnew DL DD UL LI.right SPAN A.red:link {
+	COLOR: #f00
+}
+A.red:visited {
+	COLOR: #f00
+}
+A.red:hover {
+	COLOR: #f00
+}
+A.red:active {
+	COLOR: #f00
+}
+.commentnew DL DD UL LI.right EM {
+	COLOR: #466bbb
+}
+.commentnew DL DD UL LI.right A IMG.btn {
+	PADDING-BOTTOM: 3px; PADDING-LEFT: 0px; WIDTH: 68px; PADDING-RIGHT: 0px; HEIGHT: 21px; PADDING-TOP: 0px
+}
+.commentnew DL DD UL LI.right .checkbox {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; VERTICAL-ALIGN: middle; BORDER-TOP: 0px; BORDER-RIGHT: 0px; PADDING-TOP: 0px
+}
+</STYLE>
+
+<DIV id=csdnblog_content>
+<DIV class=gutter>
+<DIV style="DISPLAY: none" id=chal class="chal default_contents">
+<H4 style="HEIGHT: 20px" class="conts notice"><SPAN 
+style="MARGIN: 2px 0px 0px; FLOAT: left; FONT-WEIGHT: bold">公告：</SPAN> 
+<DIV style="WIDTH: 500px; FLOAT: left" id=ann>
+<DIV style="BORDER-TOP: 0px" id=annbody>
+<UL id=annbodylis>
+  <SCRIPT type=text/javascript 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rsscache.aspx"></SCRIPT>
+</UL></DIV></DIV><SPAN><A href="http://forum.csdn.net/SList/blogSupport" 
+target=_blank>[意见反馈]</A><A href="http://blog.csdn.net/blogdevteam" 
+target=_blank>[官方博客]</A></SPAN> </H4></DIV>
+<DIV class=default_contents>
+<DIV class=user_article>
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/feedbackcount.js"></SCRIPT>
+
+<H1 class=title_txt><IMG border=0 alt=原创 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/authorship.gif" 
+width=15 height=15>&nbsp; Together for Eclipse的使用 <CITE 
+class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A> 
+</CITE></H1>
+<DIV class=blogstory>
+<SCRIPT type=text/javascript>
+						document.body.oncopy = function () {
+							if (window.clipboardData) {
+								setTimeout(function () {
+									var text = clipboardData.getData("text");
+									if (text && text.length > 300) {
+										text = text + "\r\n\n本文来自CSDN博客，转载请标明出处：" + location.href;
+										clipboardData.setData("text", text);
+									}
+								}, 100);
+							}
+						}
+					</SCRIPT>
+
+<SCRIPT type=text/javascript>						function StorePage() { d = document; t = d.selection ? (d.selection.type != 'None' ? d.selection.createRange().text : '') : (d.getSelection ? d.getSelection() : ''); void (keyit = window.open('http://www.365key.com/storeit.aspx?t=' + escape(d.title) + '&u=' + escape(d.location.href) + '&c=' + escape(t), 'keyit', 'scrollbars=no,width=475,height=575,left=75,top=20,status=no,resizable=yes')); keyit.focus(); }</SCRIPT>
+
+<P>1、介绍<BR>&nbsp;&nbsp;&nbsp; 
+UML对Java系统的设计是一个很有帮助的语言，该语言综合了面向对象的建模语言、方法以及过程，系统整体设计可以帮助我们认清整个软件的开发概貌和过程，相信学过软件工程的人都知道，优点就不多说了。</P>
+<P>&nbsp;&nbsp;&nbsp; 
+Together就是Borland公司推出的一款将UML功能和IDE开发工具集成在一起的一套UML建模软件。在使用过程中可以同时看到UML图和 
+Java源代码，修改UML图会使得源代码得到即时的同步修改，反过来，修改Java源代码也会使该代码同步地在UML图中反映出来。</P>
+<P>2、版本<BR>Together有专门的开发版本，就是standalone的，以前叫做TogetherControlCenter，这个在网 
+上可以找到中文教程，这个版本是自身自带了Java的IDE和UML，现在演进到了Together Architect 
+1.0了，应该变化不会太大。另外Together有针对各种IDE的版本，比如for JBuilder,for .NET,for 
+Eclipse，我下的就Together For Eclipse Edition，在Borland的主页上可以找到各自不同的版本。</P>
+<P>3、下载安装<BR>下载地址：<BR><A 
+href="http://www.borland.com/products/downloads/download_together.html">http://www.borland.com/products/downloads/download_together.html</A><BR>选 
+择Together For 
+Eclipse，其中有针对各种Eclipse版本，我不知道具体有什么不同，不过还是按照它说的，对应好自己的Eclipse版本吧，我用的是 
+Eclipse3.0，所以最新推出的Together Edition for Eclipse 
+7.0就是我的最佳选择了。在下载过程中，会提示你登录，这个花少许时间注册、登录，留个邮箱地址，邮箱地址用来给你发registrar active 
+file的，所以一定要正确，如果以后你的这个文件丢失还可以通过邮箱地址重新下载，下载过程中会提示用一个Download 
+Manager的工具下载，建议采用这个，下载完后会从本机删除的，采用这个工具下载速度很快的，否则如果你有耐性就等着几K速度下载吧。^_^。</P>
+<P>下载完后，安装就简单了，安装过程中会提示你指出Eclipse 
+的SDK。windows下：exe文件，双击就OK了<BR>linux下：bin文件，如果可执行属性为空的话，chmod 
+777，然后执行该文件就OK了。</P>
+<P>另外check自己的注册邮箱，会收到Borland的一封邮件，附件是reg610.txt，这个文件是用来激活你的Together软件的，因 为下载的版本是 
+15 days trial，所以需要用该文件激活注册。其方法：将该文件保存到自己的用户目录下面，这样Together启动时会在用户目录下自动加载该文件完成 
+activation 。<BR>用户目录：<BR>&nbsp;Windows 95/98 单用户: C:\Windows<BR>&nbsp;Windows 
+95/98 多用户: C:\Windows\Profiles\&lt;username&gt;<BR>&nbsp;Windows NT: 
+C:\WINNT\Profiles\&lt;username&gt;<BR>&nbsp;Windows 2000/XP: C:\Documents and 
+Settings\&lt;username&gt;<BR>&nbsp;UNIX and Linux: 就是你的login in 
+目录了，比如，大部分都是<BR>/home/&lt;username&gt;</P>
+<P>4、基本的使用<BR>安装完成后，就可以启动软件了。你可以直接从程序选项启动Together For 
+Eclipse启动后，看到的就是Eclipse软件视图，只是将Together的视图集成到了里面。简单点说，这个主要就是UML的设计了。从这个地 
+方开始，可以通过《Get Started》文档一步步来操作了，具体的就是如何进行UML的define,design,deploy那些工作了。</P>
+<P>我这里主要想讲的是通过跟Eclipse结合起来使用来理解Java中的设计模式，这里先推荐一本关于这方面的书－－《Java与模式》，中国人写 
+的，阎宏，个人觉得写的很不错，我看完后的感觉是对Java所有的类库的设计有了一个清晰的理解，不会觉得这么多类毫无头绪一样，也对面向对象有了更深的 认识。</P>
+<P>举个例子，当初在看Java 
+io时就觉得iostream那么多的类，这怎么用啊，有时就根据经验，随便用，还好经验没怎么出错，但自己的理论还是没有头绪，这样如果遇到特殊情况需 
+要更换解决方式就没辙了。在设计模式中，Java 
+io用的就是适配器模式和装饰模式，里面讲了io中怎么将流的类(InputStream,OutputStream)和读写操作的类(Reader, 
+Writer)适配起来的，还有各个读写操作流(FileInputStream,ByteArrayInputStream)之间是如何装饰的。还有工 
+厂方法模式，代理模式，命令模式，观察者模式，备忘录模式这些都是令我对Java面向对象理解很深的几种模式，所以希望还是先对设计模式有点了解比较好。</P>
+<P>有了了解后，就可以通过Eclipse中集成的Together可以看到这些模式的实现代码和UML图示。直接启动Eclipse就可以了，打开后，Together功能已经集成在里面了。</P>
+<P>在 “新建" 
+项中，会发现多了关于Together的一些选项：Together，Templates<BR>(1)、Templates<BR>&nbsp;&nbsp; 
+这里就是一些Java系统的模板了，比如J2EE的框架和J2SE的其中有类的设计模板，包的设计模板<BR>&nbsp;&nbsp; 
+J2EE因为我没有学过，只是知道一些概念原理，我想大致应该就是一些Framework和容器之类的吧。<BR>&nbsp;&nbsp; 
+J2SE的模板呢，就是对应用程序的管理了，比如该应用程序的描述(description),导入的包(import)，成员函数定义(operations),说白了就是一个Java系统的管理模板。</P>
+<P>(2)、Together<BR>&nbsp;&nbsp; 该选项中包含有<BR>&nbsp;&nbsp; Modeling 
+Project<BR>&nbsp;&nbsp; UML Diagram<BR>&nbsp;&nbsp; Example</P>
+<P>&nbsp;&nbsp;&nbsp; 选择ModelingProject就是新建一个建模工程了，选择后会切换到UML视图了，显示在面前的就是UML 
+Diagram平面，在其中你可以画UML图，包括包，包中的类，等等，每画完一个UML图，其Java源代码都会在下方显示出来，包括包名定义，接口等 
+等。可以通过单击右键看到更多的功能。选择UML 
+Diagram，这个就不说了，就是从属于工程建模的。两者关系好比先新建一个Java项目工程，再新建一个类，或一个包一样。<BR>&nbsp;&nbsp;&nbsp; 
+选择Example，这个里面就有一些模板和模式<BR>&nbsp;&nbsp;&nbsp; Patterns And 
+Templates<BR>&nbsp;&nbsp;&nbsp; Purchase Transaction<BR>&nbsp;&nbsp;&nbsp; UML 
+Modeling<BR>这三个都是作为工程来新建的。</P>
+<P>第一个Patterns And 
+Templates就是我常说的一些Java设计模式了，新建此项后，打开项目你会发现所有的Java模式全部都在里面了（包含了J2EE的框架），还有 
+structs，soap，swt，xmlParseAPI，通过在包上单击右键选择open 
+diagram可以看到代码对应的UML图，相信这个对大家对Java模式和api的整体理解会有很大的帮助。</P>
+<P>第二个Purchase 
+Transaction，这个相信大家都知道了，就是一个交易工程，以前软件工程里最经典的就是那个ATM取款过程了，这个Purchase也是一个大的工程，可以看看它的实现模式和工程，挺不错。</P>
+<P>第三个UML 
+Modeling就是建模的一个模板，给你提供了UML图示，你来管理这些UML图，比如它给出了包的视图，里面也预置了很多类，你可以修改这些类，可以增加删除这些类，可以建立包，类之间的关系。</P>
+<P>对于基本的使用应该够用了，具体的设计方法和实现可以参看文档，主要是想写这个侧重来了解Java的模式。所以对于工具的使用肯定还不够全面的，以后有心得了再写点。希望大家用的开心</P>
+<P>总结下：<BR>&nbsp;&nbsp;&nbsp; 1）如果用单独的Together 
+ControlCenter可以下载专门的中文教程，我这里也有一份，到时整理好作为资源共享<BR>&nbsp;&nbsp;&nbsp; 2)Together 
+for Eclipse中关于UML的设计实现可以看《Get Started》文档<BR>&nbsp;&nbsp;&nbsp; 3)了解设计模式推荐看看《Java 
+与 模式》，阎宏，这样用Together来学习java模式效果应该更好些。</P>&nbsp; 
+<P class="right articalinfo">发表于 @ 2008年03月27日　11:22:00&nbsp;| <A id=a_comment 
+title=评论 
+href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#FeedBack">评论( 
+<SPAN id=FeedbackCount_2222431>loading...</SPAN>
+<SCRIPT type=text/javascript>
+								AddFeedbackCountStack("2222431")
+							</SCRIPT>
+ ) </A>| <SPAN style="DISPLAY: none"><A class=a_edit title=编辑 
+href="http://writeblog.csdn.net/PostEdit.aspx?entryId=2222431">编辑</A>|</SPAN> <A 
+href="mailto:webmaster@csdn.net?subject=Article%20Report!!!&amp;body=Author:a_heng%0D%0AURL:http://blog.csdn.net/ArticleContent.aspx?UserName=a_heng&amp;Entryid=2222431">举报</A>| 
+<CITE class=fav_csdnstylebykimi><A class=fav_csdnstylebykimi 
+title=收藏到我的网摘中，并分享给我的朋友 
+href="javascript:d=document;t=d.selection?(d.selection.type!='None'?d.selection.createRange().text:''):(d.getSelection?d.getSelection():'');void(saveit=window.open('http://wz.csdn.net/storeit.aspx?t='+escape(d.title)+'&amp;u='+escape(d.location.href)+'&amp;c='+escape(t),'saveit','scrollbars=no,width=590,height=300,left=75,top=20,status=no,resizable=yes'));saveit.focus();">收藏</A> 
+</CITE></P><SPAN id=Post.ascx_ViewPost_PreviousAndNextEntriesDown>
+<H3 class=pagego><A 
+href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222354.aspx">旧一篇:window.open参数完全手册</A>&nbsp;|&nbsp;<A 
+href="http://blog.csdn.net/a_heng/archive/2008/03/31/2232503.aspx">新一篇:java设计模式之单例模式</A></H3></SPAN>
+<DIV style="TEXT-ALIGN: left"><!-- ca-pub-1076724771190722/blog_postpage_72890
+						<script type='text/javascript'>
+							GA_googleFillSlot("blog_postpage_72890");
+						</script> --><!-- GOOGLE广告显示不出来，换成BAIDU -->
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/s.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>BAIDU_CLB_singleFillSlot("117306");</SCRIPT>
+</DIV>
+<DIV class=mutualitys>
+<DL>
+  <DT><SPAN><A onclick=LogClickCount(this,215) href="http://blog.csdn.net/" 
+  target=_blank>查看最新精华文章 请访问博客首页</A></SPAN>相关文章</DT></DL></DIV></DIV></DIV><A 
+name=FeedBack></A>
+<SCRIPT type=text/javascript>
+				var CurrentEntryId = '2222431';
+				var CurArticleTitle = 'Together for Eclipse的使用';
+				var AllowComment = 'True';
+				var AllowAnonymousComment = /^true$/i.test('False');
+			</SCRIPT>
+
+<DIV id=commentslist class=commentslist></DIV>
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/CsdnDialog.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+				function ChangeIdentifyingCode() {
+					var url = $('#imgValidationCode').attr('src');
+					if (!(/&d=[\d\.]+$/).test(url)) url += "&d=1";
+					url = url.replace(/&d=[\d\.]+$/, "&d=" + Math.random());
+					$('#imgValidationCode').attr('src', url);
+				}
+
+				function OpenLoginDialog() {
+					element = document.getElementById("loginBtn");
+					var position = absolutePoint(element);
+
+					var dialogTop = position.y - 400;
+					var dialogLeft = position.x - 220;
+					var dialogWidth = 435;
+					var dialogHeight = 420;
+                    //replyLogin
+					showWindow({ url: 'http://passport.csdn.net/UserLogin.aspx?show=simple&from=http%3a%2f%2fblog.csdn.net%2f!tools%2fLoginSussess.aspx'
+						, title: '登录'
+						, top: dialogTop
+						, left: dialogLeft
+						, width: dialogWidth
+						, height: dialogHeight
+					});
+				}
+
+				function closeDialog(needRefresh) {
+					closeWindow();
+					if (needRefresh) {
+						var url = location.href;
+						if ((/\?/g).test(url))
+							url = url.replace(/\?.*$/g, ("?" + Math.random()).replace(/\./g, ""));
+						else url += ("?" + Math.random()).replace(/\./g, "");
+						location.href = url;
+					}
+					$("#SubmitFeedback").unbind("click");
+					$("#SubmitFeedback").bind("click", PostContent);
+				}
+
+				function absolutePoint(element) {
+					var result = { x: element.offsetLeft, y: element.offsetTop };
+					element = element.offsetParent;
+					while (element) {
+						result.x += element.offsetLeft;
+						result.y += element.offsetTop;
+						element = element.offsetParent;
+					}
+					return result;
+				}
+
+				function startmarquee(lh, speed, delay, index) {
+					var t;
+					var p = false;
+					var o = document.getElementById("marqueebox" + index);
+					o.innerHTML += o.innerHTML;
+					o.onmouseover = function () { p = true }
+					o.onmouseout = function () { p = false }
+					o.scrollTop = 0;
+					function start() {
+						t = setInterval(scrolling, speed);
+						if (!p) o.scrollTop += 2;
+					}
+					function scrolling() {
+						if (o.scrollTop % lh != 0) {
+							o.scrollTop += 2;
+							if (o.scrollTop >= o.scrollHeight / 2) o.scrollTop = 0;
+						} else {
+							clearInterval(t);
+							setTimeout(start, delay);
+						}
+					}
+					setTimeout(start, delay);
+				}
+
+				function addEventHandler(target, type, func) {
+					if (target.addEventListener)
+						target.addEventListener(type, func, false);
+					else if (target.attachEvent)
+						target.attachEvent("on" + type, func);
+					else target["on" + type] = func;
+				}
+
+				addEventHandler(window, "load", function () {
+					startmarquee(42, 50, 3000, 0);
+				});
+			</SCRIPT>
+
+<DIV class=commentnew>
+<DL>
+  <DT>
+  <UL>
+    <LI class=left>发表评论</LI>
+    <SCRIPT type=text/javascript 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/RandomColumnContentJS.aspx"></SCRIPT>
+  </UL></DT>
+  <DD>
+  <UL>
+    <LI class=lefttop>表 情：</LI>
+    <LI class=right><A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=顶 alt=顶 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e01.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=砸 alt=砸 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e02.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=棒 alt=棒 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e03.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=大笑 alt=大笑 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e04.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=愤怒 alt=愤怒 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e05.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=大哭 alt=大哭 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e06.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=疑问 alt=疑问 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e07.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=汗 alt=汗 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e08.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=呕吐 alt=呕吐 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e09.gif"></A> 
+    <A onclick="return false;" 
+    href="http://blog.csdn.net/a_heng/archive/2008/03/27/2222431.aspx#"><IMG 
+    class=brow title=送花 alt=送花 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/e10.gif"></A> 
+    </LI></UL>
+  <UL>
+    <LI class=left>评论内容：</LI>
+    <LI class=right><TEXTAREA onkeydown="if(event.ctrlKey &amp;&amp; event.keyCode==13){return $('#SubmitFeedback').click();}" id=content class=textarea></TEXTAREA> 
+    </LI></UL>
+  <DIV>
+  <UL>
+    <LI class=left>用 户 名：</LI>
+    <LI class=right><SPAN style="DISPLAY: none" id=loginTips class=right><A 
+    id=loginBtn class=red onclick="OpenLoginDialog(this);return false;" 
+    href="javascript:void(0);">登录</A> <A class=red 
+    href="http://passport.csdn.net/CSDNUserRegister.aspx" target=_blank>注册</A> 
+    </SPAN><SPAN style="DISPLAY: none" class=right><INPUT id=anonymous 
+    class=checkbox type=checkbox>匿名评论 </SPAN><SPAN id=commentUser 
+    class=left></SPAN></LI></UL></DIV>
+  <UL style="DISPLAY: none">
+    <LI class=left>验 证 码：</LI>
+    <LI class=right><INPUT id=code class=input type=text> <A 
+    href="javascript:ChangeIdentifyingCode()"><IMG 
+    style="VERTICAL-ALIGN: middle" id=imgValidationCode alt=验证码 
+    src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/AntiBotImage.htm"></A> 
+    <A href="javascript:ChangeIdentifyingCode()">重新获得验证码</A> </LI></UL>
+  <UL>
+    <LI class=left></LI>
+    <LI class=right><INPUT id=SubmitFeedback class=submitbtn value=发表评论 type=button> 
+    </LI></UL></DD></DL></DIV>
+<STYLE>.blog_behind_ad {
+	DISPLAY: block; CLEAR: both
+}
+.blog_behind_ad:after {
+	DISPLAY: block; HEIGHT: 0px; VISIBILITY: hidden; CLEAR: both; CONTENT: "."
+}
+.blog_ad {
+	BORDER-BOTTOM: #d7cbc1 1px solid; POSITION: relative; BORDER-LEFT: #d7cbc1 1px solid; PADDING-BOTTOM: 1px; LINE-HEIGHT: 20px; LIST-STYLE-TYPE: none; MARGIN: 0px 1%; PADDING-LEFT: 1px; WIDTH: 45%; PADDING-RIGHT: 1px; BACKGROUND: #fff; FLOAT: left; COLOR: #000; FONT-SIZE: 12px; BORDER-TOP: #d7cbc1 1px solid; LIST-STYLE-IMAGE: none; BORDER-RIGHT: #d7cbc1 1px solid; PADDING-TOP: 1px
+}
+.blog_ad #scrollDiv {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; PADDING-TOP: 0px
+}
+.blog_ad #scrollDiv2 {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 8px; PADDING-RIGHT: 8px; PADDING-TOP: 0px
+}
+.blog_ad A {
+	COLOR: #47381c; TEXT-DECORATION: none
+}
+.blog_ad A:hover {
+	TEXT-DECORATION: underline
+}
+.blog_ad * {
+	PADDING-BOTTOM: 0px; LIST-STYLE-TYPE: none; MARGIN: 0px; PADDING-LEFT: 0px; PADDING-RIGHT: 0px; LIST-STYLE-IMAGE: none; PADDING-TOP: 0px
+}
+.blog_ad H5 {
+	PADDING-BOTTOM: 0px; LINE-HEIGHT: 24px; PADDING-LEFT: 5px; PADDING-RIGHT: 5px; BACKGROUND: #e0dbd3; HEIGHT: 24px; COLOR: #47381c; FONT-SIZE: 12px; PADDING-TOP: 0px
+}
+.blog_ad H5 A {
+	COLOR: #47381c
+}
+.blog_ad UL {
+	MARGIN: 10px 5px; HEIGHT: 120px; OVERFLOW: hidden
+}
+.blog_ad LI {
+	PADDING-BOTTOM: 0px; PADDING-LEFT: 17px; PADDING-RIGHT: 0px; BACKGROUND: url(http://csdnimg.cn/www/images/point_tui.gif) no-repeat left 3px; PADDING-TOP: 0px
+}
+.blog_ad #btn1 {
+	BORDER-BOTTOM: medium none; POSITION: absolute; TEXT-ALIGN: center; BORDER-LEFT: medium none; LINE-HEIGHT: 15px; WIDTH: 15px; BOTTOM: 10px; BACKGROUND: #5d5d5d; HEIGHT: 15px; COLOR: #fff; FONT-SIZE: 11px; BORDER-TOP: medium none; CURSOR: pointer; RIGHT: 30px; BORDER-RIGHT: medium none
+}
+.blog_ad #btn12 {
+	BORDER-BOTTOM: medium none; POSITION: absolute; TEXT-ALIGN: center; BORDER-LEFT: medium none; LINE-HEIGHT: 15px; WIDTH: 15px; BOTTOM: 10px; BACKGROUND: #5d5d5d; HEIGHT: 15px; COLOR: #fff; FONT-SIZE: 11px; BORDER-TOP: medium none; CURSOR: pointer; RIGHT: 30px; BORDER-RIGHT: medium none
+}
+.blog_ad #btn2 {
+	BORDER-BOTTOM: medium none; POSITION: absolute; TEXT-ALIGN: center; BORDER-LEFT: medium none; LINE-HEIGHT: 15px; WIDTH: 15px; BOTTOM: 10px; BACKGROUND: #5d5d5d; HEIGHT: 15px; COLOR: #fff; FONT-SIZE: 11px; BORDER-TOP: medium none; CURSOR: pointer; RIGHT: 10px; BORDER-RIGHT: medium none
+}
+.blog_ad #btn22 {
+	BORDER-BOTTOM: medium none; POSITION: absolute; TEXT-ALIGN: center; BORDER-LEFT: medium none; LINE-HEIGHT: 15px; WIDTH: 15px; BOTTOM: 10px; BACKGROUND: #5d5d5d; HEIGHT: 15px; COLOR: #fff; FONT-SIZE: 11px; BORDER-TOP: medium none; CURSOR: pointer; RIGHT: 10px; BORDER-RIGHT: medium none
+}
+#recommended LI {
+	BACKGROUND-IMAGE: url(http://csdnimg.cn/www/images/point_pin.gif)
+}
+</STYLE>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/jquery.scroll.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+    $(document).ready(function () {
+        $("#scrollDiv").Scroll({ line: 6, speed: 1, timer: 6000, left: "btn1", right: "btn2" });
+    });  
+</SCRIPT>
+
+<DIV class=blog_behind_ad>
+<DIV class=blog_ad>
+<H5>专区推荐内容</H5>
+<DIV id=scrollDiv>
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/ArticleGet.ashx"></SCRIPT>
+</DIV><BUTTON id=btn1 type=submit>&lt;&lt;</BUTTON><BUTTON id=btn2 
+type=submit>&gt;&gt;</BUTTON> </DIV>
+<DIV id=recommended class=blog_ad>
+<H5>热门招聘职位 【<A href="http://special.csdn.net/zhaopin/index.html" 
+target=_blank>更多</A>】</H5>
+<DIV id=scrollDiv2>
+<UL id=marqueebox0>
+  <SCRIPT type=text/javascript 
+  src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/rsscache(1).aspx"></SCRIPT>
+</UL></DIV></DIV></DIV>
+<SCRIPT type=text/javascript>
+	function addEventHandler(target, type, func) {
+		if (target.addEventListener)
+			target.addEventListener(type, func, false);
+		else if (target.attachEvent)
+			target.attachEvent("on" + type, func);
+		else target["on" + type] = func;
+	}
+	addEventHandler(window, "load", function () {
+		({
+			anndelay: 5000,
+			annst: 0,
+			annstop: 0,
+			annrowcount: 0,
+			anncount: 0,
+			annrows: [],
+			annstatus: 0,
+			announcementScroll: function () {
+				var self = this;
+				var annlis = self.annbody.getElementsByTagName("li");
+				if (self.annstop) {
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+					return;
+				}
+				if (!self.annst) {
+					var lasttop = -1;
+					for (var i = 0; i < annlis.length; i++) {
+
+						if (lasttop != annlis[i].offsetTop) {
+							if (lasttop == -1) {
+								lasttop = 0;
+							}
+							self.annrows[self.annrowcount] = annlis[i].offsetTop - lasttop;
+							self.annrowcount++;
+						}
+						lasttop = annlis[i].offsetTop;
+					}
+
+					if (self.annrows.length == 1) {
+						self.ann.onmouseover = self.ann.onmouseout = null;
+					} else {
+						self.annrows[self.annrowcount] = self.annrows[1];
+						self.annbodylis.innerHTML += self.annbodylis.innerHTML;
+						self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+					}
+					self.annrowcount = 1;
+					return;
+				}
+
+				if (self.annrowcount >= self.annrows.length) {
+					self.annbody.scrollTop = 0;
+					self.annrowcount = 1;
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+				} else {
+					self.anncount = 0;
+					self.announcementScrollnext(self.annrows[self.annrowcount]);
+				}
+			},
+			announcementScrollnext: function (time) {
+				var self = this;
+				self.annbody.scrollTop++;
+				self.anncount++;
+				if (self.anncount != time) {
+					self.annst = setTimeout(function () {
+						self.announcementScrollnext(time);
+					}, 10);
+				} else {
+					self.annrowcount++;
+					self.annst = setTimeout(function () { self.announcementScroll(); }, self.anndelay);
+				}
+			},
+			play: function () {
+				var self = this;
+				self.annbody = document.getElementById('annbody');
+				if (!self.annbody) return;
+				self.ann = document.getElementById('ann');
+				self.annbodylis = document.getElementById('annbodylis');
+				self.chal = document.getElementById('chal');
+				if (!self.annbodylis.getElementsByTagName("li").length) return;
+				self.chal.style.display = "";
+				self.ann.onmouseover = function () { this.annstop = 1; };
+				self.ann.onmouseout = function () { this.annstop = 0; };
+				self.announcementScroll();
+			}
+		}).play();
+	});
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+	LoadFeedbackCount();
+	document.write("<img src='http://counter.csdn.net/pv.aspx?id=24' border=0 width=0 height=0>");
+</SCRIPT>
+</DIV></DIV></DIV>
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/publib_footer.js"></SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/counter.js"></SCRIPT>
+</DIV></DIV><IMG 
+src="Together%20for%20Eclipse的使用%20-%20啊恒的专栏%20-%20CSDN博客_files/count.aspx" 
+width=0 height=0> </BODY></HTML>

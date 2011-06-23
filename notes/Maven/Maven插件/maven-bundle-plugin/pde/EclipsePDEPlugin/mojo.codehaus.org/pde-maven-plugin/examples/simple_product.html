@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+
+
+
+
+
+
+
+<html>
+  
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/examples/simple_product.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+<head>
+    <title>Mojo - Creating a Simple Product</title>
+    <style type="text/css" media="all">
+      @import url("../css/maven-base.css");
+      @import url("../css/maven-theme.css");
+      @import url("../css/site.html");
+    </style>
+    <link rel="stylesheet" href="../css/print.css" type="text/css" media="print" />
+          <meta name="author" content="Barrie Treloar
+baerrach@gmail.com" />
+        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+      </head>
+  <body class="composite">
+    <div id="banner">
+                  <a href="../index.html" id="bannerLeft">
+    
+                                    <img src="../../images/mojo_logo.png" alt="" />
+    
+            </a>
+                        <a href="http://www.codehaus.org/" id="bannerRight">
+    
+                                    <img src="../../images/codehaus-small.png" alt="" />
+    
+            </a>
+            <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="breadcrumbs">
+          
+  
+
+  
+    
+  
+  
+            <div class="xleft">
+        Last Published: 01/12/2007
+                      </div>
+            <div class="xright">      <a href="http://mojo.codehaus.org/">Mojo</a>
+          |
+          <a href="http://maven.apache.org/maven2">Maven</a>
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+    <div id="leftColumn">
+      <div id="navcolumn">
+           
+  
+
+  
+    
+  
+  
+                   <h5>Eclipse PDE Plugin</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="../index-2.html">Introduction</a>
+        </li>
+              
+    <li class="none">
+              <a href="../usage.html">Usage</a>
+        </li>
+              
+    <li class="none">
+              <a href="../lifecycle.html">Build Lifecycle</a>
+        </li>
+              
+    <li class="none">
+              <a href="../plugin-info.html">Goals</a>
+        </li>
+              
+    <li class="none">
+              <a href="../references.html">References</a>
+        </li>
+              
+    <li class="none">
+              <a href="../faq.html">FAQ</a>
+        </li>
+          </ul>
+          <h5>Examples</h5>
+        <ul>
+              
+    <li class="none">
+              <a href="getting_started.html">Getting Started</a>
+        </li>
+              
+    <li class="none">
+              <a href="simple_plugin.html">Creating a plugin</a>
+        </li>
+              
+    <li class="none">
+              <a href="simple_feature.html">Creating a feature</a>
+        </li>
+              
+    <li class="none">
+              <strong>Creating a product</strong>
+        </li>
+              
+    <li class="none">
+              <a href="simple_updatesite.html">Creating an updatesite</a>
+        </li>
+              
+    <li class="none">
+              <a href="m2eclipse.html">Building M2Eclipse</a>
+        </li>
+          </ul>
+          <h5>Project Documentation</h5>
+        <ul>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="../project-info.html">Project Information</a>
+              </li>
+              
+                
+              
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+            
+      
+              
+        <li class="collapsed">
+              <a href="../project-reports.html">Project Reports</a>
+              </li>
+          </ul>
+                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+            <img alt="Built by Maven" src="../images/logos/maven-feather.png"></img>
+          </a>
+                       
+  
+
+  
+    
+  
+  
+        </div>
+    </div>
+    <div id="bodyColumn">
+      <div id="contentBox">
+        <div class="section"><h2>Overview</h2><p>The goal of this example is to create a simple Eclipse PDE product and to successfully build it with pde-maven-plugin.</p></div><div class="section"><h2>Prequisites</h2><p>You have downloaded and installed the RCP target as per the options steps in <a href="getting_started.html">Getting Started</a> You need the target setup with the delta pack or else the Ant PDE tasks will fail.</p></div><div class="section"><h2>Steps</h2><div class="section"><h3>Double check your Eclipse Target</h3><p>Check Window &gt; Preferences &gt; Plug-in Development &gt; Target Platform, is set to the RCP installation (e.g. D:\ide\target\eclipse-rcp-3.2.1)</p></div><div class="section"><h3>Create an Application Project</h3><p>To build a product you need it to be based on an Application first.</p><div class="source"><pre>  File &gt; New &gt; Project...
+  
+  Plug-in Development &gt; Plug-in Project (Next)
+  
+  Project name: &quot;test.pde_maven_plugin.simple_application&quot;
+  Uncheck &quot;Use default location&quot; and set Location to &quot;&lt;Your Workspace&gt;\PDE_Plugin_Tutorial\plugins\test.pde_maven_plugin.simple_application&quot;
+  Source folder: &quot;src/main/java&quot;
+  Output folder: &quot;target/classes&quot;  
+  (Next)
+
+  TROUBLE SHOOTING: Eclipse will complain that &quot;Project contents cannot be inside workspace directory&quot;
+  which is non-sense since you can import projects within project now. This may be a bug with the validation
+  code of the Project builder.  You can trick Eclipse by typing and deleting a character in &quot;Project name&quot;
+  which will clear the error message allowing you to click Finish.  
+  
+  Choose &quot;Yes&quot; to &quot;Would you like to create a rich client application&quot;.
+  The rest of the defaults for &quot;Plug-in Content&quot; are ok.
+  (Next)
+  
+  Choose &quot;Hello RCP&quot; as the template to use.
+  (Next)
+  
+  The defaults for &quot;Basic RCP application&quot; are ok.
+  (Finish)  </pre></div></div><div class="section"><h3>Confirm the Project works</h3><p>If the &quot;test.pde_maven_plugin.simple_application&quot; editor is not already open then open &quot;plugin.xml&quot; and ensure you are on the &quot;Overview&quot; tab.</p><p>Select &quot;Launch an Eclipse application&quot; from the Testing area of the Overview tab.</p><p>Verify that &quot;Hello RCP&quot; application starts up.</p><p>Having run this will automatically create a new launcher for this application. If you click on the drop down arrow on the Run toolbar button and select Run..., you will see the new &quot;Eclipse Application&quot; configuration. If this is the first time you have clicked &quot;Launch an Eclipse application&quot; the configuration will be called &quot;Eclipse Application&quot;.</p></div><div class="section"><h3>Create the *.product file</h3><div class="source"><pre>  Right click on the project and select New &gt; Product Configuration.
+  
+  parent folder = &quot;test.pde_maven_plugin.simple_application&quot; (should already be selected)
+  File name = &quot;simple_product.product&quot;
+  Use a launch configuragion = the same as the one used to test the application, most likely &quot;Eclipse Application&quot;.
+  (Finish)
+  
+  In the &quot;simple_product.product&quot; editor window:
+  Product Name = &quot;PDE Simple Product Example&quot;
+  Product ID: (New...)
+    Defining Plug-in: (Browse...) and select test.pde_maven_plugin.simple_application
+    Product ID: product
+    Application: test.pde_maven_plugin.simple_application.application
+  (Finish)
+ </pre></div><p>Verify this product configuration by selecting &quot;Launch the product&quot; from the Testing area of the Overview tab, te &quot;Hello RCP&quot; application should start up the same as previously.</p></div><div class="section"><h3>Create pom.xml</h3><p>Now that we know the product project works, we can create the pom.xml to get this running in Maven.</p><p>In this pom we need to indicate that we want a PDE product build by specifying pdeProductFilename and the pdeBuildVersion details. The pdeBuildVersion does not default to a value and you must specify it so that the scripts supplied with Eclipse can be located. Obtain the value by browsing to $<a name="eclipseInstall">eclipseInstall</a>/plugins/org.eclipse.pde.build_<a name="pdeBuildVersion">pdeBuildVersion</a>/scripts/productBuild. On an Eclipse 3.2.1 installation this value is 3.2.0.v20060603.</p><div class="source"><pre>&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&quot;&gt;
+  &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+  &lt;groupId&gt;test.pde_maven_plugin&lt;/groupId&gt;
+  &lt;artifactId&gt;simple_application&lt;/artifactId&gt;
+  &lt;packaging&gt;zip&lt;/packaging&gt;
+  &lt;name&gt;Simple Product PDE Example&lt;/name&gt;
+  &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+  &lt;description&gt;A Simple Product PDE Example&lt;/description&gt;
+  &lt;build&gt;
+    &lt;plugins&gt;
+      &lt;plugin&gt;
+        &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+        &lt;artifactId&gt;pde-maven-plugin&lt;/artifactId&gt;
+        &lt;extensions&gt;true&lt;/extensions&gt;
+        &lt;configuration&gt;
+          &lt;eclipseInstall&gt;D:\eclipse-3.2&lt;/eclipseInstall&gt;
+          &lt;pdeProductFilename&gt;simple_product.product&lt;/pdeProductFilename&gt;
+          &lt;pdeBuildVersion&gt;3.2.0.v20060603&lt;/pdeBuildVersion&gt;          
+        &lt;/configuration&gt;
+      &lt;/plugin&gt;
+    &lt;/plugins&gt;
+  &lt;/build&gt;
+&lt;/project&gt;</pre></div></div><div class="section"><h3>Create the build configuration</h3><p>The Ant PDE installation process requires a properties file that specifies the build configuration. For more information consult <a href="http://help.eclipse.org/help32/topic/org.eclipse.pde.doc.user/guide/tasks/pde_product_build.htm"> Building an RCP application from a product configuration file</a></p><p>You can use You can use $<a name="eclipseInstall">eclipseInstall</a>/plugins/org.eclipse.pde.build_<a name="pdeBuildVersion">pdeBuildVersion</a>/templates/headless-build/build.properties as a starter file.</p><p>Copy $<a name="eclipseInstall">eclipseInstall</a>/plugins/org.eclipse.pde.build_<a name="pdeBuildVersion">pdeBuildVersion</a>/templates/headless-build/build.properties to PDE_Plugin_Tutorial/plugins/test.pde_maven_plugin.simple_application/buildConfiguration.</p><p>Right click build.properties and open with Proeprties File Editor. Find and set the following variables:</p><table class="bodyTable"><tbody><tr class="a"><td align="left"><b>Variable</b></td><td align="left"><b>Value</b></td></tr><tr class="b"><td align="left">product</td><td align="left">simple_product.product</td></tr><tr class="a"><td align="left">base</td><td align="left"><i>path/to/parent/of/eclipse target</i>, e.g. D:/ide/target</td></tr><tr class="b"><td align="left">baseLocation</td><td align="left"><i>the directory containing eclipse</i>, e.g. eclipse-rcp-3.2.1</td></tr><tr class="a"><td align="left">buildDirectory</td><td align="left">Comment out this variable, as this is provided by pde-maven-plugin</td></tr><tr class="b"><td align="left">configs</td><td align="left">The build architecture, e.g. win32, win32, x86.<br />Note: pde-maven-plugin currently only support building one config, it does not support multiple configs.</td></tr><tr class="a"><td align="left">archivePrefix</td><td align="left">simple_product</td></tr></tbody><caption><b>Variables to set in buildConfiguation/build.properties file.</b></caption></table></div><div class="section"><h3>Run mvn install</h3><p>Everything is setup and ready to go. Type &quot;mvn install&quot; to build your pde plugin from the command line.</p><p>When everything is complete you should see that your product zip file &quot;..\..\I.TestBuild\TestBuild-win32.win32.x86.zip&quot; gets installed into your local maven repository as &quot;simple_application-1.0-SNAPSHOT.zip&quot;</p></div><div class="section"><h3>Test out your application</h3><p>Browse to your m2 repository and extract &lt;Your&#160;M2&#160;REPO&gt;\.m2\repository\test\pde_maven_plugin\simple_application.0-SNAPSHOT\simple_application-1.0-SNAPSHOT.zip to the somewhere (e.g. D:\tmp\)</p><p>Double click the &quot;launcher.exe&quot; and see it run exactly as it did inside Eclipse.</p></div></div>
+      </div>
+    </div>
+    <div class="clear">
+      <hr/>
+    </div>
+    <div id="footer">
+      <div class="xright">&#169;  
+          2006-2007
+    
+          Codehaus
+          
+  
+
+  
+    
+  
+  
+  </div>
+      <div class="clear">
+        <hr/>
+      </div>
+    </div>
+  </body>
+
+<!-- Mirrored from mojo.codehaus.org/pde-maven-plugin/examples/simple_product.html by HTTrack Website Copier/3.x [XR&CO'2010], Wed, 18 May 2011 05:14:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8"><!-- /Added by HTTrack -->
+</html>

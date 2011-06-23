@@ -1,0 +1,1281 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0061)http://java.dzone.com/articles/reverse-engineer-source-code-u -->
+<HTML lang=en xml:lang="en" xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Reverse-engineer Source Code into UML Diagrams | Javalobby</TITLE>
+<META content="text/html; charset=utf-8" http-equiv=Content-Type><!-- Use this code block to activate a prestitial if there's one to load --><!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+<SCRIPT language=JavaScript type=text/javascript>
+<!--
+document.write('<SCR'+'IPT src="http://avpa.dzone.com/servlet/view/dynamic/javascript/zone?zid=159&pid=0&random='+Math.floor(89999999*Math.random()+10000000)+'&millis='+new Date().getTime()+'" language="JavaScript" type="text/javascript"></SCR'+'IPT>');
+//-->
+</SCRIPT>
+<!-- END ADVERTPRO ADVANCED CODE BLOCK --><LINK 
+title='Comments for "Reverse-engineer Source Code into UML Diagrams"' 
+rel=alternate type=application/rss+xml href="/crss/node/4650"><LINK 
+rel="shortcut icon" type=image/x-icon href="/misc/favicon.ico"><LINK 
+title="Javalobby RSS" rel=alternate type=application/rss+xml 
+href="http://feeds.dzone.com/javalobby/frontpage"><LINK rel=stylesheet 
+type=text/css 
+href="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/css_c92752626b53f8946eaacc5b9332ca84.css" 
+media=all><LINK rel=stylesheet type=text/css 
+href="http://cdn.dzone.com/sites/all/files/css/css_f6d3c88f2462fc9d0e8a37f86cabfe1f.css" 
+media=print>
+<META name=Description 
+content="I have been on several teams where we studiously designed UML diagrams at the beginning of the project. As the project progressed, and deadlines approached,...">
+<META name=google-site-verification 
+content=Sz_0y6oSgz3X38lir7pEv1Iio3tqLItTgPdyYPuQPsk><!-- RSS link -->
+<META name=GENERATOR content="MSHTML 8.00.7601.17537"></HEAD>
+<BODY class=sidebar-right>
+<DIV id=header-region class=clear-block></DIV>
+<DIV id=wrapper class=fewerAds>
+<DIV id=container class=clear-block>
+<DIV id=header>
+<DIV id=masthead>
+<DIV class=join><IMG class=mh_avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_64.gif"> 
+<A title=Login href="http://java.dzone.com/user">Login</A><BR><A 
+title="Join DZone" href="http://java.dzone.com/user/register">Join DZone</A> 
+</DIV>
+<DIV id=site_id><A title="DZone: Your Personal Tech Universe" 
+href="http://www.dzone.com/"><IMG class=dz_logo 
+title="DZone: Your Personal Tech Universe" 
+alt="DZone: Your Personal Tech Universe" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/mh_dzone_logo.gif"></A> 
+<A title=Javalobby href="http://java.dzone.com/"><IMG class=site_logo 
+title=Javalobby alt=Javalobby 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/mh_logo_java.gif"></A> 
+<SPAN class=site_slogan>The heart of the Java developer community</SPAN> </DIV>
+<DIV class=global_menu>
+<UL id=nice-menu-1 class="nice-menu nice-menu-down">
+  <LI id=menu-211 class=menu-path-front><A 
+  href="http://java.dzone.com/">Home</A></LI>
+  <LI id=menu-4979 class="menuparent menu-path-www.dzone.com-mz"><A title="" 
+  href="http://www.dzone.com/mz">Microzones</A>
+  <UL>
+    <LI id=menu-5081 class=menu-path-node-38541><A title="" 
+    href="http://java.dzone.com/mz/devops">DevOps Zone</A></LI>
+    <LI id=menu-4981 class=menu-path-dzone.com-mz-adobe><A title="" 
+    href="http://dzone.com/mz/adobe">Flash Builder</A></LI>
+    <LI id=menu-4985 class=menu-path-dzone.com-mz-windowsphp><A title="" 
+    href="http://dzone.com/mz/windowsphp">PHP on Windows</A></LI>
+    <LI id=menu-4983 class=menu-path-dzone.com-mz-solr-lucene><A title="" 
+    href="http://dzone.com/mz/solr-lucene">Solr-Lucene</A></LI>
+    <LI id=menu-4987 class=menu-path-dzone.com-mz-windowsphone7><A title="" 
+    href="http://dzone.com/mz/windowsphone7">Windows Phone 7</A></LI>
+    <LI id=menu-5051 class=menu-path-www.dzone.com-mz-coldfusion><A title="" 
+    href="http://www.dzone.com/mz/coldfusion">ColdFusion</A></LI></UL></LI>
+  <LI id=menu-125 class="menuparent menu-path-domain"><A 
+  href="http://java.dzone.com/domain">Zones</A>
+  <UL>
+    <LI id=menu-358 class=menu-path-domain-agile.dzone.com><A 
+    title="Go to agile.dzone.com" 
+    href="http://java.dzone.com/domain/agile.dzone.com">Agile Zone</A></LI>
+    <LI id=menu-5029 class=menu-path-domain-cloud.dzone.com><A 
+    title="Go to cloud.dzone.com" 
+    href="http://java.dzone.com/domain/cloud.dzone.com">Cloud Zone</A></LI>
+    <LI id=menu-4849 class=menu-path-domain-mobile.dzone.com><A 
+    title="Go to mobile.dzone.com" 
+    href="http://java.dzone.com/domain/mobile.dzone.com">Mobile Zone</A></LI>
+    <LI id=menu-295 class=menu-path-domain-dotnet.dzone.com><A 
+    href="http://java.dzone.com/domain/dotnet.dzone.com">.NET Zone</A></LI>
+    <LI id=menu-426 class=menu-path-domain-java.dzone.com><A 
+    title="Go to java.dzone.com" 
+    href="http://java.dzone.com/domain/java.dzone.com">Javalobby</A></LI>
+    <LI id=menu-454 class=menu-path-domain-css.dzone.com><A 
+    title="Go to css.dzone.com" 
+    href="http://java.dzone.com/domain/css.dzone.com">Web Builder Zone</A></LI>
+    <LI id=menu-4991 class="menuparent menu-path-front"><A title="" 
+    href="http://java.dzone.com/">IDEs and Tools</A>
+    <UL>
+      <LI id=menu-413 class=menu-path-domain-eclipse.dzone.com><A 
+      title="Go to eclipse.dzone.com" 
+      href="http://java.dzone.com/domain/eclipse.dzone.com">Eclipse 
+Zone</A></LI>
+      <LI id=menu-317 class=menu-path-domain-jetbrains.dzone.com><A 
+      title="Go to jetbrains.dzone.com" 
+      href="http://java.dzone.com/domain/jetbrains.dzone.com">JetBrains 
+      Zone</A></LI>
+      <LI id=menu-431 class=menu-path-domain-netbeans.dzone.com><A 
+      title="Go to netbeans.dzone.com" 
+      href="http://java.dzone.com/domain/netbeans.dzone.com">NetBeans 
+      Zone</A></LI></UL></LI>
+    <LI id=menu-4999 class="menuparent menu-path-front"><A title="" 
+    href="http://java.dzone.com/">Languages</A>
+    <UL>
+      <LI id=menu-5001 class=menu-path-groovy.dzone.com><A title="" 
+      href="http://groovy.dzone.com/">Groovy Zone</A></LI>
+      <LI id=menu-5003 class=menu-path-python.dzone.com><A title="" 
+      href="http://python.dzone.com/">Python Zone</A></LI></UL></LI>
+    <LI id=menu-189 class=menu-path-domain-architects.dzone.com><A 
+    title="Go to architects.dzone.com" 
+    href="http://java.dzone.com/domain/architects.dzone.com">Architects 
+    Zone</A></LI>
+    <LI id=menu-400 class=menu-path-domain-books.dzone.com><A 
+    title="Go to books.dzone.com" 
+    href="http://java.dzone.com/domain/books.dzone.com">Book Zone</A></LI>
+    <LI id=menu-287 class=menu-path-domain-server.dzone.com><A 
+    href="http://java.dzone.com/domain/server.dzone.com">Server 
+  Zone</A></LI></UL></LI>
+  <LI id=menu-367 class=menu-path-library.dzone.com><A 
+  href="http://library.dzone.com/">Library</A></LI>
+  <LI id=menu-167 class=menu-path-refcardz.dzone.com-><A 
+  href="http://refcardz.dzone.com/">Refcardz</A></LI>
+  <LI id=menu-215 class=menu-path-www.dzone.com-links><A 
+  href="http://www.dzone.com/links">Links</A></LI>
+  <LI id=menu-4753 class=menu-path-itquestions.com><A title="" 
+  href="http://itquestions.com/">ITQuestions</A></LI>
+  <LI id=menu-1349 class=menu-path-snippets.dzone.com><A title="" 
+  href="http://snippets.dzone.com/">Snippets</A></LI></UL></DIV>
+<DIV class=mh_leader>
+<DIV class=leaderboard><!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+<SCRIPT language=JavaScript type=text/javascript>
+                <!--
+                document.write('<SCR'+'IPT src="http://avpa.dzone.com/servlet/view/banner/javascript/zone?zid=107&keywords=java.dzone.com&pid=0&random='+Math.floor(89999999*Math.random()+10000000)+'&millis='+new Date().getTime()+'" language="JavaScript" type="text/javascript"></SCR'+'IPT>');
+                //-->
+                </SCRIPT>
+<NOSCRIPT><A 
+href="http://avpa.dzone.com/servlet/click/zone?zid=107&amp;pid=0&amp;lookup=true&amp;position=1" 
+target=_top><IMG border=0 hspace=0 alt="Click Here!" vspace=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/1687.png" 
+width=728 height=90> 
+</A></NOSCRIPT><!-- END ADVERTPRO ADVANCED CODE BLOCK --></DIV></DIV></DIV></DIV><!-- end of header -->
+<DIV id=center>
+<DIV id=squeeze>
+<DIV id=article>
+<DIV class=breadcrumb><A href="http://java.dzone.com/">Home</A></DIV>
+<DIV id=articleHead>
+<DIV style="FLOAT: left; MARGIN-RIGHT: 8px" id=dzone_vote_widget>
+<SCRIPT type=text/javascript>var dzone_title = 'Reverse-engineer Source Code into UML Diagrams';</SCRIPT>
+
+<SCRIPT type=text/javascript>var dzone_url = 'http://java.dzone.com/articles/reverse-engineer-source-code-u';</SCRIPT>
+
+<SCRIPT language=javascript 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/zoneit.js"></SCRIPT>
+</DIV>
+<H1>Reverse-engineer Source Code into UML Diagrams</H1></DIV>
+<DIV id=articleText>
+<DIV id=node-4650 class="node node-page node-article">
+<DIV class=meta><SPAN class=submitted>Submitted by Meera Subbarao on Fri, 
+2008/08/22 - 4:37am</SPAN> 
+<DIV class=serviceTags>
+<DIV class=service-links>
+<DIV class=item-list>
+<UL>
+  <LI class=first><A title="Bookmark this post on del.icio.us." 
+  href="http://del.icio.us/post?url=http%3A%2F%2Fjava.dzone.com%2Farticles%2Freverse-engineer-source-code-u&amp;title=Reverse-engineer+Source+Code+into+UML+Diagrams" 
+  rel=nofollow><IMG alt=Delicious 
+  src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/delicious.png"></A></LI>
+  <LI class=first><A title="Digg this post on digg.com." 
+  href="http://digg.com/submit?phase=2&amp;url=http%3A%2F%2Fjava.dzone.com%2Farticles%2Freverse-engineer-source-code-u&amp;title=Reverse-engineer+Source+Code+into+UML+Diagrams" 
+  rel=nofollow><IMG alt=Digg 
+  src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/digg.png"></A></LI>
+  <LI class=first><A title="Thumb this up at StumbleUpon." 
+  href="http://www.stumbleupon.com/submit?url=http%3A%2F%2Fjava.dzone.com%2Farticles%2Freverse-engineer-source-code-u&amp;title=Reverse-engineer+Source+Code+into+UML+Diagrams" 
+  rel=nofollow><IMG alt=StumbleUpon 
+  src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/stumbleit.png"></A></LI>
+  <LI class=first><A title="Submit this post on reddit.com." 
+  href="http://reddit.com/submit?url=http%3A%2F%2Fjava.dzone.com%2Farticles%2Freverse-engineer-source-code-u&amp;title=Reverse-engineer+Source+Code+into+UML+Diagrams" 
+  rel=nofollow><IMG alt=Reddit 
+  src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/reddit.png"></A></LI>
+  <LI class=first><A title="Search Technorati for links to this post." 
+  href="http://technorati.com/search/http%3A%2F%2Fjava.dzone.com%2Farticles%2Freverse-engineer-source-code-u" 
+  rel=nofollow><IMG alt=Technorati 
+  src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/technorati.png"></A></LI></UL></DIV></DIV><SPAN 
+class=terms>Tags: 
+<UL class="links inline">
+  <LI class="taxonomy_term_476 first"><A title="" 
+  href="http://java.dzone.com/category/tags/ant" rel=tag>ant</A></LI>
+  <LI class=taxonomy_term_394><A title="" 
+  href="http://java.dzone.com/category/tags/hudson" rel=tag>Hudson</A></LI>
+  <LI class=taxonomy_term_66><A title="" 
+  href="http://java.dzone.com/taxonomy/term/66" rel=tag>java</A></LI>
+  <LI class="taxonomy_term_751 last"><A title="" 
+  href="http://java.dzone.com/category/tags/uml" 
+rel=tag>UML</A></LI></UL></SPAN></DIV></DIV>
+<DIV style="MARGIN-BOTTOM: 5px" class=content>
+<DIV style="FLOAT: right" class=textads>
+<DIV class=ad></DIV><SPAN class=sponsored>Ads by DZone</SPAN></DIV><SPAN 
+class=print-link></SPAN>
+<P>I have been on several teams where we studiously designed UML diagrams at the 
+beginning of the project. As the project progressed, and deadlines approached, 
+the UML diagrams were left somewhere behind, not to be updated in months. When a 
+new developer joined the team, we showcased the old UML diagrams, and kept 
+telling <I>"Oh, we never had time to update them, please see the source code to 
+get an idea. And, don't hesitate to ask if you have any doubt's"</I>. I am sure, 
+you all have gone through the same scenario. </P>
+<P>However, we don't have to keep making up stories anymore, since this article 
+shows how easy and simple it is to include UML diagrams within your Javadoc and 
+also keep them updated with every change in the source code repository. We can 
+do these in less than a few minutes, and in a few simple steps. </P>
+<P>Getting started with UmlGraph takes five steps: </P>
+<OL>
+  <LI>Download the source code for UMlGraph.</LI>
+  <LI>Download and install Graphviz.</LI>
+  <LI>Make changes to your Ant build file.</LI>
+  <LI>Run the Ant target.</LI>
+  <LI>Add this target to your CI job. </LI></OL>
+<P><B>Step 1: Download the source code for UMLGraph </B>from <A 
+title="UML Graph" href="http://www.umlgraph.org/" target=_blank>here.</A> Unzip 
+the contents. To compile the Java doclet from the source code run ant on the 
+build.xml file. Copy the UmlGraph.jar file to your projects library. If there is 
+a version mismatch between the different versions of JDK you are using you get 
+an exception like this:</P>
+<BLOCKQUOTE>
+  <P>java.lang.UnsupportedClassVersionError: Bad version number in .class 
+  file</P></BLOCKQUOTE>
+<P>Make sure you recompile the UMLGraph source code, and copy the library to 
+your project.</P>
+<P><IMG class="image image-_original" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/compile-umlgraph.jpg" 
+width=502 height=216></P>
+<P><B>Step2 : Download and install Graphviz </B>from<B> </B><A title=Graphviz 
+href="http://www.graphviz.org/" target=_blank>here</A><B>.</B> The dot file 
+needs to be post-processed with Graphviz to produce the actual UML diagram. 
+Running the UmlGraph doclet will generate a Graphviz diagram specification that 
+can be automatically processed to create png drawings. You can also generate 
+other formats using Graphviz as well. If Graphviz isn’t installed you will get 
+an exception as shown below:</P>
+<BLOCKQUOTE>
+  <P>BUILD 
+  FAILED<BR>/Users/meerasubbarao/Development/webservices-samples/build.xml:107:<BR>Execute 
+  failed: java.io.IOException: dot: not found<BR>Total time: 269 milliseconds 
+  </P></BLOCKQUOTE>
+<P><BR><B>Step 3. Changes to your build.xml file.</B><BR>Assuming you already 
+have a working project, with Ant build file. Add the following target to your 
+build.xml file as shown below:</P><PRE class=xml>&lt;target name="javadocs" depends="build" description="generates javadoc and also UML Diagram"&gt;<BR>		&lt;mkdir dir="${reports.dir}/javadoc"/&gt;<BR>	        &lt;javadoc sourcepath="${src.dir}" packagenames="com.stelligent.*" destdir="${reports.dir}/javadoc"<BR>	        	classpathref="java.classpath" private="true"&gt;<BR>	        	   &lt;doclet name="org.umlgraph.doclet.UmlGraphDoc"<BR>	        		  path="lib/UMLGraph.jar"&gt;<BR>	        	        &lt;param name="-attributes" /&gt;<BR>	        	        &lt;param name="-operations" /&gt;<BR>	        	        &lt;param name="-qualify" /&gt;<BR>	        	        &lt;param name="-types" /&gt;<BR>	        	        &lt;param name="-visibility" /&gt;<BR>	        	    &lt;/doclet&gt;<BR>	        	  &lt;/javadoc&gt;<BR>		  &lt;apply executable="dot" dest="${reports.dir}" parallel="false"&gt;<BR>		    &lt;arg value="-Tpng"/&gt;<BR>		    &lt;arg value="-o"/&gt;<BR>		     &lt;targetfile/&gt;<BR>		     &lt;srcfile/&gt;<BR>		     &lt;fileset dir="${reports.dir}" includes="*.dot"/&gt;<BR>		     &lt;mapper type="glob" from="*.dot" to="*.png"/&gt;<BR>		  &lt;/apply&gt;<BR>	&lt;/target&gt;</PRE>
+<P>&nbsp;</P>
+<P>A number of options contol the operation of UMLGraph class diagram generator. 
+These can be specified as parameters within your build file as shown above. </P>
+<P>Details about a few options are:</P>
+<BLOCKQUOTE>
+  <P><CODE>-output<BR>Specify the output file (default 
+  graph.dot).<BR>-d<BR>Specify the output directory (defaults to the current 
+  directory).<BR>-qualify<BR>Produce fully-qualified class 
+  names.<BR>-horizontal<BR>Layout the graph in the horizontal 
+  direction.<BR>-attributes<BR>Show class attributes (Java 
+  fields)<BR>-operations<BR>Show class operations (Java 
+  methods)<BR>-constructors<BR>Show a class's 
+  constructors<BR>-visibility<BR>Adorn class elements according to their 
+  visibility (private, public, protected, package)<BR>-types<BR>Add type 
+  information to attributes and operations<BR>-enumerations<BR>Show enumarations 
+  as separate stereotyped primitive types.<BR>-enumconstants<BR>When showing 
+  enumerations, also show the values they can take.<BR>-all<BR>Same as 
+  -attributes -operations -visibility -types -enumerations -enumconstants</CODE> 
+  </P></BLOCKQUOTE>
+<P>Take a look <A title="class diagram options" 
+href="http://www.umlgraph.org/doc/cd-opt.html" target=_blank>here</A> for more 
+options. </P>
+<P><B>Step 4. Run the ant target:</B><BR>Open a command window and run the ant 
+target: <B>ant javadocs</B> and you should see output as such in your console 
+window:</P>
+<BLOCKQUOTE><PRE><CODE>meera-subbaraos-macbook-9:webservices-samples meerasubbarao$ ant javadocs<BR>Buildfile: build.xml<BR><BR>init:<BR><BR>cleanGenerated:<BR><BR>build:<BR>    [javac] Compiling 22 source files to /Users/meerasubbarao/Development/ci-jobs/jobs/PetStore_Nightly/workspace/webservices-samples/classes<BR>    [javac] Note: Some input files use unchecked or unsafe operations.<BR>    [javac] Note: Recompile with -Xlint:unchecked for details.<BR><BR>javadocs:<BR>  [javadoc] Generating Javadoc<BR>  [javadoc] Javadoc execution<BR>  [javadoc] Loading source files for package com.stelligent.biz.ws...<BR>  [javadoc] Loading source files for package com.stelligent.ent.jpa...<BR>  [javadoc] Constructing Javadoc information...<BR>  [javadoc] UmlGraphDoc version 5.0, running the standard doclet<BR>  [javadoc] Standard Doclet version 1.5.0_13<BR>  [javadoc] Building tree for all the packages and classes...<BR>  [javadoc] Building index for all the packages and classes...<BR>  [javadoc] Building index for all classes...<BR>  [javadoc] Generating /Users/meerasubbarao/Development/ci-jobs/jobs/PetStore_Nightly/workspace/webservices-samples/reports/javadoc/stylesheet.css...<BR>  [javadoc] UmlGraphDoc version 5.0, altering javadocs<BR>  [javadoc] Building Package view for package com.stelligent.biz.ws<BR>  [javadoc] Building Package view for package com.stelligent.ent.jpa<BR>  [javadoc] Building Context view for class com.stelligent.biz.ws.SupplierManagerBean<BR>  [javadoc] Building Context view for class com.stelligent.biz.ws.SupplierManager<BR>  [javadoc] Building Context view for class com.stelligent.biz.ws.SignonManagerBean<BR>  [javadoc] Building Context view for class com.stelligent.biz.ws.SignonManager<BR>.....<BR><BR>BUILD SUCCESSFUL<BR>Total time: 8 seconds<BR>meera-subbaraos-macbook-9:webservices-samples meerasubbarao$ </CODE></PRE>
+  <P>&nbsp;</P></BLOCKQUOTE>
+<P>The javadoc generated is pretty neat with UML diagrams on the top:</P>
+<P><IMG class="image image-_original" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/uml-diagram.jpg" 
+width=600 height=363> </P>
+<P><B>Step 5: Add this target to your CI Job.</B><BR>If you already have a CI 
+server like <A title=Hudson href="https://hudson.dev.java.net/" 
+target=_blank>Hudson</A> up and running, which runs commit builds and nightly 
+builds, adding this new target is a one step process. In my case, I already have 
+a nightly job running, I added this ant target to my default target as shown 
+below:</P><PRE class=xml>&lt;target name="all" depends="cleanAndDeployForCoverage, javadocs" /&gt;</PRE>
+<P>Next, force a build on the Hudson job, publish the javadocs, and you can see 
+the results on the hudson dashboard.</P>
+<P><IMG class="image image-_original" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/hudson-job.jpg" 
+width=767 height=428></P>
+<P>The Javadoc embedded with UML diagrams displayed from within the Hudson 
+dashboard:</P>
+<P><IMG class="image image-_original" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/nightly-job.jpg" 
+width=800 height=448> </P>
+<P>Now that we have UML diagram integrated within our build file, and also our 
+CI job, we can ensure that our code base and the UML diagrams are always in 
+sync. We saw how to include these ant targets in our commit builds or nightly 
+builds of our CI jobs, and also published these artifacts as part of our post 
+build process.</P>
+<P>&nbsp;</P>
+<P>Resources:</P>
+<UL>
+  <LI><A title=Ant href="http://ant.apache.org/" target=_blank>Ant</A> </LI>
+  <LI><A title=UMLGraph href="http://www.umlgraph.org/" 
+  target=_blank>UMLGraph</A></LI>
+  <LI><A title=Graphviz href="http://graphviz.org/" 
+  target=_blank>Graphviz</A></LI>
+  <LI><A title=Hudson href="https://hudson.dev.java.net/">Hudson</A></LI></UL>
+<DIV class="field field-type-text field-field-subtitle">
+<DIV class=field-label>Subtitle:&nbsp;</DIV>
+<DIV class=field-items>
+<DIV class="field-item odd">UML Diagrams and Javadocs </DIV></DIV></DIV>
+<DIV class="field field-type-text field-field-article-type">
+<DIV class=field-label>Article Type:&nbsp;</DIV>
+<DIV class=field-items>
+<DIV class="field-item odd">How-to </DIV></DIV></DIV>
+<DIV class=fivestar-static-form-item>
+<DIV class=form-item><LABEL>Your rating: </LABEL>
+<DIV 
+class="fivestar-widget-static fivestar-widget-static-vote fivestar-widget-static-5 clear-block">
+<DIV class="star star-1 star-odd star-first"><SPAN class=off>0</SPAN></DIV>
+<DIV class="star star-2 star-even"><SPAN class=off></SPAN></DIV>
+<DIV class="star star-3 star-odd"><SPAN class=off></SPAN></DIV>
+<DIV class="star star-4 star-even"><SPAN class=off></SPAN></DIV>
+<DIV class="star star-5 star-odd star-last"><SPAN class=off></SPAN></DIV></DIV>
+<DIV class=description>
+<DIV class="fivestar-summary fivestar-summary-average-count"><SPAN 
+class=average-rating>Average: <SPAN>4.6</SPAN></SPAN> <SPAN 
+class=total-votes>(<SPAN>8</SPAN> votes)</SPAN></DIV></DIV></DIV></DIV>
+<DIV style="CLEAR: both"></DIV></DIV>
+<UL class="links inline">
+  <LI class="comment_forbidden first"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI>
+  <LI class=statistics_counter><SPAN>90099 reads</SPAN></LI>
+  <LI class="print_html last"><A class=print-page 
+  title="Display a printer-friendly version of this page." 
+  href="http://java.dzone.com/print/4650" rel=nofollow>Printer-friendly 
+  version</A></LI></UL>
+<P style="PADDING-LEFT: 1em; FONT-SIZE: 11px" class=disclaimer><EM>(Note: 
+Opinions expressed in this article and its replies are the opinions of their 
+respective authors and not those of DZone, Inc.)</EM></P></DIV>
+<DIV id=comments>
+<H2 class=comments>Comments</H2><A id=comment-6046></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/eriqthegeek"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-301915.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Eric Asberry replied on Fri, 2008/08/22 - 10:36am</H3>
+<DIV class=comment-content><!--paging_filter-->Thanks for the article!&nbsp; 
+I've been looking for something like this as I'm trying to learn a pretty 
+complex system at a new job. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6048></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Fri, 2008/08/22 - 10:59am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6046">eriqthegeek</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->Yes, indeed. As I mentioned in my 
+article, you can do it in less than few minutes. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6050></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/eriqthegeek"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-301915.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Eric Asberry replied on Fri, 2008/08/22 - 12:40pm</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Yes, I was able set this up very quickly with your detailed instructions. 
+</P>
+<P>One thing I quickly learned is that its not feasible for me to include this 
+on every integration build.&nbsp; For my very large project it made the javadoc 
+generation time go from 4 minutes to around 30+, so I've set up a separate job 
+for this task to just run nightly.&nbsp; But I'm very glad to have this!</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6055></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Fri, 2008/08/22 - 2:06pm</H3>
+<DIV class=comment-content><!--paging_filter-->Great. Yes, I agree. That's the 
+reason I mentioned about nightly jobs in my article. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6080></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/michaelw"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Michael Weber replied on Sun, 2008/08/24 - 3:37pm</H3>
+<DIV class=comment-content><!--paging_filter-->Martin Keschenau's <A 
+href="http://www.foldr.org/~michaelw/work/theses/class2uml/about.html">class2uml</A> 
+does something similar: besides class diagrams, class2uml also generates UML 
+elements for generalizations, dependencies and associations. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6082></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Sun, 2008/08/24 - 4:54pm</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>You can do that using UMLGraph as well using some of the following 
+parameters:</P>
+<P>1. aggregation relationships (specified using the javadoc @has tag) <BR>2. 
+composition relationships (specified using the javadoc @composed tag) <BR>3. 
+dependency relationships (specified using the javadoc @depend tag) </P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6084></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/sskjames"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>James Selvakumar replied on Sun, 2008/08/24 - 8:41pm</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Hi Meera,</P>
+<P>Excellent article. The scenario you explained is absolutely true and I feel 
+every organization must use this. I'll surely try this out. </P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6095></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Mon, 2008/08/25 - 7:11am</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Hi James,</P>
+<P>Give it a try, you will be surprised how easy and above all useful this will 
+be for your project.&nbsp;</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6097></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/anttik4"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-288334.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Antti Kekki replied on Mon, 2008/08/25 - 7:39am</H3>
+<DIV class=comment-content><!--paging_filter-->Great article! Finally easy and 
+working (and also free) solution to reverse engineer java-code to UML class 
+diagrams in Eclipse. Ant and Eclipse appears to be very versatile tools: Build, 
+deployment and javadoc generation with UML class diagrams with one click. Not 
+bad! 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6104></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/pether"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Pether Sorling replied on Mon, 2008/08/25 - 11:36am</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>How to use it in maven</P>
+<P>---</P>
+<P>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;plugin&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;version&gt;2.3&lt;/version&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;doclet&gt;org.umlgraph.doclet.UmlGraphDoc&lt;/doclet&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;docletArtifact&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;groupId&gt;gr.spinellis&lt;/groupId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;artifactId&gt;UmlGraph&lt;/artifactId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;version&gt;5.0&lt;/version&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/docletArtifact&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;additionalparam&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-inferrel -inferdep -quiet -hide java.* -collpackages java.util.* -qualify 
+-postfixpackage -nodefontsize 
+9<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+-nodefontpackagesize 
+7<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/additionalparam&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/plugin&gt;</P>
+<P>---<BR>&nbsp;</P>
+<P>Also a tool to consider that creates nicer diagrams but cost money is <A 
+href="http://www.yworks.com/en/products_ydoc.htm">yDoc</A> </P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6109></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Mon, 2008/08/25 - 4:46pm</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Hi Pether,</P>
+<P>Thanks for posting the maven task.&nbsp;&nbsp;</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6110></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Tue, 2008/08/26 - 12:51am</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Meera,</P>
+<P>&nbsp;This is an excellent article!&nbsp; I will link it on UMLGraph's 
+documentation.&nbsp; To make the javadoc documentation easier to navigate, the 
+upcoming version of UMLGraph will contain Javascript to show/hide the generated 
+UML diagrams.&nbsp; Stay tuned!</P>
+<P>&nbsp;Diomidis </P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6112></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/michaelw"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Michael Weber replied on Tue, 2008/08/26 - 4:34am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6082">meera</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->Ah, interesting. &nbsp;class2uml 
+analyzes bytecode to find this information, which is nice if the original source 
+code did not have any annotations. &nbsp;Since the tool is also intended for 
+reverse-engineering resp. a starting point for refactoring, it goes to some 
+lengths to ensure for example that the analyzed cardinalities are not 
+mind-boggling. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6114></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Tue, 2008/08/26 - 7:08am</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Neal Ford, in his latest book <B>"The Productive Programmer"</B>, which I 
+received just yesterday, says as follows in page 92 of <B>Chapter 5: 
+Canonicality:</B></P>
+<BLOCKQUOTE>
+  <P>Some IDEs (such as Visual Studio) will offer to generate diagrams for you, 
+  but they are sometimes hard to automate. Ideally, you should generate diagrams 
+  at the same time you compile your code(using something like a continuous 
+  integration server). That way, you never have to think, "Are my diagrams 
+  up-to-date?" because they always live in an up-to-date state. </P></BLOCKQUOTE>I 
+am glad this article shows you how to do the excat same thing. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6116></A>
+<DIV class="comment odd"><A 
+href="http://java.dzone.com/users/nitinaggarwalin"><IMG class=avatar title="" 
+alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-321144.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>nitin aggarwal replied on Tue, 2008/08/26 - 9:42am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6104">pether</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Hi ,</P>
+<P>&nbsp;I have tried to add this to my POM.</P>
+<P>&nbsp;</P>
+<P>&nbsp;&lt;reporting&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;plugins&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&nbsp;&nbsp;&nbsp; 
+&lt;plugin&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;reportSets&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;reportSet&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;id&gt;uml&lt;/id&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;doclet&gt;gr.spinellis.umlgraph.doclet.UmlGraph&lt;/doclet&gt;<BR><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;!--docletPath&gt;/path/to/UmlGraph.jar&lt;/docletPath--&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;docletArtifact&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;groupId&gt;gr.spinellis&lt;/groupId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;artifactId&gt;UmlGraph&lt;/artifactId&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;version&gt;5.0&lt;/version&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/docletArtifact&gt;<BR><BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;additionalparam&gt;-views&lt;/additionalparam&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;destDir&gt;target/uml&lt;/destDir&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;show&gt;private&lt;/show&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;reports&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;report&gt;javadoc&lt;/report&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/reports&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/reportSet&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;reportSet&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;id&gt;html&lt;/id&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;show&gt;private&lt;/show&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/configuration&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;reports&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;report&gt;javadoc&lt;/report&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/reports&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/reportSet&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/reportSets&gt;<BR>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+&lt;/plugin&gt;<BR><BR>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+&lt;/plugins&gt;<BR>&nbsp;&nbsp;&nbsp; &lt;/reporting&gt;<BR>&nbsp;</P>
+<P>&nbsp;</P>
+<P>But i am still not able to get it working.</P>
+<P>Do we need to add some goals for this ?</P>
+<P>I installed the umlgraph jar using $ mvn install:install-file&nbsp; 
+-Dpackaging=jar -DartifactId=UmlGraph -Dversion=5.0 -Dfile=path to/UmlGraph.jar 
+-DgroupId=gr.spinellis -DgeneratePom=true </P>
+<P>Does running simple mvn install work ??? or a specific call is needed?</P>
+<P>&nbsp;</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6118></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Tue, 2008/08/26 - 9:51am<SPAN 
+class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6116">nitinaggarwalin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->Under UMLGraph version 5.0 and 
+later, all code lives under org.umlgraph, not gr.spinellis.&nbsp; Try changing 
+the corresponding references.<BR>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6119></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Tue, 2008/08/26 - 10:00am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6110">dspin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->[quote=dspin]
+<P>Meera,</P>
+<P>This is an excellent article! I will link it on UMLGraph's documentation. To 
+make the javadoc documentation easier to navigate, the upcoming version of 
+UMLGraph will contain Javascript to show/hide the generated UML diagrams. Stay 
+tuned!</P>
+<P>Diomidis </P>
+<P>[/quote] </P>
+<P>&nbsp;Hi Diomidis,</P>
+<P>Do update us here on this thread when the new version comes out. &nbsp;</P>
+<P>Meera Subbarao</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6121></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/pether"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Pether Sorling replied on Tue, 2008/08/26 - 11:46am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6118">dspin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->Really like umlgraph, but missing 
+the package dependency diagram.&nbsp; <A 
+href="http://www.yworks.com/img/ydoc/overview_dotnet_IBT.png">example from 
+ydoc</A> any feature you are planning ? 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6123></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Tue, 2008/08/26 - 1:07pm<SPAN 
+class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6121">pether</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->The link you posted looks to me 
+like a class diagram inside a package container, rather than a package 
+dependency diagram.&nbsp; Is that what you want? 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6124></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/pether"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Pether Sorling replied on Tue, 2008/08/26 - 1:16pm<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6123">dspin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->Sorry I meant <A 
+href="http://www.yworks.com/img/ydoc/overview_dotnet_DBT_ACTSLP.png">this one 
+!</A> But always like more diagrams :) 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6137></A>
+<DIV class="comment odd"><A 
+href="http://java.dzone.com/users/nitinaggarwalin"><IMG class=avatar title="" 
+alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-321144.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>nitin aggarwal replied on Wed, 2008/08/27 - 4:20am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6118">dspin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>thanks Diomidis,</P>
+<P>I have managed to generate the .Dot files but i am unable to understand how 
+can i&nbsp; use graphviz in maven2.</P>
+<P>as per my understanding i have graphviz installed on my machine. and its and 
+exe how can i have that talk to maven. in order to generate the final uml 
+diagrams ??</P>
+<P>One alternative i thought about is to use antrun plugin of maven in order to 
+execute it as a ant task.</P>
+<P>If there any other approach?</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6138></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Wed, 2008/08/27 - 4:26am<SPAN 
+class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6124">pether</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->I looked into the proposal some 
+more.&nbsp; It would involve adding a single diagram to the JavaDoc HTML file 
+overview-summary.html.&nbsp; I've already contributed to GraphViz a change that 
+allows it to draw UML package-style boxes, and UMLGraph supports them via the 
+"shape package" option, so drawing the packages is easy.&nbsp; I think the 
+relevant code should be placed in UmlGraphDoc.generatePackageDiagrams.&nbsp; 
+Contributions welcomed! 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6139></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Wed, 2008/08/27 - 4:34am<SPAN 
+class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6137">nitinaggarwalin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Sorry, I'm not a Maven expert.&nbsp; However, keep in mind that UmlGraphDoc 
+(the subject of this article) will autoamtically run dot internally to generate 
+the UML diagrams.&nbsp;&nbsp; Justensure that dot appears in your path.</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6142></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Wed, 2008/08/27 - 6:26am</H3>
+<DIV class=comment-content><!--paging_filter-->I am glad it worked for Maven 
+users as well. Thanks for sharing your efforts. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6146></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Wed, 2008/08/27 - 7:15am</H3>
+<DIV class=comment-content><!--paging_filter-->For those of you who are 
+interested in generating UML Diagrams from NetBeans IDE,&nbsp; <B>Geertjan 
+Wielenga</B> has written an article at the <A title="NetBeans Zone." 
+href="http://netbeans.dzone.com/news/generate-uml-graphs-javadoc-ne" 
+target=_blank>NetBeans Zone</A>. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6149></A>
+<DIV class="comment even"><A 
+href="http://java.dzone.com/users/sakthivelspgmailcom"><IMG class=avatar 
+title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-328452.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Sakthivel Palan... replied on Wed, 2008/08/27 - 8:07am</H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>I installed UML graph in my maven project. But I do not know how to generate 
+diagrams? I run mvn install, it is not generating graphs.</P>
+<P>&nbsp;if any one through lights on this will be appriciated.</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6152></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Wed, 2008/08/27 - 8:21am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6149">http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6149</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->[quote=sakthivel.sp@gmail.com]
+<P>I installed UML graph in my maven project. But I do not know how to generate 
+diagrams? I run mvn install, it is not generating graphs.</P>
+<P>if any one through lights on this will be appriciated.</P>
+<P>[/quote] </P>
+<P>Take a look at one of the comments above, I think you should run the mvn 
+javadoc:javadoc plugin. I am not a Maven expert. Hope to become one soon..</P>
+<P>Meera Subbarao</P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6164></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/pether"><IMG 
+class=avatar 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/default_48.gif"></A> 
+
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Pether Sorling replied on Wed, 2008/08/27 - 11:30am<SPAN class=response><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/up-10x10.gif"> 
+in response to: <A 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#comment-6138">dspin</A></SPAN></H3>
+<DIV class=comment-content><!--paging_filter-->
+<P>Thanks for the feedback, had quick look at the code but will have to 
+investigate further once I have more time. </P>
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6165></A>
+<DIV class="comment odd"><A href="http://java.dzone.com/users/dspin"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-212403.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Diomidis Spinellis replied on Wed, 2008/08/27 - 12:42pm</H3>
+<DIV class=comment-content><!--paging_filter-->A few minutes ago I releazed 
+UMLGraph 5.1.&nbsp; This version has active classes appearing with a double 
+vertical border as required by UML2, two new class diagram options, which 
+control the node and rank separation of the nodes in generated diagram layout, 
+support for showing a class's title as a tooltip in image files, and an option 
+for generating Javascript-collapsible UML diagrams in javadoc files. I also 
+reorganized the documentation of class diagram options and gave the project's 
+web page a small face lift. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV><A id=comment-6172></A>
+<DIV class="comment even"><A href="http://java.dzone.com/users/meera"><IMG 
+class=avatar title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8.jpg" 
+width=48 height=48></A> 
+<DIV class=comment-wrap>
+<DIV class=tl><!-- --></DIV>
+<H3>Meera Subbarao replied on Wed, 2008/08/27 - 2:01pm</H3>
+<DIV class=comment-content><!--paging_filter-->That was really quick, Diomidis. 
+Thanks for the update. I sure will give it a try. 
+<DIV class=actions>
+<UL class=links>
+  <LI class="comment_forbidden first last"><SPAN><A 
+  href="http://java.dzone.com/user/login?destination=node%2F4650%23comment-form">Login</A> 
+  or <A 
+  href="http://java.dzone.com/user/register?destination=node%2F4650%23comment-form">register</A> 
+  to post comments</SPAN></LI></UL></DIV></DIV></DIV></DIV>
+<DIV class=item-list>
+<UL class=pager>
+  <LI class="pager-current first">1</LI>
+  <LI class=pager-item><A class=active title="Go to page 2" 
+  href="http://java.dzone.com/articles/reverse-engineer-source-code-u?page=1">2</A></LI>
+  <LI class=pager-item><A class=active title="Go to page 3" 
+  href="http://java.dzone.com/articles/reverse-engineer-source-code-u?page=2">3</A></LI>
+  <LI class=pager-next><A class=active title="Go to next page" 
+  href="http://java.dzone.com/articles/reverse-engineer-source-code-u?page=1">next 
+  ›</A></LI>
+  <LI class="pager-last last"><A class=active title="Go to last page" 
+  href="http://java.dzone.com/articles/reverse-engineer-source-code-u?page=2">last 
+  »</A></LI></UL></DIV>
+<FORM id=comment-controls accept-charset=UTF-8 method=post 
+action=/articles/reverse-engineer-source-code-u>
+<DIV>
+<DIV class=box>
+<H2>Comment viewing options</H2>
+<DIV class=content>
+<DIV class=container-inline><INPUT id=form-0f4d0626168fb6e1d7e9f974768207da 
+value=form-0f4d0626168fb6e1d7e9f974768207da type=hidden name=form_build_id> 
+<INPUT id=edit-comment-controls value=comment_controls type=hidden name=form_id> 
+
+<DIV id=edit-mode-wrapper class=form-item><SELECT id=edit-mode class=form-select 
+name=mode><OPTION value=1>Flat list - collapsed</OPTION><OPTION selected 
+  value=2>Flat list - expanded</OPTION><OPTION value=3>Threaded list - 
+  collapsed</OPTION><OPTION value=4>Threaded list - expanded</OPTION></SELECT> 
+</DIV>
+<DIV id=edit-order-wrapper class=form-item><SELECT id=edit-order 
+class=form-select name=order><OPTION value=1>Date - newest 
+  first</OPTION><OPTION selected value=2>Date - oldest first</OPTION></SELECT> 
+</DIV>
+<DIV id=edit-comments-per-page-wrapper class=form-item><SELECT 
+id=edit-comments-per-page class=form-select name=comments_per_page><OPTION 
+  value=10>10 comments per page</OPTION><OPTION selected value=30>30 comments 
+  per page</OPTION><OPTION value=50>50 comments per page</OPTION><OPTION 
+  value=70>70 comments per page</OPTION><OPTION value=90>90 comments per 
+  page</OPTION><OPTION value=150>150 comments per page</OPTION><OPTION 
+  value=200>200 comments per page</OPTION><OPTION value=250>250 comments per 
+  page</OPTION><OPTION value=300>300 comments per page</OPTION></SELECT> </DIV><INPUT id=edit-submit class=form-submit value="Save settings" type=submit name=op> 
+</DIV>
+<DIV class=description>Select your preferred way to display the comments and 
+click "Save settings" to activate your 
+changes.</DIV></DIV></DIV></DIV></FORM></DIV></DIV></DIV></DIV></DIV><!-- end of squeeze, center (main content) -->
+<DIV id=sidebar-right class=sidebar>
+<DIV style="PADDING-BOTTOM: 0px; MARGIN-BOTTOM: 0px" id=search_bar>
+<FORM id=google-cse-searchbox-form accept-charset=UTF-8 method=get 
+action=/search/google>
+<DIV><INPUT id=edit-cx value=010821965829155306098:ogyaz_5nsc8 type=hidden 
+name=cx> <INPUT id=edit-cof value=FORID:11 type=hidden name=cof> 
+<DIV id=edit-query-wrapper class=form-item><INPUT id=edit-query class=form-text 
+title="Enter the terms you wish to search for." maxLength=128 size=15 type=text 
+name=query> </DIV><INPUT id=edit-sa class=form-submit value=Search type=submit name=op> 
+<INPUT id=form-758a39ed502c895fa5408826b947d7fb 
+value=form-758a39ed502c895fa5408826b947d7fb type=hidden name=form_build_id> 
+<INPUT id=edit-google-cse-searchbox-form value=google_cse_searchbox_form 
+type=hidden name=form_id> </DIV></FORM></DIV>
+<DIV style="MARGIN-TOP: 10px; MARGIN-BOTTOM: 10px" id=followButtons><A 
+title="Subscribe to the RSS feed" 
+href="http://feeds.dzone.com/javalobby/frontpage" target=_blank><IMG 
+style="MARGIN-RIGHT: 5px" border=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/feed-32x32.png" 
+width=32 height=32></A> <A title="Join the DZone LinkedIn group" 
+href="http://www.linkedin.com/groups?gid=696877&amp;trk=hb_side_g" 
+target=_blank><IMG border=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/linkedin-32x32.png" 
+width=32 height=32 tyle="margin-right: 5px;"></A> <A 
+title="Follow DZone on Twitter" href="http://twitter.com/dzone" 
+target=_blank><IMG style="MARGIN-RIGHT: 5px" border=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/twitter-32x32.png" 
+width=32 height=32></A> <A title="Become a DZone fan on Facebook" 
+href="http://www.facebook.com/home.php?#/pages/DZone/259639764711?ref=sgm" 
+target=_blank><IMG style="MARGIN-RIGHT: 5px" border=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/facebook-32x32.png" 
+width=32 height=32></A> <A title="Email DZone" 
+href="mailto:feedback@dzone.com"><IMG style="MARGIN-RIGHT: 5px" border=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/email-32x32.png" 
+width=32 height=32></A> <A style="DISPLAY: none" id=available-button 
+onclick=startOlark() 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#"><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/livesupport-online.png"></A><A 
+style="DISPLAY: none" id=away-button onclick=startOlark() 
+href="http://java.dzone.com/articles/reverse-engineer-source-code-u#"><IMG 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/livesupport-offline.png"></A> 
+</DIV>
+<DIV id=mh_rectangle><!-- BEGIN ADVERTPRO ADVANCED CODE BLOCK -->
+<SCRIPT language=JavaScript type=text/javascript>
+                        <!--
+                        document.write('<SCR'+'IPT src="http://avpa.dzone.com/servlet/view/banner/javascript/zone?zid=106&keywords=java.dzone.com&pid=0&random='+Math.floor(89999999*Math.random()+10000000)+'&millis='+new Date().getTime()+'" language="JavaScript" type="text/javascript"></SCR'+'IPT>');
+                        //-->
+                        </SCRIPT>
+<NOSCRIPT><A 
+href="http://avpa.dzone.com/servlet/click/zone?zid=106&amp;pid=0&amp;lookup=true&amp;position=1" 
+target=_top><IMG border=0 hspace=0 alt="Click Here!" vspace=0 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/1685.png"> 
+</A></NOSCRIPT><!-- END ADVERT PRO ADVANCED CODE BLOCK --></DIV>
+<DIV id=block-dzone_extprofile-0 class="block block-dzone_extprofile">
+<H2>About the author</H2>
+<DIV class=content>
+<DIV class=author_info>
+<DIV style="FLOAT: left" class=node_author_pic><IMG title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/picture-8(1).jpg" 
+width=90 height=90></DIV>
+<DIV class=node_author_fields>
+<P><STRONG>First Name</STRONG>: Meera</P>
+<P><STRONG>Last Name</STRONG>: Subbarao</P>
+<P><B></B></P>
+<P><STRONG>Posts:</STRONG> 70</P>
+<P><STRONG>Joined:</STRONG> 12/21/2007</P>
+<P><A href="http://java.dzone.com/users/meera">View full user 
+profile</A></P></DIV></DIV>
+<DIV style="CLEAR: both"></DIV></DIV></DIV>
+<DIV id=block-block-5 class="block block-block">
+<DIV class=content>
+<DIV id=sidebar_features>
+<H2 class=header>Spotlight Features</H2>
+<DIV><A href="http://java.dzone.com/click/40975/1"><IMG class=node_author_pic 
+title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/CDI_AOP_Tutorial-2.jpg" 
+width=80 height=60></A> 
+<H2><A href="http://java.dzone.com/click/40975/1">CDI AOP Tutorial: Java 
+Standard Method Interception</A></H2>
+<P>A great tutorial on AOP in CDI without the clutter of EJB 3.1 or 
+JSF.</P></DIV>
+<DIV><A href="http://java.dzone.com/click/40497/1"><IMG class=node_author_pic 
+title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/cfbuilder2.png" 
+width=80 height=60></A> 
+<H2><A href="http://java.dzone.com/click/40497/1">ColdFusion Builder 2: Faster 
+Coding, Less Errors</A></H2>
+<P>ColdFusion Builder 2.0 is much 'cooler' than you remember.</P></DIV>
+<DIV><A href="http://java.dzone.com/click/40493/1"><IMG class=node_author_pic 
+title="" alt="" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/cf%2520mvc_1.png" 
+width=80 height=60></A> 
+<H2><A href="http://java.dzone.com/click/40493/1">MVC for the Rest of 
+Us</A></H2>
+<P>This presentation will cover the high-level benefits of MVC for ColdFusion 
+developers.&nbsp; Model-Glue is a popular CF MVC framework 
+example.</P></DIV></DIV></DIV></DIV>
+<DIV id=block-block-3 class="block block-block">
+<DIV class=content>
+<UL class=sidebarlinks>
+  <LI>
+  <H2>Popular at DZone</H2></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/groovy_news_roundup_grails_14_m1_gr8conf_report_z.html">Groovy 
+  News Roundup: Grails 1.4 M1, GR8Conf Report, ZKGrails, Interview On 
+  GroovyServ</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/a_simple_rest_web_service_client_in_scala.html">A 
+  simple (REST) web service client in Scala</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/scala_adopted_for_use_within_the_zk_framework_the.html">Scala 
+  Adopted For Use within the ZK Framework, the ZK Scala Project</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/scala_a_better_java_for_android.html">Scala: 
+  A Better Java for Android</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/java_logging_best_practices_clean_code_clean_logs.html">Java 
+  logging best practices: clean code, clean logs</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/whats_new_in_groovyeclipse_250.html">What's 
+  New in Groovy-Eclipse 2.5.0?</A></LI>
+  <LI><A 
+  href="http://www.dzone.com/links/tenfold_increase_in_server_throughput_with_servle.html">Tenfold 
+  increase in server throughput with Servlet 3.0 asynchronous 
+processing</A></LI>
+  <LI><A class=moredz href="http://www.dzone.com/">See more popular at 
+  DZone</A></LI>
+  <LI><A class=rss href="http://feeds.dzone.com/dzone/frontpage">Subscribe to 
+  the RSS feed</A></LI></UL></DIV></DIV></DIV><!-- end of right sidebar -->
+<DIV id=footer>
+<DIV id=legal><A href="http://java.dzone.com/page/advertise">Advertising</A> - 
+<A href="http://java.dzone.com/page/tos">Terms of Service</A> - <A 
+href="http://java.dzone.com/page/privacy">Privacy</A> - © 1997-2011, DZone, 
+Inc.</DIV></DIV><!-- end of footer --></DIV><!-- end of container --></DIV><!-- end of wrapper -->
+<SCRIPT type=text/javascript 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/js_7f79d0cdd8c1e5c4dabf1acc24d02b80.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "basePath": "/", "fivestar": { "titleUser": "Your rating: ", "titleAverage": "Average: ", "feedbackSavingVote": "Saving your vote...", "feedbackVoteSaved": "Your vote has been saved.", "feedbackDeletingVote": "Deleting your vote...", "feedbackVoteDeleted": "Your vote has been deleted." }, "jstools": { "cleanurls": true, "basePath": "/" }, "activemenu": { "#block-book-0": "activemenu/book", "#block-menu-devel": "activemenu/menu", "#block-menu-menu-library-navigat": "activemenu/menu", "#block-menu-primary-links": "activemenu/menu", "#block-menu-secondary-links": "activemenu/menu", "#block-menu-menu-sections": "activemenu/menu", "#block-menu-menu-zones": "activemenu/menu", "#block-user-1": "activemenu/menu" } });
+//--><!]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript> 
+    SyntaxHighlighter.config.bloggerMode = true;
+    SyntaxHighlighter.config.taName = "pre";
+    SyntaxHighlighter.config.clipboardSwf = '/sites/all/themes/dzone/scripts/syntaxHighlighter/clipboard.swf';
+    SyntaxHighlighter.all();
+    dp.SyntaxHighlighter.HighlightAll('code');
+</SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/js_94ecae30fb283069baef09153570adc0.js"></SCRIPT>
+
+<SCRIPT type=text/javascript>
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, { "googleCSE": { "language": "en" } });
+//--><!]]>
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</SCRIPT>
+
+<SCRIPT type=text/javascript>
+var pageTracker = _gat._getTracker("UA-410289-1");
+pageTracker._setDomainName(".dzone.com");
+pageTracker._initData();
+pageTracker._trackPageview();
+</SCRIPT>
+<!-- Start Quantcast tag -->
+<SCRIPT type=text/javascript>
+_qoptions={
+qacct:"p-ebK_XdQH1HeLo"
+};
+</SCRIPT>
+
+<SCRIPT type=text/javascript 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/quant.js"></SCRIPT>
+<NOSCRIPT><IMG style="DISPLAY: none" border=0 alt=Quantcast 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/p-ebK_XdQH1HeLo.gif" 
+width=1 height=1> </NOSCRIPT><!-- End Quantcast tag -->
+<SCRIPT language=JavaScript type=text/javascript 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/atrk.js"></SCRIPT>
+
+<SCRIPT language=JavaScript type=text/javascript>_atrk_opts = {
+atrk_acct: "2Zc291a0g0y12X" }; atrk ();</SCRIPT>
+<NOSCRIPT><IMG style="DISPLAY: none" 
+src="Reverse-engineer%20Source%20Code%20into%20UML%20Diagrams%20%20Javalobby_files/atrk.gif" 
+width=1 height=1></NOSCRIPT> <!-- begin olark code -->
+<SCRIPT type=text/javascript>/*<![CDATA[*/ window.olark||(function(k){var g=window,j=document,a=g.location.protocol=="https:"?"https:":"http:",i=k.name,b="load",h="addEventListener";(function(){g[i]=function(){(c.s=c.s||[]).push(arguments)};var c=g[i]._={},f=k.methods.length;while(f--){(function(l){g[i][l]=function(){g[i]("call",l,arguments)}})(k.methods[f])}c.l=k.loader;c.i=arguments.callee;c.p={0:+new Date};c.P=function(l){c.p[l]=new Date-c.p[0]};function e(){c.P(b);g[i](b)}g[h]?g[h](b,e,false):g.attachEvent("on"+b,e);c.P(1);var d=j.createElement("script"),m=document.getElementsByTagName("script")[0];d.type="text/javascript";d.async=true;d.src=a+"//"+c.l;m.parentNode.insertBefore(d,m);c.P(2)})()})({loader:(function(a){return "static.olark.com/jsclient/loader1.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]}); olark.identify('1240-531-10-8117');/*]]>*/
+ function startOlark() {
+      olark('api.box.expand');
+ }
+ olark('api.chat.onOperatorsAvailable', function() {
+      var button = document.getElementById('available-button');
+      if (button) {
+           button.style.display = null;
+      }
+ });
+ olark('api.chat.onOperatorsAway', function() {
+      var button = document.getElementById('unavailable-button');
+      if (button) {
+           button.style.display = null;
+      }
+ });
+
+ olark.configure('system.start_hidden', true);
+</SCRIPT>
+<!-- end olark code --></BODY></HTML>

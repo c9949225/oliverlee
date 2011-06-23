@@ -1,0 +1,51 @@
+#cluetip-close IMG {
+	BORDER-BOTTOM: 0px; BORDER-LEFT: 0px; BORDER-TOP: 0px; BORDER-RIGHT: 0px
+}
+#cluetip-title {
+	OVERFLOW: hidden
+}
+#cluetip-title #cluetip-close {
+	POSITION: relative; FLOAT: right
+}
+#cluetip-waitimage {
+	BACKGROUND-IMAGE: url(wait.gif); POSITION: absolute; WIDTH: 43px; HEIGHT: 11px
+}
+.cluetip-arrows {
+	POSITION: absolute; WIDTH: 11px; DISPLAY: none; BACKGROUND-REPEAT: no-repeat; BACKGROUND-POSITION: 0px 0px; HEIGHT: 22px; TOP: 0px; LEFT: -11px
+}
+#cluetip-extra {
+	DISPLAY: none
+}
+.cluetip-dwbasic {
+	FONT-FAMILY: arial, sans-serif; FONT-SIZE: 0.76em
+}
+.cluetip-dwbasic #cluetip-outer {
+	BORDER-BOTTOM: #9cb2c6 2px solid; POSITION: relative; BORDER-LEFT: #9cb2c6 2px solid; BACKGROUND-COLOR: #fff; MARGIN: 0px; BORDER-TOP: #9cb2c6 2px solid; BORDER-RIGHT: #9cb2c6 2px solid
+}
+.cluetip-dwbasic #cluetip-inner {
+	TEXT-ALIGN: left; PADDING-BOTTOM: 10px; MIN-HEIGHT: 90px; PADDING-LEFT: 10px; PADDING-RIGHT: 10px; HEIGHT: auto !important; PADDING-TOP: 4px
+}
+.cluetip-dwbasic #cluetip-inner .position {
+	POSITION: relative; WIDTH: 64px; FLOAT: left
+}
+.cluetip-dwbasic DIV#cluetip-close {
+	TEXT-ALIGN: right; MARGIN: 0px; COLOR: #900
+}
+.clue-right-dwbasic .cluetip-arrows {
+	BACKGROUND-IMAGE: url(i/darrowleft.gif)
+}
+.clue-left-dwbasic .cluetip-arrows {
+	BACKGROUND-IMAGE: url(i/darrowright.gif); MARGIN-RIGHT: -11px; LEFT: 100%
+}
+.clue-top-dwbasic .cluetip-arrows {
+	BACKGROUND-IMAGE: url(i/darrowdown.gif); WIDTH: 22px; HEIGHT: 11px; MARGIN-LEFT: -11px; TOP: 100%; LEFT: 50%
+}
+.clue-bottom-dwbasic .cluetip-arrows {
+	BACKGROUND-IMAGE: url(i/darrowup.gif); WIDTH: 22px; HEIGHT: 11px; MARGIN-LEFT: -11px; TOP: -11px; LEFT: 50%
+}
+.dwauthor-access {
+	POSITION: absolute; WIDTH: 90em; OVERFLOW: hidden; LEFT: -1000em
+}
+.dwauthor-onload-state {
+	DISPLAY: none
+}
